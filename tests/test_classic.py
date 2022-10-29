@@ -3,7 +3,6 @@ import requests.exceptions
 import requests
 import responses
 from requests.auth import AuthBase
-from responses import matchers
 
 from classic import Classic
 from request_builder import IncorrectDataType
