@@ -13,8 +13,8 @@ EXAMPLE_JSS = "https://jss.example.com"
 EXPECTED_JSON = {"test": "test_get_request"}
 EXPECTED_XML = "<test />"
 
+
 class ClassicTest(Classic):
-    
     def __init__(self, base_url: str, auth: str):
         self.base_url = base_url
         self.session = requests.Session()
@@ -36,9 +36,7 @@ def jps_url(endpoint):
     return EXAMPLE_JSS + endpoint
 
 
-def detail_builder(
-    method: str, url: str, data_type: str = "json", status: int = 200
-):
+def response_builder(method: str, url: str, data_type: str = "json", status: int = 200):
     """
     Builds the response detail for a test request.
 
@@ -48,10 +46,10 @@ def detail_builder(
     :param json:
     :param status:
 
-    :return detail:
+    :returns detail:
     """
-    json = ""
-    body = ""
+    json = None
+    body = None
     if data_type == "json":
         json = EXPECTED_JSON
     elif data_type == "xml":
@@ -59,15 +57,12 @@ def detail_builder(
     else:
         raise IncorrectDataType("data_type must be either json or xml")
 
-    detail = responses.Response(
-        method=method,
-        url=url,
-        body=body,
-        json=json,
-        status=status
+    response = responses.Response(
+        method=method, url=url, body=body, json=json, status=status
     )
-    
-    return detail
+
+    return response
+
 
 @responses.activate
 def test_get_mobile_devices(classic):
@@ -75,8 +70,9 @@ def test_get_mobile_devices(classic):
     Ensures get_mobile_devices returns content from the API and uses its
     authorization correctly.
     """
-    responses.add(detail_builder("GET", jps_url("/JSSResource/mobiledevices")))
+    responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevices")))
     assert classic.get_mobile_devices() == EXPECTED_JSON
+
 
 @responses.activate
 def test_get_mobile_devices_500(classic):
@@ -84,19 +80,38 @@ def test_get_mobile_devices_500(classic):
     Ensures that get_mobile_devices error out correctly when a 500 error
     is receieved.
     """
-    responses.add(detail_builder("GET", jps_url("/JSSResource/mobiledevices"), status=500))
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledevices"), status=500)
+    )
     with pytest.raises(requests.exceptions.HTTPError):
         classic.get_mobile_devices()
 
 @responses.activate
+def test_get_mobile_device_id_json(classic):
+    """
+    Ensures that get_mobile_device returns content from the API when using id
+    as an identifier.
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevices/id/1001")))
+    assert classic.get_mobile_device(id="1001") == EXPECTED_JSON
+
+@responses.activate
+def test_get_mobile_device_id_xml(classic):
+    """
+    Ensures that get_mobile_device returns content from the API when using id
+    as an identifier.
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevices/id/1001"), data_type="xml"))
+    assert classic.get_mobile_device(id="1001", data_type="xml") == EXPECTED_XML
+
+@responses.activate
 def test_get_mobile_device_500(classic):
     """
-    test
+    Ensures that get_mobile_device correctly raises a HTTPError when the request
+    returns a 500 error.
     """
     responses.add(
-        method="GET",
-        url=jps_url("/JSSResource/mobiledevices/id/1001"),
-        status=500
+        method="GET", url=jps_url("/JSSResource/mobiledevices/id/1001"), status=500
     )
     with pytest.raises(requests.exceptions.HTTPError):
-        classic.get_mobile_device(1001)
+        classic.get_mobile_device(id="1001")
