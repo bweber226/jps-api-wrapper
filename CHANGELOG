@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added utils file for functions and errors that will be used for Classic and Pro
 - Classic.get_mobile_device which gets a mobile device with all of the available endpoint identifiers
+- Classic.update_mobile_device which updates a mobile device with all of the available endpoint identifiers
+- Added a function to raise recognized Jamf errors with more troubleshooting info
+- Classic.create_mobile_device which creates a mobile device using XML data
 
 ## [0.1.1] -- 2022-10-29
 ### Changed

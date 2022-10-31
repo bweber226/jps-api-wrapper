@@ -1,4 +1,12 @@
 def identification_type(identifications: dict):
+    """
+    Assesses the type of identification given a dictionary of keys set as the
+    identification type and the values set as either a corresponding value or
+    None.
+
+    :param dict identifications:
+
+    """
     identification = []
     for key in identifications:
         if identifications[key]:
