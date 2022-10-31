@@ -1,5 +1,6 @@
 import requests
 from typing import Union
+from urllib.parse import quote
 
 from jamf_auth import JamfAuth
 
@@ -59,7 +60,7 @@ class RequestBuilder:
         :raises IncorrectDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + endpoint
+        full_url = self.base_url + quote(endpoint)
         headers = {"Accept": f"application/{data_type}"}
         response = self.session.get(full_url, headers=headers)
         self._raise_recognized_errors(response)
@@ -92,7 +93,7 @@ class RequestBuilder:
         :raises IncorrectDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + endpoint
+        full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": f"application/{data_type}"}
         response = self.session.post(full_url, headers=headers, data=data)
         self._raise_recognized_errors(response)
@@ -125,7 +126,7 @@ class RequestBuilder:
         :raises IncorrectDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + endpoint
+        full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": f"application/{data_type}"}
         response = self.session.put(full_url, headers=headers, data=data)
         self._raise_recognized_errors(response)
@@ -154,7 +155,7 @@ class RequestBuilder:
         :raises IncorrectDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + endpoint
+        full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": f"application/{data_type}"}
         response = self.session.delete(full_url, headers=headers)
         self._raise_recognized_errors(response)

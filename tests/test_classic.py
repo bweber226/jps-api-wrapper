@@ -1,3 +1,4 @@
+from importlib.util import resolve_name
 import pytest
 from requests.exceptions import HTTPError
 import requests
@@ -9,8 +10,9 @@ from request_builder import (
     IncorrectDataType,
     MalformedRequest,
     NotFound,
-    RequestTimedOut
+    RequestTimedOut,
 )
+from utils import NoIdentification, MultipleIdentifications, InvalidSubset
 
 MOCK_AUTH_STRING = "This is a MockAuth"
 EXPECTED_AUTH = {"Authorization": MOCK_AUTH_STRING}
@@ -69,6 +71,11 @@ def response_builder(method: str, url: str, data_type: str = "json", status: int
     return response
 
 
+"""
+/mobiledevices
+"""
+
+
 @responses.activate
 def test_get_mobile_devices(classic):
     """
@@ -77,6 +84,16 @@ def test_get_mobile_devices(classic):
     """
     responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevices")))
     assert classic.get_mobile_devices() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_devices_match(classic):
+    """
+    Ensures get_mobile_devices returns content from the API and uses its
+    authorization correctly.
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevices/match/iPad%2A")))
+    assert classic.get_mobile_devices(match="iPad*") == EXPECTED_JSON
 
 
 @responses.activate
@@ -102,6 +119,65 @@ def test_get_mobile_device_id_json(classic):
         response_builder("GET", jps_url("/JSSResource/mobiledevices/id/1001"))
     )
     assert classic.get_mobile_device(id="1001") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_id_subset_json(classic):
+    """
+    Ensures that get_mobile_device returns content from the API when using id
+    as an identifier.
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledevices/id/1001" "/subset/General%26Network"),
+        )
+    )
+    assert (
+        classic.get_mobile_device(id="1001", subsets=["General", "Network"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_mobile_device_id_subset_invalid_subset(classic):
+    """
+    Ensures that get_mobile_device raises InvalidSubset when passed an invalid
+    subset for the endpoint.
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledevices/id/1001/subset/General&Network")
+        )
+    )
+    with pytest.raises(InvalidSubset):
+        classic.get_mobile_device(id=1001, subsets=["General", "Hardware"])
+
+
+@responses.activate
+def test_get_mobile_device_no_identification(classic):
+    """
+    Ensures that get_mobile_device raises NoIdentification when no form of
+    identification is passed.
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledevices/id/1001"))
+    )
+    with pytest.raises(NoIdentification):
+        classic.get_mobile_device()
+
+
+@responses.activate
+def test_get_mobile_device_multiple_identification(classic):
+    """
+    Ensures that get_mobile_device raises MultipleIdentifications when more
+    than one form of identification is passed to an endpoint.
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledevices/id/1001"))
+    )
+    with pytest.raises(MultipleIdentifications):
+        classic.get_mobile_device(id=1001, name="name")
 
 
 @responses.activate
@@ -144,15 +220,21 @@ def test_update_mobile_device_id(classic):
     )
     assert classic.update_mobile_device(EXPECTED_XML, id="1001") == EXPECTED_XML
 
+
 @responses.activate
 def test_update_mobile_device_id_400(classic):
     """
     Ensures that update_mobile_device raises MalformedRequest when the request
     returns a 400 status code.
     """
-    responses.add(response_builder("PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=400))
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=400
+        )
+    )
     with pytest.raises(MalformedRequest):
         classic.update_mobile_device(EXPECTED_XML, id="1001")
+
 
 @responses.activate
 def test_update_mobile_device_id_404(classic):
@@ -160,9 +242,14 @@ def test_update_mobile_device_id_404(classic):
     Ensures that update_mobile_device raises NotFound when the request
     returns a 404 status code.
     """
-    responses.add(response_builder("PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=404))
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=404
+        )
+    )
     with pytest.raises(NotFound):
         classic.update_mobile_device(EXPECTED_XML, id="1001")
+
 
 @responses.activate
 def test_update_mobile_device_id_502(classic):
@@ -170,21 +257,29 @@ def test_update_mobile_device_id_502(classic):
     Ensures that update_mobile_device raises RequestTimedOut when the request
     returns a 502 status code.
     """
-    responses.add(response_builder("PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=502))
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=502
+        )
+    )
     with pytest.raises(RequestTimedOut):
         classic.update_mobile_device(EXPECTED_XML, id="1001")
+
 
 @responses.activate
 def test_update_mobile_device_id_500(classic):
     """
-    Ensures that update_mobile_device raises a HTTPError when the request 
+    Ensures that update_mobile_device raises a HTTPError when the request
     returns an unrecognized HTTP error.
     """
     responses.add(
-        response_builder("PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=500)
+        response_builder(
+            "PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=500
+        )
     )
     with pytest.raises(HTTPError):
         classic.update_mobile_device(EXPECTED_XML, id="1001")
+
 
 @responses.activate
 def test_create_mobile_device_id(classic):
@@ -193,9 +288,12 @@ def test_create_mobile_device_id(classic):
     a mobile device.
     """
     responses.add(
-        response_builder("POST", jps_url("/JSSResource/mobiledevices/id/0"), data_type="xml")
+        response_builder(
+            "POST", jps_url("/JSSResource/mobiledevices/id/0"), data_type="xml"
+        )
     )
     assert classic.create_mobile_device(EXPECTED_XML) == EXPECTED_XML
+
 
 @responses.activate
 def test_create_mobile_device_id_HTTPError(classic):
@@ -208,3 +306,26 @@ def test_create_mobile_device_id_HTTPError(classic):
     )
     with pytest.raises(HTTPError):
         classic.create_mobile_device(EXPECTED_XML)
+
+@responses.activate
+def test_delete_mobile_device_id(classic):
+    """
+    Ensures that delete_mobile_device processes correctly when using id as
+    identification
+    """
+    responses.add(response_builder("DELETE", jps_url(
+        "/JSSResource/mobiledevices/id/1001"
+    ), data_type="xml"))
+    assert classic.delete_mobile_device(id=1001) == EXPECTED_XML
+
+@responses.activate
+def test_delete_mobile_device_id_500(classic):
+    """
+    Ensures that delete_mobile_device raises a HTTPError when processing an
+    unrecognized HTTP error
+    """
+    responses.add(response_builder("DELETE", jps_url(
+        "/JSSResource/mobiledevices/id/1001"
+    ), status=500))
+    with pytest.raises(HTTPError):
+        classic.delete_mobile_device(id=1001)

@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.0] -- 2022-10-29
+## [0.3.0] -- 2022-10-31
+### Added 
+- Classic.delete_mobile_device which deletes a mobile device with a given identifier
+- utils.valid_subsets which will see if subsets were passed and then see if the subsets are part of a list of valid subsets for the endpoint
+### Changed
+- Classic.get_mobile_device now handles subsets
+- Classic.get_mobile_devices now has a match param which lets you search all mobile devices with a specific criteria
+
+## [0.2.0] -- 2022-10-30
 ### Added
 - Added utils file for functions and errors that will be used for Classic and Pro
 - Classic.get_mobile_device which gets a mobile device with all of the available endpoint identifiers
