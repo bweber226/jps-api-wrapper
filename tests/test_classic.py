@@ -1,4 +1,3 @@
-from importlib.util import resolve_name
 import pytest
 from requests.exceptions import HTTPError
 import requests
@@ -72,6 +71,436 @@ def response_builder(method: str, url: str, data_type: str = "json", status: int
 
 
 """
+/accounts
+"""
+
+
+@responses.activate
+def test_get_accounts_json(classic):
+    """
+    Ensures data is returned when accessing get_accounts with json
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/accounts")))
+    assert classic.get_accounts() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_accounts_json_500(classic):
+    """
+    Ensures get_accounts raises HTTPError when an unrecognized HTTP error
+    is raised
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/accounts"), status=500))
+    with pytest.raises(HTTPError):
+        classic.get_accounts()
+
+
+@responses.activate
+def test_get_account_group_id_json(classic):
+    """
+    Ensures data is returned when get_account_group is used with an id
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/accounts/groupid/1001"))
+    )
+    assert classic.get_account_group(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_account_group_name_json(classic):
+    """
+    Ensures data is returned when get_acount_group us used with a name
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/accounts/groupname/name"))
+    )
+    assert classic.get_account_group(name="name") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_account_group_id_500(classic):
+    """
+    Ensures that get_account_group raises HTTPError when the request returns
+    an unrecognized HTTP error
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/accounts/groupid/1001"), status=500
+        )
+    )
+    with pytest.raises(HTTPError):
+        classic.get_account_group(id=1001)
+
+@responses.activate
+def test_create_account_group(classic):
+    """
+    Ensures that create_account_group returns data when creating an account 
+    group.
+    """
+    responses.add(response_builder("POST", jps_url(
+        "/JSSResource/accounts/groupid/0"
+    ), data_type="xml"))
+    assert classic.create_account_group(EXPECTED_XML) == EXPECTED_XML
+
+@responses.activate
+def test_create_account_group_500(classic):
+    """
+    Ensures that create_account_group raises HTTPError when receiving an
+    unrecognized HTTP error from a request.
+    """
+    responses.add(response_builder("POST", jps_url(
+        "/JSSResource/accounts/groupid/0"
+    ), data_type="xml", status=500))
+    with pytest.raises(HTTPError):
+        classic.create_account_group(EXPECTED_XML)
+
+@responses.activate
+def test_update_account_group_name(classic):
+    """
+    Ensures that update_account_group returns data when updating an account
+    group by name
+    """
+    responses.add(response_builder("PUT", jps_url(
+        "/JSSResource/accounts/groupname/testgroup"
+    ), data_type="xml"))
+    assert classic.update_account_group(EXPECTED_XML, name="testgroup") == EXPECTED_XML
+
+@responses.activate
+def test_update_account_group_id(classic):
+    """
+    Ensures that update_account_group returns data when updating an account
+    group by id
+    """
+    responses.add(response_builder("PUT", jps_url(
+        "/JSSResource/accounts/groupid/1001"
+    ), data_type="xml"))
+    assert classic.update_account_group(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+@responses.activate
+def test_delete_account_group_name(classic):
+    """
+    Ensures that delete_account_group returns data when updating an account
+    group by name
+    """
+    responses.add(response_builder("DELETE", jps_url(
+        "/JSSResource/accounts/groupname/testgroup"
+    ), data_type="xml"))
+    assert classic.delete_account_group(name="testgroup") == EXPECTED_XML
+
+@responses.activate
+def test_delete_account_group_id(classic):
+    """
+    Ensures that delete_account_group returns data when updating an account
+    group by id
+    """
+    responses.add(response_builder("DELETE", jps_url(
+        "/JSSResource/accounts/groupid/1001"
+    ), data_type="xml"))
+    assert classic.delete_account_group(id=1001) == EXPECTED_XML
+
+@responses.activate
+def test_get_account_id_json(classic):
+    """
+    Ensures data is returned when get_account is used with an id
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/accounts/userid/1001"))
+    )
+    assert classic.get_account(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_account_name_json(classic):
+    """
+    Ensures data is returned when get_acount is used with a name
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/accounts/username/name"))
+    )
+    assert classic.get_account(name="name") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_account_id_500(classic):
+    """
+    Ensures that get_account raises HTTPError when the request returns
+    an unrecognized HTTP error
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/accounts/userid/1001"), status=500
+        )
+    )
+    with pytest.raises(HTTPError):
+        classic.get_account(id=1001)
+
+@responses.activate
+def test_create_account(classic):
+    """
+    Ensures that create_account returns data when creating an account.
+    """
+    responses.add(response_builder("POST", jps_url(
+        "/JSSResource/accounts/userid/0"
+    ), data_type="xml"))
+    assert classic.create_account(EXPECTED_XML) == EXPECTED_XML
+
+@responses.activate
+def test_create_account_500(classic):
+    """
+    Ensures that create_account raises HTTPError when receiving an
+    unrecognized HTTP error from a request.
+    """
+    responses.add(response_builder("POST", jps_url(
+        "/JSSResource/accounts/userid/0"
+    ), data_type="xml", status=500))
+    with pytest.raises(HTTPError):
+        classic.create_account(EXPECTED_XML)
+
+@responses.activate
+def test_update_account_name(classic):
+    """
+    Ensures that update_account returns data when updating an account by name
+    """
+    responses.add(response_builder("PUT", jps_url(
+        "/JSSResource/accounts/username/testuser"
+    ), data_type="xml"))
+    assert classic.update_account(EXPECTED_XML, name="testuser") == EXPECTED_XML
+
+@responses.activate
+def test_update_account_id(classic):
+    """
+    Ensures that update_account returns data when updating an account by id
+    """
+    responses.add(response_builder("PUT", jps_url(
+        "/JSSResource/accounts/userid/1001"
+    ), data_type="xml"))
+    assert classic.update_account(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+@responses.activate
+def test_delete_account_name(classic):
+    """
+    Ensures that delete_account returns data when updating an account by name
+    """
+    responses.add(response_builder("DELETE", jps_url(
+        "/JSSResource/accounts/username/testuser"
+    ), data_type="xml"))
+    assert classic.delete_account(name="testuser") == EXPECTED_XML
+
+@responses.activate
+def test_delete_account_id(classic):
+    """
+    Ensures that delete_account returns data when updating an account by id
+    """
+    responses.add(response_builder("DELETE", jps_url(
+        "/JSSResource/accounts/userid/1001"
+    ), data_type="xml"))
+    assert classic.delete_account(id=1001) == EXPECTED_XML
+
+"""
+/activationcode
+"""
+
+"""
+/advancedcomputersearches
+"""
+
+"""
+/advancedmobiledevicesearches
+"""
+
+"""
+/advancedusersearches
+"""
+
+"""
+/allowedfileextensions
+"""
+
+"""
+/buildings
+"""
+
+"""
+/byoprofiles
+"""
+
+"""
+/categories
+"""
+
+"""
+/classes
+"""
+
+"""
+/commandflush
+"""
+
+"""
+/computerapplications
+"""
+
+"""
+/computerapplicationusage
+"""
+
+"""
+/computercheckin
+"""
+
+"""
+/computercommands
+"""
+
+"""
+/computerextensionattributes
+"""
+
+"""
+/computergroups
+"""
+
+"""
+/computerhardwaresoftwarereports
+"""
+
+"""
+/computerhistory
+"""
+
+"""
+/computerinventorycollection
+"""
+
+"""
+/computerinvitations
+"""
+
+"""
+/computermanagement
+"""
+
+"""
+/computerreports
+"""
+
+"""
+/computers
+"""
+
+"""
+/departments
+"""
+
+"""
+/directorybindings
+"""
+
+"""
+/diskencryptionconfigurations
+"""
+
+"""
+/distributionpoints
+"""
+
+"""
+/dockitems
+"""
+
+"""
+/ebooks
+"""
+
+"""
+/fileuploads
+"""
+
+"""
+/gsxconnection
+"""
+
+"""
+/healthcaraelistener
+"""
+
+"""
+/healthcarelistenerrule
+"""
+
+"""
+/ibeacons
+"""
+
+"""
+/infrastructuremanager
+"""
+
+"""
+/jssuser
+"""
+
+"""
+/jsonwebtokenconfigurations
+"""
+
+"""
+/ldapservers
+"""
+
+"""
+/licensedsoftware
+"""
+
+"""
+/logflush
+"""
+
+"""
+/macapplications
+"""
+
+"""
+/managedpreferenceprofiles
+"""
+
+"""
+/mobiledeviceapplications
+"""
+
+"""
+/mobiledevicecommands
+"""
+
+"""
+/mobiledeviceconfigurationprofiles
+"""
+
+"""
+/mobiledeviceenrollmentprofiles
+"""
+
+"""
+/mobiledeviceextensionattributes
+"""
+
+"""
+/mobiledevicegroups
+"""
+
+"""
+/mobiledevicehistory
+"""
+
+"""
+/mobiledeviceinvitations
+"""
+
+"""
+/mobiledeviceprovisioningprofiles
+"""
+
+"""
 /mobiledevices
 """
 
@@ -92,7 +521,9 @@ def test_get_mobile_devices_match(classic):
     Ensures get_mobile_devices returns content from the API and uses its
     authorization correctly.
     """
-    responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevices/match/iPad%2A")))
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledevices/match/iPad%2A"))
+    )
     assert classic.get_mobile_devices(match="iPad*") == EXPECTED_JSON
 
 
@@ -307,16 +738,20 @@ def test_create_mobile_device_id_HTTPError(classic):
     with pytest.raises(HTTPError):
         classic.create_mobile_device(EXPECTED_XML)
 
+
 @responses.activate
 def test_delete_mobile_device_id(classic):
     """
     Ensures that delete_mobile_device processes correctly when using id as
     identification
     """
-    responses.add(response_builder("DELETE", jps_url(
-        "/JSSResource/mobiledevices/id/1001"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/mobiledevices/id/1001"), data_type="xml"
+        )
+    )
     assert classic.delete_mobile_device(id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_mobile_device_id_500(classic):
@@ -324,8 +759,123 @@ def test_delete_mobile_device_id_500(classic):
     Ensures that delete_mobile_device raises a HTTPError when processing an
     unrecognized HTTP error
     """
-    responses.add(response_builder("DELETE", jps_url(
-        "/JSSResource/mobiledevices/id/1001"
-    ), status=500))
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/mobiledevices/id/1001"), status=500
+        )
+    )
     with pytest.raises(HTTPError):
         classic.delete_mobile_device(id=1001)
+
+
+"""
+/networksegments
+"""
+
+"""
+/osxconfigurationprofiles
+"""
+
+"""
+/packages
+"""
+
+"""
+/patchavailabletitles
+"""
+
+"""
+/patches
+"""
+
+"""
+/patchexternalsources
+"""
+
+"""
+/patchinternalsources
+"""
+
+"""
+/patchpolicies
+"""
+
+"""
+/patchreports
+"""
+
+"""
+/patchsoftwaretitles
+"""
+
+"""
+/peripherals
+"""
+
+"""
+/peripheraltypes
+"""
+
+"""
+/policies
+"""
+
+"""
+/printers
+"""
+
+"""
+/removablemacaddresses
+"""
+
+"""
+/restrictedsoftware
+"""
+
+"""
+/savedsearches
+"""
+
+"""
+/scripts
+"""
+
+"""
+/sites
+"""
+
+"""
+/smtpserver
+"""
+
+"""
+/softwareupdateservers
+"""
+
+"""
+/userextensionattributes
+"""
+
+"""
+/usergroups
+"""
+
+"""
+/users
+"""
+
+"""
+/vppaccounts
+"""
+
+"""
+/vppassignments
+"""
+
+"""
+/vppinvitations
+"""
+
+"""
+/webhooks
+"""

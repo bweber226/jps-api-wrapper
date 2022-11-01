@@ -3,8 +3,6 @@ from requests.auth import AuthBase
 from requests.exceptions import JSONDecodeError
 from datetime import datetime, timezone, timedelta
 
-VERSION = "0.1.0"
-
 
 class JamfAuthException(Exception):
     """Raised when JamfAuth fails to refresh its authentication"""

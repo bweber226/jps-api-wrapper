@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] -- 2022-11-01
+### Added 
+- Documented the needed endpoints for Classic
+- Classic.get_accounts which gets all accounts and account groups in a jps instance
+- Classic.get_account_group which returns data on one account group by id or name
+- Classic.create_account_group which creates a new account group
+- Classic.update_account_group which updates an existing account group by id or name
+- Classic.delete_account_group which deletes an account group by id or name
+- Classic.get_account which returns data on one account by id or name
+- Classic.create_account which creates a new account
+- Classic.update_account which updates an existing account group by id or name
+- Classic.delete_account_group which deletes an account by id or name
+
 ## [0.3.0] -- 2022-10-31
 ### Added 
 - Classic.delete_mobile_device which deletes a mobile device with a given identifier
