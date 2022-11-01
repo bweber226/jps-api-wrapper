@@ -46,7 +46,7 @@ class Classic(RequestBuilder):
 
     def create_account_group(self, data: str, id: Union[int, str] = 0) -> str:
         """
-        Creates an account group with the given XML data. Use ID 0 to use the 
+        Creates an account group with the given XML data. Use ID 0 to use the
         next available ID.
 
         :param data: XML data to create the account group with
@@ -56,9 +56,11 @@ class Classic(RequestBuilder):
 
         return self._post(endpoint, data, data_type="xml")
 
-    def update_account_group(self, data: str, id: Union[int, str] = None, name: str = None) -> str:
+    def update_account_group(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
         """
-        Updates an account group with the given XML data by either ID or name. 
+        Updates an account group with the given XML data by either ID or name.
         Need to supply at least one identifier.
 
         :param data: XML data to update the account group with
@@ -79,7 +81,7 @@ class Classic(RequestBuilder):
 
     def delete_account_group(self, id: Union[int, str] = None, name: str = None) -> str:
         """
-        Deletes an account group by ID or name. Need to supply at leas one 
+        Deletes an account group by ID or name. Need to supply at leas one
         identifier.
 
         :param id: Account group ID
@@ -122,7 +124,7 @@ class Classic(RequestBuilder):
 
     def create_account(self, data: str, id: Union[int, str] = 0) -> str:
         """
-        Creates an account with the given XML data. Use ID 0 to use the 
+        Creates an account with the given XML data. Use ID 0 to use the
         next available ID.
 
         :param data: XML data to create the account with
@@ -132,9 +134,11 @@ class Classic(RequestBuilder):
 
         return self._post(endpoint, data, data_type="xml")
 
-    def update_account(self, data: str, id: Union[int, str] = None, name: str = None) -> str:
+    def update_account(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
         """
-        Updates an account with the given XML data by either ID or name. 
+        Updates an account with the given XML data by either ID or name.
         Need to supply at least one identifier.
 
         :param data: XML data to update the account with
@@ -155,7 +159,7 @@ class Classic(RequestBuilder):
 
     def delete_account(self, id: Union[int, str] = None, name: str = None) -> str:
         """
-        Deletes an account by ID or name. Need to supply at leas one 
+        Deletes an account by ID or name. Need to supply at leas one
         identifier.
 
         :param id: Account ID
@@ -200,6 +204,18 @@ class Classic(RequestBuilder):
     """
     /advancedcomputersearches
     """
+
+    def get_advanced_computer_searches(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all advanced computer searches in either JSON or XML.
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/advancedcomputersearches"
+
+        return self._get(endpoint, data_type)
 
     """
     /advancedmobiledevicesearches

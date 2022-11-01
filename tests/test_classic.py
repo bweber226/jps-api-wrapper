@@ -131,16 +131,20 @@ def test_get_account_group_id_500(classic):
     with pytest.raises(HTTPError):
         classic.get_account_group(id=1001)
 
+
 @responses.activate
 def test_create_account_group(classic):
     """
-    Ensures that create_account_group returns data when creating an account 
+    Ensures that create_account_group returns data when creating an account
     group.
     """
-    responses.add(response_builder("POST", jps_url(
-        "/JSSResource/accounts/groupid/0"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/accounts/groupid/0"), data_type="xml"
+        )
+    )
     assert classic.create_account_group(EXPECTED_XML) == EXPECTED_XML
+
 
 @responses.activate
 def test_create_account_group_500(classic):
@@ -148,11 +152,17 @@ def test_create_account_group_500(classic):
     Ensures that create_account_group raises HTTPError when receiving an
     unrecognized HTTP error from a request.
     """
-    responses.add(response_builder("POST", jps_url(
-        "/JSSResource/accounts/groupid/0"
-    ), data_type="xml", status=500))
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/accounts/groupid/0"),
+            data_type="xml",
+            status=500,
+        )
+    )
     with pytest.raises(HTTPError):
         classic.create_account_group(EXPECTED_XML)
+
 
 @responses.activate
 def test_update_account_group_name(classic):
@@ -160,10 +170,13 @@ def test_update_account_group_name(classic):
     Ensures that update_account_group returns data when updating an account
     group by name
     """
-    responses.add(response_builder("PUT", jps_url(
-        "/JSSResource/accounts/groupname/testgroup"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/accounts/groupname/testgroup"), data_type="xml"
+        )
+    )
     assert classic.update_account_group(EXPECTED_XML, name="testgroup") == EXPECTED_XML
+
 
 @responses.activate
 def test_update_account_group_id(classic):
@@ -171,10 +184,13 @@ def test_update_account_group_id(classic):
     Ensures that update_account_group returns data when updating an account
     group by id
     """
-    responses.add(response_builder("PUT", jps_url(
-        "/JSSResource/accounts/groupid/1001"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/accounts/groupid/1001"), data_type="xml"
+        )
+    )
     assert classic.update_account_group(EXPECTED_XML, id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_account_group_name(classic):
@@ -182,10 +198,15 @@ def test_delete_account_group_name(classic):
     Ensures that delete_account_group returns data when updating an account
     group by name
     """
-    responses.add(response_builder("DELETE", jps_url(
-        "/JSSResource/accounts/groupname/testgroup"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/accounts/groupname/testgroup"),
+            data_type="xml",
+        )
+    )
     assert classic.delete_account_group(name="testgroup") == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_account_group_id(classic):
@@ -193,19 +214,20 @@ def test_delete_account_group_id(classic):
     Ensures that delete_account_group returns data when updating an account
     group by id
     """
-    responses.add(response_builder("DELETE", jps_url(
-        "/JSSResource/accounts/groupid/1001"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/accounts/groupid/1001"), data_type="xml"
+        )
+    )
     assert classic.delete_account_group(id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_get_account_id_json(classic):
     """
     Ensures data is returned when get_account is used with an id
     """
-    responses.add(
-        response_builder("GET", jps_url("/JSSResource/accounts/userid/1001"))
-    )
+    responses.add(response_builder("GET", jps_url("/JSSResource/accounts/userid/1001")))
     assert classic.get_account(id=1001) == EXPECTED_JSON
 
 
@@ -234,15 +256,19 @@ def test_get_account_id_500(classic):
     with pytest.raises(HTTPError):
         classic.get_account(id=1001)
 
+
 @responses.activate
 def test_create_account(classic):
     """
     Ensures that create_account returns data when creating an account.
     """
-    responses.add(response_builder("POST", jps_url(
-        "/JSSResource/accounts/userid/0"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/accounts/userid/0"), data_type="xml"
+        )
+    )
     assert classic.create_account(EXPECTED_XML) == EXPECTED_XML
+
 
 @responses.activate
 def test_create_account_500(classic):
@@ -250,93 +276,141 @@ def test_create_account_500(classic):
     Ensures that create_account raises HTTPError when receiving an
     unrecognized HTTP error from a request.
     """
-    responses.add(response_builder("POST", jps_url(
-        "/JSSResource/accounts/userid/0"
-    ), data_type="xml", status=500))
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/accounts/userid/0"),
+            data_type="xml",
+            status=500,
+        )
+    )
     with pytest.raises(HTTPError):
         classic.create_account(EXPECTED_XML)
+
 
 @responses.activate
 def test_update_account_name(classic):
     """
     Ensures that update_account returns data when updating an account by name
     """
-    responses.add(response_builder("PUT", jps_url(
-        "/JSSResource/accounts/username/testuser"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/accounts/username/testuser"), data_type="xml"
+        )
+    )
     assert classic.update_account(EXPECTED_XML, name="testuser") == EXPECTED_XML
+
 
 @responses.activate
 def test_update_account_id(classic):
     """
     Ensures that update_account returns data when updating an account by id
     """
-    responses.add(response_builder("PUT", jps_url(
-        "/JSSResource/accounts/userid/1001"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/accounts/userid/1001"), data_type="xml"
+        )
+    )
     assert classic.update_account(EXPECTED_XML, id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_account_name(classic):
     """
     Ensures that delete_account returns data when updating an account by name
     """
-    responses.add(response_builder("DELETE", jps_url(
-        "/JSSResource/accounts/username/testuser"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/accounts/username/testuser"),
+            data_type="xml",
+        )
+    )
     assert classic.delete_account(name="testuser") == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_account_id(classic):
     """
     Ensures that delete_account returns data when updating an account by id
     """
-    responses.add(response_builder("DELETE", jps_url(
-        "/JSSResource/accounts/userid/1001"
-    ), data_type="xml"))
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/accounts/userid/1001"), data_type="xml"
+        )
+    )
     assert classic.delete_account(id=1001) == EXPECTED_XML
+
 
 """
 /activationcode
 """
 
+
 @responses.activate
 def test_get_activation_code_json(classic):
     """
-    Ensures that get_activation_code returns a json dict when passing "json" to 
+    Ensures that get_activation_code returns a json dict when passing "json" to
     the data_type param
     """
-    responses.add(response_builder("GET", jps_url(
-        "/JSSResource/activationcode"
-    )))
+    responses.add(response_builder("GET", jps_url("/JSSResource/activationcode")))
     assert classic.get_activation_code() == EXPECTED_JSON
+
 
 @responses.activate
 def test_get_activation_code_xml(classic):
     """
-    Ensures that get_activation_code returns an XML str when passing "xml" to 
+    Ensures that get_activation_code returns an XML str when passing "xml" to
     the data_type param
     """
-    responses.add(response_builder("GET", jps_url(
-        "/JSSResource/activationcode"
-    ), data_type="xml"))
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/activationcode"), data_type="xml")
+    )
     assert classic.get_activation_code(data_type="xml") == EXPECTED_XML
 
 
 @responses.activate
 def test_udpate_activation_code(classic):
     """
-    Ensures that update_activation_code returns data when updating the 
+    Ensures that update_activation_code returns data when updating the
     activation code.
     """
-    responses.add(response_builder("PUT", jps_url(
-        "/JSSResource/activationcode"
-    ), data_type="xml"))
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/activationcode"), data_type="xml")
+    )
     assert classic.update_activation_code(EXPECTED_XML) == EXPECTED_XML
+
 
 """
 /advancedcomputersearches
 """
+
+
+@responses.activate
+def test_get_advanced_computer_searches_json(classic):
+    """
+    Ensures that get_advanced_computer_searches returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/advancedcomputersearches"))
+    )
+    assert classic.get_advanced_computer_searches() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_advanced_computer_searches_xml(classic):
+    """
+    Ensures that get_advanced_computer_searches returns an XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/advancedcomputersearches"), data_type="xml"
+        )
+    )
+    assert classic.get_advanced_computer_searches(data_type="xml") == EXPECTED_XML
+
 
 """
 /advancedmobiledevicesearches
