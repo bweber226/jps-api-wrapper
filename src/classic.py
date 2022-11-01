@@ -403,6 +403,101 @@ class Classic(RequestBuilder):
     /advancedusersearches
     """
 
+    def get_advanced_user_searches(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all advanced user searches in either JSON or XML.
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/advancedusersearches"
+
+        return self._get(endpoint, data_type)
+
+    def get_advanced_user_search(
+        self, data_type: str = "json", id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific advanced user search by either ID or
+        name.
+
+        :param data_type: JSON or XML
+        :param id: Advanced user search ID
+        :param name: Advanced user search name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/advancedusersearches/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_advanced_user_search(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates an advanced user search with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the advanced user search with
+        :param id:
+            ID of the new advanced user search, use 0 for next available ID
+        """
+        endpoint = f"/JSSResource/advancedusersearches/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_advanced_user_search(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates and advanced user search with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the advanced user search with
+        :param id: Advanced user search ID
+        :param name: Advanced user search name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/advancedusersearches/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_advanced_user_search(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes an advanced user search by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Advanced user search ID
+        :param name: Advanced user search name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/advancedusersearches/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /allowedfileextensions
     """
