@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] -- 2022-11-01
+### Added
+- Classic.get_advanced_computer_searches which returns all advanced computer searches
+- Classic.get_advanced_computer_search which returns data on one advanced computer search  by id or name
+- Classic.create_advanced_computer_search which creates an advanced computer search 
+- Classic.update_advanced_computer_search which updates an existing advanced computer search by ID or name
+- Classic.delete_advanced_computer_search which deletes an existing advanced computer search by ID or name
+
 ## [0.5.0] -- 2022-11-01
 ### Added
 - Classic.get_activation_code which returns the activation code and organization name of the JPS server

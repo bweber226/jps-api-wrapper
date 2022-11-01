@@ -217,6 +217,89 @@ class Classic(RequestBuilder):
 
         return self._get(endpoint, data_type)
 
+    def get_advanced_computer_search(
+        self, data_type: str = "json", id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific advanced computer search by either ID or
+        name.
+
+        :param data_type: JSON or XML
+        :param id: Advanced computer search ID
+        :param name: Advanced computer search name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/advancedcomputersearches/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_advanced_computer_search(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates an advanced computer search with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the advanced computer search with
+        :param id:
+            ID of the new advanced computer search, use 0 for next available ID
+        """
+        endpoint = f"/JSSResource/advancedcomputersearches/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_advanced_computer_search(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates and advanced computer search with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the advanced computer search with
+        :param id: Advanced computer search ID
+        :param name: Advanced computer search name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/advancedcomputersearches/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_advanced_computer_search(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes an advanced computer search by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Advanced computer search ID
+        :param name: Advanced computer search name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/advancedcomputersearches/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /advancedmobiledevicesearches
     """
