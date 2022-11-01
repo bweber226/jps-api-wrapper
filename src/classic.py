@@ -177,6 +177,26 @@ class Classic(RequestBuilder):
     /activationcode
     """
 
+    def get_activation_code(self, data_type: str = "json") -> str:
+        """
+        Get's the activation code of the JPS server.
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/activationcode"
+
+        return self._get(endpoint, data_type)
+
+    def update_activation_code(self, data: str) -> str:
+        """
+        Updates the activation code of the JPS server.
+
+        :param data: XML data to update the activation code with
+        """
+        endpoint = "/JSSResource/activationcode"
+
+        return self._put(endpoint, data, data_type="xml")
+
     """
     /advancedcomputersearches
     """

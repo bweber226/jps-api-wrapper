@@ -300,6 +300,40 @@ def test_delete_account_id(classic):
 /activationcode
 """
 
+@responses.activate
+def test_get_activation_code_json(classic):
+    """
+    Ensures that get_activation_code returns a json dict when passing "json" to 
+    the data_type param
+    """
+    responses.add(response_builder("GET", jps_url(
+        "/JSSResource/activationcode"
+    )))
+    assert classic.get_activation_code() == EXPECTED_JSON
+
+@responses.activate
+def test_get_activation_code_xml(classic):
+    """
+    Ensures that get_activation_code returns an XML str when passing "xml" to 
+    the data_type param
+    """
+    responses.add(response_builder("GET", jps_url(
+        "/JSSResource/activationcode"
+    ), data_type="xml"))
+    assert classic.get_activation_code(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_udpate_activation_code(classic):
+    """
+    Ensures that update_activation_code returns data when updating the 
+    activation code.
+    """
+    responses.add(response_builder("PUT", jps_url(
+        "/JSSResource/activationcode"
+    ), data_type="xml"))
+    assert classic.update_activation_code(EXPECTED_XML) == EXPECTED_XML
+
 """
 /advancedcomputersearches
 """
