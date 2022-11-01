@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] -- 2022-11-01
+### Added
+- Classic.get_advanced_mobile_device_searches which returns all advanced mobile device searches
+- Classic.get_advanced_mobile_device_search which returns data on one advanced mobile device search  by id or name
+- Classic.create_advanced_mobile_device_search which creates an advanced mobile device search 
+- Classic.update_advanced_mobile_device_search which updates an existing advanced mobile device search by ID or name
+- Classic.delete_advanced_mobile_device_search which deletes an existing advanced mobile device search by ID or name
+
 ## [0.6.0] -- 2022-11-01
 ### Added
 - Classic.get_advanced_computer_searches which returns all advanced computer searches
