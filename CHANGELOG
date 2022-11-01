@@ -5,10 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] -- 2022-11-01
+## [0.9.0] -- 2022-11-01
+### Added
+- Classic.get_allowed_file_extensions which returns all allowed file extensions
+- Classic.get_allowed_file_extension which returns data on one allowed file extension by id or name
+- Classic.create_allowed_file_extension which creates an allowed file extension
+- Classic.delete_allowed_file_extension which deletes an allowed file extension
+
+## [0.8.0] -- 2022-11-01
 ## Added
 - Classic.get_advanced_user_searches which returns all advanced user searches
-- Classic.get_advanced_user_search which returns data on one advanced user search  by id or name
+- Classic.get_advanced_user_search which returns data on one advanced user search by id or name
 - Classic.create_advanced_user_search which creates an advanced user search 
 - Classic.update_advanced_user_search which updates an existing advanced user search by ID or name
 - Classic.delete_advanced_user_search which deletes an existing advanced user search by ID or name

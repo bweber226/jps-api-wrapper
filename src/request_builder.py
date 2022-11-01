@@ -21,7 +21,7 @@ class RequestBuilder:
         data_type is not json or xml
     """
 
-    def __init__(self, base_url: str, username: str, password: str):
+    def __init__(self, base_url: str, username: str, password: str):  # pragma: no cover
         self.base_url = base_url
         self.session = requests.Session()
         self.session.auth = JamfAuth(self.base_url, username, password)

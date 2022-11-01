@@ -444,6 +444,7 @@ def test_get_advanced_computer_search_name_xml(classic):
         == EXPECTED_XML
     )
 
+
 @responses.activate
 def test_create_advanced_computer_search_id(classic):
     """
@@ -454,10 +455,11 @@ def test_create_advanced_computer_search_id(classic):
         response_builder(
             "POST",
             jps_url("/JSSResource/advancedcomputersearches/id/0"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.create_advanced_computer_search(EXPECTED_XML) == EXPECTED_XML
+
 
 @responses.activate
 def test_update_advanced_computer_search_id(classic):
@@ -469,10 +471,13 @@ def test_update_advanced_computer_search_id(classic):
         response_builder(
             "PUT",
             jps_url("/JSSResource/advancedcomputersearches/id/1001"),
-            data_type="xml"
+            data_type="xml",
         )
     )
-    assert classic.update_advanced_computer_search(EXPECTED_XML, id=1001) == EXPECTED_XML
+    assert (
+        classic.update_advanced_computer_search(EXPECTED_XML, id=1001) == EXPECTED_XML
+    )
+
 
 @responses.activate
 def test_update_advanced_computer_search_name(classic):
@@ -484,10 +489,14 @@ def test_update_advanced_computer_search_name(classic):
         response_builder(
             "PUT",
             jps_url("/JSSResource/advancedcomputersearches/name/testname"),
-            data_type="xml"
+            data_type="xml",
         )
     )
-    assert classic.update_advanced_computer_search(EXPECTED_XML, name="testname") == EXPECTED_XML
+    assert (
+        classic.update_advanced_computer_search(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
 
 @responses.activate
 def test_delete_advanced_computer_search_id(classic):
@@ -499,10 +508,11 @@ def test_delete_advanced_computer_search_id(classic):
         response_builder(
             "DELETE",
             jps_url("/JSSResource/advancedcomputersearches/id/1001"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.delete_advanced_computer_search(id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_advanced_computer_search_name(classic):
@@ -514,14 +524,16 @@ def test_delete_advanced_computer_search_name(classic):
         response_builder(
             "DELETE",
             jps_url("/JSSResource/advancedcomputersearches/name/testname"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.delete_advanced_computer_search(name="testname") == EXPECTED_XML
 
+
 """
 /advancedmobiledevicesearches
 """
+
 
 @responses.activate
 def test_get_advanced_mobile_device_searches_json(classic):
@@ -581,6 +593,7 @@ def test_get_advanced_mobile_device_search_name_xml(classic):
         == EXPECTED_XML
     )
 
+
 @responses.activate
 def test_create_advanced_mobile_device_search_id(classic):
     """
@@ -591,10 +604,11 @@ def test_create_advanced_mobile_device_search_id(classic):
         response_builder(
             "POST",
             jps_url("/JSSResource/advancedmobiledevicesearches/id/0"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.create_advanced_mobile_device_search(EXPECTED_XML) == EXPECTED_XML
+
 
 @responses.activate
 def test_update_advanced_mobile_device_search_id(classic):
@@ -606,10 +620,14 @@ def test_update_advanced_mobile_device_search_id(classic):
         response_builder(
             "PUT",
             jps_url("/JSSResource/advancedmobiledevicesearches/id/1001"),
-            data_type="xml"
+            data_type="xml",
         )
     )
-    assert classic.update_advanced_mobile_device_search(EXPECTED_XML, id=1001) == EXPECTED_XML
+    assert (
+        classic.update_advanced_mobile_device_search(EXPECTED_XML, id=1001)
+        == EXPECTED_XML
+    )
+
 
 @responses.activate
 def test_update_advanced_mobile_device_search_name(classic):
@@ -621,10 +639,14 @@ def test_update_advanced_mobile_device_search_name(classic):
         response_builder(
             "PUT",
             jps_url("/JSSResource/advancedmobiledevicesearches/name/testname"),
-            data_type="xml"
+            data_type="xml",
         )
     )
-    assert classic.update_advanced_mobile_device_search(EXPECTED_XML, name="testname") == EXPECTED_XML
+    assert (
+        classic.update_advanced_mobile_device_search(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
 
 @responses.activate
 def test_delete_advanced_mobile_device_search_id(classic):
@@ -636,10 +658,11 @@ def test_delete_advanced_mobile_device_search_id(classic):
         response_builder(
             "DELETE",
             jps_url("/JSSResource/advancedmobiledevicesearches/id/1001"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.delete_advanced_mobile_device_search(id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_advanced_mobile_device_search_name(classic):
@@ -651,14 +674,16 @@ def test_delete_advanced_mobile_device_search_name(classic):
         response_builder(
             "DELETE",
             jps_url("/JSSResource/advancedmobiledevicesearches/name/testname"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.delete_advanced_mobile_device_search(name="testname") == EXPECTED_XML
 
+
 """
 /advancedusersearches
 """
+
 
 @responses.activate
 def test_get_advanced_user_searches_json(classic):
@@ -666,9 +691,7 @@ def test_get_advanced_user_searches_json(classic):
     Ensures that get_advanced_user_searches returns a JSON dict when passing
     "json" as the data_type param
     """
-    responses.add(
-        response_builder("GET", jps_url("/JSSResource/advancedusersearches"))
-    )
+    responses.add(response_builder("GET", jps_url("/JSSResource/advancedusersearches")))
     assert classic.get_advanced_user_searches() == EXPECTED_JSON
 
 
@@ -693,9 +716,7 @@ def test_get_advanced_user_search_id_json(classic):
     "json" as the data_type param
     """
     responses.add(
-        response_builder(
-            "GET", jps_url("/JSSResource/advancedusersearches/id/1001")
-        )
+        response_builder("GET", jps_url("/JSSResource/advancedusersearches/id/1001"))
     )
     assert classic.get_advanced_user_search(id=1001) == EXPECTED_JSON
 
@@ -718,6 +739,7 @@ def test_get_advanced_user_search_name_xml(classic):
         == EXPECTED_XML
     )
 
+
 @responses.activate
 def test_create_advanced_user_search_id(classic):
     """
@@ -726,12 +748,11 @@ def test_create_advanced_user_search_id(classic):
     """
     responses.add(
         response_builder(
-            "POST",
-            jps_url("/JSSResource/advancedusersearches/id/0"),
-            data_type="xml"
+            "POST", jps_url("/JSSResource/advancedusersearches/id/0"), data_type="xml"
         )
     )
     assert classic.create_advanced_user_search(EXPECTED_XML) == EXPECTED_XML
+
 
 @responses.activate
 def test_update_advanced_user_search_id(classic):
@@ -741,12 +762,11 @@ def test_update_advanced_user_search_id(classic):
     """
     responses.add(
         response_builder(
-            "PUT",
-            jps_url("/JSSResource/advancedusersearches/id/1001"),
-            data_type="xml"
+            "PUT", jps_url("/JSSResource/advancedusersearches/id/1001"), data_type="xml"
         )
     )
     assert classic.update_advanced_user_search(EXPECTED_XML, id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_update_advanced_user_search_name(classic):
@@ -758,10 +778,14 @@ def test_update_advanced_user_search_name(classic):
         response_builder(
             "PUT",
             jps_url("/JSSResource/advancedusersearches/name/testname"),
-            data_type="xml"
+            data_type="xml",
         )
     )
-    assert classic.update_advanced_user_search(EXPECTED_XML, name="testname") == EXPECTED_XML
+    assert (
+        classic.update_advanced_user_search(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
 
 @responses.activate
 def test_delete_advanced_user_search_id(classic):
@@ -773,10 +797,11 @@ def test_delete_advanced_user_search_id(classic):
         response_builder(
             "DELETE",
             jps_url("/JSSResource/advancedusersearches/id/1001"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.delete_advanced_user_search(id=1001) == EXPECTED_XML
+
 
 @responses.activate
 def test_delete_advanced_user_search_name(classic):
@@ -788,14 +813,100 @@ def test_delete_advanced_user_search_name(classic):
         response_builder(
             "DELETE",
             jps_url("/JSSResource/advancedusersearches/name/testname"),
-            data_type="xml"
+            data_type="xml",
         )
     )
     assert classic.delete_advanced_user_search(name="testname") == EXPECTED_XML
 
+
 """
 /allowedfileextensions
 """
+
+
+@responses.activate
+def test_get_allowed_file_extensions_json(classic):
+    """
+    Ensures get_allowed_file_extensions returns json when "json" is passed
+    as the data_type param.
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/allowedfileextensions"))
+    )
+    assert classic.get_allowed_file_extensions() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_allowed_file_extensions_xml(classic):
+    """
+    Ensures get_allowed_file_extensions returns xml when "xml" is passed as the
+    data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/allowedfileextensions"), data_type="xml"
+        )
+    )
+    assert classic.get_allowed_file_extensions(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_allowed_file_extension_id_json(classic):
+    """
+    Ensures get_allowed_file_extension returns json when "json" is passed as
+    the data_type param and the id identifier is used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/allowedfileextensions/id/1001"))
+    )
+    assert classic.get_allowed_file_extension(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_allowed_file_extension_name_xml(classic):
+    """
+    Ensures get_allowed_file_extension returns XML when "xml" is passed as the
+    data_type param and the name identifier is used
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/allowedfileextensions/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_allowed_file_extension(name="testname", data_type="xml")
+
+
+@responses.activate
+def test_create_allowed_file_extension(classic):
+    """
+    Ensures create_allowed_file_extension returns content when creating an
+    allowed file extension
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/allowedfileextensions/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_allowed_file_extension(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_allowed_file_extension(classic):
+    """
+    Ensures delete_allowed_file_extension returns content when deleting an
+    allowed file extension
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/allowedfileextensions/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_allowed_file_extension(1001) == EXPECTED_XML
+
 
 """
 /buildings

@@ -5,7 +5,7 @@ from utils import identification_type, valid_subsets
 
 class Classic(RequestBuilder):
     def __init__(self, base_url, username, password):
-        super().__init__(base_url, username, password)
+        super().__init__(base_url, username, password)  # pragma: no cover
 
     """
     /accounts
@@ -22,15 +22,15 @@ class Classic(RequestBuilder):
         return self._get(endpoint, data_type)
 
     def get_account_group(
-        self, data_type: str = "json", id: Union[int, str] = None, name: str = None
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
         Returns an account group by either ID or name in json or xml. Need to
         supply at least one identifier.
 
-        :param data_type: JSON or XML
         :param id: Account group ID
         :param name: Account group name
+        :param data_type: JSON or XML
         """
         identification_options = {
             "id": id,
@@ -100,15 +100,15 @@ class Classic(RequestBuilder):
         return self._delete(endpoint, data_type="xml")
 
     def get_account(
-        self, data_type: str = "json", id: Union[int, str] = None, name: str = None
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
         Returns an account by either ID or name in json or xml. Need to
         supply at least one identifier.
 
-        :param data_type: JSON or XML
         :param id: Account ID
         :param name: Account name
+        :param data_type: JSON or XML
         """
         identification_options = {
             "id": id,
@@ -218,15 +218,15 @@ class Classic(RequestBuilder):
         return self._get(endpoint, data_type)
 
     def get_advanced_computer_search(
-        self, data_type: str = "json", id: Union[int, str] = None, name: str = None
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
         Returns data on a specific advanced computer search by either ID or
         name.
 
-        :param data_type: JSON or XML
         :param id: Advanced computer search ID
         :param name: Advanced computer search name
+        :param data_type: JSON or XML
         """
         identification_options = {
             "id": id,
@@ -282,8 +282,8 @@ class Classic(RequestBuilder):
         self, id: Union[int, str] = None, name: str = None
     ) -> Union[dict, str]:
         """
-        Deletes an advanced computer search by either ID or name. Need to supply
-        at least one identifier.
+        Deletes an advanced computer search by either ID or name. Need to
+        supply at least one identifier.
 
         :param id: Advanced computer search ID
         :param name: Advanced computer search name
@@ -317,15 +317,15 @@ class Classic(RequestBuilder):
         return self._get(endpoint, data_type)
 
     def get_advanced_mobile_device_search(
-        self, data_type: str = "json", id: Union[int, str] = None, name: str = None
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
-        Returns data on a specific advanced mobile device search by either ID or
-        name.
+        Returns data on a specific advanced mobile device search by either ID
+        or name.
 
-        :param data_type: JSON or XML
         :param id: Advanced mobile device search ID
         :param name: Advanced mobile device search name
+        :param data_type: JSON or XML
         """
         identification_options = {
             "id": id,
@@ -343,12 +343,13 @@ class Classic(RequestBuilder):
         self, data: str, id: Union[int, str] = 0
     ) -> str:
         """
-        Creates an advanced mobile device search with the given XML data. Use ID 0
-        to use the next available ID.
+        Creates an advanced mobile device search with the given XML data. Use
+        ID 0 to use the next available ID.
 
         :param data: XML data to create the advanced mobile device search with
         :param id:
-            ID of the new advanced mobile device search, use 0 for next available ID
+            ID of the new advanced mobile device search, use 0 for next
+            available ID
         """
         endpoint = f"/JSSResource/advancedmobiledevicesearches/id/{id}"
 
@@ -358,8 +359,8 @@ class Classic(RequestBuilder):
         self, data: str, id: Union[int, str] = None, name: str = None
     ) -> str:
         """
-        Updates and advanced mobile device search with the given XML data. Need to
-        supply at least one identifier.
+        Updates and advanced mobile device search with the given XML data. Need
+        to supply at least one identifier.
 
         :param data: XML data to update the advanced mobile device search with
         :param id: Advanced mobile device search ID
@@ -381,8 +382,8 @@ class Classic(RequestBuilder):
         self, id: Union[int, str] = None, name: str = None
     ) -> Union[dict, str]:
         """
-        Deletes an advanced mobile device search by either ID or name. Need to supply
-        at least one identifier.
+        Deletes an advanced mobile device search by either ID or name. Need
+        to supply at least one identifier.
 
         :param id: Advanced mobile device search ID
         :param name: Advanced mobile device search name
@@ -403,9 +404,7 @@ class Classic(RequestBuilder):
     /advancedusersearches
     """
 
-    def get_advanced_user_searches(
-        self, data_type: str = "json"
-    ) -> Union[dict, str]:
+    def get_advanced_user_searches(self, data_type: str = "json") -> Union[dict, str]:
         """
         Returns all advanced user searches in either JSON or XML.
 
@@ -416,15 +415,15 @@ class Classic(RequestBuilder):
         return self._get(endpoint, data_type)
 
     def get_advanced_user_search(
-        self, data_type: str = "json", id: Union[int, str] = None, name: str = None
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
         Returns data on a specific advanced user search by either ID or
         name.
 
-        :param data_type: JSON or XML
         :param id: Advanced user search ID
         :param name: Advanced user search name
+        :param data_type: JSON or XML
         """
         identification_options = {
             "id": id,
@@ -438,9 +437,7 @@ class Classic(RequestBuilder):
 
         return self._get(endpoint, data_type)
 
-    def create_advanced_user_search(
-        self, data: str, id: Union[int, str] = 0
-    ) -> str:
+    def create_advanced_user_search(self, data: str, id: Union[int, str] = 0) -> str:
         """
         Creates an advanced user search with the given XML data. Use ID 0
         to use the next available ID.
@@ -501,6 +498,58 @@ class Classic(RequestBuilder):
     """
     /allowedfileextensions
     """
+
+    def get_allowed_file_extensions(self, data_type="json") -> Union[dict, str]:
+        """
+        Returns all allowed file extensions in either JSON or XML
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/allowedfileextensions"
+
+        return self._get(endpoint, data_type)
+
+    def get_allowed_file_extension(
+        self, id: Union[int, str] = 0, name: str = 0, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on one allowed file extension by ID or name in either
+        JSON or XML
+
+        :param id: Allowed file extension ID
+        :param name: Allowed file extension name
+        :param data_type: JSON or XML
+        """
+        identification_options = {"id": id, "name": name}
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/allowedfileextensions/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_allowed_file_extension(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates an allowed file extension with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the allowed file extension
+        :param id: Allowed file extension id
+        """
+        endpoint = f"/JSSResource/allowedfileextensions/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def delete_allowed_file_extension(self, id: Union[int, str]) -> str:
+        """
+        Deletes an allowed file extension with the given ID.
+
+        :param id: Allowed file extension ID
+        """
+        endpoint = f"/JSSResource/allowedfileextensions/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /buildings
