@@ -5,17 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.0] - 2022-11-02
+### Added
+- Classic.get_buildings which returns all buildings
+- Classic.get_building which returns data on one building by ID or name
+- Classic.create_building which creates a building 
+- Classic.update_building which updates a existing building by ID or name
+- Classic.delete_building which deletes a existing building by ID or name
+### Changed
+- Moved data_type to the end of params in get requests
+
 ## [0.9.0] -- 2022-11-01
 ### Added
 - Classic.get_allowed_file_extensions which returns all allowed file extensions
-- Classic.get_allowed_file_extension which returns data on one allowed file extension by id or name
+- Classic.get_allowed_file_extension which returns data on one allowed file extension by ID or name
 - Classic.create_allowed_file_extension which creates an allowed file extension
 - Classic.delete_allowed_file_extension which deletes an allowed file extension
 
 ## [0.8.0] -- 2022-11-01
 ## Added
 - Classic.get_advanced_user_searches which returns all advanced user searches
-- Classic.get_advanced_user_search which returns data on one advanced user search by id or name
+- Classic.get_advanced_user_search which returns data on one advanced user search by ID or name
 - Classic.create_advanced_user_search which creates an advanced user search 
 - Classic.update_advanced_user_search which updates an existing advanced user search by ID or name
 - Classic.delete_advanced_user_search which deletes an existing advanced user search by ID or name
@@ -23,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.7.0] -- 2022-11-01
 ### Added
 - Classic.get_advanced_mobile_device_searches which returns all advanced mobile device searches
-- Classic.get_advanced_mobile_device_search which returns data on one advanced mobile device search  by id or name
+- Classic.get_advanced_mobile_device_search which returns data on one advanced mobile device search  by ID or name
 - Classic.create_advanced_mobile_device_search which creates an advanced mobile device search 
 - Classic.update_advanced_mobile_device_search which updates an existing advanced mobile device search by ID or name
 - Classic.delete_advanced_mobile_device_search which deletes an existing advanced mobile device search by ID or name
@@ -31,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.6.0] -- 2022-11-01
 ### Added
 - Classic.get_advanced_computer_searches which returns all advanced computer searches
-- Classic.get_advanced_computer_search which returns data on one advanced computer search  by id or name
+- Classic.get_advanced_computer_search which returns data on one advanced computer search  by ID or name
 - Classic.create_advanced_computer_search which creates an advanced computer search 
 - Classic.update_advanced_computer_search which updates an existing advanced computer search by ID or name
 - Classic.delete_advanced_computer_search which deletes an existing advanced computer search by ID or name
@@ -44,20 +54,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] -- 2022-11-01
 ### Added 
 - Documented the needed endpoints for Classic
-- Classic.get_accounts which gets all accounts and account groups in a jps instance
-- Classic.get_account_group which returns data on one account group by id or name
+- Classic.get_accounts which gets all accounts and account groups in a JPS instance
+- Classic.get_account_group which returns data on one account group by ID or name
 - Classic.create_account_group which creates a new account group
-- Classic.update_account_group which updates an existing account group by id or name
-- Classic.delete_account_group which deletes an account group by id or name
-- Classic.get_account which returns data on one account by id or name
+- Classic.update_account_group which updates an existing account group by ID or name
+- Classic.delete_account_group which deletes an account group by ID or name
+- Classic.get_account which returns data on one account by ID or name
 - Classic.create_account which creates a new account
-- Classic.update_account which updates an existing account group by id or name
-- Classic.delete_account_group which deletes an account by id or name
+- Classic.update_account which updates an existing account group by ID or name
+- Classic.delete_account_group which deletes an account by ID or name
 
 ## [0.3.0] -- 2022-10-31
 ### Added 
-- Classic.delete_mobile_device which deletes a mobile device with a given identifier
-- utils.valid_subsets which will see if subsets were passed and then see if the subsets are part of a list of valid subsets for the endpoint
+- Classic.delete_mobile_device which deletes a mobile device with a given IDentifier
+- utils.valID_subsets which will see if subsets were passed and then see if the subsets are part of a list of valID subsets for the endpoint
 ### Changed
 - Classic.get_mobile_device now handles subsets
 - Classic.get_mobile_devices now has a match param which lets you search all mobile devices with a specific criteria
@@ -65,8 +75,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] -- 2022-10-30
 ### Added
 - Added utils file for functions and errors that will be used for Classic and Pro
-- Classic.get_mobile_device which gets a mobile device with all of the available endpoint identifiers
-- Classic.update_mobile_device which updates a mobile device with all of the available endpoint identifiers
+- Classic.get_mobile_device which gets a mobile device with all of the available endpoint IDentifiers
+- Classic.update_mobile_device which updates a mobile device with all of the available endpoint IDentifiers
 - Added a function to raise recognized Jamf errors with more troubleshooting info
 - Classic.create_mobile_device which creates a mobile device using XML data
 

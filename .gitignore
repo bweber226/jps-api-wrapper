@@ -164,3 +164,4 @@ cython_debug/
 
 # For testing modules before commits
 src/test.py
+standard_api_setup.template

@@ -17,7 +17,7 @@ class RequestBuilder:
     :param password:
         Password for the JPS instance
 
-    :raises IncorrectDataType:
+    :raises InvalidDataType:
         data_type is not json or xml
     """
 
@@ -57,7 +57,7 @@ class RequestBuilder:
             - response.json - Returned if the data_type was json
             - response.text - Returned if the data_type was xml
 
-        :raises IncorrectDataType:
+        :raises InvalidDataType:
             data_type is not json or xml
         """
         full_url = self.base_url + quote(endpoint)
@@ -70,7 +70,7 @@ class RequestBuilder:
         elif data_type == "xml":
             return response.text
         else:
-            raise IncorrectDataType("data_type needs to be either json or xml")
+            raise InvalidDataType("data_type needs to be either json or xml")
 
     def _post(
         self, endpoint: str, data: Union[dict, str], data_type: str = "json"
@@ -90,7 +90,7 @@ class RequestBuilder:
             - response.json - Returned if the data_type was json
             - response.text - Returned if the data_type was xml
 
-        :raises IncorrectDataType:
+        :raises InvalidDataType:
             data_type is not json or xml
         """
         full_url = self.base_url + quote(endpoint)
@@ -103,7 +103,7 @@ class RequestBuilder:
         elif data_type == "xml":
             return response.text
         else:
-            raise IncorrectDataType("data_type needs to be either json or xml")
+            raise InvalidDataType("data_type needs to be either json or xml")
 
     def _put(
         self, endpoint: str, data: Union[dict, str], data_type: str = "json"
@@ -123,7 +123,7 @@ class RequestBuilder:
             - response.json - Returned if the data_type was json
             - response.text - Returned if the data_type was xml
 
-        :raises IncorrectDataType:
+        :raises InvalidDataType:
             data_type is not json or xml
         """
         full_url = self.base_url + quote(endpoint)
@@ -136,7 +136,7 @@ class RequestBuilder:
         elif data_type == "xml":
             return response.text
         else:
-            raise IncorrectDataType("data_type needs to be either json or xml")
+            raise InvalidDataType("data_type needs to be either json or xml")
 
     def _delete(self, endpoint: str, data_type: str = "json") -> Union[dict, str]:
         """
@@ -152,7 +152,7 @@ class RequestBuilder:
             - response.json - Returned if the data_type was json
             - response.text - Returned if the data_type was xml
 
-        :raises IncorrectDataType:
+        :raises InvalidDataType:
             data_type is not json or xml
         """
         full_url = self.base_url + quote(endpoint)
@@ -165,10 +165,10 @@ class RequestBuilder:
         elif data_type == "xml":
             return response.text
         else:
-            raise IncorrectDataType("data_type needs to be either json or xml")
+            raise InvalidDataType("data_type needs to be either json or xml")
 
 
-class IncorrectDataType(Exception):
+class InvalidDataType(Exception):
     """Raised when the data_type parameter is not json or xml"""
 
 

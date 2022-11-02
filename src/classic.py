@@ -555,6 +555,97 @@ class Classic(RequestBuilder):
     /buildings
     """
 
+    def get_buildings(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all buildings in either JSON or XML.
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/buildings"
+
+        return self._get(endpoint, data_type)
+
+    def get_building(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific building by either ID or
+        name.
+
+        :param id: building ID
+        :param name: building name
+        :param data_type: JSON or XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/buildings/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_building(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a building with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the building with
+        :param id:
+            ID of the new building, use 0 for next available ID
+        """
+        endpoint = f"/JSSResource/buildings/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_building(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a building with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the building with
+        :param id: building ID
+        :param name: building name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/buildings/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_building(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a building by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: building ID
+        :param name: building name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/buildings/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /byoprofiles
     """

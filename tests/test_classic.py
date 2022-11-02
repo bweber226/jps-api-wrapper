@@ -6,7 +6,7 @@ from requests.auth import AuthBase
 
 from classic import Classic
 from request_builder import (
-    IncorrectDataType,
+    InvalidDataType,
     MalformedRequest,
     NotFound,
     RequestTimedOut,
@@ -389,8 +389,8 @@ def test_udpate_activation_code(classic):
 @responses.activate
 def test_get_advanced_computer_searches_json(classic):
     """
-    Ensures that get_advanced_computer_searches returns a JSON dict when passing
-    "json" as the data_type param
+    Ensures that get_advanced_computer_searches returns a JSON dict when 
+    passing "json" as the data_type param
     """
     responses.add(
         response_builder("GET", jps_url("/JSSResource/advancedcomputersearches"))
@@ -538,8 +538,8 @@ def test_delete_advanced_computer_search_name(classic):
 @responses.activate
 def test_get_advanced_mobile_device_searches_json(classic):
     """
-    Ensures that get_advanced_mobile_device_searches returns a JSON dict when passing
-    "json" as the data_type param
+    Ensures that get_advanced_mobile_device_searches returns a JSON dict when
+    passing "json" as the data_type param
     """
     responses.add(
         response_builder("GET", jps_url("/JSSResource/advancedmobiledevicesearches"))
@@ -550,8 +550,8 @@ def test_get_advanced_mobile_device_searches_json(classic):
 @responses.activate
 def test_get_advanced_mobile_device_searches_xml(classic):
     """
-    Ensures that get_advanced_mobile_device_searches returns an XML str when passing
-    "xml" as the data_type param
+    Ensures that get_advanced_mobile_device_searches returns an XML str when
+    passing "xml" as the data_type param
     """
     responses.add(
         response_builder(
@@ -564,8 +564,8 @@ def test_get_advanced_mobile_device_searches_xml(classic):
 @responses.activate
 def test_get_advanced_mobile_device_search_id_json(classic):
     """
-    Ensures that get_advanced_mobile_device_search returns a JSON dict when passing
-    "json" as the data_type param
+    Ensures that get_advanced_mobile_device_search returns a JSON dict when
+    passing "json" as the data_type param
     """
     responses.add(
         response_builder(
@@ -578,8 +578,8 @@ def test_get_advanced_mobile_device_search_id_json(classic):
 @responses.activate
 def test_get_advanced_mobile_device_search_name_xml(classic):
     """
-    Ensures that get_advanced_mobile_device_search returns XML when passing "xml"
-    as the data_type and using name as the identifier
+    Ensures that get_advanced_mobile_device_search returns XML when passing
+    "xml" as the data_type and using name as the identifier
     """
     responses.add(
         response_builder(
@@ -597,8 +597,8 @@ def test_get_advanced_mobile_device_search_name_xml(classic):
 @responses.activate
 def test_create_advanced_mobile_device_search_id(classic):
     """
-    Ensures that create_advanced_mobile_device_search returns data when updating
-    an advanced computer search with id
+    Ensures that create_advanced_mobile_device_search returns data when 
+    updating an advanced mobile device search with id
     """
     responses.add(
         response_builder(
@@ -613,8 +613,8 @@ def test_create_advanced_mobile_device_search_id(classic):
 @responses.activate
 def test_update_advanced_mobile_device_search_id(classic):
     """
-    Ensures that update_advanced_mobile_device_search returns data when updating
-    an advanced computer search with id
+    Ensures that update_advanced_mobile_device_search returns data when 
+    updating an advanced mobile device search with id
     """
     responses.add(
         response_builder(
@@ -632,8 +632,8 @@ def test_update_advanced_mobile_device_search_id(classic):
 @responses.activate
 def test_update_advanced_mobile_device_search_name(classic):
     """
-    Ensures that update_advanced_mobile_device_search returns data when updating
-    an advanced computer search with name
+    Ensures that update_advanced_mobile_device_search returns data when 
+    updating an advanced mobile device search with name
     """
     responses.add(
         response_builder(
@@ -651,8 +651,8 @@ def test_update_advanced_mobile_device_search_name(classic):
 @responses.activate
 def test_delete_advanced_mobile_device_search_id(classic):
     """
-    Ensures that delete_advanced_mobile_device_search returns data when deleting an
-    advanced computer search by ID
+    Ensures that delete_advanced_mobile_device_search returns data when
+    deleting an advanced mobile device search by ID
     """
     responses.add(
         response_builder(
@@ -667,8 +667,8 @@ def test_delete_advanced_mobile_device_search_id(classic):
 @responses.activate
 def test_delete_advanced_mobile_device_search_name(classic):
     """
-    Ensures that delete_advanced_mobile_device_search returns data when deleting an
-    advanced computer search by name
+    Ensures that delete_advanced_mobile_device_search returns data when
+    deleting an advanced mobile search by name
     """
     responses.add(
         response_builder(
@@ -912,6 +912,123 @@ def test_delete_allowed_file_extension(classic):
 /buildings
 """
 
+@responses.activate
+def test_get_buildings_json(classic):
+    """
+    Ensures that get_buildings returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/buildings")))
+    assert classic.get_buildings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_buildings_xml(classic):
+    """
+    Ensures that get_buildings returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/buildings"), data_type="xml"
+        )
+    )
+    assert classic.get_buildings(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_building_id_json(classic):
+    """
+    Ensures that get_building returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/buildings/id/1001"))
+    )
+    assert classic.get_building(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_building_name_xml(classic):
+    """
+    Ensures that get_building returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/buildings/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_building(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_building_id(classic):
+    """
+    Ensures that create_building returns data when updating
+    a building with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/buildings/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_building(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_building_id(classic):
+    """
+    Ensures that update_building returns data when updating
+    a building with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/buildings/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_building(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_building_name(classic):
+    """
+    Ensures that update_building returns data when updating
+    a building with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/buildings/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_building(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_building_id(classic):
+    """
+    Ensures that delete_building returns data when deleting a
+    building by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/buildings/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_building(id=1001) == EXPECTED_XML
+
 """
 /byoprofiles
 """
@@ -1106,6 +1223,18 @@ def test_get_mobile_devices(classic):
     responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevices")))
     assert classic.get_mobile_devices() == EXPECTED_JSON
 
+@responses.activate
+def test_get_mobile_devices_incorrect_data_type(classic):
+    """
+    Ensures get_mobile_devices raises InvalidDataType when an option that is 
+    not "json" or "xml" is passed to data_type
+    """
+    responses.add(response_builder("GET", jps_url(
+        "/JSSResource/mobiledevices"
+    )))
+    with pytest.raises(InvalidDataType):
+        classic.get_mobile_devices(data_type="invalid")
+
 
 @responses.activate
 def test_get_mobile_devices_match(classic):
@@ -1220,8 +1349,8 @@ def test_get_mobile_device_id_xml(classic):
 @responses.activate
 def test_get_mobile_device_500(classic):
     """
-    Ensures that get_mobile_device correctly raises a HTTPError when the request
-    returns a 500 error.
+    Ensures that get_mobile_device correctly raises a HTTPError when the 
+    request returns a 500 error.
     """
     responses.add(
         method="GET", url=jps_url("/JSSResource/mobiledevices/id/1001"), status=500
