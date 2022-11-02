@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.12.0] -- 2022-11-02
+### Added
+- Classic.get_categories which returns all categories
+- Classic.get_category which returns data on one category by ID or name
+- Classic.create_category which creates a category 
+- Classic.update_category which updates an existing category by ID or name
+- Classic.delete_category which deletes an existing category by ID or name
+
 ## [0.11.0] -- 2022-11-02
 ### Added
 - Classic.get_byo_profiles which returns all byo profiles
