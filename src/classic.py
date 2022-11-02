@@ -840,6 +840,97 @@ class Classic(RequestBuilder):
     /classes
     """
 
+    def get_classes(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all classes in either JSON or XML.
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/classes"
+
+        return self._get(endpoint, data_type)
+
+    def get_class(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific class by either ID or
+        name.
+
+        :param id: class ID
+        :param name: class name
+        :param data_type: JSON or XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/classes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_class(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a class with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the class with
+        :param id:
+            ID of the new class, use 0 for next available ID
+        """
+        endpoint = f"/JSSResource/classes/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_class(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a class with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the class with
+        :param id: class ID
+        :param name: class name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/classes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_class(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a class by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: class ID
+        :param name: class name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/classes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /commandflush
     """

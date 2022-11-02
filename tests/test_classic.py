@@ -1283,6 +1283,129 @@ def test_delete_category_name(classic):
 /classes
 """
 
+
+@responses.activate
+def test_get_classes_json(classic):
+    """
+    Ensures that get_classes returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/classes")))
+    assert classic.get_classes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_classes_xml(classic):
+    """
+    Ensures that get_classes returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/classes"), data_type="xml")
+    )
+    assert classic.get_classes(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_class_id_json(classic):
+    """
+    Ensures that get_class returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/classes/id/1001")))
+    assert classic.get_class(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_class_name_xml(classic):
+    """
+    Ensures that get_class returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/classes/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_class(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_class_id(classic):
+    """
+    Ensures that create_class returns data when updating
+    a class with id
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/classes/id/0"), data_type="xml")
+    )
+    assert classic.create_class(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_class_id(classic):
+    """
+    Ensures that update_class returns data when updating
+    a class with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/classes/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_class(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_class_name(classic):
+    """
+    Ensures that update_class returns data when updating
+    a class with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/classes/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_class(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_class_id(classic):
+    """
+    Ensures that delete_class returns data when deleting an
+    class by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/classes/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_class(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_class_name(classic):
+    """
+    Ensures that delete_class returns data when deleting an
+    class by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/classes/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_class(name="testname") == EXPECTED_XML
+
+
 """
 /commandflush
 """
