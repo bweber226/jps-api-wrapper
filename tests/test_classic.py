@@ -11,7 +11,15 @@ from request_builder import (
     NotFound,
     RequestTimedOut,
 )
-from utils import NoIdentification, MultipleIdentifications, InvalidSubset
+from utils import (
+    NoIdentification,
+    MultipleIdentifications,
+    InvalidSubset,
+    NoParametersOrData,
+    ParametersAndData,
+    MissingParameters,
+    InvalidParameterOptions,
+)
 
 MOCK_AUTH_STRING = "This is a MockAuth"
 EXPECTED_AUTH = {"Authorization": MOCK_AUTH_STRING}
@@ -61,7 +69,7 @@ def response_builder(method: str, url: str, data_type: str = "json", status: int
     elif data_type == "xml":
         body = EXPECTED_XML
     else:
-        raise IncorrectDataType("data_type must be either json or xml")
+        raise InvalidDataType("data_type must be either json or xml")
 
     response = responses.Response(
         method=method, url=url, body=body, json=json, status=status
@@ -1409,6 +1417,103 @@ def test_delete_class_name(classic):
 """
 /commandflush
 """
+
+
+@responses.activate
+def test_command_flush_params(classic):
+    """
+    Ensures that command flush completes successfully when used with parameters
+    and not data.
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/commandflush/computers/id/1001/status/Pending"),
+            data_type="xml",
+        )
+    )
+    assert classic.command_flush("computers", 1001, "Pending") == EXPECTED_XML
+
+
+@responses.activate
+def test_command_flush_data(classic):
+    """
+    Ensures that command flush completes successfully when used with data and
+    not parameters.
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/commandflush"), data_type="xml"
+        )
+    )
+    assert classic.command_flush(data=EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_command_flush_no_parameters_or_data(classic):
+    """
+    Ensures that command_flush raises NoParametersOrData when neither
+    parameter or data options are passed.
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/commandflush"), data_type="xml"
+        )
+    )
+    with pytest.raises(NoParametersOrData):
+        classic.command_flush()
+
+
+@responses.activate
+def test_command_flush_parameters_and_data(classic):
+    """
+    Ensures that command_flush raises ParametersAndData when both parameter
+    and data options are passed.
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/commandflush/computers/id/1001/status/Pending"),
+            data_type="xml",
+        )
+    )
+    with pytest.raises(ParametersAndData):
+        classic.command_flush("computers", 1001, "Pending", EXPECTED_XML)
+
+
+@responses.activate
+def test_command_flush_missing_parameters(classic):
+    """
+    Ensures that command_flush raises MissingParameters when parameters are
+    used but not all necessary ones are supplied.
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/commandflush/computers/id/1001/status/Pending"),
+            data_type="xml",
+        )
+    )
+    with pytest.raises(MissingParameters):
+        classic.command_flush(idtype="computers", status="Pending")
+
+
+@responses.activate
+def test_command_flush_invalid_parameter_options(classic):
+    """
+    Ensures that command_flush raises InvalidParameterOptions when using an
+    invalid option for a parameter value.
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/commandflush/computers/id/1001/status/Pending"),
+            data_type="xml",
+        )
+    )
+    with pytest.raises(InvalidParameterOptions):
+        classic.command_flush("commuters", 1001, "Pending")
+
 
 """
 /computerapplications

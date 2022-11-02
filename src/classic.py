@@ -1,6 +1,12 @@
 from request_builder import RequestBuilder
 from typing import Union
-from utils import identification_type, valid_subsets
+from utils import (
+    identification_type,
+    valid_subsets,
+    param_or_data,
+    enforce_params,
+    valid_param_options,
+)
 
 
 class Classic(RequestBuilder):
@@ -935,6 +941,56 @@ class Classic(RequestBuilder):
     /commandflush
     """
 
+    def command_flush(
+        self,
+        idtype: str = None,
+        id: Union[int, str] = None,
+        status: str = None,
+        data: str = None,
+    ) -> str:
+        """
+        Flushes commands to a specified selection of computers or devices. Can
+        choose to flush either pending, failed, or both. Use either the idtype,
+        id, and status parameters or data.
+
+        :param idtype: Type of device to be flushed
+
+        Options:
+        - computers
+        - computergroups
+        - mobiledevices
+        - mobiledevicegroups
+
+        :param id: ID of device to be flushed
+        :param status: Command status to be flushed
+
+        Options:
+        - Pending
+        - Failed
+        - Pending+Failed
+
+        :param data: XML data to define command flushing
+        """
+        params = {"idtype": idtype, "id": id, "status": status}
+        param_type = param_or_data(params, data)
+        if param_type == "params":
+            idtype_options = [
+                "computers",
+                "computergroups",
+                "mobiledevices",
+                "mobiledevicegroups",
+            ]
+            status_options = ["Pending", "Failed", "Pending+Failed"]
+            enforce_params(params)
+            valid_param_options(idtype, idtype_options)
+            valid_param_options(status, status_options)
+
+            endpoint = f"/JSSResource/commandflush/{idtype}/id/{id}/status/{status}"
+        if param_type == "data":
+            endpoint = "/JSSResource/commandflush"
+
+        return self._delete(endpoint, data, data_type="xml")
+
     """
     /computerapplications
     """
@@ -1126,13 +1182,13 @@ class Classic(RequestBuilder):
 
     def get_mobile_device(
         self,
-        data_type: str = "json",
-        subsets: list = None,
         id: Union[str, int] = None,
         name: str = None,
         udid: str = None,
         serialnumber: str = None,
         macaddress: str = None,
+        subsets: list = None,
+        data_type: str = "json",
     ):
         """
         Returns information on a mobile device with given identifier in either
@@ -1140,7 +1196,11 @@ class Classic(RequestBuilder):
         defining subset as a list of the subsets that you want. Need to supply
         at least one identifier.
 
-        :param data_type: JSON or XML
+        :param id: Mobile device ID
+        :param name: Mobile device name
+        :param udid: Mobile device UDID
+        :param serialnumber: Mobile device serial number
+        :param macaddress: Mobile device MAC address
         :param subsets:
             Subset(s) of data from the mobile device
             Options:
@@ -1156,11 +1216,7 @@ class Classic(RequestBuilder):
             - MobileDeviceGroups
             - ExtensionAttributes
 
-        :param id: Mobile device ID
-        :param name: Mobile device name
-        :param udid: Mobile device UDID
-        :param serialnumber: Mobile device serial number
-        :param macaddress: Mobile device MAC address
+        :param data_type: JSON or XML
         """
         identification_options = {
             "id": id,

@@ -138,7 +138,9 @@ class RequestBuilder:
         else:
             raise InvalidDataType("data_type needs to be either json or xml")
 
-    def _delete(self, endpoint: str, data_type: str = "json") -> Union[dict, str]:
+    def _delete(
+        self, endpoint: str, data: Union[dict, str] = None, data_type: str = "json"
+    ) -> Union[dict, str]:
         """
         Sends delete requests given an endpoint and data type
 
@@ -157,7 +159,7 @@ class RequestBuilder:
         """
         full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": f"application/{data_type}"}
-        response = self.session.delete(full_url, headers=headers)
+        response = self.session.delete(full_url, headers=headers, data=data)
         self._raise_recognized_errors(response)
         response.raise_for_status()
         if data_type == "json":

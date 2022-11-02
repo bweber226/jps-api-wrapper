@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.14.0] -- 2022-11-02
+### Added 
+- Classic.command_flush which flushes commands to a specified selection of computers or devices.
+- utils.param_or_data which detects if parameter or data options are being used for a module
+- utils.enforce_params which makes sure that required parameters are not None types
+- utils.valid_param_options which makes sure that the values supplied to a module are within valid criteria
+### Changed
+- request_builder._delete now also takes a data parameter
+
 ## [0.13.0] -- 2022-11-02
 ### Added
 - Classic.get_classes which returns all classes
