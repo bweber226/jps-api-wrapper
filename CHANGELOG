@@ -5,13 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.10.0] - 2022-11-02
+## [0.11.0] -- 2022-11-02
+### Added
+- Classic.get_byo_profiles which returns all byo profiles
+- Classic.get_byo_profile which returns data on one byo profile by ID or name
+- Classic.create_byo_profile which creates a byo profile 
+- Classic.update_byo_profile which updates an existing byo profile by ID or name
+- Classic.delete_byo_profile which deletes an existing byo profile by ID or name
+
+## [0.10.0] -- 2022-11-02
 ### Added
 - Classic.get_buildings which returns all buildings
 - Classic.get_building which returns data on one building by ID or name
 - Classic.create_building which creates a building 
-- Classic.update_building which updates a existing building by ID or name
-- Classic.delete_building which deletes a existing building by ID or name
+- Classic.update_building which updates an existing building by ID or name
+- Classic.delete_building which deletes an existing building by ID or name
 ### Changed
 - Moved data_type to the end of params in get requests
 
