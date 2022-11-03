@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.16.0] -- 2022-11-03
+### Added
+- Classic.get_computer_application_usage which returns data on a computer's application usage based on start and end times and an IDentifier
+- utils.date_validator which validates that dates are in YYYY-MM-DD format
+
 ## [0.15.0] -- 2022-11-02
 ### Added
 - Classic.get_computer_application which returns data on a computer application based on name

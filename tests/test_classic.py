@@ -1602,6 +1602,67 @@ def test_get_computer_application_version_and_inventory(classic):
 /computerapplicationusage
 """
 
+
+@responses.activate
+def test_get_computer_application_usage_id(classic):
+    """
+    Ensures that get_computer_application_usage returns json data when used
+    with the right date format and ID
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerapplicationusage/id/1001/2022-01-01_2022-01-02"
+            ),
+        )
+    )
+    assert (
+        classic.get_computer_application_usage("2022-01-01", "2022-01-02", id=1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_computer_application_usage(classic):
+    """
+    Ensures that get_computer_application_usage returns XML data when used with
+    the right date format and UDID with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerapplicationusage/udid/1001/2022-01-01_2022-01-02"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_computer_application_usage(
+            "2022-01-01", "2022-01-02", udid=1001, data_type="xml"
+        )
+        == EXPECTED_XML
+    )
+
+@responses.activate
+def test_get_computer_application_usage_invalid_date_format(classic):
+    """
+    Ensures that valid_date raises ValueError when
+    get_computer_application_usage is given an incorrect date format
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerapplicationusage/id/1001/2022-01-01_2022-01-02"
+            )
+        )
+    )
+    with pytest.raises(ValueError):
+        classic.get_computer_application_usage("1-1-2022", "1-2-2022", id=1001)
+
+
 """
 /computercheckin
 """

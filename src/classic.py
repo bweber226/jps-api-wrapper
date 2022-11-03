@@ -6,6 +6,7 @@ from utils import (
     param_or_data,
     enforce_params,
     valid_param_options,
+    validate_date,
 )
 
 
@@ -1035,6 +1036,48 @@ class Classic(RequestBuilder):
     """
     /computerapplicationusage
     """
+
+    def get_computer_application_usage(
+        self,
+        start_date: str,
+        end_date: str,
+        id: Union[int, str] = None,
+        name: str = None,
+        udid: str = None,
+        serialnumber: str = None,
+        macaddress: str = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns computer application usage data in a date range specified by
+        start_date and end_date and one identifier.
+
+        :param start_date: Start date (e.g. yyyy-mm-dd)
+        :param end_date: End date (e.g. yyyy-mm-dd)
+        :param id: Computer ID
+        :param name: Computer name
+        :param udid: Computer UDID
+        :param serialnumber: Computer serial number
+        :param macaddress: Computer MAC address,
+        :param data_type: JSON or XML
+        """
+        validate_date(start_date)
+        validate_date(end_date)
+        identification_options = {
+            "id": id,
+            "name": name,
+            "udid": udid,
+            "serialnumber": serialnumber,
+            "macaddress": macaddress,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerapplicationusage/{identification}"
+            f"/{identification_options[identification]}"
+            f"/{start_date}_{end_date}"
+        )
+
+        return self._get(endpoint, data_type)
 
     """
     /computercheckin

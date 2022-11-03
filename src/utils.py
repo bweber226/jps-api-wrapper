@@ -1,4 +1,5 @@
 from typing import Union
+from datetime import datetime
 
 
 def identification_type(identifications: dict):
@@ -122,6 +123,20 @@ def valid_param_options(params: Union[str, list], param_options: list):
                 "the following valid options:\n"
                 f"{param_options}"
             )
+
+
+def validate_date(date: str):
+    """
+    Makes sure that any date str passed is in the yyyy-mm-dd format.
+
+    :param date: Date str
+
+    :raises ValueError: Incorrect date format
+    """
+    try:
+        datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError("Incorrect date format, should be YYYY-MM-DD")
 
 
 class NoIdentification(Exception):
