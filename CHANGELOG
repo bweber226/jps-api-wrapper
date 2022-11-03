@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.18.0] -- 2022-11-03
+### Added
+- Classic.get_computer_commands which returns data on all computer commands and can optionally be filtered by name
+- Classic.get_computer_command which returns data on one computer command
+- Classic.get_computer_command_status which returns data on the status of one computer command
+- Classic.create_computer_command which creates a computer command given using either command parameters or XML data
+- utils.check_conflicting_params which makes sure only one of the parameters passed to it are not NoneType
+
 ## [0.17.0] -- 2022-11-03
 ### Added
 - Classic.get_computer_check_in which returns computer check in settings for the JPS server

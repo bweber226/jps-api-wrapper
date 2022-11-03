@@ -7,6 +7,7 @@ from requests.exceptions import HTTPError
 from classic import Classic
 from request_builder import InvalidDataType, MalformedRequest, NotFound, RequestTimedOut
 from utils import (
+    ConflictingParameters,
     InvalidParameterOptions,
     InvalidSubset,
     MissingParameters,
@@ -1706,9 +1707,174 @@ def test_update_computer_check_in(classic):
 /computercommands
 """
 
+
+@responses.activate
+def test_get_computer_commands_json(classic):
+    """
+    Ensures that get_computer_commands returns JSON data when used without
+    any optional parameters
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/computercommands")))
+    assert classic.get_computer_commands() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_commands_name_xml(classic):
+    """
+    Ensures that get_computer_commands returns XML when using name filtering
+    and "xml" is set as data_type
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/computercommands/name/CommandName"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_computer_commands("CommandName", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_computer_command(classic):
+    """
+    Ensures that get_computer_command returns JSON data when used without extra
+    optional parameters
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/computercommands/uuid/123a"))
+    )
+    assert classic.get_computer_command("123a") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_command_status(classic):
+    """
+    Ensures that get_computer_command_status returns JSON data when used
+    without extra optional parameters
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/computercommands/status/123a"))
+    )
+    assert classic.get_computer_command_status("123a") == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_computer_command_scheduleosupdate_data(classic):
+    """
+    Ensures that create_computer_command completes successfully when used with
+    the ScheduleOSUpdate command.
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/computercommands/command/ScheduleOSUpdate"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_computer_command("ScheduleOSUpdate", data=EXPECTED_XML)
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_computer_command_enableremotedesktop_ids(classic):
+    """
+    Ensures that create_computer_command completes successfully when used with
+    the EnableRemoteDesktop command and ids
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/JSSResource/computercommands/command/EnableRemoteDesktop/id/1001"
+            ),
+            data_type="xml",
+        )
+    )
+    assert classic.create_computer_command("EnableRemoteDesktop", 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_create_computer_command_scheduleosupdate_action_multiple_ids(classic):
+    """
+    Ensures that create_computer_command completes successfully when used with
+    the ScheduleOSUpdate command and action install
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/JSSResource/computercommands/command/ScheduleOSUpdate/action/install"
+                "/id/1001%2C1002"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_computer_command(
+            "ScheduleOSUpdate", ids="1001,1002", action="install"
+        )
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_computer_command_invalid_command(classic):
+    """
+    Ensures that create_computer_command raises InvalidParameterOptions when
+    given an invalid command
+    """
+    with pytest.raises(InvalidParameterOptions):
+        classic.create_computer_command("InventoryUpdate", 1001)
+
+
+@responses.activate
+def test_create_computer_command_scheduleosupdate_invalid_action(classic):
+    """
+    Ensures that create_computer_command raises InvalidParameterOptions when
+    given an incorrect value for the action param
+    """
+    with pytest.raises(InvalidParameterOptions):
+        classic.create_computer_command("ScheduleOSUpdate", "1001", "wrong")
+
+
+@responses.activate
+def test_create_computer_command_action_and_passcode(classic):
+    """
+    Ensures that create_computer_command raises ConflictingParameters when both
+    action and passcode are given values
+    """
+    with pytest.raises(ConflictingParameters):
+        classic.create_computer_command("EraseDevice", 1001, "install", "123456")
+
+
+@responses.activate
+def test_create_computer_command_erasedevice_ids(classic):
+    """
+    Ensures that create_computer_command completes successfully when used with
+    the EraseDevice command and passcode 123456
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/JSSResource/computercommands/command/EraseDevice/passcode/123456"
+                "/id/1001"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_computer_command("EraseDevice", passcode="123456", ids=1001)
+        == EXPECTED_XML
+    )
+
+
 """
 /computerextensionattributes
 """
+
 
 """
 /computergroups

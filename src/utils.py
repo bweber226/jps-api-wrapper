@@ -139,6 +139,17 @@ def validate_date(date: str):
         raise ValueError("Incorrect date format, should be YYYY-MM-DD")
 
 
+def check_conflicting_params(params: dict):
+    """
+    Ensures that only one of the parameters given has a non NoneType value
+    """
+    i = iter(params.values())
+    if any(i) and any(i):
+        raise ConflictingParameters(
+            f"Only one of the following parameters are allowed:\n" f"{params.keys()}"
+        )
+
+
 class NoIdentification(Exception):
     """
     Used if an endpoint is used without at least one form of identification
@@ -184,4 +195,11 @@ class InvalidParameterOptions(Exception):
     """
     The values that were passed to this parameter do not match the valid
     options.
+    """
+
+
+class ConflictingParameters(Exception):
+    """
+    Only one of the following parameters can be used:
+    {parameters}
     """

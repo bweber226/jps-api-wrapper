@@ -8,6 +8,7 @@ from utils import (
     valid_param_options,
     valid_subsets,
     validate_date,
+    check_conflicting_params,
 )
 
 
@@ -1107,6 +1108,132 @@ class Classic(RequestBuilder):
     """
     /computercommands
     """
+
+    def get_computer_commands(
+        self, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on all computer commands, can optionally filter by name
+
+        :param name: Computer command name
+        :param data_type: JSON or XML
+        """
+        if name:
+            endpoint = endpoint = f"/JSSResource/computercommands/name/{name}"
+        else:
+            endpoint = "/JSSResource/computercommands"
+
+        return self._get(endpoint, data_type)
+
+    def get_computer_command(
+        self, uuid: str, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific computer command by uuid
+
+        :param uuid: Computer command UUID
+        :param data_type: JSON or XML
+        """
+        endpoint = f"/JSSResource/computercommands/uuid/{uuid}"
+
+        return self._get(endpoint, data_type)
+
+    def get_computer_command_status(
+        self, uuid: str, data_type="json"
+    ) -> Union[dict, str]:
+        """
+        Returns the status of a specific computer command by uuid
+
+        :param uuid: Computer command UUID
+        :param data_type: JSON or XML
+        """
+        endpoint = f"/JSSResource/computercommands/status/{uuid}"
+
+        return self._get(endpoint, data_type)
+
+    def create_computer_command(
+        self,
+        command: str,
+        ids: str = None,
+        action: str = None,
+        passcode: str = None,
+        data: str = None,
+    ) -> str:
+        """
+        Creates a new computer command
+
+        :param command: Computer command name
+
+        Options:
+        - BlankPush
+        - DeleteUser
+        - DeviceLock
+        - DisableRemoteDesktop
+        - EnableRemoteDesktop
+        - EraseDevice
+        - ScheduleOSUpdate
+        - SettingsDisableBluetooth
+        - SettingsEnableBluetooth
+        - UnlockUserAccount
+        - UnmanageDevice
+
+        :param ids: Comma seperated list of IDs without spaces (e.g. 8,10,55)
+        :param action:
+            Options:
+            - download (just downloads)
+            - install (download and installs)
+
+            Supported Commands:
+            - ScheduleOSUpdate
+
+        :param passcode:
+            Passcode to apply to device, must be 6 characters. Required for
+            DeviceLock and EraseDevice commands.
+        :param data: XML data for creating computer command
+        """
+        command_options = [
+            "BlankPush",
+            "DeleteUser",
+            "DeviceLock",
+            "DisableRemoteDesktop",
+            "EnableRemoteDesktop",
+            "EraseDevice",
+            "ScheduleOSUpdate",
+            "SettingsDisableBluetooth",
+            "SettingsEnableBluetooth",
+            "UnlockUserAccount",
+            "UnmanageDevice",
+        ]
+        valid_param_options(command, command_options)
+        params = {"ids": ids}
+        param_type = param_or_data(params, data)
+        if param_type == "data":
+            endpoint = f"/JSSResource/computercommands/command/{command}"
+        if param_type == "params":
+            check_conflicting_params({"action": action, "passcode": passcode})
+            if (
+                not action
+                and not passcode
+                and command not in ["DeviceLock", "EraseDevice"]
+            ):
+                endpoint = f"/JSSResource/computercommands/command/{command}/id/{ids}"
+            if action and command in ["ScheduleOSUpdate"]:
+                valid_param_options(action, ["download", "install"])
+                endpoint = (
+                    f"/JSSResource/computercommands/command/{command}"
+                    f"/action/{action}/id/{ids}"
+                )
+            if passcode and command in ["DeviceLock", "EraseDevice"]:
+                endpoint = (
+                    f"/JSSResource/computercommands/command/{command}"
+                    f"/passcode/{passcode}/id/{ids}"
+                )
+            if not passcode and command in ["DeviceLock", "EraseDevice"]:
+                raise ValueError(
+                    f"The {command} command requires the passcode parameter."
+                )
+
+        return self._post(endpoint, data, data_type="xml")
 
     """
     /computerextensionattributes
