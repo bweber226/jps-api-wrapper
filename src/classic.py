@@ -995,6 +995,43 @@ class Classic(RequestBuilder):
     /computerapplications
     """
 
+    def get_computer_application(
+        self,
+        application: str,
+        version: Union[int, float, str] = None,
+        inventory: str = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns computer applications based on name. You can also filter by
+        version and return additional inventory data.
+
+        :param application: Application name, must include extension (.app)
+        :param version: Application version
+        :param inventory: 
+            Display fields seperated by commas without spaces
+            e.g. Platform,Bar Code,HostName
+        """
+        if not version and not inventory:
+            endpoint = f"/JSSResource/computerapplications/application/{application}"
+        if version and not inventory:
+            endpoint = (
+                f"/JSSResource/computerapplications/application/{application}"
+                f"/version/{version}"
+            )
+        if not version and inventory:
+            endpoint = (
+                f"/JSSResource/computerapplications/application/{application}"
+                f"/inventory/{inventory}"
+            )
+        if version and inventory:
+            endpoint = (
+                f"/JSSResource/computerapplications/application/{application}"
+                f"/version/{version}/inventory/{inventory}"
+            )
+
+        return self._get(endpoint, data_type)
+
     """
     /computerapplicationusage
     """
