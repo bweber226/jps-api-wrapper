@@ -1008,7 +1008,7 @@ class Classic(RequestBuilder):
 
         :param application: Application name, must include extension (.app)
         :param version: Application version
-        :param inventory: 
+        :param inventory:
             Display fields seperated by commas without spaces
             e.g. Platform,Bar Code,HostName
         """

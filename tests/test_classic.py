@@ -1519,23 +1519,25 @@ def test_command_flush_invalid_parameter_options(classic):
 /computerapplications
 """
 
+
 @responses.activate
 def test_get_computer_application_json(classic):
     """
-    Ensures get_computer_applcation returns data when given only the 
+    Ensures get_computer_applcation returns data when given only the
     application parameter.
     """
     responses.add(
-        response_builder("GET", jps_url(
-            "/JSSResource/computerapplications/application/Safari.app"
-        ))
+        response_builder(
+            "GET", jps_url("/JSSResource/computerapplications/application/Safari.app")
+        )
     )
     assert classic.get_computer_application("Safari.app") == EXPECTED_JSON
+
 
 @responses.activate
 def test_get_computer_application_version_xml(classic):
     """
-    Ensures that get_computer_application returns data when given the 
+    Ensures that get_computer_application returns data when given the
     application and version parameters along with xml as the data_type
     """
     responses.add(
@@ -1545,36 +1547,56 @@ def test_get_computer_application_version_xml(classic):
                 "/JSSResource/computerapplications/application/Safari.app"
                 "/version/15.4"
             ),
-            data_type="xml"
+            data_type="xml",
         )
     )
-    assert classic.get_computer_application("Safari.app", 15.4, data_type="xml") == EXPECTED_XML
+    assert (
+        classic.get_computer_application("Safari.app", 15.4, data_type="xml")
+        == EXPECTED_XML
+    )
+
 
 @responses.activate
 def test_get_computer_application_inventory(classic):
     """
-    Ensures that get_computer_application returns data when given the 
+    Ensures that get_computer_application returns data when given the
     application and inventory parameters
     """
-    responses.add(response_builder(
-        "GET", jps_url(
-            "/JSSResource/computerapplications/application/Safari.app"
-            "/inventory/Platform"
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerapplications/application/Safari.app"
+                "/inventory/Platform"
+            ),
         )
-    ))
-    assert classic.get_computer_application("Safari.app", inventory="Platform") == EXPECTED_JSON
+    )
+    assert (
+        classic.get_computer_application("Safari.app", inventory="Platform")
+        == EXPECTED_JSON
+    )
+
 
 @responses.activate
 def test_get_computer_application_version_and_inventory(classic):
     """
-    Ensures that get_computer_application returns data when given the 
+    Ensures that get_computer_application returns data when given the
     application, version, and inventory parameters
     """
-    responses.add(response_builder("GET", jps_url(
-        "/JSSResource/computerapplications/application/Safari.app"
-        "/version/15.4/inventory/Platform"
-    )))
-    assert classic.get_computer_application("Safari.app", 15.4, "Platform") == EXPECTED_JSON
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerapplications/application/Safari.app"
+                "/version/15.4/inventory/Platform"
+            ),
+        )
+    )
+    assert (
+        classic.get_computer_application("Safari.app", 15.4, "Platform")
+        == EXPECTED_JSON
+    )
+
 
 """
 /computerapplicationusage
