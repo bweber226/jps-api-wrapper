@@ -1,5 +1,5 @@
-from typing import Union
 from datetime import datetime
+from typing import Union
 
 
 def identification_type(identifications: dict):

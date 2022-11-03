@@ -1,24 +1,19 @@
 import pytest
-from requests.exceptions import HTTPError
 import requests
 import responses
 from requests.auth import AuthBase
+from requests.exceptions import HTTPError
 
 from classic import Classic
-from request_builder import (
-    InvalidDataType,
-    MalformedRequest,
-    NotFound,
-    RequestTimedOut,
-)
+from request_builder import InvalidDataType, MalformedRequest, NotFound, RequestTimedOut
 from utils import (
-    NoIdentification,
-    MultipleIdentifications,
+    InvalidParameterOptions,
     InvalidSubset,
+    MissingParameters,
+    MultipleIdentifications,
+    NoIdentification,
     NoParametersOrData,
     ParametersAndData,
-    MissingParameters,
-    InvalidParameterOptions,
 )
 
 MOCK_AUTH_STRING = "This is a MockAuth"
@@ -1645,6 +1640,7 @@ def test_get_computer_application_usage(classic):
         == EXPECTED_XML
     )
 
+
 @responses.activate
 def test_get_computer_application_usage_invalid_date_format(classic):
     """
@@ -1656,7 +1652,7 @@ def test_get_computer_application_usage_invalid_date_format(classic):
             "GET",
             jps_url(
                 "/JSSResource/computerapplicationusage/id/1001/2022-01-01_2022-01-02"
-            )
+            ),
         )
     )
     with pytest.raises(ValueError):
@@ -1666,6 +1662,45 @@ def test_get_computer_application_usage_invalid_date_format(classic):
 """
 /computercheckin
 """
+
+
+@responses.activate
+def test_get_computer_check_in_json(classic):
+    """
+    Ensures that get_computer_check_in returns a JSON dict when used without
+    any specific parameters
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/computercheckin")))
+    assert classic.get_computer_check_in() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_check_in_xml(classic):
+    """
+    Ensures that get_computer_check_in returns an XML str when used with
+    data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/computercheckin"), data_type="xml"
+        )
+    )
+    assert classic.get_computer_check_in(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_update_computer_check_in(classic):
+    """
+    Ensures that update_computer_check_in returns data when updating computer
+    check in information
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/computercheckin"), data_type="xml"
+        )
+    )
+    assert classic.update_computer_check_in(EXPECTED_XML) == EXPECTED_XML
+
 
 """
 /computercommands

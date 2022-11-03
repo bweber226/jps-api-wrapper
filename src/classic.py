@@ -1,11 +1,12 @@
-from request_builder import RequestBuilder
 from typing import Union
+
+from request_builder import RequestBuilder
 from utils import (
-    identification_type,
-    valid_subsets,
-    param_or_data,
     enforce_params,
+    identification_type,
+    param_or_data,
     valid_param_options,
+    valid_subsets,
     validate_date,
 )
 
@@ -1082,6 +1083,26 @@ class Classic(RequestBuilder):
     """
     /computercheckin
     """
+
+    def get_computer_check_in(self, data_type: str = "json"):
+        """
+        Returns all computer check in information
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/computercheckin"
+
+        return self._get(endpoint, data_type)
+
+    def update_computer_check_in(self, data: str) -> str:
+        """
+        Updates computer check in information based on XML data
+
+        :param data: XML data
+        """
+        endpoint = "/JSSResource/computercheckin"
+
+        return self._put(endpoint, data, data_type="xml")
 
     """
     /computercommands

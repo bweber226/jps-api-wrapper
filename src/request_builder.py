@@ -1,6 +1,7 @@
-import requests
 from typing import Union
 from urllib.parse import quote
+
+import requests
 
 from jamf_auth import JamfAuth
 

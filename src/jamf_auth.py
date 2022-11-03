@@ -1,7 +1,8 @@
+from datetime import datetime, timedelta, timezone
+
 import requests
 from requests.auth import AuthBase
 from requests.exceptions import JSONDecodeError
-from datetime import datetime, timezone, timedelta
 
 
 class JamfAuthException(Exception):
