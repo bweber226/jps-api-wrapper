@@ -1688,6 +1688,90 @@ class Classic(RequestBuilder):
     /computermanagement
     """
 
+    def get_computer_management(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        udid: str = None,
+        serialnumber: str = None,
+        macaddress: str = None,
+        username: str = None,
+        subsets: list = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns computer management data in a date range specified by
+        start_date and end_date and one identifier and optional subsets.
+
+        :param id: Computer ID
+        :param name: Computer name
+        :param udid: Computer UDID
+        :param serialnumber: Computer serial number
+        :param macaddress: Computer MAC address
+        :param username: User to filter by
+        :param subsets:
+            Subset(s) of data from the computer
+            Options:
+            - General
+            - Policies
+            - Ebooks
+            - MacAppStoreApps
+            - OSXConfigurationProfiles
+            - ManagedPreferenceProfiles
+            - RestrictedSoftware
+            - SmartGroups
+            - StaticGroups
+            - PatchReportingSoftwareTitles
+
+        :param data_type: JSON or XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "udid": udid,
+            "serialnumber": serialnumber,
+            "macaddress": macaddress,
+        }
+        subset_options = [
+            "General",
+            "Policies",
+            "Ebooks",
+            "MacAppStoreApps",
+            "OSXConfigurationProfiles",
+            "ManagedPreferenceProfiles",
+            "RestrictedSoftware",
+            "SmartGroups",
+            "StaticGroups",
+            "PatchReportingSoftwareTitles",
+        ]
+        identification = identification_type(identification_options)
+        if valid_subsets(subsets, subset_options) and username:
+            endpoint = (
+                f"/JSSResource/computermanagement/{identification}"
+                f"/{identification_options[identification]}"
+                f"/username/{username}"
+                f"/subset/{'&'.join(subsets)}"
+            )
+        elif valid_subsets(subsets, subset_options) and not username:
+            endpoint = (
+                f"/JSSResource/computermanagement/{identification}"
+                f"/{identification_options[identification]}"
+                f"/subset/{'&'.join(subsets)}"
+            )
+        elif not subsets and username:
+            endpoint = (
+                f"/JSSResource/computermanagement/{identification}"
+                f"/{identification_options[identification]}"
+                f"/username/{username}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/computermanagement/{identification}"
+                f"/{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
     """
     /computerreports
     """
