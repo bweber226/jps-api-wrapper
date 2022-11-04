@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.19.0] -- 2022-11-03
+### Added
+- Classic.get_computer_extension_attributes which returns all computer extension attributes
+- Classic.get_computer_extension_attribute which returns data on one computer extension attribute by ID or name
+- Classic.create_computer_extension_attribute which creates a computer extension attribute 
+- Classic.update_computer_extension_attribute which updates an existing computer extension attribute by ID or name
+- Classic.delete_computer_extension_attribute which deletes an existing computer extension attribute by ID or name
+
 ## [0.18.0] -- 2022-11-03
 ### Added
 - Classic.get_computer_commands which returns data on all computer commands and can optionally be filtered by name

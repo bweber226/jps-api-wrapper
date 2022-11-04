@@ -1239,6 +1239,102 @@ class Classic(RequestBuilder):
     /computerextensionattributes
     """
 
+    def get_computer_extension_attributes(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all computer extension attributes in either JSON or XML.
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/computerextensionattributes"
+
+        return self._get(endpoint, data_type)
+
+    def get_computer_extension_attribute(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific computer extension attribute by either ID or
+        name.
+
+        :param id: computer extension attribute ID
+        :param name: computer extension attribute name
+        :param data_type: JSON or XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerextensionattributes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_computer_extension_attribute(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a computer extension attribute with the given XML data. Use
+        ID 0 to use the next available ID.
+
+        :param data: XML data to create the computer extension attribute with
+        :param id:
+            ID of the new computer extension attribute, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/computerextensionattributes/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_computer_extension_attribute(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a computer extension attribute with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the computer extension attribute with
+        :param id: computer extension attribute ID
+        :param name: computer extension attribute name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerextensionattributes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_computer_extension_attribute(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a computer extension attribute by either ID or name. Need to
+        supply at least one identifier.
+
+        :param id: computer extension attribute ID
+        :param name: computer extension attribute name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerextensionattributes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /computergroups
     """
