@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.20.0] -- 2022-11-03
+### Added
+- Classic.get_computer_groups which returns all computer groups
+- Classic.get_computer_group which returns data on one computer group by ID or name
+- Classic.create_computer_group which creates a computer group 
+- Classic.update_computer_group which updates an existing computer group by ID or name
+- Classic.delete_computer_group which deletes an existing computer group by ID or name
+
 ## [0.19.0] -- 2022-11-03
 ### Added
 - Classic.get_computer_extension_attributes which returns all computer extension attributes

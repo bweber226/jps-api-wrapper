@@ -2025,6 +2025,133 @@ def test_delete_computer_extension_attribute_name(classic):
 /computergroups
 """
 
+
+@responses.activate
+def test_get_computer_groups_json(classic):
+    """
+    Ensures that get_computer_groups returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/computergroups")))
+    assert classic.get_computer_groups() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_groups_xml(classic):
+    """
+    Ensures that get_computer_groups returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/computergroups"), data_type="xml")
+    )
+    assert classic.get_computer_groups(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_computer_group_id_json(classic):
+    """
+    Ensures that get_computer_group returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/computergroups/id/1001"))
+    )
+    assert classic.get_computer_group(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_group_name_xml(classic):
+    """
+    Ensures that get_computer_group returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/computergroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_computer_group(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_computer_group_id(classic):
+    """
+    Ensures that create_computer_group returns data when updating
+    a computer group with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/computergroups/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_computer_group(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_computer_group_id(classic):
+    """
+    Ensures that update_computer_group returns data when updating
+    a computer group with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/computergroups/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_computer_group(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_computer_group_name(classic):
+    """
+    Ensures that update_computer_group returns data when updating
+    a computer group with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/computergroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_computer_group(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_computer_group_id(classic):
+    """
+    Ensures that delete_computer_group returns data when deleting a
+    computer group by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/computergroups/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_computer_group(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_computer_group_name(classic):
+    """
+    Ensures that delete_computer_group returns data when deleting a
+    computer group by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/computergroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_computer_group(name="testname") == EXPECTED_XML
+
+
 """
 /computerhardwaresoftwarereports
 """
