@@ -1572,6 +1572,28 @@ class Classic(RequestBuilder):
     /computerinventorycollection
     """
 
+    def get_computer_inventory_collection(self, data_type="json") -> Union[dict, list]:
+        """
+        Returns computer inventory collection settings on the JPS server in
+        either JSON or XML.
+
+        :param data_type: JSON or XML
+        """
+        endpoint = "/JSSResource/computerinventorycollection"
+
+        return self._get(endpoint, data_type)
+
+    def update_computer_inventory_collection(self, data: str) -> str:
+        """
+        Updates computer inventory collection settings on the JPS server with
+        the given XML data.
+
+        :param data: XML data to update the computer inventory collection
+        """
+        endpoint = "/JSSResource/computerinventorycollection"
+
+        return self._put(endpoint, data, data_type="xml")
+
     """
     /computerinvitations
     """

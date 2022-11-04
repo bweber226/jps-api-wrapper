@@ -2363,6 +2363,47 @@ def test_get_computer_history_serialnumber_subsets(classic):
 /computerinventorycollection
 """
 
+
+@responses.activate
+def test_get_computer_inventory_collection_json(classic):
+    """
+    Ensures that get_computer_inventory_collection returns data when used
+    without optional parameters.
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/computerinventorycollection"))
+    )
+    assert classic.get_computer_inventory_collection() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_collection_xml(classic):
+    """
+    Ensures that get_computer_inventory_collection returns data when used
+    with data_type set to "xml".
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/computerinventorycollection"), data_type="xml"
+        )
+    )
+    assert classic.get_computer_inventory_collection(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_update_computer_inventory_collection(classic):
+    """
+    Ensures that update_computer_inventory_collection runs successfully when
+    given XML data
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/computerinventorycollection"), data_type="xml"
+        )
+    )
+    assert classic.update_computer_inventory_collection(EXPECTED_XML) == EXPECTED_XML
+
+
 """
 /computerinvitations
 """
