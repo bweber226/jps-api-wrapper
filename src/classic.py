@@ -1702,6 +1702,7 @@ class Classic(RequestBuilder):
         """
         Returns computer management data in a date range specified by
         start_date and end_date and one identifier and optional subsets.
+        Need to supply at least one identifier.
 
         :param id: Computer ID
         :param name: Computer name
@@ -1775,6 +1776,39 @@ class Classic(RequestBuilder):
     """
     /computerreports
     """
+
+    def get_computer_reports(self, data_type="json") -> Union[dict, str]:
+        """
+        Returns all computer reports in a JPS server
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/computerreports"
+
+        return self._get(endpoint, data_type)
+
+    def get_computer_report(
+        self, id: Union[int, str] = None, name: str = None, data_type="json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on one computer report by either ID or name. Need to
+        supply at least one identifier.
+
+        :param id: Computer report ID
+        :param name: Computer report name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerreports/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
 
     """
     /computers

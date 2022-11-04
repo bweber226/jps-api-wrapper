@@ -2653,6 +2653,59 @@ def test_get_computer_management_id_username_subsets(classic):
 /computerreports
 """
 
+
+@responses.activate
+def test_get_computer_reports_json(classic):
+    """
+    Ensures that get_computer_reports returns data when used
+    without optional parameters.
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/computerreports")))
+    assert classic.get_computer_reports() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_reports_xml(classic):
+    """
+    Ensures that get_computer_reports returns data when used
+    with data_type set to "xml".
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/computerreports"), data_type="xml"
+        )
+    )
+    assert classic.get_computer_reports(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_computer_report_id_json(classic):
+    """
+    Ensures that get_computer_report returns json when used with id and no
+    additional optional parameters
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/computerreports/id/1001"))
+    )
+    assert classic.get_computer_report(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_report_name_xml(classic):
+    """
+    Ensures that get_computer_report returns xml when used with name and "xml"
+    set as data_type
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/computerreports/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_computer_report(name="testname", data_type="xml") == EXPECTED_XML
+
+
 """
 /computers
 """

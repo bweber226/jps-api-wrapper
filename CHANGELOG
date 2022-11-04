@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.26.0] -- 2022-11-04
+### Added
+- Classic.get_computer_reports which returns all computer reports
+- Classic.get_computer_report which returns data on one computer report by either ID or name 
+
 ## [0.25.0] -- 2022-11-04
 ### Added
 - Classic.get_computer_management which returns computer managment data with all identifiers and subsets as options with optional username filtering
