@@ -2156,6 +2156,122 @@ def test_delete_computer_group_name(classic):
 /computerhardwaresoftwarereports
 """
 
+
+@responses.activate
+def test_get_computer_hardware_software_reports_id(classic):
+    """
+    Ensures that get_computer_hardware_software_reports returns json data when
+    used with the right date format and ID
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerhardwaresoftwarereports/id/1001/2022-01-01_2022-01-02"
+            ),
+        )
+    )
+    assert (
+        classic.get_computer_hardware_software_reports(
+            "2022-01-01", "2022-01-02", id=1001
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_computer_hardware_software_reports_udid_xml(classic):
+    """
+    Ensures that get_computer_hardware_software_reports returns XML data when
+    used with the right date format and UDID with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerhardwaresoftwarereports/udid/1001/2022-01-01_2022-01-02"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_computer_hardware_software_reports(
+            "2022-01-01", "2022-01-02", udid=1001, data_type="xml"
+        )
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_get_computer_hardware_software_reports_invalid_date_format(classic):
+    """
+    Ensures that valid_date raises ValueError when
+    get_computer_hardware_software_reports is given an incorrect date format
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerhardwaresoftwarereports/id/1001/2022-01-01_2022-01-02"
+            ),
+        )
+    )
+    with pytest.raises(ValueError):
+        classic.get_computer_hardware_software_reports("1-1-2022", "1-2-2022", id=1001)
+
+
+@responses.activate
+def test_get_computer_hardware_software_reports_macaddress_subset(classic):
+    """
+    Ensures that get_computer_hardware_software_reports returns data when used
+    with macaddress identifier and one subset
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerhardwaresoftwarereports/macaddress/"
+                "12%3A34%3A56%3A78%3A90%3A12/2022-01-01_2022-01-02/subset/Hardware"
+            ),
+        )
+    )
+    assert (
+        classic.get_computer_hardware_software_reports(
+            "2022-01-01",
+            "2022-01-02",
+            macaddress="12:34:56:78:90:12",
+            subsets=["Hardware"],
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_computer_hardware_software_reports_serialnumber_subsets(classic):
+    """
+    Ensures that get_computer_hardware_software_reports returns data when used
+    with serialnumber identifier and multiple subsets
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerhardwaresoftwarereports/serialnumber/1a2b3c4d5e"
+                "/2022-01-01_2022-01-02/subset/Hardware%26Software"
+            ),
+        )
+    )
+    assert (
+        classic.get_computer_hardware_software_reports(
+            "2022-01-01",
+            "2022-01-02",
+            serialnumber="1a2b3c4d5e",
+            subsets=["Hardware", "Software"],
+        )
+        == EXPECTED_JSON
+    )
+
+
 """
 /computerhistory
 """

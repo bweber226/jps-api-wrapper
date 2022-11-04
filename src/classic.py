@@ -1435,6 +1435,66 @@ class Classic(RequestBuilder):
     /computerhardwaresoftwarereports
     """
 
+    def get_computer_hardware_software_reports(
+        self,
+        start_date: str,
+        end_date: str,
+        id: Union[int, str] = None,
+        name: str = None,
+        udid: str = None,
+        serialnumber: str = None,
+        macaddress: str = None,
+        subsets: list = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns computer hardware and software reports data in a date range
+        specified by start_date and end_date and one identifier and optional
+        subsets.
+
+        :param start_date: Start date (e.g. yyyy-mm-dd)
+        :param end_date: End date (e.g. yyyy-mm-dd)
+        :param id: Computer ID
+        :param name: Computer name
+        :param udid: Computer UDID
+        :param serialnumber: Computer serial number
+        :param macaddress: Computer MAC address,
+        :param subsets:
+            Subset(s) of data from the computer
+            Options:
+            - Software
+            - Hardware
+            - Fonts
+            - Plugins
+
+        :param data_type: JSON or XML
+        """
+        validate_date(start_date)
+        validate_date(end_date)
+        identification_options = {
+            "id": id,
+            "name": name,
+            "udid": udid,
+            "serialnumber": serialnumber,
+            "macaddress": macaddress,
+        }
+        subset_options = ["Software", "Hardware", "Fonts", "Plugins"]
+        identification = identification_type(identification_options)
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/computerhardwaresoftwarereports/{identification}"
+                f"/{identification_options[identification]}"
+                f"/{start_date}_{end_date}/subset/{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/computerhardwaresoftwarereports/{identification}"
+                f"/{identification_options[identification]}"
+                f"/{start_date}_{end_date}"
+            )
+
+        return self._get(endpoint, data_type)
+
     """
     /computerhistory
     """
