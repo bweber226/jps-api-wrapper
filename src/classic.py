@@ -24,7 +24,7 @@ class Classic(RequestBuilder):
         """
         Returns all accounts and account groups.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/accounts"
 
@@ -39,7 +39,7 @@ class Classic(RequestBuilder):
 
         :param id: Account group ID
         :param name: Account group name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -117,7 +117,7 @@ class Classic(RequestBuilder):
 
         :param id: Account ID
         :param name: Account name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -194,7 +194,7 @@ class Classic(RequestBuilder):
         """
         Get's the activation code of the JPS server.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/activationcode"
 
@@ -220,7 +220,7 @@ class Classic(RequestBuilder):
         """
         Returns all advanced computer searches in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/advancedcomputersearches"
 
@@ -235,7 +235,7 @@ class Classic(RequestBuilder):
 
         :param id: Advanced computer search ID
         :param name: Advanced computer search name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -319,7 +319,7 @@ class Classic(RequestBuilder):
         """
         Returns all advanced mobile device searches in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/advancedmobiledevicesearches"
 
@@ -334,7 +334,7 @@ class Classic(RequestBuilder):
 
         :param id: Advanced mobile device search ID
         :param name: Advanced mobile device search name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -417,7 +417,7 @@ class Classic(RequestBuilder):
         """
         Returns all advanced user searches in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/advancedusersearches"
 
@@ -432,7 +432,7 @@ class Classic(RequestBuilder):
 
         :param id: Advanced user search ID
         :param name: Advanced user search name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -512,14 +512,14 @@ class Classic(RequestBuilder):
         """
         Returns all allowed file extensions in either JSON or XML
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/allowedfileextensions"
 
         return self._get(endpoint, data_type)
 
     def get_allowed_file_extension(
-        self, id: Union[int, str] = 0, name: str = 0, data_type: str = "json"
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
         Returns data on one allowed file extension by ID or name in either
@@ -527,7 +527,7 @@ class Classic(RequestBuilder):
 
         :param id: Allowed file extension ID
         :param name: Allowed file extension name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {"id": id, "name": name}
         identification = identification_type(identification_options)
@@ -568,7 +568,7 @@ class Classic(RequestBuilder):
         """
         Returns all buildings in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/buildings"
 
@@ -583,7 +583,7 @@ class Classic(RequestBuilder):
 
         :param id: building ID
         :param name: building name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -663,7 +663,7 @@ class Classic(RequestBuilder):
         """
         Returns all byo profiles in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/byoprofiles"
 
@@ -678,7 +678,7 @@ class Classic(RequestBuilder):
 
         :param id: byo profile ID
         :param name: byo profile name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -758,7 +758,7 @@ class Classic(RequestBuilder):
         """
         Returns all categories in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/categories"
 
@@ -773,7 +773,7 @@ class Classic(RequestBuilder):
 
         :param id: category ID
         :param name: category name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -853,7 +853,7 @@ class Classic(RequestBuilder):
         """
         Returns all classes in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/classes"
 
@@ -868,7 +868,7 @@ class Classic(RequestBuilder):
 
         :param id: class ID
         :param name: class name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -1061,7 +1061,7 @@ class Classic(RequestBuilder):
         :param udid: Computer UDID
         :param serialnumber: Computer serial number
         :param macaddress: Computer MAC address,
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         validate_date(start_date)
         validate_date(end_date)
@@ -1089,7 +1089,7 @@ class Classic(RequestBuilder):
         """
         Returns all computer check in information
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/computercheckin"
 
@@ -1116,7 +1116,7 @@ class Classic(RequestBuilder):
         Returns data on all computer commands, can optionally filter by name
 
         :param name: Computer command name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         if name:
             endpoint = endpoint = f"/JSSResource/computercommands/name/{name}"
@@ -1132,7 +1132,7 @@ class Classic(RequestBuilder):
         Returns data on a specific computer command by uuid
 
         :param uuid: Computer command UUID
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = f"/JSSResource/computercommands/uuid/{uuid}"
 
@@ -1145,7 +1145,7 @@ class Classic(RequestBuilder):
         Returns the status of a specific computer command by uuid
 
         :param uuid: Computer command UUID
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = f"/JSSResource/computercommands/status/{uuid}"
 
@@ -1245,7 +1245,7 @@ class Classic(RequestBuilder):
         """
         Returns all computer extension attributes in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/computerextensionattributes"
 
@@ -1260,7 +1260,7 @@ class Classic(RequestBuilder):
 
         :param id: computer extension attribute ID
         :param name: computer extension attribute name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -1343,7 +1343,7 @@ class Classic(RequestBuilder):
         """
         Returns all computer groups in either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/computergroups"
 
@@ -1358,7 +1358,7 @@ class Classic(RequestBuilder):
 
         :param id: computer group ID
         :param name: computer group name
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -1467,7 +1467,7 @@ class Classic(RequestBuilder):
             - Fonts
             - Plugins
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         validate_date(start_date)
         validate_date(end_date)
@@ -1532,7 +1532,7 @@ class Classic(RequestBuilder):
             - UserLocation
             - MacAppStoreApplications
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,
@@ -1577,7 +1577,7 @@ class Classic(RequestBuilder):
         Returns computer inventory collection settings on the JPS server in
         either JSON or XML.
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         endpoint = "/JSSResource/computerinventorycollection"
 
@@ -1586,7 +1586,7 @@ class Classic(RequestBuilder):
     def update_computer_inventory_collection(self, data: str) -> str:
         """
         Updates computer inventory collection settings on the JPS server with
-        the given XML data.
+        the given XML data. Need to supply at least one identifier.
 
         :param data: XML data to update the computer inventory collection
         """
@@ -1597,6 +1597,92 @@ class Classic(RequestBuilder):
     """
     /computerinvitations
     """
+
+    def get_computer_invitations(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all computer invitation data in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/computerinvitations"
+
+        return self._get(endpoint, data_type)
+
+    def get_computer_invitation(
+        self,
+        id: Union[int, str] = None,
+        invitation: Union[int, str] = None,
+        data_type: str = "json",
+    ):
+        """
+        Returns information on a single computer invitation defined by either
+        ID or invitation. Need to supply at least one identifier.
+
+        :param id: Computer invitation ID
+        :param invitation:
+            Computer invitation invitation identifier (name)
+            Typically a long int
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerinvitations/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_computer_invitation(
+        self, data: str, id: Union[int, str] = None, invitation: Union[int, str] = None
+    ) -> str:
+        """
+        Creates a computer invitation defined by the XML data and either ID
+        or invitation.
+
+        :param data: XML data
+        :param id: Computer invitation ID, use 0 for next available
+        :param invitation:
+            Computer invitation invitation identifier, use 0 for next available
+        """
+        identification_options = {
+            "id": id,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerinvitations/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def delete_computer_invitation(
+        self, id: Union[int, str] = None, invitation: Union[int, str] = None
+    ) -> Union[int, str]:
+        """
+        Deletes a computer invitation by either ID or invitation identifiers.
+        Need to supply at least one identifier.
+
+        :param id: Computer invitation ID
+        :param invitation:
+            Computer invitation invitation identifier (name)
+            Typically a long int
+        """
+        identification_options = {
+            "id": id,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/computerinvitations/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /computermanagement
@@ -1734,10 +1820,8 @@ class Classic(RequestBuilder):
         You can pass the match param to get all mobile devices that match
         your search critera.
 
-        :param match:
-            String to search mobile devices
-        :param data_type:
-            JSON or XML
+        :param match: String to search mobile devices
+        :param data_type: json or xml
         """
 
         if match:
@@ -1783,7 +1867,7 @@ class Classic(RequestBuilder):
             - MobileDeviceGroups
             - ExtensionAttributes
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
         """
         identification_options = {
             "id": id,

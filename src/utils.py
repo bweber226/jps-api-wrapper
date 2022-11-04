@@ -13,7 +13,7 @@ def identification_type(identifications: dict):
     """
     identification = []
     for key in identifications:
-        if identifications[key]:
+        if identifications[key] or identifications[key] == 0:
             identification.append(key)
 
     if len(identification) == 0:
