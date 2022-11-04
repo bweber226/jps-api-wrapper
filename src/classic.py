@@ -1499,6 +1499,75 @@ class Classic(RequestBuilder):
     /computerhistory
     """
 
+    def get_computer_history(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        udid: str = None,
+        serialnumber: str = None,
+        macaddress: str = None,
+        subsets: list = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns computer history data with the given identifier and optional
+        subsets. Need to supply at least one identifier.
+
+        :param id: Computer ID
+        :param name: Computer name
+        :param udid: Computer UDID
+        :param serialnumber: Computer serial number
+        :param macaddress: Computer MAC address,
+        :param subsets:
+            Subset(s) of data from the computer
+            Options:
+            - General
+            - ComputerUsageLogs
+            - Audits
+            - PolicyLogs
+            - CasperRemoteLogs
+            - ScreenSharingLogs
+            - CasperImagingLogs
+            - Commands
+            - UserLocation
+            - MacAppStoreApplications
+
+        :param data_type: JSON or XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "udid": udid,
+            "serialnumber": serialnumber,
+            "macaddress": macaddress,
+        }
+        subset_options = [
+            "General",
+            "ComputerUsageLogs",
+            "Audits",
+            "PolicyLogs",
+            "CasperRemoteLogs",
+            "ScreenSharingLogs",
+            "CasperImagingLogs",
+            "Commands",
+            "UserLocation",
+            "MacAppStoreApplications",
+        ]
+        identification = identification_type(identification_options)
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/computerhistory/{identification}"
+                f"/{identification_options[identification]}"
+                f"/subset/{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/computerhistory/{identification}"
+                f"/{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
     """
     /computerinventorycollection
     """

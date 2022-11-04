@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.22.0] -- 2022-11-03
+### Added
+- Classic.get_computer_history which returns computer history data with all available identifation options and subsets
+
 ## [0.21.0] -- 2022-11-03
 ### Added
 - Classic.get_computer_hardware_software_reports which returns computer hardware and software reports with all available identification options and subsets

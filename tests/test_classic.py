@@ -2167,7 +2167,8 @@ def test_get_computer_hardware_software_reports_id(classic):
         response_builder(
             "GET",
             jps_url(
-                "/JSSResource/computerhardwaresoftwarereports/id/1001/2022-01-01_2022-01-02"
+                "/JSSResource/computerhardwaresoftwarereports/id/1001"
+                "/2022-01-01_2022-01-02"
             ),
         )
     )
@@ -2189,7 +2190,8 @@ def test_get_computer_hardware_software_reports_udid_xml(classic):
         response_builder(
             "GET",
             jps_url(
-                "/JSSResource/computerhardwaresoftwarereports/udid/1001/2022-01-01_2022-01-02"
+                "/JSSResource/computerhardwaresoftwarereports/udid/1001"
+                "/2022-01-01_2022-01-02"
             ),
             data_type="xml",
         )
@@ -2212,7 +2214,8 @@ def test_get_computer_hardware_software_reports_invalid_date_format(classic):
         response_builder(
             "GET",
             jps_url(
-                "/JSSResource/computerhardwaresoftwarereports/id/1001/2022-01-01_2022-01-02"
+                "/JSSResource/computerhardwaresoftwarereports/id/1001"
+                "/2022-01-01_2022-01-02"
             ),
         )
     )
@@ -2275,6 +2278,86 @@ def test_get_computer_hardware_software_reports_serialnumber_subsets(classic):
 """
 /computerhistory
 """
+
+
+@responses.activate
+def test_get_computer_history_id(classic):
+    """
+    Ensures that get_computer_history returns json data when
+    used with the right date format and ID
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/computerhistory/id/1001"),
+        )
+    )
+    assert classic.get_computer_history(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_history_udid_xml(classic):
+    """
+    Ensures that get_computer_history returns XML data when
+    used with the right date format and UDID with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/computerhistory/udid/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_computer_history(udid=1001, data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_computer_history_macaddress_subset(classic):
+    """
+    Ensures that get_computer_history returns data when used
+    with macaddress identifier and one subset
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerhistory/macaddress/"
+                "12%3A34%3A56%3A78%3A90%3A12/subset/General"
+            ),
+        )
+    )
+    assert (
+        classic.get_computer_history(
+            macaddress="12:34:56:78:90:12",
+            subsets=["General"],
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_computer_history_serialnumber_subsets(classic):
+    """
+    Ensures that get_computer_history returns data when used
+    with serialnumber identifier and multiple subsets
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/computerhistory/serialnumber/1a2b3c4d5e"
+                "/subset/General%26ScreenSharingLogs"
+            ),
+        )
+    )
+    assert (
+        classic.get_computer_history(
+            serialnumber="1a2b3c4d5e",
+            subsets=["General", "ScreenSharingLogs"],
+        )
+        == EXPECTED_JSON
+    )
+
 
 """
 /computerinventorycollection
