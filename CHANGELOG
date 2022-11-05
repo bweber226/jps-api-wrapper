@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.29.0] -- 2022-11-05
+### Added
+- Classic.get_directory_bindings which returns all directory bindings
+- Classic.get_directory_binding which returns data on one directory binding by ID or name
+- Classic.create_directory_binding which creates a directory binding 
+- Classic.update_directory_binding which updates an existing directory binding by ID or name
+- Classic.delete_directory_binding which deletes an existing directory binding by ID or name
+
 ## [0.28.0] -- 2022-11-05
 ### Added
 - Classic.get_departments which returns all departments

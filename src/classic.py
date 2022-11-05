@@ -2106,6 +2106,98 @@ class Classic(RequestBuilder):
     /directorybindings
     """
 
+    def get_directory_bindings(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all directory bindings in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/directorybindings"
+
+        return self._get(endpoint, data_type)
+
+    def get_directory_binding(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific directory binding by either ID or
+        name.
+
+        :param id: Directory binding ID
+        :param name: Directory binding name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/directorybindings/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_directory_binding(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a directory binding with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the directory binding with
+        :param id:
+            ID of the new directory binding, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/directorybindings/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_directory_binding(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a directory binding with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the directory binding with
+        :param id: Directory binding ID
+        :param name: Directory binding name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/directorybindings/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_directory_binding(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a directory binding by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Directory binding ID
+        :param name: Directory binding name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/directorybindings/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /diskencryptionconfigurations
     """

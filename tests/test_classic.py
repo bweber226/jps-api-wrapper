@@ -3112,6 +3112,139 @@ def test_delete_department_name(classic):
 /directorybindings
 """
 
+
+@responses.activate
+def test_get_directory_bindings_json(classic):
+    """
+    Ensures that get_directory_bindings returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/directorybindings")))
+    assert classic.get_directory_bindings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_directory_bindings_xml(classic):
+    """
+    Ensures that get_directory_bindings returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/directorybindings"), data_type="xml"
+        )
+    )
+    assert classic.get_directory_bindings(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_directory_binding_id_json(classic):
+    """
+    Ensures that get_directory_binding returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/directorybindings/id/1001"))
+    )
+    assert classic.get_directory_binding(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_directory_binding_name_xml(classic):
+    """
+    Ensures that get_directory_binding returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/directorybindings/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_directory_binding(name="testname", data_type="xml") == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_directory_binding_id(classic):
+    """
+    Ensures that create_directory_binding returns data when updating
+    a directory binding with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/directorybindings/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_directory_binding(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_directory_binding_id(classic):
+    """
+    Ensures that update_directory_binding returns data when updating
+    a directory binding with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/directorybindings/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_directory_binding(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_directory_binding_name(classic):
+    """
+    Ensures that update_directory_binding returns data when updating
+    a directory binding with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/directorybindings/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_directory_binding(EXPECTED_XML, name="testname") == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_directory_binding_id(classic):
+    """
+    Ensures that delete_directory_binding returns data when deleting a
+    directory binding by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/directorybindings/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_directory_binding(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_directory_binding_name(classic):
+    """
+    Ensures that delete_directory_binding returns data when deleting a
+    directory binding by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/directorybindings/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_directory_binding(name="testname") == EXPECTED_XML
+
+
 """
 /diskencryptionconfigurations
 """
