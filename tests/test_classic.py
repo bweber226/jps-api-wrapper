@@ -3536,6 +3536,131 @@ def test_delete_distribution_point_name(classic):
 /dockitems
 """
 
+
+@responses.activate
+def test_get_dock_items_json(classic):
+    """
+    Ensures that get_dock_items returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/dockitems")))
+    assert classic.get_dock_items() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_dock_items_xml(classic):
+    """
+    Ensures that get_dock_items returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/dockitems"), data_type="xml")
+    )
+    assert classic.get_dock_items(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_dock_item_id_json(classic):
+    """
+    Ensures that get_dock_item returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/dockitems/id/1001")))
+    assert classic.get_dock_item(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_dock_item_name_xml(classic):
+    """
+    Ensures that get_dock_item returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/dockitems/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_dock_item(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_dock_item_id(classic):
+    """
+    Ensures that create_dock_item returns data when updating
+    a dock item with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/dockitems/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_dock_item(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_dock_item_id(classic):
+    """
+    Ensures that update_dock_item returns data when updating
+    a dock item with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/dockitems/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_dock_item(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_dock_item_name(classic):
+    """
+    Ensures that update_dock_item returns data when updating
+    a dock item with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/dockitems/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_dock_item(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_dock_item_id(classic):
+    """
+    Ensures that delete_dock_item returns data when deleting a
+    dock item by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/dockitems/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_dock_item(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_dock_item_name(classic):
+    """
+    Ensures that delete_dock_item returns data when deleting a
+    dock item by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/dockitems/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_dock_item(name="testname") == EXPECTED_XML
+
+
 """
 /ebooks
 """
