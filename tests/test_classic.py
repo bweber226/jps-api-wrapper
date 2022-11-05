@@ -2983,6 +2983,131 @@ def test_delete_computers_extension_attribute_data(classic):
 /departments
 """
 
+
+@responses.activate
+def test_get_departments_json(classic):
+    """
+    Ensures that get_departments returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/departments")))
+    assert classic.get_departments() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_departments_xml(classic):
+    """
+    Ensures that get_departments returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/departments"), data_type="xml")
+    )
+    assert classic.get_departments(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_department_id_json(classic):
+    """
+    Ensures that get_department returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/departments/id/1001")))
+    assert classic.get_department(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_department_name_xml(classic):
+    """
+    Ensures that get_department returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/departments/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_department(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_department_id(classic):
+    """
+    Ensures that create_department returns data when updating
+    a department with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/departments/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_department(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_department_id(classic):
+    """
+    Ensures that update_department returns data when updating
+    a department with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/departments/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_department(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_department_name(classic):
+    """
+    Ensures that update_department returns data when updating
+    a department with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/departments/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_department(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_department_id(classic):
+    """
+    Ensures that delete_department returns data when deleting a
+    department by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/departments/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_department(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_department_name(classic):
+    """
+    Ensures that delete_department returns data when deleting a
+    department by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/departments/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_department(name="testname") == EXPECTED_XML
+
+
 """
 /directorybindings
 """

@@ -2010,6 +2010,98 @@ class Classic(RequestBuilder):
     /departments
     """
 
+    def get_departments(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all departments in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/departments"
+
+        return self._get(endpoint, data_type)
+
+    def get_department(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific department by either ID or
+        name.
+
+        :param id: Department ID
+        :param name: Department name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/departments/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_department(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a department with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the department with
+        :param id:
+            ID of the new department, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/departments/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_department(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a department with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the department with
+        :param id: Department ID
+        :param name: Department name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/departments/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_department(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a department by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Department ID
+        :param name: Department name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/departments/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /directorybindings
     """
