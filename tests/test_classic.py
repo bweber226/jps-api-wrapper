@@ -3665,6 +3665,153 @@ def test_delete_dock_item_name(classic):
 /ebooks
 """
 
+
+@responses.activate
+def test_get_ebooks_json(classic):
+    """
+    Ensures that get_ebooks returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/ebooks")))
+    assert classic.get_ebooks() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ebooks_xml(classic):
+    """
+    Ensures that get_ebooks returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/ebooks"), data_type="xml")
+    )
+    assert classic.get_ebooks(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_ebook_id_json(classic):
+    """
+    Ensures that get_ebook returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/ebooks/id/1001")))
+    assert classic.get_ebook(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ebook_name_xml(classic):
+    """
+    Ensures that get_ebook returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/ebooks/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_ebook(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_ebook_id_subset(classic):
+    """
+    Ensures that get_ebook returns data when used with id as an identifier
+    and one subset options
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/ebooks/id/1001/subset/General"))
+    )
+    assert classic.get_ebook(1001, subsets=["General"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ebook_id_subsets(classic):
+    """
+    Ensures that get_ebook returns data when used with id as an identifier
+    and multiple subset options
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/ebooks/id/1001/subset/General%26SelfService")
+        )
+    )
+    assert classic.get_ebook(1001, subsets=["General", "SelfService"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_ebook_id(classic):
+    """
+    Ensures that create_ebook returns data when updating
+    a ebook with id
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/ebooks/id/0"), data_type="xml")
+    )
+    assert classic.create_ebook(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_ebook_id(classic):
+    """
+    Ensures that update_ebook returns data when updating
+    a ebook with id
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/ebooks/id/1001"), data_type="xml")
+    )
+    assert classic.update_ebook(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_ebook_name(classic):
+    """
+    Ensures that update_ebook returns data when updating
+    a ebook with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/ebooks/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_ebook(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_ebook_id(classic):
+    """
+    Ensures that delete_ebook returns data when deleting a
+    ebook by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/ebooks/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_ebook(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_ebook_name(classic):
+    """
+    Ensures that delete_ebook returns data when deleting a
+    ebook by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/ebooks/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_ebook(name="testname") == EXPECTED_XML
+
+
 """
 /fileuploads
 """

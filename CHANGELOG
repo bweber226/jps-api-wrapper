@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.33.0] -- 2022-11-05
+### Added
+- Classic.get_ebooks which returns all ebooks
+- Classic.get_ebook which returns data on one ebook by ID or name and optional subsets
+- Classic.create_ebook which creates a ebook 
+- Classic.update_ebook which updates an existing ebook by ID or name
+- Classic.delete_ebook which deletes an existing ebook by ID or name
+
 ## [0.32.0] -- 2022-11-05
 ### Added
 - Classic.get_dock_items which returns all dock items

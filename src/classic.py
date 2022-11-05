@@ -1460,7 +1460,9 @@ class Classic(RequestBuilder):
         :param serialnumber: Computer serial number
         :param macaddress: Computer MAC address,
         :param subsets:
-            Subset(s) of data from the computer
+            Subset(s) of data from the computer hardware software report in a
+            list of strings
+
             Options:
             - Software
             - Hardware
@@ -1519,7 +1521,7 @@ class Classic(RequestBuilder):
         :param serialnumber: Computer serial number
         :param macaddress: Computer MAC address,
         :param subsets:
-            Subset(s) of data from the computer
+            Subset(s) of data from the computer history in a list of strings
             Options:
             - General
             - ComputerUsageLogs
@@ -1711,7 +1713,7 @@ class Classic(RequestBuilder):
         :param macaddress: Computer MAC address
         :param username: User to filter by
         :param subsets:
-            Subset(s) of data from the computer
+            Subset(s) of data from the computer management in a list of strings
             Options:
             - General
             - Policies
@@ -1861,7 +1863,7 @@ class Classic(RequestBuilder):
         :param serialnumber: Computer serial number
         :param macaddress: Computer MAC address
         :param subsets:
-            Subset(s) of data from the computer
+            Subset(s) of data from the computer in a list of strings
             Options:
             - General
             - Location
@@ -2493,6 +2495,121 @@ class Classic(RequestBuilder):
     /ebooks
     """
 
+    def get_ebooks(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all ebooks in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/ebooks"
+
+        return self._get(endpoint, data_type)
+
+    def get_ebook(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        subsets: list = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific ebook by either ID or name.
+
+        :param id: eBook ID
+        :param name: eBook name
+        :param subsets:
+            Subset(s) of data from the computer in a list of strings
+
+            Options:
+            - General
+            - Scope
+            - SelfService
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        subset_options = [
+            "General",
+            "Scope",
+            "SelfService",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/ebooks/{identification}"
+                f"/{identification_options[identification]}/subset/"
+                f"{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/ebooks/{identification}/"
+                f"{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def create_ebook(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a ebook with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the ebook with
+        :param id:
+            ID of the new ebook, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/ebooks/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_ebook(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a ebook with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the ebook with
+        :param id: eBook ID
+        :param name: eBook name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ebooks/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_ebook(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a ebook by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: eBook ID
+        :param name: eBook name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ebooks/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /fileuploads
     """
@@ -2626,7 +2743,8 @@ class Classic(RequestBuilder):
         :param serialnumber: Mobile device serial number
         :param macaddress: Mobile device MAC address
         :param subsets:
-            Subset(s) of data from the mobile device
+            Subset(s) of data from the mobile device in a list of strings
+
             Options:
             - General
             - Location
