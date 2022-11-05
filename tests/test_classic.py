@@ -1871,6 +1871,16 @@ def test_create_computer_command_erasedevice_ids(classic):
     )
 
 
+@responses.activate
+def test_create_computer_command_erasedevice_no_passcode(classic):
+    """
+    Ensures that create_computer_command raises ValueError when the EraseDevice
+    command is used without a passcode set
+    """
+    with pytest.raises(ValueError):
+        classic.create_computer_command("EraseDevice", 1001)
+
+
 """
 /computerextensionattributes
 """
@@ -2710,6 +2720,265 @@ def test_get_computer_report_name_xml(classic):
 /computers
 """
 
+
+@responses.activate
+def test_get_computers_json(classic):
+    """
+    Ensures that get_computer returns JSON when used without any optional
+    parameters
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/computers")))
+    assert classic.get_computers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computers_match_xml(classic):
+    """
+    Ensures that get_computer returns XML when used match filter and data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/computers/match/MAC%2A"), data_type="xml"
+        )
+    )
+    assert classic.get_computers(match="MAC*", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_computer_basic(classic):
+    """
+    Ensures that get_computer returns JSON when used with basic set to True
+    and no additional optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/computers/subset/basic"))
+    )
+    assert classic.get_computers(basic=True) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_id_json(classic):
+    """
+    Ensures that get_computer returns content from the API when using id
+    as an identifier.
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/computers/id/1001")))
+    assert classic.get_computer(id="1001") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_id_subset_json(classic):
+    """
+    Ensures that get_computer returns content from the API when using id
+    as an identifier.
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/computers/id/1001/subset/General%26Location"),
+        )
+    )
+    assert (
+        classic.get_computer(id="1001", subsets=["General", "Location"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_computer_id_subset_invalid_subset(classic):
+    """
+    Ensures that get_computer raises InvalidSubset when passed an invalid
+    subset for the endpoint.
+    """
+    with pytest.raises(InvalidSubset):
+        classic.get_computer(id=1001, subsets=["General", "InvalidSubset"])
+
+
+@responses.activate
+def test_get_computer_no_identification(classic):
+    """
+    Ensures that get_computer raises NoIdentification when no form of
+    identification is passed.
+    """
+    with pytest.raises(NoIdentification):
+        classic.get_computer()
+
+
+@responses.activate
+def test_get_computer_multiple_identification(classic):
+    """
+    Ensures that get_computer raises MultipleIdentifications when more
+    than one form of identification is passed to an endpoint.
+    """
+    with pytest.raises(MultipleIdentifications):
+        classic.get_computer(id=1001, name="name")
+
+
+@responses.activate
+def test_get_computer_id_xml(classic):
+    """
+    Ensures that get_computer returns content from the API when using id
+    as an identifier.
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/computers/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.get_computer(id="1001", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_computer_500(classic):
+    """
+    Ensures that get_computer correctly raises a HTTPError when the
+    request returns a 500 error.
+    """
+    responses.add(
+        method="GET", url=jps_url("/JSSResource/computers/id/1001"), status=500
+    )
+    with pytest.raises(HTTPError):
+        classic.get_computer(id="1001")
+
+
+@responses.activate
+def test_update_computer_id(classic):
+    """
+    Ensures that update_computer returns content when updating a device
+    using id as an identifier.
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/computers/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_computer(EXPECTED_XML, id="1001") == EXPECTED_XML
+
+
+@responses.activate
+def test_update_computer_id_400(classic):
+    """
+    Ensures that update_computer raises MalformedRequest when the request
+    returns a 400 status code.
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/computers/id/1001"), status=400)
+    )
+    with pytest.raises(MalformedRequest):
+        classic.update_computer(EXPECTED_XML, id="1001")
+
+
+@responses.activate
+def test_update_computer_id_404(classic):
+    """
+    Ensures that update_computer raises NotFound when the request
+    returns a 404 status code.
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/computers/id/1001"), status=404)
+    )
+    with pytest.raises(NotFound):
+        classic.update_computer(EXPECTED_XML, id="1001")
+
+
+@responses.activate
+def test_update_computer_id_502(classic):
+    """
+    Ensures that update_computer raises RequestTimedOut when the request
+    returns a 502 status code.
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/computers/id/1001"), status=502)
+    )
+    with pytest.raises(RequestTimedOut):
+        classic.update_computer(EXPECTED_XML, id="1001")
+
+
+@responses.activate
+def test_update_computer_id_500(classic):
+    """
+    Ensures that update_computer raises a HTTPError when the request
+    returns an unrecognized HTTP error.
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/computers/id/1001"), status=500)
+    )
+    with pytest.raises(HTTPError):
+        classic.update_computer(EXPECTED_XML, id="1001")
+
+
+@responses.activate
+def test_create_computer_id(classic):
+    """
+    Ensures that create_computer returns content when creating/updating
+    a computer.
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/computers/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_computer(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_create_computer_id_HTTPError(classic):
+    """
+    Ensures that update_computer raises a HTTPError when the request
+    returns an unrecognized HTTP error.
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/computers/id/0"), status=500)
+    )
+    with pytest.raises(HTTPError):
+        classic.create_computer(EXPECTED_XML)
+
+
+@responses.activate
+def test_delete_computer_id(classic):
+    """
+    Ensures that delete_computer processes correctly when using id as
+    identification
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/computers/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.delete_computer(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_computer_id_500(classic):
+    """
+    Ensures that delete_computer raises a HTTPError when processing an
+    unrecognized HTTP error
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/computers/id/1001"), status=500
+        )
+    )
+    with pytest.raises(HTTPError):
+        classic.delete_computer(id=1001)
+
+
+@responses.activate
+def test_delete_computers_extension_attribute_data(classic):
+    """
+    Ensures that delete_computers_extension_attribute_data successfully runs
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/computers/extensionattributedataflush/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_computers_extension_attribute_data(1001) == EXPECTED_XML
+
+
 """
 /departments
 """
@@ -2894,7 +3163,7 @@ def test_get_mobile_device_id_subset_json(classic):
     responses.add(
         response_builder(
             "GET",
-            jps_url("/JSSResource/mobiledevices/id/1001" "/subset/General%26Network"),
+            jps_url("/JSSResource/mobiledevices/id/1001/subset/General%26Network"),
         )
     )
     assert (

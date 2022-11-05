@@ -1814,6 +1814,198 @@ class Classic(RequestBuilder):
     /computers
     """
 
+    def get_computers(
+        self, match: str = None, basic: bool = False, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all computers with optional filters match and matchname and the
+        option to only return basic information by setting basic to True.
+
+        :param match:
+            Name, mac address, etc. to filter by. Match uses the same format
+            as the general search in Jamf Pro. For instance, admin* can be
+            used to match computer names that begin with admin
+        :param basic: Only return basic info
+        :param data_type: json or xml
+        """
+        check_conflicting_params({"match": match, "basic": basic})
+        if match:
+            endpoint = f"/JSSResource/computers/match/{match}"
+        else:
+            if basic:
+                endpoint = "/JSSResource/computers/subset/basic"
+            else:
+                endpoint = "/JSSResource/computers"
+
+        return self._get(endpoint, data_type)
+
+    def get_computer(
+        self,
+        id: Union[str, int] = None,
+        name: str = None,
+        udid: str = None,
+        serialnumber: str = None,
+        macaddress: str = None,
+        subsets: list = None,
+        data_type: str = "json",
+    ):
+        """
+        Returns information on a computer with given identifier in either
+        JSON or XML. You can specify the return of a subset of the data by
+        defining subset as a list of the subsets that you want. Need to supply
+        at least one identifier.
+
+        :param id: Computer ID
+        :param name: Computer name
+        :param udid: Computer UDID
+        :param serialnumber: Computer serial number
+        :param macaddress: Computer MAC address
+        :param subsets:
+            Subset(s) of data from the computer
+            Options:
+            - General
+            - Location
+            - Purchasing
+            - Peripherals
+            - Hardware
+            - Certificates
+            - Software
+            - ExtensionAttributes
+            - GroupsAccounts
+            - iphones
+            - ConfigurationProfiles
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "udid": udid,
+            "serialnumber": serialnumber,
+            "macaddress": macaddress,
+        }
+        subset_options = [
+            "General",
+            "Location",
+            "Purchasing",
+            "Peripherals",
+            "Hardware",
+            "Certificates",
+            "Software",
+            "ExtensionAttributes",
+            "GroupsAccounts",
+            "iphones",
+            "ConfigurationProfiles",
+        ]
+        identification = identification_type(identification_options)
+
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/computers/{identification}"
+                f"/{identification_options[identification]}/subset/"
+                f"{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/computers/{identification}"
+                f"/{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def create_computer(self, data: str, id: Union[str, int] = 0) -> str:
+        """
+        Creates a computer with the given ID and information defined in
+        XML data.
+
+        :param data:
+            XML data to update/create the computer.
+        :param id: Computer ID, set to 0 for next available ID
+        """
+        endpoint = f"/JSSResource/computers/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_computer(
+        self,
+        data: str,
+        id: Union[str, int] = None,
+        name: str = None,
+        udid: str = None,
+        serialnumber: str = None,
+        macaddress: str = None,
+    ) -> str:
+        """
+        Updates information on a computer with given identifier. Need to
+        supply at least one identifier.
+
+        :param data: XML string to update the computer with
+        :param id: Computer ID
+        :param name: Computer name
+        :param udid: Computer UDID
+        :param serialnumber: Computer serial number
+        :param macaddress: Computer MAC address
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "udid": udid,
+            "serialnumber": serialnumber,
+            "macaddress": macaddress,
+        }
+        identification = identification_type(identification_options)
+
+        endpoint = (
+            f"/JSSResource/computers/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_computer(
+        self,
+        id: Union[str, int] = None,
+        name: str = None,
+        udid: str = None,
+        serialnumber: str = None,
+        macaddress: str = None,
+    ) -> str:
+        """
+        Deletes a computer with given identifier. Need to supply at least
+        one identifier.
+
+        :param id: computer ID
+        :param name: computer name
+        :param udid: computer UDID
+        :param serialnumber: computer serial number
+        :param macaddress: computer MAC address
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "udid": udid,
+            "serialnumber": serialnumber,
+            "macaddress": macaddress,
+        }
+        identification = identification_type(identification_options)
+
+        endpoint = (
+            f"/JSSResource/computers/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
+    def delete_computers_extension_attribute_data(self, id: Union[int, str]) -> str:
+        """
+        Deletes data collected by an extension attribute by ID
+
+        :param id: ID of the computer extension attribute data to be deleted
+        """
+        endpoint = f"/JSSResource/computers/extensionattributedataflush/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /departments
     """

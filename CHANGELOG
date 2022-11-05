@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.27.0] -- 2022-11-05
+### Added
+- Classic.get_computers which returns all computers and can optionally filter by computer values and return basic info
+- Classic.get_computer which returns data on one computer by all available identifiers and subsets
+- Classic.create_computer which creates a computer with XML data
+- Classic.update_computer which updates a computer with XML data
+- Classic.delete_computer which deletes a computer by all available identifiers
+- Classic.delete_computers_extension_attribute_data which flushes the data gathered from a computer extension attribute
+
 ## [0.26.0] -- 2022-11-04
 ### Added
 - Classic.get_computer_reports which returns all computer reports
@@ -170,7 +179,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.0] -- 2022-10-31
 ### Added 
-- Classic.delete_mobile_device which deletes a mobile device with a given IDentifier
+- Classic.delete_mobile_device which deletes a mobile device with a given Identifier
 - utils.valid_subsets which will see if subsets were passed and then see if the subsets are part of a list of valID subsets for the endpoint
 ### Changed
 - Classic.get_mobile_device now handles subsets
@@ -179,8 +188,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] -- 2022-10-30
 ### Added
 - Added utils file for functions and errors that will be used for Classic and Pro
-- Classic.get_mobile_device which gets a mobile device with all of the available endpoint IDentifiers
-- Classic.update_mobile_device which updates a mobile device with all of the available endpoint IDentifiers
+- Classic.get_mobile_device which gets a mobile device with all of the available endpoint Identifiers
+- Classic.update_mobile_device which updates a mobile device with all of the available endpoint Identifiers
 - Added a function to raise recognized Jamf errors with more troubleshooting info
 - Classic.create_mobile_device which creates a mobile device using XML data
 
