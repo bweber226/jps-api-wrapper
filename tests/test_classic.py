@@ -3399,6 +3399,139 @@ def test_delete_disk_encryption_configuration_name(classic):
 /distributionpoints
 """
 
+@responses.activate
+def test_get_distribution_points_json(classic):
+    """
+    Ensures that get_distribution_points returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/distributionpoints")))
+    assert classic.get_distribution_points() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_distribution_points_xml(classic):
+    """
+    Ensures that get_distribution_points returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/distributionpoints"), data_type="xml"
+        )
+    )
+    assert classic.get_distribution_points(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_distribution_point_id_json(classic):
+    """
+    Ensures that get_distribution_point returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/distributionpoints/id/1001"))
+    )
+    assert classic.get_distribution_point(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_distribution_point_name_xml(classic):
+    """
+    Ensures that get_distribution_point returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/distributionpoints/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_distribution_point(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_distribution_point_id(classic):
+    """
+    Ensures that create_distribution_point returns data when updating
+    a distribution point with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/distributionpoints/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_distribution_point(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_distribution_point_id(classic):
+    """
+    Ensures that update_distribution_point returns data when updating
+    a distribution point with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/distributionpoints/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_distribution_point(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_distribution_point_name(classic):
+    """
+    Ensures that update_distribution_point returns data when updating
+    a distribution point with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/distributionpoints/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_distribution_point(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_distribution_point_id(classic):
+    """
+    Ensures that delete_distribution_point returns data when deleting a
+    distribution point by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/distributionpoints/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_distribution_point(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_distribution_point_name(classic):
+    """
+    Ensures that delete_distribution_point returns data when deleting a
+    distribution point by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/distributionpoints/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_distribution_point(name="testname") == EXPECTED_XML
+
 """
 /dockitems
 """

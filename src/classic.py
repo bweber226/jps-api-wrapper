@@ -2302,6 +2302,98 @@ class Classic(RequestBuilder):
     /distributionpoints
     """
 
+    def get_distribution_points(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all distribution points in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/distributionpoints"
+
+        return self._get(endpoint, data_type)
+
+    def get_distribution_point(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific distribution point by either ID or
+        name.
+
+        :param id: Distribution point ID
+        :param name: Distribution point name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/distributionpoints/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_distribution_point(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a distribution point with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the distribution point with
+        :param id:
+            ID of the new distribution point, use 0 for next 
+            available ID
+        """
+        endpoint = f"/JSSResource/distributionpoints/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_distribution_point(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a distribution point with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the distribution point with
+        :param id: Distribution point ID
+        :param name: Distribution point name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/distributionpoints/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_distribution_point(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a distribution point by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Distribution point ID
+        :param name: Distribution point name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/distributionpoints/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /dockitems
     """
