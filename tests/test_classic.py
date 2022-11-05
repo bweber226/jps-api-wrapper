@@ -3399,6 +3399,7 @@ def test_delete_disk_encryption_configuration_name(classic):
 /distributionpoints
 """
 
+
 @responses.activate
 def test_get_distribution_points_json(classic):
     """
@@ -3449,8 +3450,7 @@ def test_get_distribution_point_name_xml(classic):
         )
     )
     assert (
-        classic.get_distribution_point(name="testname", data_type="xml")
-        == EXPECTED_XML
+        classic.get_distribution_point(name="testname", data_type="xml") == EXPECTED_XML
     )
 
 
@@ -3496,8 +3496,7 @@ def test_update_distribution_point_name(classic):
         )
     )
     assert (
-        classic.update_distribution_point(EXPECTED_XML, name="testname")
-        == EXPECTED_XML
+        classic.update_distribution_point(EXPECTED_XML, name="testname") == EXPECTED_XML
     )
 
 
@@ -3531,6 +3530,7 @@ def test_delete_distribution_point_name(classic):
         )
     )
     assert classic.delete_distribution_point(name="testname") == EXPECTED_XML
+
 
 """
 /dockitems

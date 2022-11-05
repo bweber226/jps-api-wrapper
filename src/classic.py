@@ -2342,7 +2342,7 @@ class Classic(RequestBuilder):
 
         :param data: XML data to create the distribution point with
         :param id:
-            ID of the new distribution point, use 0 for next 
+            ID of the new distribution point, use 0 for next
             available ID
         """
         endpoint = f"/JSSResource/distributionpoints/id/{id}"
