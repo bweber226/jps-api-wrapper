@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.30.0] -- 2022-11-05
+### Added
+- Classic.get_disk_encryption_configurations which returns all disk encryption configurations
+- Classic.get_disk_encryption_configuration which returns data on one disk encryption configuration by ID or name
+- Classic.create_disk_encryption_configuration which creates a disk encryption configuration 
+- Classic.update_disk_encryption_configuration which updates an existing disk encryption configuration by ID or name
+- Classic.delete_disk_encryption_configuration which deletes an existing disk encryption configuration by ID or name
+
 ## [0.29.0] -- 2022-11-05
 ### Added
 - Classic.get_directory_bindings which returns all directory bindings

@@ -2202,6 +2202,102 @@ class Classic(RequestBuilder):
     /diskencryptionconfigurations
     """
 
+    def get_disk_encryption_configurations(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all disk encryption configurations in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/diskencryptionconfigurations"
+
+        return self._get(endpoint, data_type)
+
+    def get_disk_encryption_configuration(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific disk encryption configuration by either ID
+        or name.
+
+        :param id: disk encryption configuration ID
+        :param name: disk encryption configuration name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/diskencryptionconfigurations/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_disk_encryption_configuration(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a disk encryption configuration with the given XML data. Use
+        ID 0 to use the next available ID.
+
+        :param data: XML data to create the disk encryption configuration with
+        :param id:
+            ID of the new disk encryption configuration, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/diskencryptionconfigurations/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_disk_encryption_configuration(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a disk encryption configuration with the given XML data. Need
+        to supply at least one identifier.
+
+        :param data: XML data to update the disk encryption configuration with
+        :param id: disk encryption configuration ID
+        :param name: disk encryption configuration name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/diskencryptionconfigurations/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_disk_encryption_configuration(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a disk encryption configuration by either ID or name. Need to
+        supply at least one identifier.
+
+        :param id: disk encryption configuration ID
+        :param name: disk encryption configuration name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/diskencryptionconfigurations/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /distributionpoints
     """
