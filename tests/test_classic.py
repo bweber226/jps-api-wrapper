@@ -3948,41 +3948,108 @@ def test_file_upload_ebooks_invalid_file_type(classic):
 /gsxconnection
 """
 
+
 @responses.activate
-def test_gsx_connection(classic):
+def test_get_gsx_connection_json(classic):
     """
     Ensures that get_gsx_connection completes successfully when used with
     data_type set to json
     """
-    responses.add(response_builder("GET", jps_url(
-        "/JSSResource/gsxconnection"
-    )))
+    responses.add(response_builder("GET", jps_url("/JSSResource/gsxconnection")))
     assert classic.get_gsx_connection() == EXPECTED_JSON
 
+
 @responses.activate
-def test_get_gsx_connection(classic):
+def test_get_gsx_connection_xml(classic):
     """
     Ensures that get_gsx_connection completes successfully when used with
     data_type set to xml
     """
-    responses.add(response_builder("GET", jps_url(
-        "/JSSResource/gsxconnection"
-    ), data_type="xml"))
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/gsxconnection"), data_type="xml")
+    )
     assert classic.get_gsx_connection("xml") == EXPECTED_XML
+
 
 @responses.activate
 def test_update_gsx_connection(classic):
     """
     Ensures that update_gsx_connection completes successfully
     """
-    responses.add(response_builder("PUT", jps_url(
-        "/JSSResource/gsxconnection"
-    ), data_type="xml"))
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/gsxconnection"), data_type="xml")
+    )
     assert classic.update_gsx_connection(EXPECTED_XML) == EXPECTED_XML
+
 
 """
 /healthcaraelistener
 """
+
+
+@responses.activate
+def test_get_healthcare_listeners_json(classic):
+    """
+    Ensures that get_healthcare_listeners completes successfully when used with
+    data_type set to json
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/healthcarelistener")))
+    assert classic.get_healthcare_listeners() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_healthcare_listeners_xml(classic):
+    """
+    Ensures that get_healthcare_listeners completes successfully when used with
+    data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/healthcarelistener"), data_type="xml"
+        )
+    )
+    assert classic.get_healthcare_listeners("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_healthcare_listener_json(classic):
+    """
+    Ensures that get_healthcare_listener completes successfully when used with
+    required params and data_type set to json
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/healthcarelistener/id/1001"))
+    )
+    assert classic.get_healthcare_listener(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_healthcare_listener_xml(classic):
+    """
+    Ensures that get_healthcare_listener completes successfully when used with
+    required params and data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/healthcarelistener/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.get_healthcare_listener(1001, "xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_update_healthcare_listener(classic):
+    """
+    Ensures that update_healthcare_listener completes successfully when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/healthcarelistener/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_healthcare_listener(EXPECTED_XML, 1001) == EXPECTED_XML
+
 
 """
 /healthcarelistenerrule

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.36.0] -- 2022-11-07
+### Added
+- Classic.get_healthcare_listeners which returns all healthcare listeners
+- Classic.get_healthcare_listener which returns data on one healthcare listener by ID
+- Classic.update_healthcare_listener which updates an existing healthcare listener by ID
+
 ## [0.35.0] -- 2022-11-07
 ### Added
 - Classic.get_gsx_connection which returns data on the JPS GSX connection

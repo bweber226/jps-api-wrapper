@@ -2740,8 +2740,42 @@ class Classic(RequestBuilder):
         return self._put(endpoint, data, data_type="xml")
 
     """
-    /healthcaraelistener
+    /healthcarelistener
     """
+
+    def get_healthcare_listeners(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all healthcare listeners in JSON or XML
+
+        :param data_type: json or dict
+        """
+        endpoint = "/JSSResource/healthcarelistener"
+
+        return self._get(endpoint, data_type)
+
+    def get_healthcare_listener(
+        self, id: Union[int, str], data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Return a healthcare listener by ID in either JSON or XML
+
+        :param id: Healthcare listener ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/healthcarelistener/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def update_healthcare_listener(self, data: str, id: Union[int, str]) -> str:
+        """
+        Updates an existing healthcare listener by ID with XML data
+
+        :param data: XML data to update healthcare listener with
+        :param id: Healthcare listener ID
+        """
+        endpoint = f"/JSSResource/healthcarelistener/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
 
     """
     /healthcarelistenerrule
