@@ -2834,6 +2834,97 @@ class Classic(RequestBuilder):
     /ibeacons
     """
 
+    def get_ibeacon_regions(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all iBeacon regions in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/ibeacons"
+
+        return self._get(endpoint, data_type)
+
+    def get_ibeacon_region(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific iBeacon region by either ID or name.
+
+        :param id: iBeacon region ID
+        :param name: iBeacon region name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ibeacons/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_ibeacon_region(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a iBeacon region with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the iBeacon region with
+        :param id:
+            ID of the new ebook, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/ibeacons/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_ibeacon_region(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a iBeacon region with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the iBeacon region with
+        :param id: iBeacon region ID
+        :param name: iBeacon region name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ibeacons/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_ibeacon_region(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a iBeacon region by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: iBeacon region ID
+        :param name: iBeacon region name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ibeacons/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /infrastructuremanager
     """
