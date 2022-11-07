@@ -2719,6 +2719,26 @@ class Classic(RequestBuilder):
     /gsxconnection
     """
 
+    def get_gsx_connection(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns the Jamf Pro GSX connection information in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/gsxconnection"
+
+        return self._get(endpoint, data_type)
+
+    def update_gsx_connection(self, data: str):
+        """
+        Updates the Jamf Pro GSX connection information with XML data.
+
+        :param data: XML data to update with
+        """
+        endpoint = "/JSSResource/gsxconnection"
+
+        return self._put(endpoint, data, data_type="xml")
+
     """
     /healthcaraelistener
     """

@@ -3948,6 +3948,38 @@ def test_file_upload_ebooks_invalid_file_type(classic):
 /gsxconnection
 """
 
+@responses.activate
+def test_gsx_connection(classic):
+    """
+    Ensures that get_gsx_connection completes successfully when used with
+    data_type set to json
+    """
+    responses.add(response_builder("GET", jps_url(
+        "/JSSResource/gsxconnection"
+    )))
+    assert classic.get_gsx_connection() == EXPECTED_JSON
+
+@responses.activate
+def test_get_gsx_connection(classic):
+    """
+    Ensures that get_gsx_connection completes successfully when used with
+    data_type set to xml
+    """
+    responses.add(response_builder("GET", jps_url(
+        "/JSSResource/gsxconnection"
+    ), data_type="xml"))
+    assert classic.get_gsx_connection("xml") == EXPECTED_XML
+
+@responses.activate
+def test_update_gsx_connection(classic):
+    """
+    Ensures that update_gsx_connection completes successfully
+    """
+    responses.add(response_builder("PUT", jps_url(
+        "/JSSResource/gsxconnection"
+    ), data_type="xml"))
+    assert classic.update_gsx_connection(EXPECTED_XML) == EXPECTED_XML
+
 """
 /healthcaraelistener
 """
