@@ -1,14 +1,16 @@
+from mimetypes import guess_type
+from os.path import basename
 from typing import Union
 
 from request_builder import RequestBuilder
 from utils import (
+    check_conflicting_params,
     enforce_params,
     identification_type,
     param_or_data,
     valid_param_options,
     valid_subsets,
     validate_date,
-    check_conflicting_params,
 )
 
 
@@ -2613,6 +2615,105 @@ class Classic(RequestBuilder):
     """
     /fileuploads
     """
+
+    def file_upload(
+        self,
+        resource: str,
+        filepath: str,
+        id: Union[int, str] = None,
+        name: str = None,
+        force_ipa_upload: bool = False,
+    ) -> str:
+        """
+        Uploads a file attachment to the specified resource by either ID or
+        name. On the mobiledeviceapplicationsipa resource you can set
+        force_ipa_upload to True to enforce .ipa files. The printers and
+        enrollmentprofiles resources listed in the documentation do not
+        actually work as documented under Classic Privilege Requirements
+        here https://developer.jamf.com/jamf-pro/docs. Need to supply at least
+        one identifier.
+
+        :param resource:
+        Resource to attach the file to
+
+        Options:
+        - computers
+        - mobiledevices
+        - peripherals
+        - policies
+        - ebooks
+        - mobiledeviceapplicationsicon
+        - mobiledeviceapplicationsipa
+        - diskencryptionconfigurations
+
+        :param filepath: Filepath to file to upload
+        :param id: Resource ID
+        :param name:
+            Resource name, not usable with resource options peripherals
+        :param force_ipa_upload:
+            True of False, enforces ipa file type. Only usable with
+            mobiledeviceapplicationsipa resource
+
+        :raises FileNotFoundError:
+            Could not find file at file path
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        if force_ipa_upload and resource != "mobiledeviceapplicationsipa":
+            raise ValueError(
+                "force_ipa_upload can only be used with the "
+                "mobiledeviceapplicationsipa resource"
+            )
+        if identification == "name" and resource == "peripherals":
+            raise ValueError(
+                "Name is not a usable identifier for the peripherals "
+                "resource, use id instead."
+            )
+        if not filepath.lower().endswith(
+            (".png", ".jpg", ".jpeg", ".tiff", ".bmp", ".gif")
+        ) and resource in ("policies", "ebooks", "mobiledeviceapplicationicon"):
+            raise ValueError(
+                "Uploaded icon files to the policies, ebooks, or "
+                "mobiledeviceapplicationsicon resources must be in a valid "
+                "image format."
+            )
+        resource_options = [
+            "computers",
+            "mobiledevices",
+            "peripherals",
+            "policies",
+            "ebooks",
+            "mobiledeviceapplicationsicon",
+            "mobiledeviceapplicationsipa",
+            "diskencryptionconfigurations",
+        ]
+        valid_param_options(resource, resource_options)
+        try:
+            with open(filepath, "rb") as f:
+                filename = basename(filepath)
+                content_type = guess_type(filename.lower())[0]
+                if not content_type and filename.endswith(".ipa"):
+                    content_type = "application/octet-stream"
+                if not content_type:
+                    raise ValueError(f"Unable to detect MIME type of file {filename}")
+                file = {"name": (filename, f, content_type)}
+                if force_ipa_upload:
+                    query_string = ["FORCE_IPA_UPLOAD=true"]
+                else:
+                    query_string = None
+                endpoint = (
+                    f"/JSSResource/fileuploads/{resource}/{identification}"
+                    f"/{identification_options[identification]}"
+                )
+
+                return self._post(
+                    endpoint, None, file=file, data_type=None, query_string=query_string
+                )
+        except FileNotFoundError:
+            raise FileNotFoundError(f"{filepath} could not be opened.")
 
     """
     /gsxconnection

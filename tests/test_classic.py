@@ -1,3 +1,5 @@
+from unittest import mock
+
 import pytest
 import requests
 import responses
@@ -5,7 +7,13 @@ from requests.auth import AuthBase
 from requests.exceptions import HTTPError
 
 from classic import Classic
-from request_builder import InvalidDataType, MalformedRequest, NotFound, RequestTimedOut
+from request_builder import (
+    InvalidDataType,
+    MalformedRequest,
+    NotFound,
+    RequestConflict,
+    RequestTimedOut,
+)
 from utils import (
     ConflictingParameters,
     InvalidParameterOptions,
@@ -3815,6 +3823,126 @@ def test_delete_ebook_name(classic):
 """
 /fileuploads
 """
+
+
+@responses.activate
+def test_file_upload_computers_txt(classic):
+    """
+    Ensures that file_upload runs successfully when uploading a txt file as
+    a computer attachment
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add("POST", jps_url("/JSSResource/fileuploads/computers/id/1001"))
+        assert (
+            classic.file_upload("computers", filepath="/file.txt", id=1001)
+            == "File uploaded successfully."
+        )
+
+
+def test_file_upload_file_not_found(classic):
+    """
+    Ensures that file_upload raises FileNotFoundError when trying to open a
+    file that does not exist or you don't have permissions for.
+    """
+    with pytest.raises(FileNotFoundError):
+        classic.file_upload("computers", filepath="/This/does/not/exist", id=1001)
+
+
+@responses.activate
+def test_file_upload_mobiledeviceapplicationsipa_force_ipa_wrong_file_type(classic):
+    """
+    Ensures that file_upload param force_ipa_upload enforces ipa file type
+    when used with the mobiledeviceapplicationsipa resource
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            "POST",
+            jps_url(
+                "/JSSResource/fileuploads/mobiledeviceapplicationsipa/id"
+                "/1001?FORCE_IPA_UPLOAD=true"
+            ),
+            status=409,
+        )
+        with pytest.raises(RequestConflict):
+            classic.file_upload(
+                "mobiledeviceapplicationsipa",
+                filepath="/test.txt",
+                id=1001,
+                force_ipa_upload=True,
+            )
+
+
+def test_file_upload_peripherals_name(classic):
+    """
+    Ensures that file_upload raises ValueError when trying to use the name
+    identifier and peripherals resource
+    """
+    with pytest.raises(ValueError):
+        classic.file_upload("peripherals", filepath="/test.txt", name="testname")
+
+
+@responses.activate
+def test_file_upload_name_mobiledeviceapplicationsipa_force_ipa_upload(classic):
+    """
+    Ensures that force_ipa_upload enforces ipa file type when used with the
+    mobiledeviceapplicationsipa resource
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            "POST",
+            jps_url(
+                "/JSSResource/fileuploads/mobiledeviceapplicationsipa/name"
+                "/%3Ftest%3Fname?FORCE_IPA_UPLOAD=true"
+            ),
+        )
+        assert (
+            classic.file_upload(
+                "mobiledeviceapplicationsipa",
+                filepath="/test.ipa",
+                name="?test?name",
+                force_ipa_upload=True,
+            )
+            == "File uploaded successfully."
+        )
+
+
+def test_file_upload_computers_force_ipa_upload(classic):
+    """
+    Ensures that file_upload raises ValueError when using force_ipa_upload
+    and a resource that is not mobiledeviceapplicationsipa
+    """
+    with pytest.raises(ValueError):
+        classic.file_upload(
+            "computers", filepath="/test.txt", id=1001, force_ipa_upload=True
+        )
+
+
+def test_file_upload_unrecognized_mime_type(classic):
+    """
+    Ensures that file_upload raises ValueError when guess_type is not able
+    to get the MIME type of the file.
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        with pytest.raises(ValueError):
+            classic.file_upload("computers", filepath="/file", id=1001)
+
+
+def test_file_upload_ebooks_invalid_file_type(classic):
+    """
+    Ensures that file_upload raises ValueError when the ebooks resource and
+    a non image file or unrecognized image file is used.
+    """
+    with pytest.raises(ValueError):
+        classic.file_upload("ebooks", "/file.text", id=1001)
+
 
 """
 /gsxconnection

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.34.0] -- 2022-11-07
+### Added
+- Classic.file_upload which handles file uploads to the JPS server
+### Changed
+- RequestBuilder._get now supports query strings
+- RequestBuilder._post now handles files and supports query strings
+- RequestBuilder._put now supports query strings
+- RequestBuilder._delete now supports query strings
+
 ## [0.33.0] -- 2022-11-05
 ### Added
 - Classic.get_ebooks which returns all ebooks
