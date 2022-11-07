@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.37.0] -- 2022-11-07
+### Added 
+- Classic.get_healthcare_listener_rules which returns all healtchare listener rules
+- Classic.get_healthcare_listener_rule which returns data on one healthcare listener rule by ID
+- Classic.create_healthcare_listener_rule which creates a healthcare listener rule by ID
+- Classic.update_healthcare_listener_rule which updates an existing healthcare listener rule by ID
+
 ## [0.36.0] -- 2022-11-07
 ### Added
 - Classic.get_healthcare_listeners which returns all healthcare listeners

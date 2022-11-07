@@ -2781,6 +2781,55 @@ class Classic(RequestBuilder):
     /healthcarelistenerrule
     """
 
+    def get_healthcare_listener_rules(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all healthcare listener rules in JSON or XML
+
+        :param data_type: json or dict
+        """
+        endpoint = "/JSSResource/healthcarelistenerrule"
+
+        return self._get(endpoint, data_type)
+
+    def get_healthcare_listener_rule(
+        self, id: Union[int, str], data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Return a healthcare listener rule by ID in either JSON or XML
+
+        :param id: healthcare listener rule ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/healthcarelistenerrule/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def create_healthcare_listener_rule(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a healthcare listener rule by ID with XML data
+
+        :param data: XML data to udpate healthcare listener rule with
+        :param id: Healthcare listener rule ID, use 0 for next available ID
+        """
+        endpoint = f"/JSSResource/healthcarelistenerrule/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_healthcare_listener_rule(self, data: str, id: Union[int, str]) -> str:
+        """
+        Updates an existing healthcare listener rule by ID with XML data
+
+        :param data: XML data to update healthcare listener rule with
+        :param id: healthcare listener rule ID
+        """
+        endpoint = f"/JSSResource/healthcarelistenerrule/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
     """
     /ibeacons
     """

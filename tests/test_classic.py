@@ -4055,6 +4055,91 @@ def test_update_healthcare_listener(classic):
 /healthcarelistenerrule
 """
 
+
+@responses.activate
+def test_get_healthcare_listener_rules_json(classic):
+    """
+    Ensures that get_healthcare_listener_rules completes successfully when
+    used with data_type set to json
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/healthcarelistenerrule"))
+    )
+    assert classic.get_healthcare_listener_rules() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_healthcare_listener_rules_xml(classic):
+    """
+    Ensures that get_healthcare_listener_rule_rules completes successfully
+    when used with data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/healthcarelistenerrule"), data_type="xml"
+        )
+    )
+    assert classic.get_healthcare_listener_rules("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_healthcare_listener_rule_json(classic):
+    """
+    Ensures that get_healthcare_listener_rule completes successfully when used
+    with required params and data_type set to json
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/healthcarelistenerrule/id/1001"))
+    )
+    assert classic.get_healthcare_listener_rule(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_healthcare_listener_rule_xml(classic):
+    """
+    Ensures that get_healthcare_listener_rule completes successfully when used
+    with required params and data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/healthcarelistenerrule/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_healthcare_listener_rule(1001, "xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_healthcare_listener_rule(classic):
+    """
+    Ensures that create_healthcare_listener_rule completes successfully when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/healthcarelistenerrule/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_healthcare_listener_rule(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_healthcare_listener_rule(classic):
+    """
+    Ensures that update_healthcare_listener_rule completes successfully when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/healthcarelistenerrule/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_healthcare_listener_rule(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
 """
 /ibeacons
 """
