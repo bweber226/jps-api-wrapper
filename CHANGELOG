@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.40.0] -- 2022-11-08
+### Added 
+- Classic.get_json_web_token_configurations which returns all JSON web token configurations
+- Classic.get_json_web_token_configuration which returns data on one JSON web token configuration by ID
+- Classic.create_json_web_token_configuration which creates a JSON web token configuration by ID
+- Classic.update_json_web_token_configuration which updates an existing JSON web token configuration by ID
+- Classic.delete_json_web_token_configuration which deletes a JSON web token configuration by ID
+
 ## [0.39.0] -- 2022-11-07
 ### Added
 - Classic.get_infrasture_managers which returns all infrastructure managers

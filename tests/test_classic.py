@@ -4346,9 +4346,118 @@ def test_update_infrastructure_manager(classic):
 /jssuser
 """
 
+# This endpoint no longer works
+
 """
 /jsonwebtokenconfigurations
 """
+
+
+@responses.activate
+def test_get_json_web_token_configurations_json(classic):
+    """
+    Ensures that get_json_web_token_configurations completes successfully when
+    used with data_type set to json
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/jsonwebtokenconfigurations"))
+    )
+    assert classic.get_json_web_token_configurations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_json_web_token_configurations_xml(classic):
+    """
+    Ensures that get_json_web_token_configuration completes successfully
+    when used with data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/jsonwebtokenconfigurations"), data_type="xml"
+        )
+    )
+    assert classic.get_json_web_token_configurations("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_json_web_token_configuration_json(classic):
+    """
+    Ensures that get_json_web_token_configuration completes successfully when
+    used with required params and data_type set to json
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/jsonwebtokenconfigurations/id/1001")
+        )
+    )
+    assert classic.get_json_web_token_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_json_web_token_configuration_xml(classic):
+    """
+    Ensures that get_json_web_token_configuration completes successfully when
+    used with required params and data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/jsonwebtokenconfigurations/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_json_web_token_configuration(1001, "xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_json_web_token_configuration(classic):
+    """
+    Ensures that create_json_web_token_configuration completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/jsonwebtokenconfigurations/id/0"),
+            data_type="xml",
+        )
+    )
+    assert classic.create_json_web_token_configuration(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_json_web_token_configuration(classic):
+    """
+    Ensures that update_json_web_token_configuration completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/jsonwebtokenconfigurations/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_json_web_token_configuration(EXPECTED_XML, 1001) == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_json_web_token_configuration(classic):
+    """
+    Ensures that delete_json_web_token_configuration completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/jsonwebtokenconfigurations/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_json_web_token_configuration(1001) == EXPECTED_XML
+
 
 """
 /ldapservers

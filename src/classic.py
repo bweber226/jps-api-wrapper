@@ -1,4 +1,3 @@
-import warnings
 from mimetypes import guess_type
 from os.path import basename
 from typing import Union
@@ -2616,6 +2615,7 @@ class Classic(RequestBuilder):
     """
     /fileuploads
     """
+    # enrollmentprofiles and printers resources do not work
 
     def file_upload(
         self,
@@ -2968,9 +2968,72 @@ class Classic(RequestBuilder):
     /jssuser
     """
 
+    # This endpoint no longer works
+
     """
     /jsonwebtokenconfigurations
     """
+
+    def get_json_web_token_configurations(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all JSON web token configurations in JSON or XML
+
+        :param data_type: json or dict
+        """
+        endpoint = "/JSSResource/jsonwebtokenconfigurations"
+
+        return self._get(endpoint, data_type)
+
+    def get_json_web_token_configuration(
+        self, id: Union[int, str], data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Return a JSON web token configuration by ID in either JSON or XML
+
+        :param id: JSON web token configuration ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def create_json_web_token_configuration(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a JSON web token configuration by ID with XML data
+
+        :param data: XML data to udpate JSON web token configuration with
+        :param id: JSON web token configuration ID, use 0 for next available ID
+        """
+        endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_json_web_token_configuration(
+        self, data: str, id: Union[int, str]
+    ) -> str:
+        """
+        Updates an existing JSON web token configuration by ID with XML data
+
+        :param data: XML data to update JSON web token configuration with
+        :param id: JSON web token configuration ID
+        """
+        endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_json_web_token_configuration(self, id: Union[int, str]) -> str:
+        """
+        Deletes a JSON web token configuration by ID with XML data
+
+        :param id: Json web token configuration ID
+        """
+        endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /ldapservers
