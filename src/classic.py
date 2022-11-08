@@ -1,3 +1,4 @@
+import warnings
 from mimetypes import guess_type
 from os.path import basename
 from typing import Union
@@ -2928,6 +2929,40 @@ class Classic(RequestBuilder):
     """
     /infrastructuremanager
     """
+
+    def get_infrastructure_managers(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all infrastructure managers in JSON or XML
+
+        :param data_type: json or dict
+        """
+        endpoint = "/JSSResource/infrastructuremanager"
+
+        return self._get(endpoint, data_type)
+
+    def get_infrastructure_manager(
+        self, id: Union[int, str], data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Return a infrastructure manager by ID in either JSON or XML
+
+        :param id: Infrastructure manager ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/infrastructuremanager/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def update_infrastructure_manager(self, data: str, id: Union[int, str]) -> str:
+        """
+        Updates an existing infrastructure manager by ID with XML data
+
+        :param data: XML data to update infrastructure manager with
+        :param id: Infrastructure manager ID
+        """
+        endpoint = f"/JSSResource/infrastructuremanager/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
 
     """
     /jssuser

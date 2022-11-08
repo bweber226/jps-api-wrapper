@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.38.0] -- 2022-11-05
+## [0.39.0] -- 2022-11-07
+### Added
+- Classic.get_infrasture_managers which returns all infrastructure managers
+- Classic.get_infrastructure_manager which returns data on one infrastructure manager by ID
+- Classic.update_infrastructure_manager which updates an existing infrastructure manager by ID
+
+## [0.38.0] -- 2022-11-07
 ### Added
 - Classic.get_ibeacon_regions which returns all ibeacon regions
 - Classic.get_ibeacon_region which returns data on one iBeacon region by ID or name

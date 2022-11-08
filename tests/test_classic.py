@@ -4271,6 +4271,77 @@ def test_delete_ibeacon_region_name(classic):
 /infrastructuremanager
 """
 
+
+@responses.activate
+def test_get_infrastructure_managers_json(classic):
+    """
+    Ensures that get_infrastructure_managers completes successfully when used
+    with data_type set to json
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/infrastructuremanager"))
+    )
+    assert classic.get_infrastructure_managers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_infrastructure_managers_xml(classic):
+    """
+    Ensures that get_infrastructure_managers completes successfully when used
+    with data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/infrastructuremanager"), data_type="xml"
+        )
+    )
+    assert classic.get_infrastructure_managers("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_infrastructure_manager_json(classic):
+    """
+    Ensures that get_infrastructure_manager completes successfully when used
+    with required params and data_type set to json
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/infrastructuremanager/id/1001"))
+    )
+    assert classic.get_infrastructure_manager(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_infrastructure_manager_xml(classic):
+    """
+    Ensures that get_infrastructure_manager completes successfully when used
+    with required params and data_type set to xml
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/infrastructuremanager/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_infrastructure_manager(1001, "xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_update_infrastructure_manager(classic):
+    """
+    Ensures that update_infrastructure_manager completes successfully when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/infrastructuremanager/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_infrastructure_manager(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
 """
 /jssuser
 """
