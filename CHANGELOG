@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.42.0] -- 2022-11-08
+### Added
+- Classic.get_licensed_software_all which returns all licensed software
+- Classic.get_licensed_software which returns data on one licensed software by ID or name
+- Classic.create_licensed_software which creates a licensed software 
+- Classic.update_licensed_software which updates an existing licensed software by ID or name
+- Classic.delete_licensed_software which deletes an existing licensed software by ID or name
+
 ## [0.41.0] -- 2022-11-08
 ### Added
 - Classic.get_ldap_servers which returns all LDAP servers
