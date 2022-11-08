@@ -1,6 +1,6 @@
 from mimetypes import guess_type
 from os.path import basename
-from typing import Union
+from typing import List, Union
 
 from request_builder import RequestBuilder
 from utils import (
@@ -61,7 +61,7 @@ class Classic(RequestBuilder):
         next available ID.
 
         :param data: XML data to create the account group with
-        :param id: ID of the new account group, use 0 for next available ID
+        :param id: ID of the new account group, set to 0 for next available ID
         """
         endpoint = f"/JSSResource/accounts/groupid/{id}"
 
@@ -1446,7 +1446,7 @@ class Classic(RequestBuilder):
         udid: str = None,
         serialnumber: str = None,
         macaddress: str = None,
-        subsets: list = None,
+        subsets: List[str] = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
@@ -1510,7 +1510,7 @@ class Classic(RequestBuilder):
         udid: str = None,
         serialnumber: str = None,
         macaddress: str = None,
-        subsets: list = None,
+        subsets: List[str] = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
@@ -1700,7 +1700,7 @@ class Classic(RequestBuilder):
         serialnumber: str = None,
         macaddress: str = None,
         username: str = None,
-        subsets: list = None,
+        subsets: List[str] = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
@@ -1850,7 +1850,7 @@ class Classic(RequestBuilder):
         udid: str = None,
         serialnumber: str = None,
         macaddress: str = None,
-        subsets: list = None,
+        subsets: List[str] = None,
         data_type: str = "json",
     ):
         """
@@ -2511,7 +2511,7 @@ class Classic(RequestBuilder):
         self,
         id: Union[int, str] = None,
         name: str = None,
-        subsets: list = None,
+        subsets: List[str] = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
@@ -2616,6 +2616,7 @@ class Classic(RequestBuilder):
     /fileuploads
     """
     # enrollmentprofiles and printers resources do not work
+    # peripherals work but are no longer supported by Jamf so I didn't add them
 
     def file_upload(
         self,
@@ -2640,7 +2641,6 @@ class Classic(RequestBuilder):
         Options:
         - computers
         - mobiledevices
-        - peripherals
         - policies
         - ebooks
         - mobiledeviceapplicationsicon
@@ -2681,6 +2681,14 @@ class Classic(RequestBuilder):
                 "mobiledeviceapplicationsicon resources must be in a valid "
                 "image format."
             )
+        if (
+            not filepath.lower().endswith((".p12", ".cer", ".pem"))
+            and resource == "diskencryptionconfigurations"
+        ):
+            raise ValueError(
+                "Uploaded recovery key files to the diskencryptionconfigurations "
+                "resource must be in .p12, .cer, or .pem format."
+            )
         resource_options = [
             "computers",
             "mobiledevices",
@@ -2698,6 +2706,8 @@ class Classic(RequestBuilder):
                 content_type = guess_type(filename.lower())[0]
                 if not content_type and filename.endswith(".ipa"):
                     content_type = "application/octet-stream"
+                if not content_type and filename.endswith(".pem"):
+                    content_type = "application/x-pem-file"
                 if not content_type:
                     raise ValueError(f"Unable to detect MIME type of file {filename}")
                 file = {"name": (filename, f, content_type)}
@@ -3039,6 +3049,178 @@ class Classic(RequestBuilder):
     /ldapservers
     """
 
+    def get_ldap_servers(self, data_type="json") -> Union[dict, str]:
+        """
+        Returns all LDAP servers in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/ldapservers"
+
+        return self._get(endpoint, data_type)
+
+    def get_ldap_server(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on one LDAP server by ID or name in JSON or XML
+
+        :param id: LDAP server ID
+        :param name: LDAP server name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ldapservers/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def get_ldap_server_user(
+        self,
+        user: str,
+        id: Union[int, str] = None,
+        name: str = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Display information for matching users for an LDAP server by ID or name
+        in JSON or XML
+
+        :param user: LDAP server user
+        :param id: LDAP server ID
+        :param name: LDAP server name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ldapservers/{identification}"
+            f"/{identification_options[identification]}/user/{user}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def get_ldap_server_group(
+        self,
+        group: str,
+        id: Union[int, str] = None,
+        name: str = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Display information for matching groups for an LDAP server by ID or
+        name in JSON or XML
+
+        :param group: LDAP server group
+        :param id: LDAP server ID
+        :param name: LDAP server name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ldapservers/{identification}"
+            f"/{identification_options[identification]}/group/{group}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def get_ldap_server_group_user(
+        self,
+        group: str,
+        users: List[str],
+        id: Union[int, str] = None,
+        name: str = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Display information about user membership in a group for an LDAP server
+        by ID or name in JSON or XML
+
+        :param group: LDAP server group
+        :param users:
+            Users to search for in the group, in a list of strings
+            (e.g. ["nameone", "nametwo"])
+        :param id: LDAP server ID
+        :param name: LDAP server name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ldapservers/{identification}"
+            f"/{identification_options[identification]}"
+            f"/group/{group}/user/{','.join(users)}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_ldap_server(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a new LDAP server by ID or name with XML data
+
+        :param data: XML data to create LDAP server with
+        :param id: LDAP server ID, set to 0 for next available ID
+        """
+        endpoint = f"/JSSResource/ldapservers/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_ldap_server(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates an existing LDAP server by ID or name with XML data
+
+        :param data: XML data to update LDAP server with
+        :param id: LDAP server ID
+        :param name: LDAP server name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ldapservers/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_ldap_server(self, id: Union[int, str] = None, name: str = None) -> str:
+        """
+        Deletes an LDAP server by ID or name
+
+        :param id: LDAP server ID
+        :param name: LDAP server name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/ldapservers/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /licensedsoftware
     """
@@ -3121,7 +3303,7 @@ class Classic(RequestBuilder):
         udid: str = None,
         serialnumber: str = None,
         macaddress: str = None,
-        subsets: list = None,
+        subsets: List[str] = None,
         data_type: str = "json",
     ):
         """

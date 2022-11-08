@@ -4463,6 +4463,230 @@ def test_delete_json_web_token_configuration(classic):
 /ldapservers
 """
 
+
+@responses.activate
+def test_get_ldap_servers(classic):
+    """
+    Ensures that get_ldap_servers returns JSON data when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/ldapservers")))
+    assert classic.get_ldap_servers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ldap_servers_xml(classic):
+    """
+    Ensures that get_ldap_servers returns XML data when used data_type is set
+    to "xml"
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/ldapservers"), data_type="xml")
+    )
+    assert classic.get_ldap_servers("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_ldap_server_id_json(classic):
+    """
+    Ensures that get_ldap_server returns JSON data when used with ID and no
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/ldapservers/id/1001")))
+    assert classic.get_ldap_server(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ldap_server_name_xml(classic):
+    """
+    Ensures that get_ldap_server returns XML data when used with name and
+    data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/ldapservers/name/testname"), data_type="xml"
+        )
+    )
+    assert classic.get_ldap_server(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_ldap_server_user_id_json(classic):
+    """
+    Ensures that get_ldap_server_user returns JSON data when used with ID and
+    no optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/ldapservers/id/1001/user/testuser")
+        )
+    )
+    assert classic.get_ldap_server_user("testuser", 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ldap_server_user_name_xml(classic):
+    """
+    Ensures that get_ldap_server_user returns XML data when used with name and
+    data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/ldapservers/name/testname/user/testuser"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_ldap_server_user("testuser", name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_get_ldap_server_group_id_json(classic):
+    """
+    Ensures that get_ldap_server_group returns JSON data when used with ID and
+    no optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/ldapservers/id/1001/group/testgroup")
+        )
+    )
+    assert classic.get_ldap_server_group("testgroup", 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ldap_server_group_name_xml(classic):
+    """
+    Ensures that get_ldap_server_group returns XML data when used with name and
+    data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/ldapservers/name/testname/group/testgroup"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_ldap_server_group("testgroup", name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_get_ldap_server_group_user_id_json(classic):
+    """
+    Ensures that get_ldap_server_group_user returns JSON data when used with id
+    and one user
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/ldapservers/id/1001/group/groupname/user/userone"),
+        )
+    )
+    assert (
+        classic.get_ldap_server_group_user("groupname", ["userone"], 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_ldap_server_group_users_name_xml(classic):
+    """
+    Ensures that get_ldap_server_group_user returns XML data when used with
+    name and multiple users with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/ldapservers/name/ldapname/group/groupname/user"
+                "/userone%2Cusertwo"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_ldap_server_group_user(
+            "groupname", ["userone", "usertwo"], name="ldapname", data_type="xml"
+        )
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_ldap_server_id(classic):
+    """
+    Ensures that create_ldap_server runs successfully when using ID 0
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/ldapservers/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_ldap_server(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_ldap_server_id(classic):
+    """
+    Ensures that update_ldap_server runs successfully when using ID as the
+    identifier
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/ldapservers/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_ldap_server(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_ldap_server_name(classic):
+    """
+    Ensures that update_ldap_server runs successfully when using name as the
+    identifier
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/ldapservers/name/testname"), data_type="xml"
+        )
+    )
+    assert classic.update_ldap_server(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_ldap_server_id(classic):
+    """
+    Ensures that delete_ldap_server runs successfully when using ID as the
+    identifier
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/ldapservers/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.delete_ldap_server(1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_ldap_server_name(classic):
+    """
+    Ensures that delete_ldap_server runs successfully when using name as the
+    identifier
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/JSSResource/ldapservers/name/testname"), data_type="xml"
+        )
+    )
+    assert classic.delete_ldap_server(name="testname") == EXPECTED_XML
+
+
 """
 /licensedsoftware
 """

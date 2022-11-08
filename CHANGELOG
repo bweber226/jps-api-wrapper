@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.41.0] -- 2022-11-08
+### Added
+- Classic.get_ldap_servers which returns all LDAP servers
+- Classic.get_ldap_server which returns data on one LDAP server
+- Classic.get_ldap_server_user which returns data on users matching a user name in a LDAP server
+- Classic.get_ldap_server_group which returns data on a group matching a group name in a LDAP server
+- Classic.get_ldap_server_group_user which returns data on users in a group in a LDAP server
+- Classic.create_ldap_server which creates a LDAP server
+- Classic.update_ldap_server which updates an existing LDAP server
+- Classic.delete_ldap_server which deletes a LDAP server
+### Changed
+- Classic.file_upload now handles the diskencryptionconfiguration resource and enforces p12, cer, and pem file types
+
 ## [0.40.0] -- 2022-11-08
 ### Added 
 - Classic.get_json_web_token_configurations which returns all JSON web token configurations
