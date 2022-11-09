@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.45.0] -- 2022-11-09
+### Added
+- Classic.get_managed_preference_profiles which returns all managed preference profiles
+- Classic.get_managed_preference_profile which returns data on one managed preference profile by ID or name and optional subsets
+- Classic.create_managed_preference_profile which creates a managed preference profile 
+- Classic.update_managed_preference_profile which updates an existing managed preference profile by ID or name
+- Classic.delete_managed_preference_profile which deletes an existing managed preference profile by ID or name
+
 ## [0.44.0] -- 2022-11-09
 ### Added
 - Classic.get_mac_applications which returns all mac applications

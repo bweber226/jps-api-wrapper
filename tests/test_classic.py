@@ -5042,6 +5042,173 @@ def test_delete_mac_application_name(classic):
 /managedpreferenceprofiles
 """
 
+
+@responses.activate
+def test_get_managed_preference_profiles_json(classic):
+    """
+    Ensures that get_managed_preference_profiles returns a JSON dict when
+    passing "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/managedpreferenceprofiles"))
+    )
+    assert classic.get_managed_preference_profiles() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_preference_profiles_xml(classic):
+    """
+    Ensures that get_managed_preference_profiles returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/managedpreferenceprofiles"), data_type="xml"
+        )
+    )
+    assert classic.get_managed_preference_profiles(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_managed_preference_profile_id_json(classic):
+    """
+    Ensures that get_managed_preference_profile returns a JSON dict when
+    passing "json" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/managedpreferenceprofiles/id/1001")
+        )
+    )
+    assert classic.get_managed_preference_profile(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_preference_profile_name_xml(classic):
+    """
+    Ensures that get_managed_preference_profile returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/managedpreferenceprofiles/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_managed_preference_profile(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_get_managed_preference_profile_id_subset(classic):
+    """
+    Ensures that get_managed_preference_profile returns data when used with id
+    as an identifier and one subset options
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/managedpreferenceprofiles/id/1001/subset/General"),
+        )
+    )
+    assert (
+        classic.get_managed_preference_profile(1001, subsets=["General"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_managed_preference_profile_id_subsets(classic):
+    """
+    Ensures that get_managed_preference_profile returns data when used with id
+    as an identifier and multiple subset options
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/managedpreferenceprofiles/id/1001/subset/General%26Scope"
+            ),
+        )
+    )
+    assert (
+        classic.get_managed_preference_profile(1001, subsets=["General", "Scope"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_managed_preference_profile_id(classic):
+    """
+    Ensures that update_managed_preference_profile returns data when updating
+    a managed preference profile with id
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/managedpreferenceprofiles/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_managed_preference_profile(EXPECTED_XML, id=1001) == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_managed_preference_profile_name(classic):
+    """
+    Ensures that update_managed_preference_profile returns data when updating
+    a managed preference profile with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/managedpreferenceprofiles/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_managed_preference_profile(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_managed_preference_profile_id(classic):
+    """
+    Ensures that delete_managed_preference_profile returns data when deleting a
+    managed preference profile by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/managedpreferenceprofiles/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_managed_preference_profile(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_managed_preference_profile_name(classic):
+    """
+    Ensures that delete_managed_preference_profile returns data when deleting a
+    managed preference profile by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/managedpreferenceprofiles/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_managed_preference_profile(name="testname") == EXPECTED_XML
+
+
 """
 /mobiledeviceapplications
 """

@@ -3485,6 +3485,116 @@ class Classic(RequestBuilder):
     """
 
     """
+    Managed preference profiles have been deprecated by Apple and Jamf.
+    I added the ability to get, update, and delete them as you can no do these
+    through the GUI but omitted creation as they should not be used.
+    """
+
+    def get_managed_preference_profiles(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all managed preference profiles in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/managedpreferenceprofiles"
+
+        return self._get(endpoint, data_type)
+
+    def get_managed_preference_profile(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        subsets: List[str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific managed preference profile by either ID or
+        name.
+
+        :param id: Managed preference profile ID
+        :param name: Managed preference profile name
+        :param subsets:
+            Subset(s) of data from the computer in a list of strings
+
+            Options:
+            - General
+            - Scope
+            - Settings
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        subset_options = [
+            "General",
+            "Scope",
+            "Settings",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/managedpreferenceprofiles/{identification}"
+                f"/{identification_options[identification]}/subset/"
+                f"{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/managedpreferenceprofiles/{identification}/"
+                f"{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def update_managed_preference_profile(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a managed preference profile with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the managed preference profile with
+        :param id: Managed preference profile ID
+        :param name: Managed preference profile name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/managedpreferenceprofiles/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_managed_preference_profile(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a managed preference profile by either ID or name. Need to
+        supply at least one identifier.
+
+        :param id: Managed preference profile ID
+        :param name: Managed preference profile name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/managedpreferenceprofiles/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
+    """
     /mobiledeviceapplications
     """
 
