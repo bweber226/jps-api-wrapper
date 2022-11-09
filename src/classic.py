@@ -3320,6 +3320,40 @@ class Classic(RequestBuilder):
     """
     /logflush
     """
+    # TODO COME BACK TO THIS, NOT WORKING AS EXPECTED
+    def log_flush(self, data: str) -> str:
+        """
+        Deletes policy or computer logs based on XML data
+
+        :param data: XML data that defines which logs to flush
+        """
+        endpoint = "/JSSResource/logflush"
+
+        return self._delete(endpoint, data, data_type="xml")
+
+    def log_flush_interval(self, interval: str, id: Union[int, str] = None) -> str:
+        """
+        Deletes policy logs based on an interval and optionally only a single
+        log defined by ID.
+
+        :param interval:
+            Supported values are a combination of [Zero, One, Two, Three, Six]
+            and [Days, Weeks, Months, Years]. The values must be joined with
+            a "+", e.g. One+Weeks or Six+Months.
+        :param id: Policy ID
+
+        :raises ValueError: No + in interval string
+        """
+        if "+" not in interval:
+            raise ValueError(
+                "Interval values must be joined by a '+', e.g. One+Weeks or Six+Months"
+            )
+        if id:
+            endpoint = f"/JSSResource/logflush/policy/id/{id}/interval/{interval}"
+        else:
+            endpoint = f"/JSSResource/logflush/policy/interval/{interval}"
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /macapplications

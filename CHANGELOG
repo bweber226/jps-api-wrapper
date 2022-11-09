@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.43.0] -- 2022-11-08
+### Added
+- Classic.log_flush which flushes all policy logs or policy logs for a specific computer in an interval of times with XML data
+- Classic.log_flush_interval which flushes policy logs in an interval or for a specific policy log in an interval
+### Changed
+- RequestBuilder._delete allows + characters in endpoints now to handle Classic.log_flush_interval, need to find a better solution eventually
+
 ## [0.42.0] -- 2022-11-08
 ### Added
 - Classic.get_licensed_software_all which returns all licensed software

@@ -215,7 +215,9 @@ class RequestBuilder:
         if query_string:
             full_url = self.base_url + quote(endpoint) + f"?{'&'.join(query_string)}"
         else:
-            full_url = self.base_url + quote(endpoint)
+            # + was added as a safe character to make
+            # Classic.log_flush_interval work, need to find a better workaround
+            full_url = self.base_url + quote(endpoint, safe="/+")
         headers = {"Content-type": f"application/{data_type}"}
         response = self.session.delete(full_url, headers=headers, data=data)
         self._raise_recognized_errors(response)

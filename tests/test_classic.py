@@ -4828,6 +4828,49 @@ def test_delete_licensed_software_name(classic):
 /logflush
 """
 
+
+@responses.activate
+def test_log_flush(classic):
+    """
+    Ensures that log_flush completes successfully when run with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/JSSResource/logflush"), data_type="xml")
+    )
+    assert classic.log_flush(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_log_flush_interval(classic):
+    """
+    Ensures that log_flush_interval completes successfully when run without
+    using ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/logflush/policy/interval/One+Weeks"),
+            data_type="xml",
+        )
+    )
+    assert classic.log_flush_interval("One+Weeks") == EXPECTED_XML
+
+
+@responses.activate
+def test_log_flush_interval_id(classic):
+    """
+    Ensures that log_flush_interval completes succesfully when run with ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/logflush/policy/id/1001/interval/Six+Months"),
+            data_type="xml",
+        )
+    )
+    assert classic.log_flush_interval("Six+Months", 1001) == EXPECTED_XML
+
+
 """
 /macapplications
 """
