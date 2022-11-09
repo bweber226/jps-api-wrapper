@@ -5213,6 +5213,331 @@ def test_delete_managed_preference_profile_name(classic):
 /mobiledeviceapplications
 """
 
+
+@responses.activate
+def test_get_mobile_device_applications_json(classic):
+    """
+    Ensures that get_mobile_device_applications returns JSON when run without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledeviceapplications"))
+    )
+    assert classic.get_mobile_device_applications() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_applications_xml(classic):
+    """
+    Ensures that get_mobile_device_applications returns XML when run with
+    data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledeviceapplications"), data_type="xml"
+        )
+    )
+    assert classic.get_mobile_device_applications("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mobile_device_application_id_json(classic):
+    """
+    Ensures that get_mobile_device_application returns JSON when run with ID as
+    the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledeviceapplications/id/1001")
+        )
+    )
+    assert classic.get_mobile_device_application(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_application_name_xml(classic):
+    """
+    Ensures that get_mobile_device_application returns XML when run with name
+    as the identifier and data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledeviceapplications/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_mobile_device_application(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_get_mobile_device_application_id_subsets(classic):
+    """
+    Ensures that get_mobile_device_application returns JSON when run with ID
+    as the identifier and subsets
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/mobiledeviceapplications/id/1001/subset/General%26Scope"
+            ),
+        )
+    )
+    assert (
+        classic.get_mobile_device_application(id=1001, subsets=["General", "Scope"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_mobile_device_application_bundleid(classic):
+    """
+    Ensures that get_mobile_device_application returns JSON when run with
+    bundleid as the identifier and no additional optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledeviceapplications/bundleid/com.testname"),
+        )
+    )
+    assert (
+        classic.get_mobile_device_application(bundleid="com.testname") == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_mobile_device_application_bundleid_version(classic):
+    """
+    Ensures that get_mobile_device_application returns JSON when run with
+    bundleid and version set and no additional optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/mobiledeviceapplications/bundleid/com.testname"
+                "/version/0.1.0"
+            ),
+        )
+    )
+    assert (
+        classic.get_mobile_device_application(bundleid="com.testname", version="0.1.0")
+        == EXPECTED_JSON
+    )
+
+
+def test_get_mobile_device_application_id_version(classic):
+    """
+    Ensures that get_mobile_device_application raises ValueError when ID is
+    used with version
+    """
+    with pytest.raises(ValueError):
+        classic.get_mobile_device_application(1001, version="0.1.0")
+
+
+def test_get_mobile_device_application_bundleid_subsets(classic):
+    """
+    Ensures that get_mobile_device_application raises ValueError when bundleid
+    is used with subets
+    """
+    with pytest.raises(ValueError):
+        classic.get_mobile_device_application(
+            bundleid="com.testname", subsets=["General"]
+        )
+
+
+@responses.activate
+def test_create_mobile_device_application(classic):
+    """
+    Ensures that create_mobile_device_application completes successfully when
+    run with no optional params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/mobiledeviceapplications/id/0"),
+            data_type="xml",
+        )
+    )
+    assert classic.create_mobile_device_application(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_mobile_device_application_id(classic):
+    """
+    Ensures that update_mobile_device_application completes successfully when
+    run with id
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/mobiledeviceapplications/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_mobile_device_application(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_mobile_device_application_name(classic):
+    """
+    Ensures that update_mobile_device_application completes successfully when
+    run with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/mobiledeviceapplications/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_mobile_device_application(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_mobile_device_application_bundleid(classic):
+    """
+    Ensures that update_mobile_device_application completes successfully when
+    run with bundleid
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/mobiledeviceapplications/bundleid/com.testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_mobile_device_application(EXPECTED_XML, bundleid="com.testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_mobile_device_application_bundleid_version(classic):
+    """
+    Ensures that update_mobile_device_application completes successfully when
+    run with bundleid and version
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url(
+                "/JSSResource/mobiledeviceapplications/bundleid/com.testname"
+                "/version/0.1.0"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_mobile_device_application(
+            EXPECTED_XML, bundleid="com.testname", version="0.1.0"
+        )
+        == EXPECTED_XML
+    )
+
+
+def test_update_mobile_device_applciation_id_version(classic):
+    """
+    Ensures that update_mobile_device_application raises ValueError when run
+    with id and version
+    """
+    with pytest.raises(ValueError):
+        classic.update_mobile_device_application(EXPECTED_XML, 1001, version="0.1.0")
+
+
+@responses.activate
+def test_delete_mobile_device_application_id(classic):
+    """
+    Ensures that delete_mobile_device_application completes successfully when
+    run with id
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceapplications/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mobile_device_application(1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_mobile_device_application_name(classic):
+    """
+    Ensures that delete_mobile_device_application completes successfully when
+    run with name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceapplications/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mobile_device_application(name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_mobile_device_application_bundleid(classic):
+    """
+    Ensures that delete_mobile_device_application completes successfully when
+    run with bundleid
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceapplications/bundleid/com.testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.delete_mobile_device_application(bundleid="com.testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_application_bundleid_version(classic):
+    """
+    Ensures that delete_mobile_device_application completes successfully when
+    run with bundleid and version
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url(
+                "/JSSResource/mobiledeviceapplications/bundleid/com.testname"
+                "/version/0.1.0"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.delete_mobile_device_application(
+            bundleid="com.testname", version="0.1.0"
+        )
+        == EXPECTED_XML
+    )
+
+
+def test_delete_mobile_device_applciation_id_version(classic):
+    """
+    Ensures that delete_mobile_device_application raises ValueError when run
+    with id and version
+    """
+    with pytest.raises(ValueError):
+        classic.delete_mobile_device_application(1001, version="0.1.0")
+
+
 """
 /mobiledevicecommands
 """

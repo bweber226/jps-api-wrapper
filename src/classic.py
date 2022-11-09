@@ -3598,6 +3598,181 @@ class Classic(RequestBuilder):
     /mobiledeviceapplications
     """
 
+    def get_mobile_device_applications(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all mobile device applications in either JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/mobiledeviceapplications"
+
+        return self._get(endpoint, data_type)
+
+    def get_mobile_device_application(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        bundleid: str = None,
+        version: str = None,
+        subsets: List[str] = None,
+        data_type="json",
+    ):
+        """
+        Returns data on one mobile device application by ID, name, or bundle
+        ID. When using bundle ID as the identifier you can also optionally
+        filter by version. When using ID or name as an identifier you can
+        filter the data by subsets. Need to supply at least one identifier.
+
+        :param id: Mobile device ID
+        :param name: Mobile device name
+        :param bundleid: Mobile device bundle ID
+        :param version: Mobile device version
+        :param subsets:
+            Subset(s) of data from the computer in a list of strings
+
+            Options:
+            - General
+            - Scope
+            - SelfService
+            - VPPCodes
+            - VPP
+            - AppConfiguration
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "bundleid": bundleid,
+        }
+        identification = identification_type(identification_options)
+        if identification == "bundleid" and subsets:
+            raise ValueError(
+                "Can not return a subset of data with bundleid as the identifier."
+            )
+        if identification != "bundleid" and version:
+            raise ValueError(
+                "Can not filter by version using ID or name as an identifier. "
+                "Use bundleid as the identifier to filter by version."
+            )
+        if version:
+            endpoint = (
+                f"/JSSResource/mobiledeviceapplications/bundleid/{bundleid}"
+                f"/version/{version}"
+            )
+        subset_options = [
+            "General",
+            "Scope",
+            "SelfService",
+            "VPPCodes",
+            "VPP",
+            "AppConfiguration",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/mobiledeviceapplications/{identification}"
+                f"/{identification_options[identification]}"
+                f"/subset/{'&'.join(subsets)}"
+            )
+        if not version and not subsets:
+            endpoint = (
+                f"/JSSResource/mobiledeviceapplications/{identification}"
+                f"/{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def create_mobile_device_application(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a mobile device application with XML data.
+
+        :param data: XML data to create mobile device application with
+        :param id: Mobile device ID, set to 0 for next available ID
+        """
+        endpoint = f"/JSSResource/mobiledeviceapplications/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_mobile_device_application(
+        self,
+        data: str,
+        id: Union[int, str] = None,
+        name: str = None,
+        bundleid: str = None,
+        version: str = None,
+    ) -> str:
+        """
+        Updates an existing mobile device application by ID, name, or bundleid.
+        Bundleid can additionaly be defined by version. Need to supply at
+        least one identifier.
+
+        :param data: XML data to update mobile device application with
+        :param id: Mobile device ID
+        :param name: Mobile device name
+        :param bundleid: Mobile device bundle ID
+        :param version: Mobile device version
+        """
+        identification_options = {"id": id, "name": name, "bundleid": bundleid}
+        identification = identification_type(identification_options)
+        if identification != "bundleid" and version:
+            raise ValueError(
+                "Can not filter by version using ID or name as an identifier. "
+                "Use bundleid as the identifier to filter by version."
+            )
+        if identification == "bundleid" and version:
+            endpoint = (
+                f"/JSSResource/mobiledeviceapplications/{identification}"
+                f"/{identification_options[identification]}/version/{version}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/mobiledeviceapplications/{identification}"
+                f"/{identification_options[identification]}"
+            )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_mobile_device_application(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        bundleid: str = None,
+        version: str = None,
+    ) -> str:
+        """
+        Deletes an mobile device application by ID, name, or bundleid.
+        Bundleid can additionaly be defined by version. Need to supply at
+        least one identifier.
+
+        :param id: Mobile device ID
+        :param name: Mobile device name
+        :param bundleid: Mobile device bundle ID
+        :param version: Mobile device version
+        """
+        identification_options = {"id": id, "name": name, "bundleid": bundleid}
+        identification = identification_type(identification_options)
+        if identification != "bundleid" and version:
+            raise ValueError(
+                "Can not filter by version using ID or name as an identifier. "
+                "Use bundleid as the identifier to filter by version."
+            )
+        if identification == "bundleid" and version:
+            endpoint = (
+                f"/JSSResource/mobiledeviceapplications/{identification}"
+                f"/{identification_options[identification]}/version/{version}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/mobiledeviceapplications/{identification}"
+                f"/{identification_options[identification]}"
+            )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /mobiledevicecommands
     """
@@ -3733,8 +3908,7 @@ class Classic(RequestBuilder):
         Creates a mobile device with the given ID and information defined in
         XML data.
 
-        :param data:
-            XML data to update/create the mobile device.
+        :param data: XML data to create the mobile device
         :param id: Mobile device ID, set to 0 for next available ID
         """
         endpoint = f"/JSSResource/mobiledevices/id/{id}"

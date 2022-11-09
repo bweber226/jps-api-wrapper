@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.46.0] -- 2022-11-09
+### Added
+- Classic.get_mobile_device_applications which returns all mobile device applications in JSON or XML
+- Classic.get_mobile_device_application which returns data on one mobile device application by ID, name, or bundle ID in JSON or XML, bundle ID can additionally filter by version
+- Classic.create_mobile_device_application which creates a mobile device application by ID with XML data
+- Classic.update_mobile_device_application which updates an existing mobile device application by ID, name, or bundle ID with XML data, bundle ID can additionally filter by version
+- Classic.delete_mobile_device_application which deletes a mobile device application by ID, name, or bundle ID which can additionally filter by version
+
 ## [0.45.0] -- 2022-11-09
 ### Added
 - Classic.get_managed_preference_profiles which returns all managed preference profiles
