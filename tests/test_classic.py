@@ -4875,6 +4875,169 @@ def test_log_flush_interval_id(classic):
 /macapplications
 """
 
+
+@responses.activate
+def test_get_mac_applications_json(classic):
+    """
+    Ensures that get_mac_applications returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/macapplications")))
+    assert classic.get_mac_applications() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mac_applications_xml(classic):
+    """
+    Ensures that get_mac_applications returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/macapplications"), data_type="xml"
+        )
+    )
+    assert classic.get_mac_applications(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mac_application_id_json(classic):
+    """
+    Ensures that get_mac_application returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/macapplications/id/1001"))
+    )
+    assert classic.get_mac_application(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mac_application_name_xml(classic):
+    """
+    Ensures that get_mac_application returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/macapplications/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_mac_application(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mac_application_id_subset(classic):
+    """
+    Ensures that get_mac_application returns data when used with id as an
+    identifier and one subset options
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/macapplications/id/1001/subset/General")
+        )
+    )
+    assert classic.get_mac_application(1001, subsets=["General"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mac_application_id_subsets(classic):
+    """
+    Ensures that get_mac_application returns data when used with id as an
+    identifier and multiple subset options
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/macapplications/id/1001/subset/General%26SelfService"
+            ),
+        )
+    )
+    assert (
+        classic.get_mac_application(1001, subsets=["General", "SelfService"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_mac_application_id(classic):
+    """
+    Ensures that create_mac_application returns data when updating
+    a Mac application with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/macapplications/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_mac_application(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_mac_application_id(classic):
+    """
+    Ensures that update_mac_application returns data when updating
+    a Mac application with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/macapplications/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_mac_application(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_mac_application_name(classic):
+    """
+    Ensures that update_mac_application returns data when updating
+    a Mac application with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/macapplications/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_mac_application(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_mac_application_id(classic):
+    """
+    Ensures that delete_mac_application returns data when deleting a
+    Mac application by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/macapplications/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mac_application(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_mac_application_name(classic):
+    """
+    Ensures that delete_mac_application returns data when deleting a
+    Mac application by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/macapplications/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mac_application(name="testname") == EXPECTED_XML
+
+
 """
 /managedpreferenceprofiles
 """

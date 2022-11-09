@@ -2615,6 +2615,7 @@ class Classic(RequestBuilder):
     """
     /fileuploads
     """
+
     # enrollmentprofiles and printers resources do not work
     # peripherals work but are no longer supported by Jamf so I didn't add them
 
@@ -3321,6 +3322,7 @@ class Classic(RequestBuilder):
     /logflush
     """
     # TODO COME BACK TO THIS, NOT WORKING AS EXPECTED
+    # The commands complete but nothing changes in the JPS instance
     def log_flush(self, data: str) -> str:
         """
         Deletes policy or computer logs based on XML data
@@ -3358,6 +3360,125 @@ class Classic(RequestBuilder):
     """
     /macapplications
     """
+
+    def get_mac_applications(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all Mac applications in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/macapplications"
+
+        return self._get(endpoint, data_type)
+
+    def get_mac_application(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        subsets: List[str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific Mac application by either ID or name.
+
+        :param id: Mac application ID
+        :param name: Mac application name
+        :param subsets:
+            Subset(s) of data from the computer in a list of strings
+
+            Options:
+            - General
+            - Scope
+            - SelfService
+            - VPPCodes
+            - VPP
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        subset_options = [
+            "General",
+            "Scope",
+            "SelfService",
+            "VPPCodes",
+            "VPP",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/macapplications/{identification}"
+                f"/{identification_options[identification]}/subset/"
+                f"{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/macapplications/{identification}/"
+                f"{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def create_mac_application(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a Mac application with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the Mac application with
+        :param id:
+            ID of the new Mac application, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/macapplications/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_mac_application(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a Mac application with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the Mac application with
+        :param id: Mac application ID
+        :param name: Mac application name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/macapplications/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_mac_application(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a Mac application by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Mac application ID
+        :param name: Mac application name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/macapplications/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /managedpreferenceprofiles
