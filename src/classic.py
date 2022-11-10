@@ -11,6 +11,7 @@ from utils import (
     valid_param_options,
     valid_subsets,
     validate_date,
+    InvalidParameterOptions,
 )
 
 
@@ -1156,7 +1157,7 @@ class Classic(RequestBuilder):
     def create_computer_command(
         self,
         command: str,
-        ids: str = None,
+        ids: List[Union[int, str]] = None,
         action: str = None,
         passcode: str = None,
         data: str = None,
@@ -1213,6 +1214,7 @@ class Classic(RequestBuilder):
             endpoint = f"/JSSResource/computercommands/command/{command}"
         if param_type == "params":
             check_conflicting_params({"action": action, "passcode": passcode})
+            ids = ",".join([str(id) for id in ids])
             if (
                 not action
                 and not passcode
@@ -3776,6 +3778,191 @@ class Classic(RequestBuilder):
     """
     /mobiledevicecommands
     """
+
+    # command option is omitted since it is the same as name
+    def get_mobile_device_commands(
+        self, name: str = None, data_type="json"
+    ) -> Union[dict, str]:
+        """
+        Returns all mobile device commands in JSON or XML. Can optionally
+        filter by name as well.
+
+        :param name: Mobile device command name e.g. UpdateInventory
+        :param data_type: json or xml
+        """
+        if name:
+            endpoint = f"/JSSResource/mobiledevicecommands/name/{name}"
+        else:
+            endpoint = "/JSSResource/mobiledevicecommands"
+
+        return self._get(endpoint, data_type)
+
+    def get_mobile_device_command(
+        self, uuid: str, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on one mobile device command by UUID in JSON or XML
+
+        :param uuid: Mobile device command UUID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/mobiledevicecommands/uuid/{uuid}"
+
+        return self._get(endpoint, data_type)
+
+    def create_mobile_device_command(
+        self,
+        command: str = None,
+        ids: List[Union[int, str]] = None,
+        device_name: str = None,
+        lock_message: str = None,
+        install_action: Union[int, str] = None,
+        product_version: str = None,
+        data: str = None,
+    ):
+        """
+        Creates a mobile device command with either XML data or parameters
+
+        :param command:
+            Mobile device command to send to device
+
+            Options and requirements:
+            - BlankPush
+            - ClearPasscode
+            - ClearRestrictionsPassword
+            - DeviceLocation
+                - Supervised and in lost mode
+            - DeviceLock
+            - DeviceName
+            - DisableLostMode
+            - EnableLostMode
+                - Supervised device
+            - EraseDevice
+            - PasscodeLockGracePeriod
+                - Shared iPad
+            - PlayLostMostSound
+                - Supervised and in lost mode
+            - RestartDevice
+                - Supervised device
+            - ScheduleOSUpdate
+            - Settings
+            - SettingsDisableAppAnalytics
+            - SettingsDisableBluetooth
+                - iOS 11.3+ and Supervised
+            - SettingsEnablePersonalHotspot
+            - SettingsDisablePersonalHotspot
+            - SettingsDisableDataRoaming
+            - SettingsDisableDiagnosticSubmission
+            - SettingsEnableAppAnalytics
+            - SettingsEnableBluetooth
+                - iOS 11.3+ and Supervised
+            - SettingsEnableDataRoaming
+            - SettingsEnableDiagnosticSubmission
+            - SettingsEnableVoiceRoaming
+            - ShutDownDevice
+                - Supervised device
+            - UnmanageDevice
+            - UpdateInventory
+
+        :param ids: List of mobile device IDs
+        :param device_name:
+            Device name to set for the DeviceName command
+        :param lock_message:
+            Lock message for the DeviceLock command
+        :param install_action:
+            Specify the behavior of the install.
+
+            Possible integer values are:
+            - 1 (Download the update for users to install)
+            - 2 (Download and install the update, and restart devices after
+            installation)
+        :param product_version:
+            Specify the OS version of the update. Updating to a specific iOS
+            version requires devices with iOS 11.3 or later. Updating to a
+            specific tvOS version requires devices with tvOS 12.2 or later.
+            install_action required by the ScheduleOSUpdate command if
+            product_version is specified.
+        :param data: XML data to create a mobile device command with
+
+        :raises InvalidParameterOptions:
+            Raised if a parameter is set to an unrecognized value
+        """
+        params = {"command": command, "ids": ids}
+        param_type = param_or_data(params, data)
+        if param_type == "data":
+            endpoint = "/JSSResource/mobiledevicecommands/command"
+        if param_type == "params":
+            enforce_params(params)
+            if command in ["EnableLostMode", "EraseDevice", "PasscodeLockGracePeriod"]:
+                raise InvalidParameterOptions(
+                    f"{command} requires additonal parameters that need to be passed. "
+                    "Please use the XML data option to use this command instead."
+                )
+            command_options = [
+                "BlankPush",
+                "ClearPasscode",
+                "ClearRestrictionsPassword",
+                "DeviceLocation",
+                "DeviceLock",
+                "DeviceName",
+                "DisableLostMode",
+                "PlayLostModeSound",
+                "RestartDevice",
+                "ScheduleOSUpdate",
+                "Settings",
+                "SettingsDisableAppAnalytics",
+                "SettingsDisableBluetooth",
+                "SettingsEnablePersonalHotspot",
+                "SettingsDisablePersonalHotspot",
+                "SettingsDisableDataRoaming",
+                "SettingsDisableDiagnosticSubmission",
+                "SettingsDisableVoiceRoaming",
+                "SettingsEnableAppAnalytics",
+                "SettingsEnableBluetooth",
+                "SettingsEnableDataRoaming",
+                "SettingsEnableDiagnosticSubmission",
+                "SettingsEnableVoiceRoaming",
+                "ShutDownDevice",
+                "UnmanageDevice",
+                "UpdateInventory",
+            ]
+            valid_param_options(command, command_options)
+            ids = ",".join([str(id) for id in ids])
+            if command == "DeviceName":
+                enforce_params({"command": command, "device_name": device_name})
+                endpoint = (
+                    f"/JSSResource/mobiledevicecommands/command/{command}"
+                    f"/{device_name}/id/{ids}"
+                )
+            elif command == "DeviceLock":
+                enforce_params({"command": command, "lock_message": lock_message})
+                endpoint = (
+                    f"/JSSResource/mobiledevicecommands/command/{command}"
+                    f"/{lock_message}/id/{ids}"
+                )
+            elif command == "ScheduleOSUpdate":
+                enforce_params({"command": command, "install_action": install_action})
+                if str(install_action) not in ["1", "2"]:
+                    raise InvalidParameterOptions(
+                        "install_action must be set to 1 or 2, view docstring "
+                        "for more info on these options."
+                    )
+                if product_version:
+                    endpoint = (
+                        f"/JSSResource/mobiledevicecommands/command/{command}"
+                        f"/{install_action}/{product_version}/id/{ids}"
+                    )
+                else:
+                    endpoint = (
+                        f"/JSSResource/mobiledevicecommands/command/{command}"
+                        f"/{install_action}/id/{ids}"
+                    )
+            else:
+                endpoint = (
+                    f"/JSSResource/mobiledevicecommands/command/{command}/id/{ids}"
+                )
+
+        return self._post(endpoint, data, data_type="xml")
 
     """
     /mobiledeviceconfigurationprofiles

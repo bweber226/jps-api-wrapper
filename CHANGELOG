@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.47.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_commands which returns all mobile device commands in JSON or XML, can optionally filter by command name
+- Classic.get_mobile_device_command which returns data on one mobile device command by UUID in JSON or XML
+- Classic.create_mobile_device_command which sends a mobile device command to a device by XML data or command and IDs
+### Changed
+- Classic.create_computer_command id param is not in List[Union[int, str]] format instead of Union[int, str]
+
 ## [0.46.0] -- 2022-11-09
 ### Added
 - Classic.get_mobile_device_applications which returns all mobile device applications in JSON or XML

@@ -1800,7 +1800,9 @@ def test_create_computer_command_enableremotedesktop_ids(classic):
             data_type="xml",
         )
     )
-    assert classic.create_computer_command("EnableRemoteDesktop", 1001) == EXPECTED_XML
+    assert (
+        classic.create_computer_command("EnableRemoteDesktop", ["1001"]) == EXPECTED_XML
+    )
 
 
 @responses.activate
@@ -1821,7 +1823,7 @@ def test_create_computer_command_scheduleosupdate_action_multiple_ids(classic):
     )
     assert (
         classic.create_computer_command(
-            "ScheduleOSUpdate", ids="1001,1002", action="install"
+            "ScheduleOSUpdate", ids=["1001", "1002"], action="install"
         )
         == EXPECTED_XML
     )
@@ -1834,7 +1836,7 @@ def test_create_computer_command_invalid_command(classic):
     given an invalid command
     """
     with pytest.raises(InvalidParameterOptions):
-        classic.create_computer_command("InventoryUpdate", 1001)
+        classic.create_computer_command("InventoryUpdate", [1001])
 
 
 @responses.activate
@@ -1844,7 +1846,7 @@ def test_create_computer_command_scheduleosupdate_invalid_action(classic):
     given an incorrect value for the action param
     """
     with pytest.raises(InvalidParameterOptions):
-        classic.create_computer_command("ScheduleOSUpdate", "1001", "wrong")
+        classic.create_computer_command("ScheduleOSUpdate", ["1001"], "wrong")
 
 
 @responses.activate
@@ -1854,7 +1856,7 @@ def test_create_computer_command_action_and_passcode(classic):
     action and passcode are given values
     """
     with pytest.raises(ConflictingParameters):
-        classic.create_computer_command("EraseDevice", 1001, "install", "123456")
+        classic.create_computer_command("EraseDevice", ["1001"], "install", "123456")
 
 
 @responses.activate
@@ -1874,7 +1876,7 @@ def test_create_computer_command_erasedevice_ids(classic):
         )
     )
     assert (
-        classic.create_computer_command("EraseDevice", passcode="123456", ids=1001)
+        classic.create_computer_command("EraseDevice", passcode="123456", ids=[1001])
         == EXPECTED_XML
     )
 
@@ -1886,7 +1888,7 @@ def test_create_computer_command_erasedevice_no_passcode(classic):
     command is used without a passcode set
     """
     with pytest.raises(ValueError):
-        classic.create_computer_command("EraseDevice", 1001)
+        classic.create_computer_command("EraseDevice", [1001])
 
 
 """
@@ -5541,6 +5543,269 @@ def test_delete_mobile_device_applciation_id_version(classic):
 """
 /mobiledevicecommands
 """
+
+
+@responses.activate
+def test_get_mobile_device_commands_json(classic):
+    """
+    Ensures that get_mobile_device_commands returns JSON when run without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevicecommands")))
+    assert classic.get_mobile_device_commands() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_commands_name_xml(classic):
+    """
+    Ensures that get_mobile_device_commands returns XML data when run
+    with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledevicecommands/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_mobile_device_commands("testname", "xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mobile_device_command_json(classic):
+    """
+    Ensures that get_mobile_device_command returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledevicecommands/uuid/1a2b3c-4d")
+        )
+    )
+    assert classic.get_mobile_device_command("1a2b3c-4d") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_command_xml(classic):
+    """
+    Ensures that get_mobile_device_command returns XML when used with
+    data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledevicecommands/uuid/1a2b3c-4d"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_mobile_device_command("1a2b3c-4d", data_type="xml") == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_mobile_device_command_generic_commands(classic):
+    """
+    Ensures that create_mobile_device_command completes successfully when run
+    with commands that don't need additional params
+    """
+    generic_commands = [
+        "BlankPush",
+        "ClearPasscode",
+        "ClearRestrictionsPassword",
+        "DeviceLocation",
+        "DisableLostMode",
+        "PlayLostModeSound",
+        "RestartDevice",
+        "Settings",
+        "SettingsDisableAppAnalytics",
+        "SettingsDisableBluetooth",
+        "SettingsEnablePersonalHotspot",
+        "SettingsDisablePersonalHotspot",
+        "SettingsDisableDataRoaming",
+        "SettingsDisableDiagnosticSubmission",
+        "SettingsDisableVoiceRoaming",
+        "SettingsEnableAppAnalytics",
+        "SettingsEnableBluetooth",
+        "SettingsEnableDataRoaming",
+        "SettingsEnableDiagnosticSubmission",
+        "SettingsEnableVoiceRoaming",
+        "ShutDownDevice",
+        "UnmanageDevice",
+        "UpdateInventory",
+    ]
+    for command in generic_commands:
+        responses.add(
+            response_builder(
+                "POST",
+                jps_url(
+                    f"/JSSResource/mobiledevicecommands/command/{command}"
+                    "/id/1001%2C1002"
+                ),
+                data_type="xml",
+            )
+        )
+        assert (
+            classic.create_mobile_device_command(command, [1001, "1002"])
+            == EXPECTED_XML
+        )
+
+
+@responses.activate
+def test_create_mobile_device_command_devicename(classic):
+    """
+    Ensures that create_mobile_device_command completes successfully with
+    command set to DeviceName and device_name set
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/JSSResource/mobiledevicecommands/command/DeviceName/testname/id/1001"
+            ),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_mobile_device_command(
+            "DeviceName", [1001], device_name="testname"
+        )
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_mobile_device_command_devicelock(classic):
+    """
+    Ensures that create_mobile_device_command completes successfully with
+    command set to DeviceLock and lock_message set
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/JSSResource/mobiledevicecommands/command/DeviceLock"
+                "/Test%20Lock%20Message/id/1001"
+            ),
+            data_type="xml",
+        )
+    )
+    assert classic.create_mobile_device_command(
+        "DeviceLock", [1001], lock_message="Test Lock Message"
+    )
+
+
+@responses.activate
+def test_create_mobile_device_command_scheduleosupdate(classic):
+    """
+    Ensures that create_mobile_device_command completes successfully with
+    command set to ScheduleOSUpdate and install_action set
+    """
+    install_actions = [1, 2]
+    for install_action in install_actions:
+        responses.add(
+            response_builder(
+                "POST",
+                jps_url(
+                    "/JSSResource/mobiledevicecommands/command/ScheduleOSUpdate"
+                    f"/{install_action}/id/1001"
+                ),
+                data_type="xml",
+            )
+        )
+        assert classic.create_mobile_device_command(
+            "ScheduleOSUpdate", [1001], install_action=install_action
+        )
+
+
+@responses.activate
+def test_create_mobile_device_command_scheduleosupdate_product_version(classic):
+    """
+    Ensures that create_mobile_device_command completes successfully with
+    command set to ScheduleOsUpdate and product_version set
+    """
+    install_actions = [1, 2]
+    for install_action in install_actions:
+        responses.add(
+            response_builder(
+                "POST",
+                jps_url(
+                    "/JSSResource/mobiledevicecommands/command/ScheduleOSUpdate"
+                    f"/{install_action}/16.1.1/id/1001"
+                ),
+                data_type="xml",
+            )
+        )
+        assert classic.create_mobile_device_command(
+            "ScheduleOSUpdate",
+            [1001],
+            install_action=install_action,
+            product_version="16.1.1",
+        )
+
+
+def test_create_mobile_device_command_unsupported_command_parameter(classic):
+    """
+    Ensures that create_mobile_device_command raises InvalidParameterOptions
+    when command is set to EnableLostMode, EraseDevice, or
+    PasscodeLockGracePeriod
+    """
+    unsupported_command_params = [
+        "EnableLostMode",
+        "EraseDevice",
+        "PasscodeLockGracePeriod",
+    ]
+    for unsupported_command_param in unsupported_command_params:
+        with pytest.raises(InvalidParameterOptions):
+            classic.create_mobile_device_command(unsupported_command_param, [1001])
+
+
+def test_create_mobile_device_command_unrecognized_command(classic):
+    """
+    Ensures that create_mobile_device_command raises InvalidParameterOptions
+    when command is set to something that is not in command_options
+    """
+    with pytest.raises(InvalidParameterOptions):
+        classic.create_mobile_device_command("NotACommand", [1001])
+
+
+def test_create_mobile_device_command_no_params_or_data(classic):
+    """
+    Ensures that create_mobile_device_command raises NoParametersOrData when
+    used without params and data set
+    """
+    with pytest.raises(NoParametersOrData):
+        classic.create_mobile_device_command()
+
+
+def test_create_mobile_device_command_params_and_data(classic):
+    """
+    Ensures that create_mobile_device_command raises ParametersAndData when
+    used with params and data set
+    """
+    with pytest.raises(ParametersAndData):
+        classic.create_mobile_device_command("DeviceName", [1001], data=EXPECTED_XML)
+
+
+def test_create_mobile_device_command_params_missing(classic):
+    """
+    Ensures that create_mobile_device_command raises MissingParameters when
+    ran with only command or ids
+    """
+    with pytest.raises(MissingParameters):
+        classic.create_mobile_device_command("DeviceName")
+
+
+def test_create_mobile_device_command_scheduleosupdate_invalid_install_action(classic):
+    """
+    Ensures that create_mobile_device_command raises InvalidParameterOptions
+    when ran with install_action set to a value other than 1 or 2
+    """
+    with pytest.raises(InvalidParameterOptions):
+        classic.create_mobile_device_command(
+            "ScheduleOSUpdate", [1001], install_action=3
+        )
+
 
 """
 /mobiledeviceconfigurationprofiles

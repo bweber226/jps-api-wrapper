@@ -32,8 +32,8 @@ class RequestBuilder:
         if r.status_code == 400:
             raise MalformedRequest(
                 "The request was not successful due to a client error, check "
-                "your data for malformed XML or JSON. Jamf's response code "
-                "was 400.\n "
+                "your data for malformed JSON, XML, or URL. Jamf's response "
+                "code was 400.\n "
                 f"Response:\n{r.text}"
             )
         if r.status_code == 404:
@@ -96,8 +96,8 @@ class RequestBuilder:
         endpoint: str,
         data: Union[dict, str],
         file: dict = None,
-        data_type: str = "json",
         query_string: list = None,
+        data_type: str = "json",
     ) -> Union[dict, str]:
         """
         Sends post requests given an endpoint, data, and data_type
@@ -109,10 +109,10 @@ class RequestBuilder:
             XML data or json dict used in the post request
         :param file:
             File to upload in format {"filename": file}
-        :param data_type:
-            json or xml
         :param query_string:
             Optional query string for the request
+        :param data_type:
+            json or xml
 
         :raises InvalidDataType:
             data_type is not json or xml
@@ -149,8 +149,8 @@ class RequestBuilder:
         self,
         endpoint: str,
         data: Union[dict, str],
-        data_type: str = "json",
         query_string: list = None,
+        data_type: str = "json",
     ) -> Union[dict, str]:
         """
         Sends put requests given an endpoint, data, and data_type
@@ -160,10 +160,10 @@ class RequestBuilder:
             e.g. /JSSResource/computers
         :param data:
             xml data or json dict used in the put request
-        :param data_type:
-            json or xml
         :param query_string:
             Optional query string for the request
+        :param data_type:
+            json or xml
 
         :returns:
             - response.json - Returned if the data_type was json
@@ -191,8 +191,8 @@ class RequestBuilder:
         self,
         endpoint: str,
         data: Union[dict, str] = None,
-        data_type: str = "json",
         query_string: list = None,
+        data_type: str = "json",
     ) -> Union[dict, str]:
         """
         Sends delete requests given an endpoint and data type
@@ -200,10 +200,10 @@ class RequestBuilder:
         :param endpoint:
             The url section of the api endpoint following the base_url
             e.g. /JSSResource/computers
-        :param data_type:
-            json or xml
         :param query_string:
             Optional query string for the request
+        :param data_type:
+            json or xml
 
         :returns:
             - response.json - Returned if the data_type was json
