@@ -292,7 +292,7 @@ class Classic(RequestBuilder):
 
     def delete_advanced_computer_search(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes an advanced computer search by either ID or name. Need to
         supply at least one identifier.
@@ -392,7 +392,7 @@ class Classic(RequestBuilder):
 
     def delete_advanced_mobile_device_search(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes an advanced mobile device search by either ID or name. Need
         to supply at least one identifier.
@@ -487,7 +487,7 @@ class Classic(RequestBuilder):
 
     def delete_advanced_user_search(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes an advanced user search by either ID or name. Need to supply
         at least one identifier.
@@ -636,9 +636,7 @@ class Classic(RequestBuilder):
 
         return self._put(endpoint, data, data_type="xml")
 
-    def delete_building(
-        self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    def delete_building(self, id: Union[int, str] = None, name: str = None) -> str:
         """
         Deletes a building by either ID or name. Need to supply
         at least one identifier.
@@ -731,9 +729,7 @@ class Classic(RequestBuilder):
 
         return self._put(endpoint, data, data_type="xml")
 
-    def delete_byo_profile(
-        self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    def delete_byo_profile(self, id: Union[int, str] = None, name: str = None) -> str:
         """
         Deletes a byo profile by either ID or name. Need to supply
         at least one identifier.
@@ -826,9 +822,7 @@ class Classic(RequestBuilder):
 
         return self._put(endpoint, data, data_type="xml")
 
-    def delete_category(
-        self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    def delete_category(self, id: Union[int, str] = None, name: str = None) -> str:
         """
         Deletes a category by either ID or name. Need to supply
         at least one identifier.
@@ -921,9 +915,7 @@ class Classic(RequestBuilder):
 
         return self._put(endpoint, data, data_type="xml")
 
-    def delete_class(
-        self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    def delete_class(self, id: Union[int, str] = None, name: str = None) -> str:
         """
         Deletes a class by either ID or name. Need to supply
         at least one identifier.
@@ -1319,7 +1311,7 @@ class Classic(RequestBuilder):
 
     def delete_computer_extension_attribute(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a computer extension attribute by either ID or name. Need to
         supply at least one identifier.
@@ -1415,7 +1407,7 @@ class Classic(RequestBuilder):
 
     def delete_computer_group(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a computer group by either ID or name. Need to supply
         at least one identifier.
@@ -1668,7 +1660,7 @@ class Classic(RequestBuilder):
 
     def delete_computer_invitation(
         self, id: Union[int, str] = None, invitation: Union[int, str] = None
-    ) -> Union[int, str]:
+    ) -> str:
         """
         Deletes a computer invitation by either ID or invitation identifiers.
         Need to supply at least one identifier.
@@ -2086,9 +2078,7 @@ class Classic(RequestBuilder):
 
         return self._put(endpoint, data, data_type="xml")
 
-    def delete_department(
-        self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    def delete_department(self, id: Union[int, str] = None, name: str = None) -> str:
         """
         Deletes a department by either ID or name. Need to supply
         at least one identifier.
@@ -2184,7 +2174,7 @@ class Classic(RequestBuilder):
 
     def delete_directory_binding(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a directory binding by either ID or name. Need to supply
         at least one identifier.
@@ -2284,7 +2274,7 @@ class Classic(RequestBuilder):
 
     def delete_disk_encryption_configuration(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a disk encryption configuration by either ID or name. Need to
         supply at least one identifier.
@@ -2380,7 +2370,7 @@ class Classic(RequestBuilder):
 
     def delete_distribution_point(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a distribution point by either ID or name. Need to supply
         at least one identifier.
@@ -2473,9 +2463,7 @@ class Classic(RequestBuilder):
 
         return self._put(endpoint, data, data_type="xml")
 
-    def delete_dock_item(
-        self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    def delete_dock_item(self, id: Union[int, str] = None, name: str = None) -> str:
         """
         Deletes a dock item by either ID or name. Need to supply
         at least one identifier.
@@ -2592,9 +2580,7 @@ class Classic(RequestBuilder):
 
         return self._put(endpoint, data, data_type="xml")
 
-    def delete_ebook(
-        self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    def delete_ebook(self, id: Union[int, str] = None, name: str = None) -> str:
         """
         Deletes a ebook by either ID or name. Need to supply
         at least one identifier.
@@ -2919,7 +2905,7 @@ class Classic(RequestBuilder):
 
     def delete_ibeacon_region(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a iBeacon region by either ID or name. Need to supply
         at least one identifier.
@@ -3300,7 +3286,7 @@ class Classic(RequestBuilder):
 
     def delete_licensed_software(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a licensed software by either ID or name. Need to supply
         at least one identifier.
@@ -3462,7 +3448,7 @@ class Classic(RequestBuilder):
 
     def delete_mac_application(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a Mac application by either ID or name. Need to supply
         at least one identifier.
@@ -3577,7 +3563,7 @@ class Classic(RequestBuilder):
 
     def delete_managed_preference_profile(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a managed preference profile by either ID or name. Need to
         supply at least one identifier.
@@ -4077,7 +4063,7 @@ class Classic(RequestBuilder):
 
     def delete_mobile_device_configuration_profile(
         self, id: Union[int, str] = None, name: str = None
-    ) -> Union[dict, str]:
+    ) -> str:
         """
         Deletes a mobile device configuration profile by either ID or name.
         Need to supply at least one identifier.
@@ -4100,6 +4086,149 @@ class Classic(RequestBuilder):
     """
     /mobiledeviceenrollmentprofiles
     """
+
+    def get_mobile_device_enrollment_profiles(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all mobile device enrollment profiles in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/mobiledeviceenrollmentprofiles"
+
+        return self._get(endpoint, data_type)
+
+    def get_mobile_device_enrollment_profile(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        invitation: Union[int, str] = None,
+        subsets: List[str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific mobile device enrollment profile by either
+        ID or name.
+
+        :param id: Mobile device enrollment profile ID
+        :param name: Mobile device enrollment profile name
+        :param invitation: Mobile device enrollment profile invitation
+        :param subsets:
+            Subset(s) of data from the mobile device enrollment profile in a
+            list of strings
+
+            Options:
+            - General
+            - Location
+            - Purchasing
+            - Attachments
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        subset_options = [
+            "General",
+            "Location",
+            "Purchasing",
+            "Attachments",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/mobiledeviceenrollmentprofiles/{identification}"
+                f"/{identification_options[identification]}/subset/"
+                f"{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/mobiledeviceenrollmentprofiles/{identification}/"
+                f"{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def create_mobile_device_enrollment_profile(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a mobile device enrollment profile with the given XML data.
+        Use ID 0 to use the next available ID. Payload of XML must be encoded
+        to differentiate between the uploaded XML and the XML of the request
+        body
+
+        :param data:
+            XML data to create the mobile device enrollment profile with
+        :param id:
+            ID of the new mobile device enrollment profile, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/mobiledeviceenrollmentprofiles/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_mobile_device_enrollment_profile(
+        self,
+        data: str,
+        id: Union[int, str] = None,
+        name: str = None,
+        invitation: Union[int, str] = None,
+    ) -> str:
+        """
+        Updates a mobile device enrollment profile with the given XML data.
+        Need to supply at least one identifier. Payload of XML data must be
+        encoded to differentiate between the uploaded XML and the XML of the
+        request body
+
+        :param data:
+            XML data to update the mobile device enrollment profile with
+        :param id: Mobile device enrollment profile ID
+        :param name: Mobile device enrollment profile name
+        :param invitation: Mobile device enrollment profile invitation
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceenrollmentprofiles/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_mobile_device_enrollment_profile(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        invitation: Union[int, str] = None,
+    ) -> str:
+        """
+        Deletes a mobile device enrollment profile by either ID or name.
+        Need to supply at least one identifier.
+
+        :param id: Mobile device enrollment profile ID
+        :param name: Mobile device enrollment profile name
+        :param invitation: Mobile device enrollment profile invitation
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceenrollmentprofiles/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /mobiledeviceextensionattributes
