@@ -4336,6 +4336,98 @@ class Classic(RequestBuilder):
     /mobiledevicegroups
     """
 
+    def get_mobile_device_groups(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all mobile device groups in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/mobiledevicegroups"
+
+        return self._get(endpoint, data_type)
+
+    def get_mobile_device_group(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific mobile device group by either ID or name in
+        JSON or XML.
+
+        :param id: Mobile device group ID
+        :param name: Mobile device group name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledevicegroups/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_mobile_device_group(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a mobile device group with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the mobile device group with
+        :param id:
+            ID of the new mobile device group, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/mobiledevicegroups/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_mobile_device_group(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a mobile device group with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the mobile device group with
+        :param id: Mobile device group ID
+        :param name: Mobile device group name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledevicegroups/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_mobile_device_group(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Deletes a mobile device group by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Mobile device group ID
+        :param name: Mobile device group name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledevicegroups/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /mobiledevicehistory
     """

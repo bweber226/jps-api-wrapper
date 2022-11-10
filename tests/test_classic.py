@@ -6445,6 +6445,141 @@ def test_delete_mobile_device_extension_attribute_name(classic):
 /mobiledevicegroups
 """
 
+
+@responses.activate
+def test_get_mobile_device_groups_json(classic):
+    """
+    Ensures that mobile_device_groups returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/mobiledevicegroups")))
+    assert classic.get_mobile_device_groups() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_groups_xml(classic):
+    """
+    Ensures that mobile_device_groups returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledevicegroups"), data_type="xml"
+        )
+    )
+    assert classic.get_mobile_device_groups(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mobile_device_group_id_json(classic):
+    """
+    Ensures that get_mobile_device_group returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledevicegroups/id/1001"))
+    )
+    assert classic.get_mobile_device_group(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_group_name_xml(classic):
+    """
+    Ensures that get_mobile_device_group returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledevicegroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_mobile_device_group(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_mobile_device_group_id(classic):
+    """
+    Ensures that create_mobile_device_group returns data when updating
+    a mobile device group with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/mobiledevicegroups/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_mobile_device_group(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_mobile_device_group_id(classic):
+    """
+    Ensures that update_mobile_device_group returns data when updating
+    a mobile device group with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/mobiledevicegroups/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_mobile_device_group(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_mobile_device_group_name(classic):
+    """
+    Ensures that update_mobile_device_group returns data when updating
+    a mobile device group with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/mobiledevicegroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_mobile_device_group(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_group_id(classic):
+    """
+    Ensures that delete_mobile_device_group returns data when deleting a
+    mobile device group by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledevicegroups/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mobile_device_group(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_mobile_device_group_name(classic):
+    """
+    Ensures that delete_mobile_device_group returns data when deleting a
+    mobile device group by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledevicegroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mobile_device_group(name="testname") == EXPECTED_XML
+
+
 """
 /mobiledevicehistory
 """

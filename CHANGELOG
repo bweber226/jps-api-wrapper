@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.51.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_groups which returns all mobile device group
+- Classic.get_mobile_device_group which returns data on one mobile device group by ID or name
+- Classic.create_mobile_device_group which creates a mobile device group 
+- Classic.update_mobile_device_group which updates an existing mobile device group by ID or name
+- Classic.delete_mobile_device_group which deletes an existing mobile device group by ID or name
+
 ## [0.50.0] -- 2022-11-10
 ### Added
 - Classic.get_mobile_device_extension_attributes which returns all mobile device extension attribute
