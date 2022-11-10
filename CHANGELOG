@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.50.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_extension_attributes which returns all mobile device extension attribute
+- Classic.get_mobile_device_extension_attribute which returns data on one mobile device extension attribute by ID or name
+- Classic.create_mobile_device_extension_attribute which creates a mobile device extension attribute 
+- Classic.update_mobile_device_extension_attribute which updates an existing mobile device extension attribute by ID or name
+- Classic.delete_mobile_device_extension_attribute which deletes an existing mobile device extension attribute by ID or name
+
 ## [0.49.0] -- 2022-11-10
 ### Added
 - Classic.get_mobile_device_enrollment_profiles which returns all mobile device enrollment profiles
