@@ -2304,7 +2304,7 @@ def test_get_computer_hardware_software_reports_serialnumber_subsets(classic):
 def test_get_computer_history_id(classic):
     """
     Ensures that get_computer_history returns json data when
-    used with the right date format and ID
+    used with and ID
     """
     responses.add(
         response_builder(
@@ -2319,7 +2319,7 @@ def test_get_computer_history_id(classic):
 def test_get_computer_history_udid_xml(classic):
     """
     Ensures that get_computer_history returns XML data when
-    used with the right date format and UDID with data_type set to "xml"
+    used with UDID with data_type set to "xml"
     """
     responses.add(
         response_builder(
@@ -6583,6 +6583,101 @@ def test_delete_mobile_device_group_name(classic):
 """
 /mobiledevicehistory
 """
+
+
+@responses.activate
+def test_get_mobile_device_history_id(classic):
+    """
+    Ensures that get_mobile_device_history returns json data when
+    used with ID
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledevicehistory/id/1001"),
+        )
+    )
+    assert classic.get_mobile_device_history(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_history_name(classic):
+    """
+    Ensures that get_mobile_device_history returns json data when
+    used with name
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledevicehistory/name/testname"),
+        )
+    )
+    assert classic.get_mobile_device_history(name="testname") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_history_udid_xml(classic):
+    """
+    Ensures that get_mobile_device_history returns XML data when
+    used with UDID with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledevicehistory/udid/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_mobile_device_history(udid=1001, data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mobile_device_history_macaddress_subset(classic):
+    """
+    Ensures that get_mobile_device_history returns data when used
+    with macaddress identifier and one subset
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/mobiledevicehistory/macaddress/"
+                "12%3A34%3A56%3A78%3A90%3A12/subset/General"
+            ),
+        )
+    )
+    assert (
+        classic.get_mobile_device_history(
+            macaddress="12:34:56:78:90:12",
+            subsets=["General"],
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_mobile_device_history_serialnumber_subsets(classic):
+    """
+    Ensures that get_mobile_device_history returns data when used
+    with serialnumber identifier and multiple subsets
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/mobiledevicehistory/serialnumber/1a2b3c4d5e"
+                "/subset/General%26Audits"
+            ),
+        )
+    )
+    assert (
+        classic.get_mobile_device_history(
+            serialnumber="1a2b3c4d5e",
+            subsets=["General", "Audits"],
+        )
+        == EXPECTED_JSON
+    )
+
 
 """
 /mobiledeviceinvitations

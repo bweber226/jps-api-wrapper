@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.52.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_history which returns mobile device history data with all available identifation options and subsets
+
 ## [0.51.0] -- 2022-11-10
 ### Added
 - Classic.get_mobile_device_groups which returns all mobile device group
