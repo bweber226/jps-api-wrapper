@@ -6683,9 +6683,136 @@ def test_get_mobile_device_history_serialnumber_subsets(classic):
 /mobiledeviceinvitations
 """
 
+
+@responses.activate
+def test_get_mobile_device_invitations_json(classic):
+    """
+    Ensures that get_mobile_device_invitations returns data when used
+    without optional parameters.
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledeviceinvitations"))
+    )
+    assert classic.get_mobile_device_invitations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_invitations_xml(classic):
+    """
+    Ensures that get_mobile_device_invitations returns data when used
+    with data_type set to "xml".
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledeviceinvitations"), data_type="xml"
+        )
+    )
+    assert classic.get_mobile_device_invitations(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mobile_device_invitation_id_json(classic):
+    """
+    Ensures that get_mobile_device_invitation returns json data when used with
+    id as the identifier and no additional params.
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/mobiledeviceinvitations/id/1001"))
+    )
+    assert classic.get_mobile_device_invitation(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_invitation_invitation_xml(classic):
+    """
+    Ensures that get_mobile_device)invitation returns xml data when used with
+    invitation as the identifer and "xml" set as data_type
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledeviceinvitations/invitation/123456789"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_mobile_device_invitation(invitation=123456789, data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_mobile_device_invitation_id_0(classic):
+    """
+    Ensures that create_mobile_device_invitation successfully runs when used
+    with ID set to 0 to use the next available ID
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/mobiledeviceinvitations/id/0"),
+            data_type="xml",
+        )
+    )
+    assert classic.create_mobile_device_invitation(EXPECTED_XML, id=0) == EXPECTED_XML
+
+
+@responses.activate
+def test_create_mobile_device_invitation_invitation_0(classic):
+    """
+    Ensures that create_mobile_device_invitation successfully runs when used
+    with the invitation identifier set to 0 to use a random available
+    invitation
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/mobiledeviceinvitations/invitation/0"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_mobile_device_invitation(EXPECTED_XML, invitation=0)
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_invitation_id_json(classic):
+    """
+    Ensures that delete_mobile_device_invitation completes successfully when
+    used with id as the identifier.
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceinvitations/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mobile_device_invitation(1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_mobile_device_invitation_invitation_xml(classic):
+    """
+    Ensures that delete_mobile_device_invitation completes successfully when
+    used with invitation as the identifier.
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceinvitations/invitation/123456789"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mobile_device_invitation(invitation=123456789) == EXPECTED_XML
+
+
 """
 /mobiledeviceprovisioningprofiles
 """
+
 
 """
 /mobiledevices

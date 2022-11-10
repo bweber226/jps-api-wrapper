@@ -4499,6 +4499,95 @@ class Classic(RequestBuilder):
     /mobiledeviceinvitations
     """
 
+    def get_mobile_device_invitations(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all mobile device invitation data in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/mobiledeviceinvitations"
+
+        return self._get(endpoint, data_type)
+
+    def get_mobile_device_invitation(
+        self,
+        id: Union[int, str] = None,
+        invitation: Union[int, str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns information on a single mobile device invitation defined by
+        either ID or invitation. Need to supply at least one identifier.
+
+        :param id: Mobile device invitation ID
+        :param invitation:
+            Mobile device invitation invitation identifier (name)
+            Typically a long int
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceinvitations/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_mobile_device_invitation(
+        self, data: str, id: Union[int, str] = None, invitation: Union[int, str] = None
+    ) -> str:
+        """
+        Creates a mobile device invitation defined by the XML data and either
+        ID or invitation.
+
+        :param data: XML data
+        :param id: Mobile device invitation ID, use 0 for next available
+        :param invitation:
+            Mobile device invitation invitation identifier, use 0 for next
+            available
+        """
+        identification_options = {
+            "id": id,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceinvitations/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def delete_mobile_device_invitation(
+        self, id: Union[int, str] = None, invitation: Union[int, str] = None
+    ) -> str:
+        """
+        Deletes a mobile device invitation by either ID or invitation
+        identifiers. Need to supply at least one identifier.
+
+        :param id: Mobile device invitation ID
+        :param invitation:
+            Mobile device invitation invitation identifier (name)
+            Typically a long int
+        """
+        identification_options = {
+            "id": id,
+            "invitation": invitation,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceinvitations/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /mobiledeviceprovisioningprofiles
     """

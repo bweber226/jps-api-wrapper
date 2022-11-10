@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.53.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_invitations which returns all mobile device invitations
+- Classic.get_mobile_device_invitation which returns data on one mobile device invitation by either ID or invitation
+- Classic.create_mobile_device_invitation which creates a mobile device invitation by either ID or invitation
+- Classic.delete_mobile_device_invitation which deletes a mobile device invitation by either ID or invitation
+
 ## [0.52.0] -- 2022-11-10
 ### Added
 - Classic.get_mobile_device_history which returns mobile device history data with all available identifation options and subsets
