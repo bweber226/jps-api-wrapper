@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.48.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_configuration_profiles which returns all mobile device configuration profiles
+- Classic.get_mobile_device_configuration_profile which returns data on one mobile device configuration profile by ID or name and optional subsets
+- Classic.create_mobile_device_configuration_profile which creates a mobile device configuration profile 
+- Classic.update_mobile_device_configuration_profile which updates an existing mobile device configuration profile by ID or name
+- Classic.delete_mobile_device_configuration_profile which deletes an existing mobile device configuration profile by ID or name
+
 ## [0.47.0] -- 2022-11-10
 ### Added
 - Classic.get_mobile_device_commands which returns all mobile device commands in JSON or XML, can optionally filter by command name

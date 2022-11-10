@@ -2522,7 +2522,7 @@ class Classic(RequestBuilder):
         :param id: eBook ID
         :param name: eBook name
         :param subsets:
-            Subset(s) of data from the computer in a list of strings
+            Subset(s) of data from the eBook in a list of strings
 
             Options:
             - General
@@ -3386,7 +3386,7 @@ class Classic(RequestBuilder):
         :param id: Mac application ID
         :param name: Mac application name
         :param subsets:
-            Subset(s) of data from the computer in a list of strings
+            Subset(s) of data from the Mac application in a list of strings
 
             Options:
             - General
@@ -3518,7 +3518,8 @@ class Classic(RequestBuilder):
         :param id: Managed preference profile ID
         :param name: Managed preference profile name
         :param subsets:
-            Subset(s) of data from the computer in a list of strings
+            Subset(s) of data from the managed preference profile in a list
+            of strings
 
             Options:
             - General
@@ -3632,7 +3633,8 @@ class Classic(RequestBuilder):
         :param bundleid: Mobile device bundle ID
         :param version: Mobile device version
         :param subsets:
-            Subset(s) of data from the computer in a list of strings
+            Subset(s) of data from the mobile device application in a list
+            of strings
 
             Options:
             - General
@@ -3967,6 +3969,133 @@ class Classic(RequestBuilder):
     """
     /mobiledeviceconfigurationprofiles
     """
+
+    def get_mobile_device_configuration_profiles(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all mobile device configuration profiles in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/mobiledeviceconfigurationprofiles"
+
+        return self._get(endpoint, data_type)
+
+    def get_mobile_device_configuration_profile(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        subsets: List[str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific mobile device configuration profile by
+        either ID or name.
+
+        :param id: Mobile device configuration profile ID
+        :param name: Mobile device configuration profile name
+        :param subsets:
+            Subset(s) of data from the mobile device configuration profile in
+            a list of strings
+
+            Options:
+            - General
+            - Scope
+            - SelfService
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        subset_options = [
+            "General",
+            "Scope",
+            "SelfService",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/mobiledeviceconfigurationprofiles/{identification}"
+                f"/{identification_options[identification]}/subset/"
+                f"{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/mobiledeviceconfigurationprofiles/{identification}/"
+                f"{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def create_mobile_device_configuration_profile(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a mobile device configuration profile with the given XML data.
+        Use ID 0 to use the next available ID. Payload of XML must be encoded
+        to differentiate between the uploaded XML and the XML of the request
+        body
+
+        :param data:
+            XML data to create the mobile device configuration profile with
+        :param id:
+            ID of the new mobile device configuration profile, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/mobiledeviceconfigurationprofiles/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_mobile_device_configuration_profile(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a mobile device configuration profile with the given XML data.
+        Need to supply at least one identifier. Payload of XML data must be
+        encoded to differentiate between the uploaded XML and the XML of the
+        request body
+
+        :param data:
+            XML data to update the mobile device configuration profile with
+        :param id: Mobile device configuration profile ID
+        :param name: Mobile device configuration profile name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceconfigurationprofiles/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_mobile_device_configuration_profile(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> Union[dict, str]:
+        """
+        Deletes a mobile device configuration profile by either ID or name.
+        Need to supply at least one identifier.
+
+        :param id: Mobile device configuration profile ID
+        :param name: Mobile device configuration profile name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceconfigurationprofiles/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /mobiledeviceenrollmentprofiles
