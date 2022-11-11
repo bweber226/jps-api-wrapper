@@ -5233,9 +5233,102 @@ class Classic(RequestBuilder):
     /patches
     """
 
+    # Deprecated - use patchsoftwaretitles and patchreports
+
     """
     /patchexternalsources
     """
+
+    def get_patch_external_sources(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all external patch sources in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/patchexternalsources"
+
+        return self._get(endpoint, data_type)
+
+    def get_patch_external_source(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific external patch source by either ID or name
+        in JSON or XML.
+
+        :param id: External patch source ID
+        :param name: External patch source name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/patchexternalsources/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_patch_external_source(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Creates an external patch source with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the external patch source with
+        :param id:
+            ID of the new external patch source, use 0 for next
+            available ID
+        :param name: External patch source name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/patchexternalsources/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_patch_external_source(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a external patch source with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the external patch source with
+        :param id: External patch source ID
+        :param name: External patch source name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/patchexternalsources/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_patch_external_source(self, id: Union[int, str]) -> str:
+        """
+        Deletes an external patch source by ID.
+
+        :param id: External patch source ID
+        """
+        endpoint = f"/JSSResource/patchexternalsources/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /patchinternalsources

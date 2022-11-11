@@ -223,7 +223,7 @@ def test_delete_account_group_name(classic):
 @responses.activate
 def test_delete_account_group_id(classic):
     """
-    Ensures that delete_account_group returns data when updating an account
+    Ensures that delete_account_group returns data when deleting an account
     group by id
     """
     responses.add(
@@ -329,7 +329,7 @@ def test_update_account_id(classic):
 @responses.activate
 def test_delete_account_name(classic):
     """
-    Ensures that delete_account returns data when updating an account by name
+    Ensures that delete_account returns data when deleting an account by name
     """
     responses.add(
         response_builder(
@@ -344,7 +344,7 @@ def test_delete_account_name(classic):
 @responses.activate
 def test_delete_account_id(classic):
     """
-    Ensures that delete_account returns data when updating an account by id
+    Ensures that delete_account returns data when deleting an account by id
     """
     responses.add(
         response_builder(
@@ -460,7 +460,7 @@ def test_get_advanced_computer_search_name_xml(classic):
 @responses.activate
 def test_create_advanced_computer_search_id(classic):
     """
-    Ensures that create_advanced_computer_search returns data when updating
+    Ensures that create_advanced_computer_search returns data when creating
     an advanced computer search with id
     """
     responses.add(
@@ -755,7 +755,7 @@ def test_get_advanced_user_search_name_xml(classic):
 @responses.activate
 def test_create_advanced_user_search_id(classic):
     """
-    Ensures that create_advanced_user_search returns data when updating
+    Ensures that create_advanced_user_search returns data when creating
     an advanced user search with id
     """
     responses.add(
@@ -976,7 +976,7 @@ def test_get_building_name_xml(classic):
 @responses.activate
 def test_create_building_id(classic):
     """
-    Ensures that create_building returns data when updating
+    Ensures that create_building returns data when creating
     a building with id
     """
     responses.add(
@@ -1089,7 +1089,7 @@ def test_get_byo_profile_name_xml(classic):
 @responses.activate
 def test_create_byo_profile_id(classic):
     """
-    Ensures that create_byo_profile returns data when updating
+    Ensures that create_byo_profile returns data when creating
     a byo profile with id
     """
     responses.add(
@@ -1218,7 +1218,7 @@ def test_get_category_name_xml(classic):
 @responses.activate
 def test_create_category_id(classic):
     """
-    Ensures that create_category returns data when updating
+    Ensures that create_category returns data when creating
     a category with id
     """
     responses.add(
@@ -1347,7 +1347,7 @@ def test_get_class_name_xml(classic):
 @responses.activate
 def test_create_class_id(classic):
     """
-    Ensures that create_class returns data when updating
+    Ensures that create_class returns data when creating
     a class with id
     """
     responses.add(
@@ -1958,7 +1958,7 @@ def test_get_computer_extension_attribute_name_xml(classic):
 @responses.activate
 def test_create_computer_extension_attribute_id(classic):
     """
-    Ensures that create_computer_extension_attribute returns data when updating
+    Ensures that create_computer_extension_attribute returns data when creating
     a computer extension attribute with id
     """
     responses.add(
@@ -2099,7 +2099,7 @@ def test_get_computer_group_name_xml(classic):
 @responses.activate
 def test_create_computer_group_id(classic):
     """
-    Ensures that create_computer_group returns data when updating
+    Ensures that create_computer_group returns data when creating
     a computer group with id
     """
     responses.add(
@@ -3045,7 +3045,7 @@ def test_get_department_name_xml(classic):
 @responses.activate
 def test_create_department_id(classic):
     """
-    Ensures that create_department returns data when updating
+    Ensures that create_department returns data when creating
     a department with id
     """
     responses.add(
@@ -3180,7 +3180,7 @@ def test_get_directory_binding_name_xml(classic):
 @responses.activate
 def test_create_directory_binding_id(classic):
     """
-    Ensures that create_directory_binding returns data when updating
+    Ensures that create_directory_binding returns data when creating
     a directory binding with id
     """
     responses.add(
@@ -3467,7 +3467,7 @@ def test_get_distribution_point_name_xml(classic):
 @responses.activate
 def test_create_distribution_point_id(classic):
     """
-    Ensures that create_distribution_point returns data when updating
+    Ensures that create_distribution_point returns data when creating
     a distribution point with id
     """
     responses.add(
@@ -3598,7 +3598,7 @@ def test_get_dock_item_name_xml(classic):
 @responses.activate
 def test_create_dock_item_id(classic):
     """
-    Ensures that create_dock_item returns data when updating
+    Ensures that create_dock_item returns data when creating
     a dock item with id
     """
     responses.add(
@@ -3753,7 +3753,7 @@ def test_get_ebook_id_subsets(classic):
 @responses.activate
 def test_create_ebook_id(classic):
     """
-    Ensures that create_ebook returns data when updating
+    Ensures that create_ebook returns data when creating
     a ebook with id
     """
     responses.add(
@@ -4198,7 +4198,7 @@ def test_get_ibeacon_region_name_xml(classic):
 @responses.activate
 def test_create_ibeacon_region_id(classic):
     """
-    Ensures that create_ibeacon_region returns data when updating
+    Ensures that create_ibeacon_region returns data when creating
     a iBeacon region with id
     """
     responses.add(
@@ -4751,7 +4751,7 @@ def test_get_licensed_software_name_xml(classic):
 @responses.activate
 def test_create_licensed_software_id(classic):
     """
-    Ensures that create_licensed_software returns data when updating
+    Ensures that create_licensed_software returns data when creating
     a licensed software with id
     """
     responses.add(
@@ -4967,7 +4967,7 @@ def test_get_mac_application_id_subsets(classic):
 @responses.activate
 def test_create_mac_application_id(classic):
     """
-    Ensures that create_mac_application returns data when updating
+    Ensures that create_mac_application returns data when creating
     a Mac application with id
     """
     responses.add(
@@ -6504,7 +6504,7 @@ def test_get_mobile_device_group_name_xml(classic):
 @responses.activate
 def test_create_mobile_device_group_id(classic):
     """
-    Ensures that create_mobile_device_group returns data when updating
+    Ensures that create_mobile_device_group returns data when creating
     a mobile device group with id
     """
     responses.add(
@@ -7397,7 +7397,7 @@ def test_get_network_segment_name_xml(classic):
 @responses.activate
 def test_create_network_segment_id(classic):
     """
-    Ensures that create_network_segment returns data when updating
+    Ensures that create_network_segment returns data when creating
     a network segment with id
     """
     responses.add(
@@ -7576,7 +7576,7 @@ def test_get_osx_configuration_profile_id_subsets(classic):
 @responses.activate
 def test_create_osx_configuration_profile_id(classic):
     """
-    Ensures that create_osx_configuration_profile returns data when updating
+    Ensures that create_osx_configuration_profile returns data when creating
     a OSX configuration profile with id
     """
     responses.add(
@@ -7714,7 +7714,7 @@ def test_get_package_name_xml(classic):
 @responses.activate
 def test_create_package_id(classic):
     """
-    Ensures that create_package returns data when updating
+    Ensures that create_package returns data when creating
     a package with id
     """
     responses.add(
@@ -7726,7 +7726,7 @@ def test_create_package_id(classic):
 @responses.activate
 def test_update_package_id(classic):
     """
-    Ensures that update_package returns data when updating
+    Ensures that update_package returns data when creating
     a package with id
     """
     responses.add(
@@ -7824,9 +7824,149 @@ def test_get_patch_available_titles_xml(classic):
 /patches
 """
 
+# Deprecated
+
 """
 /patchexternalsources
 """
+
+
+@responses.activate
+def test_get_patch_external_sources_json(classic):
+    """
+    Ensures that external patch sources returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/patchexternalsources")))
+    assert classic.get_patch_external_sources() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_external_sources_xml(classic):
+    """
+    Ensures that external patch sources returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/patchexternalsources"), data_type="xml"
+        )
+    )
+    assert classic.get_patch_external_sources(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_patch_external_source_id_json(classic):
+    """
+    Ensures that get_patch_external_source returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/patchexternalsources/id/1001"))
+    )
+    assert classic.get_patch_external_source(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_external_source_name_xml(classic):
+    """
+    Ensures that get_patch_external_source returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/patchexternalsources/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_patch_external_source(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_patch_external_source_id(classic):
+    """
+    Ensures that create_patch_external_source returns data when creating
+    an external patch source with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/patchexternalsources/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_patch_external_source(EXPECTED_XML, id=0) == EXPECTED_XML
+
+
+@responses.activate
+def test_create_patch_external_source_name(classic):
+    """
+    Ensures that create_patch_external_source returns data when creating
+    an external patch source with name
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/patchexternalsources/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_patch_external_source(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_patch_external_source_id(classic):
+    """
+    Ensures that update_patch_external_source returns data when updating
+    a external patch source with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/patchexternalsources/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_patch_external_source(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_patch_external_source_name(classic):
+    """
+    Ensures that update_patch_external_source returns data when updating
+    a external patch source with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/patchexternalsources/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_patch_external_source(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_patch_external_source_id(classic):
+    """
+    Ensures that delete_patch_external_source returns data when deleting a
+    external patch source by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/patchexternalsources/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_patch_external_source(id=1001) == EXPECTED_XML
+
 
 """
 /patchinternalsources
