@@ -5216,6 +5216,19 @@ class Classic(RequestBuilder):
     /patchavailabletitles
     """
 
+    def get_patch_available_titles(
+        self, id: Union[int, str], data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all available patch titles from a source by ID in JSON or XML
+
+        :param id: External or internal patch source ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/patchavailabletitles/sourceid/{id}"
+
+        return self._get(endpoint, data_type)
+
     """
     /patches
     """

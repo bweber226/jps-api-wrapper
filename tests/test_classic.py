@@ -7789,6 +7789,37 @@ def test_delete_package_name(classic):
 /patchavailabletitles
 """
 
+
+@responses.activate
+def test_get_patch_available_titles_json(classic):
+    """
+    Ensures that get_patch_available_titles returns JSON when used with ID
+    and no optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/patchavailabletitles/sourceid/1001")
+        )
+    )
+    assert classic.get_patch_available_titles(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_available_titles_xml(classic):
+    """
+    Ensures that get_patch_available_titles returns XML when used with ID
+    and "xml" set as the data_type
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/patchavailabletitles/sourceid/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_patch_available_titles(1001, "xml") == EXPECTED_XML
+
+
 """
 /patches
 """
