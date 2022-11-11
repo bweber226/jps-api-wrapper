@@ -5371,6 +5371,84 @@ class Classic(RequestBuilder):
     /patchpolicies
     """
 
+    def get_patch_policies(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all patch policies in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/patchpolicies"
+
+        return self._get(endpoint, data_type)
+
+    def get_patch_policy(
+        self,
+        id: Union[int, str] = None,
+        subsets: List[str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on one patch policy by ID or software title config ID
+        in JSON or XML
+
+        :param id: Software title config ID
+        :param softwaretitleconfigid: Software title config ID
+        :param subsets:
+            Subset(s) of data from the patch policy in a list of strings
+
+            Options:
+            - General
+            - Scope
+            - UserInteraction
+        :param data_type: json or xml
+        """
+        subset_options = [
+            "General",
+            "Scope",
+            "UserInteraction",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+                f"/subset/{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def create_patch_policy(self, data: str, id: Union[str, int] = 0) -> str:
+        """
+        Creates a patch policy by ID with XML data
+
+        :param data: XML data to create patch policy with
+        :param id: Patch policy ID, set to 0 for next available
+        """
+        endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_patch_policy(self, data: str, id: Union[str, int] = 0) -> str:
+        """
+        Updates a patch policy by ID with XML data
+
+        :param data: XML data to update patch policy with
+        :param id: Patch policy ID, set to 0 for next available
+        """
+        endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_patch_policy(self, id: Union[int, str]) -> str:
+        """
+        Deletes a patch policy by ID.
+
+        :param id: Patch policy ID
+        """
+        endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /patchreports
     """

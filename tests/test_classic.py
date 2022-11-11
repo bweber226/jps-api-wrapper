@@ -8032,6 +8032,110 @@ def test_get_patch_internal_source_name_xml(classic):
 /patchpolicies
 """
 
+
+@responses.activate
+def test_get_patch_policies_json(classic):
+    """
+    Ensures that get_patch_policies returns JSON data when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/patchpolicies")))
+    assert classic.get_patch_policies() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_policies_xml(classic):
+    """
+    Ensures that get_patch_policies returns XML data when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/patchpolicies"), data_type="xml")
+    )
+    assert classic.get_patch_policies("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_patch_policy_id_json(classic):
+    """
+    Ensures that get_patch_policy returns JSON when used with ID and no
+    optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/patchpolicies/softwaretitleconfig/id/1001")
+        )
+    )
+    assert classic.get_patch_policy(1001)
+
+
+@responses.activate
+def test_get_patch_policy_id_xml_subsets(classic):
+    """
+    Ensures that get_patch_policy returns XML when used with ID and multiple
+    subsets along with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/patchpolicies/softwaretitleconfig/id/1001"
+                "/subset/General%26Scope"
+            ),
+            data_type="xml",
+        )
+    )
+    assert classic.get_patch_policy(1001, ["General", "Scope"], "xml")
+
+
+@responses.activate
+def test_create_patch_policy_id(classic):
+    """
+    Ensures that create_patch_policy completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/patchpolicies/softwaretitleconfig/id/0"),
+            data_type="xml",
+        )
+    )
+    assert classic.create_patch_policy(EXPECTED_XML, 0) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_patch_policy_id(classic):
+    """
+    Ensures that update_patch_policy completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/patchpolicies/softwaretitleconfig/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_patch_policy(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_patch_policy(classic):
+    """
+    Ensures that delete_patch_policy completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/patchpolicies/softwaretitleconfig/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_patch_policy(1001) == EXPECTED_XML
+
+
 """
 /patchreports
 """

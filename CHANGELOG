@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.61.0] -- 2022-11-11
+### Added
+- Classic.get_patch_policies which returns all patch policies
+- Classic.get_patch_policy which returns data on one patch policy by ID with optional subsets
+- Classic.create_patch_policy which creates an patch policy by ID 
+- Classic.update_patch_policy which updates an existing patch policy by ID 
+- Classic.delete_patch_policy which deletes an existing patch policy by ID 
+
 ## [0.60.0] -- 2022-11-11
 ### Added
 - Classic.get_patch_internal_sources which returns all internal patch sources
