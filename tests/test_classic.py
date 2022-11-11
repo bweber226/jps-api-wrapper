@@ -8140,6 +8140,39 @@ def test_delete_patch_policy(classic):
 /patchreports
 """
 
+
+@responses.activate
+def test_get_patch_report_id_json(classic):
+    """
+    Ensures that get_patch_report returns JSON when used with id and no
+    optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/patchreports/patchsoftwaretitleid/1001")
+        )
+    )
+    assert classic.get_patch_report(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_report_id_version_xml(classic):
+    """
+    Ensures that get_patch_report returns XML data when used with id and
+    version and data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/patchreports/patchsoftwaretitleid/1001/version/0.1.0"
+            ),
+            data_type="xml",
+        )
+    )
+    assert classic.get_patch_report(1001, "0.1.0", "xml") == EXPECTED_XML
+
+
 """
 /patchsoftwaretitles
 """

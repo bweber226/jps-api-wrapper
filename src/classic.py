@@ -5453,6 +5453,26 @@ class Classic(RequestBuilder):
     /patchreports
     """
 
+    def get_patch_report(
+        self, id: Union[int, str], version: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data one a patch report filtered by ID and optionally version
+        in JSON or XML
+
+        :param id: Patch software title ID to filter by
+        :param version: Version number to filter by
+        :param data_type: json or xml
+        """
+        if version:
+            endpoint = (
+                f"/JSSResource/patchreports/patchsoftwaretitleid/{id}/version/{version}"
+            )
+        else:
+            endpoint = f"/JSSResource/patchreports/patchsoftwaretitleid/{id}"
+
+        return self._get(endpoint, data_type)
+
     """
     /patchsoftwaretitles
     """
