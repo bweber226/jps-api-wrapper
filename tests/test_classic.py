@@ -7972,6 +7972,62 @@ def test_delete_patch_external_source_id(classic):
 /patchinternalsources
 """
 
+
+@responses.activate
+def test_get_patch_internal_sources_json(classic):
+    """
+    Ensures that internal patch sources returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/patchinternalsources")))
+    assert classic.get_patch_internal_sources() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_internal_sources_xml(classic):
+    """
+    Ensures that internal patch sources returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/patchinternalsources"), data_type="xml"
+        )
+    )
+    assert classic.get_patch_internal_sources(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_patch_internal_source_id_json(classic):
+    """
+    Ensures that get_patch_internal_source returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/patchinternalsources/id/1001"))
+    )
+    assert classic.get_patch_internal_source(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_internal_source_name_xml(classic):
+    """
+    Ensures that get_patch_internal_source returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/patchinternalsources/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_patch_internal_source(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
 """
 /patchpolicies
 """

@@ -5,9 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.60.0] -- 2022-11-11
+### Added
+- Classic.get_patch_internal_sources which returns all internal patch sources
+- Classic.get_patch_external_source which returns data on one external patch source by ID or name
+
 ## [0.59.0] -- 2022-11-11
 ### Added
-- Classic.get_patch_external_sources which returns all external patch source
+- Classic.get_patch_external_sources which returns all external patch sources
 - Classic.get_patch_external_source which returns data on one external patch source by ID or name
 - Classic.create_patch_external_source which creates an external patch source by ID or name
 - Classic.update_patch_external_source which updates an existing external patch source by ID or name
@@ -19,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.57.0] -- 2022-11-11
 ### Added
-- Classic.get_packages which returns all package
+- Classic.get_packages which returns all packages
 - Classic.get_package which returns data on one package by ID or name
 - Classic.create_package which creates a package 
 - Classic.update_package which updates an existing package by ID or name
@@ -35,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.55.0] -- 2022-11-11
 ### Added
-- Classic.get_network_segments which returns all network segment
+- Classic.get_network_segments which returns all network segments
 - Classic.get_network_segment which returns data on one network segment by ID or name
 - Classic.create_network_segment which creates a network segment 
 - Classic.update_network_segment which updates an existing network segment by ID or name
@@ -61,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.51.0] -- 2022-11-10
 ### Added
-- Classic.get_mobile_device_groups which returns all mobile device group
+- Classic.get_mobile_device_groups which returns all mobile device groups
 - Classic.get_mobile_device_group which returns data on one mobile device group by ID or name
 - Classic.create_mobile_device_group which creates a mobile device group 
 - Classic.update_mobile_device_group which updates an existing mobile device group by ID or name
@@ -69,7 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.50.0] -- 2022-11-10
 ### Added
-- Classic.get_mobile_device_extension_attributes which returns all mobile device extension attribute
+- Classic.get_mobile_device_extension_attributes which returns all mobile device extension attributes
 - Classic.get_mobile_device_extension_attribute which returns data on one mobile device extension attribute by ID or name
 - Classic.create_mobile_device_extension_attribute which creates a mobile device extension attribute 
 - Classic.update_mobile_device_extension_attribute which updates an existing mobile device extension attribute by ID or name

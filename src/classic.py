@@ -5334,6 +5334,39 @@ class Classic(RequestBuilder):
     /patchinternalsources
     """
 
+    def get_patch_internal_sources(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all internal patch sources in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/patchinternalsources"
+
+        return self._get(endpoint, data_type)
+
+    def get_patch_internal_source(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific internal patch source by either ID or name
+        in JSON or XML.
+
+        :param id: Internal patch source ID
+        :param name: Internal patch source name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/patchinternalsources/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
     """
     /patchpolicies
     """
