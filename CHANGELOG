@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.57.0] -- 2022-11-11
+### Added
+- Classic.get_packages which returns all package
+- Classic.get_package which returns data on one package by ID or name
+- Classic.create_package which creates a package 
+- Classic.update_package which updates an existing package by ID or name
+- Classic.delete_package which deletes an existing package by ID or name
+
 ## [0.56.0] -- 2022-11-11
 ### Added
 - Classic.get_osx_configuration_profiles which returns all OSX configuration profiles

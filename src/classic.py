@@ -5122,6 +5122,96 @@ class Classic(RequestBuilder):
     /packages
     """
 
+    def get_packages(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all packages in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/packages"
+
+        return self._get(endpoint, data_type)
+
+    def get_package(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific package by either ID or name in
+        JSON or XML.
+
+        :param id: Package ID
+        :param name: Package name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/packages/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_package(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a package with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the package with
+        :param id:
+            ID of the new package, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/packages/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_package(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a package with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the package with
+        :param id: Package ID
+        :param name: Package name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/packages/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_package(self, id: Union[int, str] = None, name: str = None) -> str:
+        """
+        Deletes a package by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: Package ID
+        :param name: Package name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/packages/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /patchavailabletitles
     """
