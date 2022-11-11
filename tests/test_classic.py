@@ -6814,6 +6814,250 @@ def test_delete_mobile_device_invitation_invitation_xml(classic):
 """
 
 
+@responses.activate
+def test_get_mobile_device_provisioning_profiles_json(classic):
+    """
+    Ensures that get_mobile_device_provisioning_profiles returns JSON when
+    ran without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledeviceprovisioningprofiles")
+        )
+    )
+    assert classic.get_mobile_device_provisioning_profiles() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_provisioning_profiles_xml(classic):
+    """
+    Ensures that get_mobile_device_provisioning_profiles returns XML when
+    ran with "xml" set for data_type
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_mobile_device_provisioning_profiles("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_mobile_device_provisioning_profile_id(classic):
+    """
+    Ensures that get_mobile_device_provisioning_profile returns JSON when id
+    is used as the identification
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledeviceprovisioningprofiles/id/1001")
+        )
+    )
+    assert classic.get_mobile_device_provisioning_profile(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_provisioning_profile_name_xml(classic):
+    """
+    Ensures that get_mobile_device_provisioning_profile returns XML when name
+    is used as the identifier and xml set as data_type
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_mobile_device_provisioning_profile(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_get_mobile_device_provisioning_profile_uuid(classic):
+    """
+    Ensures taht get_mobile_device_provisinoing_profile returns JSON when uuid
+    is used as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/mobiledeviceprovisioningprofiles/uuid/1ab2")
+        )
+    )
+    assert classic.get_mobile_device_provisioning_profile(uuid="1ab2") == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_mobile_device_provisioning_profile_id(classic):
+    """
+    Ensures that create_mobile_device_provisioning_profile completes
+    successfully when used with id as the identifier
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/id/0"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_mobile_device_provisioning_profile(EXPECTED_XML, id=0)
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_mobile_device_provisioning_profile_name(classic):
+    """
+    Ensures that create_mobile_device_provisioning_profile completes
+    successfully when used with name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_mobile_device_provisioning_profile(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_mobile_device_provisioning_profile_uuid(classic):
+    """
+    Ensures that create_mobile_device_provisioning_profile completes
+    successfully when used with name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/uuid/1ab2"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.create_mobile_device_provisioning_profile(EXPECTED_XML, uuid="1ab2")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_mobile_device_provisioning_profile_id(classic):
+    """
+    Ensures that update_mobile_device_provisioning_profile completes
+    successfully when used with id as the identifier
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/id/0"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_mobile_device_provisioning_profile(EXPECTED_XML, id=0)
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_mobile_device_provisioning_profile_name(classic):
+    """
+    Ensures that update_mobile_device_provisioning_profile completes
+    successfully when used with name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_mobile_device_provisioning_profile(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_mobile_device_provisioning_profile_uuid(classic):
+    """
+    Ensures that update_mobile_device_provisioning_profile completes
+    successfully when used with name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/uuid/1ab2"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_mobile_device_provisioning_profile(EXPECTED_XML, uuid="1ab2")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_provisioning_profile_id(classic):
+    """
+    Ensures that delete_mobile_device_provisioning_profile completes
+    successfully when used with id as the identifier
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/id/0"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_mobile_device_provisioning_profile(id=0) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_mobile_device_provisioning_profile_name(classic):
+    """
+    Ensures that delete_mobile_device_provisioning_profile completes
+    successfully when used with name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.delete_mobile_device_provisioning_profile(name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_provisioning_profile_uuid(classic):
+    """
+    Ensures that delete_mobile_device_provisioning_profile completes
+    successfully when used with name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/mobiledeviceprovisioningprofiles/uuid/1ab2"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.delete_mobile_device_provisioning_profile(uuid="1ab2") == EXPECTED_XML
+    )
+
+
 """
 /mobiledevices
 """

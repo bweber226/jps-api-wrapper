@@ -4592,6 +4592,129 @@ class Classic(RequestBuilder):
     /mobiledeviceprovisioningprofiles
     """
 
+    def get_mobile_device_provisioning_profiles(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all mobile device provisioning profiles in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/mobiledeviceprovisioningprofiles"
+
+        return self._get(endpoint, data_type)
+
+    def get_mobile_device_provisioning_profile(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        uuid: str = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on one mobile device provisioning profile in JSON or XML
+        by ID, name, or UUID. Need to supply at least one identifier.
+
+        :param id: Mobile device provisioning profile ID
+        :param name: Mobile device provisioning profile name
+        :param uuid: Mobile device provisioning profile UUID
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "uuid": uuid,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceprovisioningprofiles/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_mobile_device_provisioning_profile(
+        self, data: str, id: Union[int, str] = None, name: str = None, uuid: str = None
+    ) -> str:
+        """
+        Creates a mobile device provisioning profile with XML data by ID,
+        name, or UUID. Need to supply at least one identifier.
+
+        :param data:
+            XML data configuration for mobile device provisioning profile
+        :param id:
+            Mobile device provisioning profile ID, set to 0 for next available
+        :param name: Mobile device provisioning profile name
+        :param uuid: Mobile device provisioning profile UUID
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "uuid": uuid,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceprovisioningprofiles/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_mobile_device_provisioning_profile(
+        self, data: str, id: Union[int, str] = None, name: str = None, uuid: str = None
+    ) -> str:
+        """
+        Updates a mobile device provisioning profile with XML data by ID,
+        name, or UUID. Need to supply at least one identifier.
+
+        :param data:
+            XML data configuration for mobile device provisioning profile
+        :param id:
+            Mobile device provisioning profile ID, set to 0 for next available
+        :param name: Mobile device provisioning profile name
+        :param uuid: Mobile device provisioning profile UUID
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "uuid": uuid,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceprovisioningprofiles/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_mobile_device_provisioning_profile(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        uuid: str = None,
+    ) -> Union[dict, str]:
+        """
+        Deletes a mobile device provisioning profile by ID, name, or UUID.
+        Need to supply at least one identifier.
+
+        :param id: Mobile device provisioning profile ID
+        :param name: Mobile device provisioning profile name
+        :param uuid: Mobile device provisioning profile UUID
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "uuid": uuid,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/mobiledeviceprovisioningprofiles/{identification}"
+            f"/{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /mobiledevices
     """
