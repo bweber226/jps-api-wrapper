@@ -4899,6 +4899,98 @@ class Classic(RequestBuilder):
     /networksegments
     """
 
+    def get_network_segments(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all network segments in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/networksegments"
+
+        return self._get(endpoint, data_type)
+
+    def get_network_segment(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific network segment by either ID or name in
+        JSON or XML.
+
+        :param id: network segment ID
+        :param name: network segment name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/networksegments/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_network_segment(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a network segment with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the network segment with
+        :param id:
+            ID of the new network segment, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/networksegments/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_network_segment(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a network segment with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the network segment with
+        :param id: network segment ID
+        :param name: network segment name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/networksegments/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_network_segment(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Deletes a network segment by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: network segment ID
+        :param name: network segment name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/networksegments/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /osxconfigurationprofiles
     """

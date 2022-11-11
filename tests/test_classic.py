@@ -7341,6 +7341,135 @@ def test_delete_mobile_device_id_500(classic):
 /networksegments
 """
 
+
+@responses.activate
+def test_get_network_segments_json(classic):
+    """
+    Ensures that network_segments returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/networksegments")))
+    assert classic.get_network_segments() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_network_segments_xml(classic):
+    """
+    Ensures that network_segments returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/networksegments"), data_type="xml"
+        )
+    )
+    assert classic.get_network_segments(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_network_segment_id_json(classic):
+    """
+    Ensures that get_network_segment returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/networksegments/id/1001"))
+    )
+    assert classic.get_network_segment(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_network_segment_name_xml(classic):
+    """
+    Ensures that get_network_segment returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/networksegments/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_network_segment(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_network_segment_id(classic):
+    """
+    Ensures that create_network_segment returns data when updating
+    a network segment with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/networksegments/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_network_segment(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_network_segment_id(classic):
+    """
+    Ensures that update_network_segment returns data when updating
+    a network segment with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/networksegments/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_network_segment(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_network_segment_name(classic):
+    """
+    Ensures that update_network_segment returns data when updating
+    a network segment with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/networksegments/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_network_segment(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_network_segment_id(classic):
+    """
+    Ensures that delete_network_segment returns data when deleting a
+    network segment by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/networksegments/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_network_segment(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_network_segment_name(classic):
+    """
+    Ensures that delete_network_segment returns data when deleting a
+    network segment by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/networksegments/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_network_segment(name="testname") == EXPECTED_XML
+
+
 """
 /osxconfigurationprofiles
 """
