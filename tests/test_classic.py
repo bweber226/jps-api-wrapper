@@ -8647,6 +8647,124 @@ def test_delete_policy_name(classic):
 /printers
 """
 
+
+@responses.activate
+def test_get_printers_json(classic):
+    """
+    Ensures that printers returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/printers")))
+    assert classic.get_printers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_printers_xml(classic):
+    """
+    Ensures that printers returns a XML str when passing "xml" as the
+    data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/printers"), data_type="xml")
+    )
+    assert classic.get_printers(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_printer_id_json(classic):
+    """
+    Ensures that get_printer returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/printers/id/1001")))
+    assert classic.get_printer(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_printer_name_xml(classic):
+    """
+    Ensures that get_printer returns XML when passing "xml" as the data_type
+    and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/printers/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_printer(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_printer_id(classic):
+    """
+    Ensures that create_printer returns data when creating a printer with id
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/printers/id/0"), data_type="xml")
+    )
+    assert classic.create_printer(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_printer_id(classic):
+    """
+    Ensures that update_printer returns data when creating a printer with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/printers/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_printer(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_printer_name(classic):
+    """
+    Ensures that update_printer returns data when updating a printer with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/printers/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_printer(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_printer_id(classic):
+    """
+    Ensures that delete_printer returns data when deleting a printer by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/printers/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_printer(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_printer_name(classic):
+    """
+    Ensures that delete_printer returns data when deleting a printer by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/printers/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_printer(name="testname") == EXPECTED_XML
+
+
 """
 /removablemacaddresses
 """
