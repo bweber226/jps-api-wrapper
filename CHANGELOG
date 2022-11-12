@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.66.0] -- 2022-11-12
+### Added
+- Classic.get_policies which returns all policies and filter by category and what is was created by
+- Classic.get_policy which returns data on one policy by ID or name and optional subsets
+- Classic.create_policy which creates a policy 
+- Classic.update_policy which updates an existing policy by ID or name
+- Classic.delete_policy which deletes an existing policy by ID or name
+
 ## [0.65.0] -- 2022-11-12
 ### Added
 - Classic.get_peripheral_types which returns all peripheral types

@@ -8450,6 +8450,199 @@ def test_delete_peripheral_type(classic):
 /policies
 """
 
+
+@responses.activate
+def test_get_policies_json(classic):
+    """
+    Ensures that get_policies returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/policies")))
+    assert classic.get_policies() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_policies_category_xml(classic):
+    """
+    Ensures that get_policies returns a XML str when passing
+    "xml" as the data_type and category set to None
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/policies/category/None"), data_type="xml"
+        )
+    )
+    assert classic.get_policies(category="None", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_policies_createdby(classic):
+    """
+    Ensures that get_policies returns JSON when used with createdby set to
+    jss
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/policies/createdBy/jss"))
+    )
+    assert classic.get_policies(createdby="jss") == EXPECTED_JSON
+
+
+def test_get_policies_invalid_createdby(classic):
+    """
+    Ensures that get_policies raises ValueError when used with createdby set
+    to an invalid value
+    """
+    with pytest.raises(ValueError):
+        classic.get_policies(createdby="invalid")
+
+
+@responses.activate
+def test_get_policy_id_json(classic):
+    """
+    Ensures that get_policy returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/policies/id/1001")))
+    assert classic.get_policy(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_policy_name_xml(classic):
+    """
+    Ensures that get_policy returns XML when passing "xml" as the data_type
+    and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/policies/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_policy(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_policy_id_subset(classic):
+    """
+    Ensures that get_policy returns data when used with id as an identifier
+    and one subset options
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/policies/id/1001/subset/General"))
+    )
+    assert classic.get_policy(1001, subsets=["General"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_policy_id_subsets(classic):
+    """
+    Ensures that get_policy returns data when used with id as an identifier
+    and multiple subset options
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/policies/id/1001/subset/General%26Scope%26"
+                "SelfService%26PackageConfiguration%26Scripts%26Printers%26DockItems%26"
+                "AccountMaintenance%26Reboot%26Maintenance%26FilesProcesses%26"
+                "UserInteraction%26DiskEncryption"
+            ),
+        )
+    )
+    assert (
+        classic.get_policy(
+            1001,
+            subsets=[
+                "General",
+                "Scope",
+                "SelfService",
+                "PackageConfiguration",
+                "Scripts",
+                "Printers",
+                "DockItems",
+                "AccountMaintenance",
+                "Reboot",
+                "Maintenance",
+                "FilesProcesses",
+                "UserInteraction",
+                "DiskEncryption",
+            ],
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_policy_id(classic):
+    """
+    Ensures that create_policy returns data when updating a policy with ID
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/policies/id/0"), data_type="xml")
+    )
+    assert classic.create_policy(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_policy_id(classic):
+    """
+    Ensures that update_policy returns data when updating a policy with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/policies/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_policy(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_policy_name(classic):
+    """
+    Ensures that update_policy returns data when updating a policy with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/policies/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_policy(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_policy_id(classic):
+    """
+    Ensures that delete_policy returns data when deleting a policy by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/policies/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_policy(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_policy_name(classic):
+    """
+    Ensures that delete_policy returns data when deleting a policy by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/policies/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_policy(name="testname") == EXPECTED_XML
+
+
 """
 /printers
 """

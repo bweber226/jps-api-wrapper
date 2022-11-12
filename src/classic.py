@@ -5662,6 +5662,156 @@ class Classic(RequestBuilder):
     /policies
     """
 
+    def get_policies(
+        self, category: str = None, createdby: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all policies in either JSON or XML.
+
+        :param category:
+            Category may be specified by id or name, or 'None' for policies
+            with no category
+        :param createdby:
+            The value 'casper' refers to Casper Remote. The value 'jss'
+            refers to policies created in the GUI or via the API.
+        :param data_type: json or xml
+        """
+        if createdby and createdby not in ["jss", "casper"]:
+            raise ValueError("createdby only supports the values jss and casper")
+        if category:
+            endpoint = f"/JSSResource/policies/category/{category}"
+        elif createdby:
+            endpoint = f"/JSSResource/policies/createdBy/{createdby}"
+        else:
+            endpoint = "/JSSResource/policies"
+
+        return self._get(endpoint, data_type)
+
+    def get_policy(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        subsets: List[str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific policy by either ID or name.
+
+        :param id: Policy ID
+        :param name: Policy name
+        :param subsets:
+            Subset(s) of data from the policy in a list of strings
+
+            Options:
+            - General
+            - Scope
+            - SelfService
+            - PackageConfiguration
+            - Scripts
+            - Printers
+            - DockItems
+            - AccountMaintenance
+            - Reboot
+            - Maintenance
+            - FilesProcesses
+            - UserInteraction
+            - DiskEncryption
+
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        subset_options = [
+            "General",
+            "Scope",
+            "SelfService",
+            "PackageConfiguration",
+            "Scripts",
+            "Printers",
+            "DockItems",
+            "AccountMaintenance",
+            "Reboot",
+            "Maintenance",
+            "FilesProcesses",
+            "UserInteraction",
+            "DiskEncryption",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/policies/{identification}"
+                f"/{identification_options[identification]}/subset/"
+                f"{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = (
+                f"/JSSResource/policies/{identification}/"
+                f"{identification_options[identification]}"
+            )
+
+        return self._get(endpoint, data_type)
+
+    def create_policy(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a policy with the given XML data. Use ID 0 to use the next
+        available ID.
+
+        :param data:
+            XML data to create the policy with
+        :param id:
+            ID of the new policy, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/policies/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_policy(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a policy with the given XML data. Need to supply at least one
+        identifier.
+
+        :param data:
+            XML data to update the policy with
+        :param id: Policy ID
+        :param name: Policy name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/policies/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_policy(self, id: Union[int, str] = None, name: str = None) -> str:
+        """
+        Deletes a policy by either ID or name. Need to supply at least one
+        identifier.
+
+        :param id: Policy ID
+        :param name: Policy name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/policies/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /printers
     """
