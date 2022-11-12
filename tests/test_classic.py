@@ -8361,6 +8361,91 @@ def test_delete_peripheral(classic):
 /peripheraltypes
 """
 
+
+@responses.activate
+def test_get_peripheral_types_json(classic):
+    """
+    Ensures that get_peripheral_types returns JSON data when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/peripheraltypes")))
+    assert classic.get_peripheral_types() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_peripheral_types_xml(classic):
+    """
+    Ensures that get_peripheral_types returns XML data when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/peripheraltypes"), data_type="xml"
+        )
+    )
+    assert classic.get_peripheral_types("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_peripheral_type_id_json(classic):
+    """
+    Ensures that get_peripheral_type returns JSON when used with ID and no
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/peripheraltypes/id/1001"))
+    )
+    assert classic.get_peripheral_type(1001)
+
+
+@responses.activate
+def test_get_peripheral_type_id_xml(classic):
+    """
+    Ensures that get_peripheral_type returns XML when used with ID and
+    data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/peripheraltypes/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_peripheral_type(1001, "xml")
+
+
+@responses.activate
+def test_update_peripheral_type_id(classic):
+    """
+    Ensures that update_peripheral_type completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/peripheraltypes/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_peripheral_type(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_peripheral_type(classic):
+    """
+    Ensures that delete_peripheral_type completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/peripheraltypes/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_peripheral_type(1001) == EXPECTED_XML
+
+
 """
 /policies
 """
@@ -8380,6 +8465,9 @@ def test_delete_peripheral(classic):
 """
 /savedsearches
 """
+
+# Deprecated - use advancedcomputersearches, advancedmobiledevicesearches
+# and advancedusersearches
 
 """
 /scripts

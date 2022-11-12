@@ -5583,7 +5583,7 @@ class Classic(RequestBuilder):
 
         return self._get(endpoint, data_type)
 
-    def update_peripheral(self, data: str, id: Union[str, int] = 0) -> str:
+    def update_peripheral(self, data: str, id: Union[int, str] = 0) -> str:
         """
         Updates a peripheral by ID with XML data
 
@@ -5607,6 +5607,56 @@ class Classic(RequestBuilder):
     """
     /peripheraltypes
     """
+    # Peripherals were deprecated by Jamf so I've omitted the creation
+    # endpoint, you can still get, update, and delete are still available
+    # so that you can change or delete them
+
+    def get_peripheral_types(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all peripheral types in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/peripheraltypes"
+
+        return self._get(endpoint, data_type)
+
+    def get_peripheral_type(
+        self,
+        id: Union[int, str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on one peripheral type by ID or peripheral type ID
+        in JSON or XML
+
+        :param id: Peripheral type ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/peripheraltypes/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def update_peripheral_type(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Updates a peripheral type by ID with XML data
+
+        :param data: XML data to update peripheral type with
+        :param id: Peripheral type ID, set to 0 for next available
+        """
+        endpoint = f"/JSSResource/peripheraltypes/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_peripheral_type(self, id: Union[int, str]) -> str:
+        """
+        Deletes a peripheral type by ID.
+
+        :param id: Peripheral type ID
+        """
+        endpoint = f"/JSSResource/peripheraltypes/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /policies
@@ -5627,6 +5677,9 @@ class Classic(RequestBuilder):
     """
     /savedsearches
     """
+
+    # Deprecated - use advancedcomputersearches advancedmobiledevicesearches
+    # and advancedusersearches
 
     """
     /scripts
