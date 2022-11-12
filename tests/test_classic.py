@@ -8276,6 +8276,87 @@ def test_delete_patch_software_title(classic):
 /peripherals
 """
 
+
+@responses.activate
+def test_get_peripherals_json(classic):
+    """
+    Ensures that get_peripherals returns JSON data when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/peripherals")))
+    assert classic.get_peripherals() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_peripherals_xml(classic):
+    """
+    Ensures that get_peripherals returns XML data when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/peripherals"), data_type="xml")
+    )
+    assert classic.get_peripherals("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_peripheral_id_json(classic):
+    """
+    Ensures that get_peripheral returns JSON when used with ID and no
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/peripherals/id/1001")))
+    assert classic.get_peripheral(1001)
+
+
+@responses.activate
+def test_get_peripheral_id_xml_subsets(classic):
+    """
+    Ensures that get_peripheral returns XML when used with ID and multiple
+    subsets along with data_type set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/peripherals/id/1001" "/subset/General%26Location"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_peripheral(1001, ["General", "Location"], "xml")
+
+
+@responses.activate
+def test_update_peripheral_id(classic):
+    """
+    Ensures that update_peripheral completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/peripherals/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_peripheral(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_peripheral(classic):
+    """
+    Ensures that delete_peripheral completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/peripherals/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_peripheral(1001) == EXPECTED_XML
+
+
 """
 /peripheraltypes
 """

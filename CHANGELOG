@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.64.0] -- 2022-11-11
+### Added
+- Classic.get_peripherals which returns all peripherals
+- Classic.get_peripheral which returns data on one peripheral by ID with optional subsets
+- Classic.update_peripheral which updates an existing peripheral by ID 
+- Classic.delete_peripheral which deletes an existing peripheral by ID 
+
 ## [0.63.0] -- 2022-11-11
 ### Added
 - Classic.get_patch_software_titles which returns all patch software titles

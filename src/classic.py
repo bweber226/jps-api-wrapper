@@ -5392,7 +5392,6 @@ class Classic(RequestBuilder):
         in JSON or XML
 
         :param id: Software title config ID
-        :param softwaretitleconfigid: Software title config ID
         :param subsets:
             Subset(s) of data from the patch policy in a list of strings
 
@@ -5535,6 +5534,75 @@ class Classic(RequestBuilder):
     """
     /peripherals
     """
+    # Peripherals were deprecated by Jamf so I've omitted the creation
+    # endpoint, you can still get, update, and delete are still available
+    # so that you can change or delete them
+
+    def get_peripherals(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all peripherals in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/peripherals"
+
+        return self._get(endpoint, data_type)
+
+    def get_peripheral(
+        self,
+        id: Union[int, str] = None,
+        subsets: List[str] = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on one Peripheral by ID in JSON or XML
+
+        :param id: Peripheral ID
+        :param subsets:
+            Subset(s) of data from the peripheral in a list of strings
+
+            Options:
+            - General
+            - Location
+            - Purchasing
+            - Attachments
+        :param data_type: json or xml
+        """
+        subset_options = [
+            "General",
+            "Location",
+            "Purchasing",
+            "Attachments",
+        ]
+        if valid_subsets(subsets, subset_options):
+            endpoint = (
+                f"/JSSResource/peripherals/id/{id}" f"/subset/{'&'.join(subsets)}"
+            )
+        else:
+            endpoint = f"/JSSResource/peripherals/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def update_peripheral(self, data: str, id: Union[str, int] = 0) -> str:
+        """
+        Updates a peripheral by ID with XML data
+
+        :param data: XML data to update peripheral with
+        :param id: Peripheral ID, set to 0 for next available
+        """
+        endpoint = f"/JSSResource/peripherals/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_peripheral(self, id: Union[int, str]) -> str:
+        """
+        Deletes a peripheral by ID.
+
+        :param id: Peripheral ID
+        """
+        endpoint = f"/JSSResource/peripherals/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /peripheraltypes
