@@ -9180,6 +9180,122 @@ def test_delete_script_name(classic):
 /sites
 """
 
+
+@responses.activate
+def test_get_sites_json(classic):
+    """
+    Ensures that get_sites returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/sites")))
+    assert classic.get_sites() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_sites_xml(classic):
+    """
+    Ensures that get_sites returns a XML str when passing "xml" as the
+    data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/sites"), data_type="xml")
+    )
+    assert classic.get_sites(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_site_id_json(classic):
+    """
+    Ensures that get_site returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/sites/id/1001")))
+    assert classic.get_site(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_site_name_xml(classic):
+    """
+    Ensures that get_site returns XML when passing "xml" as the data_type and
+    using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/sites/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_site(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_site_id(classic):
+    """
+    Ensures that create_site returns data when creating a site with id
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/sites/id/0"), data_type="xml")
+    )
+    assert classic.create_site(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_site_id(classic):
+    """
+    Ensures that update_site returns data when creating a site with id
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/sites/id/1001"), data_type="xml")
+    )
+    assert classic.update_site(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_site_name(classic):
+    """
+    Ensures that update_site returns data when updating a site with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/sites/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_site(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_site_id(classic):
+    """
+    Ensures that delete_site returns data when deleting a site by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/sites/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_site(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_site_name(classic):
+    """
+    Ensures that delete_site returns data when deleting a site by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/sites/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_site(name="testname") == EXPECTED_XML
+
+
 """
 /smtpserver
 """
