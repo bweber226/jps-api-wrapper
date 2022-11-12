@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.70.0] -- 2022-11-12
+### Added
+- Classic.get_scripts which returns all scripts
+- Classic.get_script which returns data on one script by ID or name
+- Classic.create_script which creates a script 
+- Classic.update_script which updates an existing script by ID or name
+- Classic.delete_script which deletes an existing script by ID or name
+
 ## [0.69.0] -- 2022-11-12
 ### Added
 - Classic.get_restricted_software_all which returns all restricted software

@@ -8773,7 +8773,7 @@ def test_delete_printer_name(classic):
 @responses.activate
 def test_get_removable_mac_addresses_json(classic):
     """
-    Ensures that removable MAC addresses returns a JSON dict when passing
+    Ensures that get_removable_mac_addressess returns a JSON dict when passing
     "json" as the data_type param
     """
     responses.add(
@@ -8785,8 +8785,8 @@ def test_get_removable_mac_addresses_json(classic):
 @responses.activate
 def test_get_removable_mac_addresses_xml(classic):
     """
-    Ensures that removable MAC addresses returns a XML str when passing "xml"
-    as the data_type param
+    Ensures that get_removable_mac_addresses returns a XML str when passing
+    "xml" as the data_type param
     """
     responses.add(
         response_builder(
@@ -8916,7 +8916,7 @@ def test_delete_removable_mac_address_name(classic):
 @responses.activate
 def test_get_restricted_software_all_json(classic):
     """
-    Ensures that restricted softwarees returns a JSON dict when passing "json"
+    Ensures that restricted software returns a JSON dict when passing "json"
     as the data_type param
     """
     responses.add(response_builder("GET", jps_url("/JSSResource/restrictedsoftware")))
@@ -8926,7 +8926,7 @@ def test_get_restricted_software_all_json(classic):
 @responses.activate
 def test_get_restricted_software_all_xml(classic):
     """
-    Ensures that restricted softwarees returns a XML str when passing "xml" as
+    Ensures that restricted software returns a XML str when passing "xml" as
     the data_type param
     """
     responses.add(
@@ -9057,6 +9057,124 @@ def test_delete_restricted_software_name(classic):
 """
 /scripts
 """
+
+
+@responses.activate
+def test_get_scripts_json(classic):
+    """
+    Ensures that get_scripts returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/scripts")))
+    assert classic.get_scripts() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_scripts_xml(classic):
+    """
+    Ensures that get_scripts returns a XML str when passing "xml" as the
+    data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/scripts"), data_type="xml")
+    )
+    assert classic.get_scripts(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_script_id_json(classic):
+    """
+    Ensures that get_script returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/scripts/id/1001")))
+    assert classic.get_script(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_script_name_xml(classic):
+    """
+    Ensures that get_script returns XML when passing "xml" as the data_type
+    and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/scripts/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_script(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_script_id(classic):
+    """
+    Ensures that create_script returns data when creating a script with id
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/scripts/id/0"), data_type="xml")
+    )
+    assert classic.create_script(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_script_id(classic):
+    """
+    Ensures that update_script returns data when creating a script with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/scripts/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_script(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_script_name(classic):
+    """
+    Ensures that update_script returns data when updating a script with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/scripts/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_script(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_script_id(classic):
+    """
+    Ensures that delete_script returns data when deleting a script by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/scripts/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_script(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_script_name(classic):
+    """
+    Ensures that delete_script returns data when deleting a script by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/scripts/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_script(name="testname") == EXPECTED_XML
+
 
 """
 /sites
