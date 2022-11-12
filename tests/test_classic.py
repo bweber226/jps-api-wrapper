@@ -8177,6 +8177,101 @@ def test_get_patch_report_id_version_xml(classic):
 /patchsoftwaretitles
 """
 
+
+@responses.activate
+def test_get_patch_software_titles_json(classic):
+    """
+    Ensures that get_patch_software_titles returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/patchsoftwaretitles")))
+    assert classic.get_patch_software_titles() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_titles_xml(classic):
+    """
+    Ensures that get_patch_software_titles returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/patchsoftwaretitles"), data_type="xml"
+        )
+    )
+    assert classic.get_patch_software_titles("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_patch_software_title_id_json(classic):
+    """
+    Ensures that get_patch_software_title returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/patchsoftwaretitles/id/1001"))
+    )
+    assert classic.get_patch_software_title(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_title_id_xml(classic):
+    """
+    Ensures that get_patch_software_title returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/patchsoftwaretitles/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.get_patch_software_title(1001, data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_patch_software_title(classic):
+    """
+    Ensures that create_patch_software_title completes successfully when
+    run without optional params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/patchsoftwaretitles/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_patch_software_title(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_patch_software_title(classic):
+    """
+    Ensures that update_patch_software_title completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/patchsoftwaretitles/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_patch_software_title(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_patch_software_title(classic):
+    """
+    Ensures that delete_patch_software_title completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/patchsoftwaretitles/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_patch_software_title(1001) == EXPECTED_XML
+
+
 """
 /peripherals
 """

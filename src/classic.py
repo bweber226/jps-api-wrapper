@@ -5477,6 +5477,61 @@ class Classic(RequestBuilder):
     /patchsoftwaretitles
     """
 
+    def get_patch_software_titles(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all patch software titles in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/patchsoftwaretitles"
+
+        return self._get(endpoint, data_type)
+
+    def get_patch_software_title(
+        self, id: Union[int, str], data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on one patch software title in JSON or XML
+
+        :param id: Patch software title ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def create_patch_software_title(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a patch software title by ID with XML data
+
+        :param data: XML data to create the patch software title with
+        :param id: Patch software title ID, set to 0 for next available ID
+        """
+        endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_patch_software_title(self, data: str, id: Union[int, str]) -> str:
+        """
+        Updates a patch software title by ID with XML data
+
+        :param data: XML data to udpate the patch software title with
+        :param id: Patch software title ID
+        """
+        endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_patch_software_title(self, id: Union[int, str]) -> str:
+        """
+        Deletes a patch software title by ID
+
+        :param id: Patch software title ID
+        """
+        endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /peripherals
     """
