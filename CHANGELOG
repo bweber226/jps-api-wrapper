@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.69.0] -- 2022-11-12
+### Added
+- Classic.get_restricted_software_all which returns all restricted software
+- Classic.get_restricted_software which returns data on one restricted software by ID or name
+- Classic.create_restricted_software which creates a restricted software 
+- Classic.update_restricted_software which updates an existing restricted software by ID or name
+- Classic.delete_restricted_software which deletes an existing restricted software by ID or name
+
 ## [0.68.0] -- 2022-11-12
 ### Added
 - Classic.get_removable_mac_addresses which returns all removable MAC addresses

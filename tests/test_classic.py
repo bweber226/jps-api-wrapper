@@ -8912,6 +8912,141 @@ def test_delete_removable_mac_address_name(classic):
 /restrictedsoftware
 """
 
+
+@responses.activate
+def test_get_restricted_software_all_json(classic):
+    """
+    Ensures that restricted softwarees returns a JSON dict when passing "json"
+    as the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/restrictedsoftware")))
+    assert classic.get_restricted_software_all() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_restricted_software_all_xml(classic):
+    """
+    Ensures that restricted softwarees returns a XML str when passing "xml" as
+    the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/restrictedsoftware"), data_type="xml"
+        )
+    )
+    assert classic.get_restricted_software_all(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_restricted_software_id_json(classic):
+    """
+    Ensures that get_restricted_software returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/restrictedsoftware/id/1001"))
+    )
+    assert classic.get_restricted_software(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_restricted_software_name_xml(classic):
+    """
+    Ensures that get_restricted_software returns XML when passing "xml" as the
+    data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/restrictedsoftware/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_restricted_software(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_restricted_software_id(classic):
+    """
+    Ensures that create_restricted_software returns data when creating a
+    restricted software with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/restrictedsoftware/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_restricted_software(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_restricted_software_id(classic):
+    """
+    Ensures that update_restricted_software returns data when creating a
+    restricted software with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/restrictedsoftware/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_restricted_software(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_restricted_software_name(classic):
+    """
+    Ensures that update_restricted_software returns data when updating a
+    restricted software with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/restrictedsoftware/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_restricted_software(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_restricted_software_id(classic):
+    """
+    Ensures that delete_restricted_software returns data when deleting a
+    restricted software by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/restrictedsoftware/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_restricted_software(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_restricted_software_name(classic):
+    """
+    Ensures that delete_restricted_software returns data when deleting a
+    restricted software by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/restrictedsoftware/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_restricted_software(name="testname") == EXPECTED_XML
+
+
 """
 /savedsearches
 """
