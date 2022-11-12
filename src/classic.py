@@ -5910,6 +5910,98 @@ class Classic(RequestBuilder):
     /removablemacaddresses
     """
 
+    def get_removable_mac_addresses(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all removable MAC addresses in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/removablemacaddresses"
+
+        return self._get(endpoint, data_type)
+
+    def get_removable_mac_address(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific removable MAC address by either ID or name
+        in JSON or XML.
+
+        :param id: removable MAC address ID
+        :param name: removable MAC address name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/removablemacaddresses/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_removable_mac_address(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a removable MAC address with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the removable MAC address with
+        :param id:
+            ID of the new removable MAC address, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/removablemacaddresses/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_removable_mac_address(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a removable MAC address with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the removable MAC address with
+        :param id: removable MAC address ID
+        :param name: removable MAC address name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/removablemacaddresses/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_removable_mac_address(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Deletes a removable MAC address by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: removable MAC address ID
+        :param name: removable MAC address name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/removablemacaddresses/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /restrictedsoftware
     """

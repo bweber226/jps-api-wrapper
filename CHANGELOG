@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.68.0] -- 2022-11-12
+### Added
+- Classic.get_removable_mac_addresses which returns all removable MAC addresses
+- Classic.get_removable_mac_address which returns data on one removable MAC address by ID or name
+- Classic.create_removable_mac_address which creates a removable MAC address 
+- Classic.update_removable_mac_address which updates an existing removable MAC address by ID or name
+- Classic.delete_removable_mac_address which deletes an existing removable MAC address by ID or name
+
 ## [0.67.0] -- 2022-11-12
 ### Added
 - Classic.get_printers which returns all printer
