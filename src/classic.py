@@ -6295,6 +6295,22 @@ class Classic(RequestBuilder):
     /smtpserver
     """
 
+    def get_smtp_server(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns information on the SMTP server for the JPS server
+        """
+        endpoint = "/JSSResource/smtpserver"
+
+        return self._get(endpoint, data_type)
+
+    def update_smtp_server(self, data: str) -> str:
+        """
+        Updates the SMTP server info on the JPS server with XML data.
+        """
+        endpoint = "/JSSResource/smtpserver"
+
+        return self._put(endpoint, data, data_type="xml")
+
     """
     /softwareupdateservers
     """

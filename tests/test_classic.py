@@ -9300,6 +9300,41 @@ def test_delete_site_name(classic):
 /smtpserver
 """
 
+
+@responses.activate
+def test_get_smtp_server_json(classic):
+    """
+    Ensures that get_smtp_server returns JSON when run without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/smtpserver")))
+    assert classic.get_smtp_server() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_smtp_server_xml(classic):
+    """
+    Ensures that get_smtp_server returns XML when run with data_type set to
+    "xml"
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/smtpserver"), data_type="xml")
+    )
+    assert classic.get_smtp_server("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_update_smtp_server(classic):
+    """
+    Ensures that update_smtp_server completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/smtpserver"), data_type="xml")
+    )
+    assert classic.update_smtp_server(EXPECTED_XML) == EXPECTED_XML
+
+
 """
 /softwareupdateservers
 """
