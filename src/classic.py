@@ -6511,6 +6511,96 @@ class Classic(RequestBuilder):
     /usergroups
     """
 
+    def get_user_groups(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all user groups in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/usergroups"
+
+        return self._get(endpoint, data_type)
+
+    def get_user_group(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific user group by either ID or name
+        in JSON or XML.
+
+        :param id: user group ID
+        :param name: user group name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/usergroups/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_user_group(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a user group with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the user group with
+        :param id:
+            ID of the new user group, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/usergroups/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_user_group(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a user group with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the user group with
+        :param id: user group ID
+        :param name: user group name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/usergroups/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_user_group(self, id: Union[int, str] = None, name: str = None) -> str:
+        """
+        Deletes a user group by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: user group ID
+        :param name: user group name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/usergroups/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /users
     """

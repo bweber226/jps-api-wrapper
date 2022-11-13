@@ -9629,6 +9629,131 @@ def test_delete_user_extension_attribute_name(classic):
 /usergroups
 """
 
+
+@responses.activate
+def test_get_user_groups_json(classic):
+    """
+    Ensures that get_user_groups returns a JSON dict when passing "json" as
+    the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/usergroups")))
+    assert classic.get_user_groups() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_user_groups_xml(classic):
+    """
+    Ensures that get_user_groups returns a XML str when passing "xml" as the
+    data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/usergroups"), data_type="xml")
+    )
+    assert classic.get_user_groups(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_user_group_id_json(classic):
+    """
+    Ensures that get_user_group returns a JSON dict when passing "json" as
+    the data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/usergroups/id/1001")))
+    assert classic.get_user_group(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_user_group_name_xml(classic):
+    """
+    Ensures that get_user_group returns XML when passing "xml" as the
+    data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/usergroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_user_group(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_user_group_id(classic):
+    """
+    Ensures that create_user_group returns data when creating a user group
+    with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/usergroups/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_user_group(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_user_group_id(classic):
+    """
+    Ensures that update_user_group returns data when creating a user group
+    with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/usergroups/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_user_group(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_user_group_name(classic):
+    """
+    Ensures that update_user_group returns data when updating a user group
+    with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/usergroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_user_group(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_user_group_id(classic):
+    """
+    Ensures that delete_user_group returns data when deleting a user group by
+    ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/usergroups/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_user_group(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_user_group_name(classic):
+    """
+    Ensures that delete_user_group returns data when deleting a user group by
+    name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/usergroups/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_user_group(name="testname") == EXPECTED_XML
+
+
 """
 /users
 """
