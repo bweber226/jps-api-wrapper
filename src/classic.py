@@ -6411,6 +6411,102 @@ class Classic(RequestBuilder):
     /userextensionattributes
     """
 
+    def get_user_extension_attributes(
+        self, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns all user extension attributes in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/userextensionattributes"
+
+        return self._get(endpoint, data_type)
+
+    def get_user_extension_attribute(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific user extension attribute by either ID or
+        name in JSON or XML.
+
+        :param id: user extension attribute ID
+        :param name: user extension attribute name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/userextensionattributes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_user_extension_attribute(
+        self, data: str, id: Union[int, str] = 0
+    ) -> str:
+        """
+        Creates a user extension attribute with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the user extension attribute with
+        :param id:
+            ID of the new user extension attribute, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/userextensionattributes/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_user_extension_attribute(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a user extension attribute with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the user extension attribute with
+        :param id: user extension attribute ID
+        :param name: user extension attribute name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/userextensionattributes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_user_extension_attribute(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Deletes a user extension attribute by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: user extension attribute ID
+        :param name: user extension attribute name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/userextensionattributes/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /usergroups
     """

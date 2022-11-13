@@ -9482,6 +9482,149 @@ def test_delete_software_update_server_name(classic):
 /userextensionattributes
 """
 
+
+@responses.activate
+def test_get_user_extension_attributes_json(classic):
+    """
+    Ensures that get_user_extension_attributes returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/userextensionattributes"))
+    )
+    assert classic.get_user_extension_attributes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_user_extension_attributes_xml(classic):
+    """
+    Ensures that get_user_extension_attributes returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/userextensionattributes"), data_type="xml"
+        )
+    )
+    assert classic.get_user_extension_attributes(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_user_extension_attribute_id_json(classic):
+    """
+    Ensures that get_user_extension_attribute returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/userextensionattributes/id/1001"))
+    )
+    assert classic.get_user_extension_attribute(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_user_extension_attribute_name_xml(classic):
+    """
+    Ensures that get_user_extension_attribute returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/userextensionattributes/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_user_extension_attribute(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_user_extension_attribute_id(classic):
+    """
+    Ensures that create_user_extension_attribute returns data when creating
+    a user extension attribute with id
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/userextensionattributes/id/0"),
+            data_type="xml",
+        )
+    )
+    assert classic.create_user_extension_attribute(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_user_extension_attribute_id(classic):
+    """
+    Ensures that update_user_extension_attribute returns data when creating
+    a user extension attribute with id
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/userextensionattributes/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_user_extension_attribute(EXPECTED_XML, id=1001) == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_update_user_extension_attribute_name(classic):
+    """
+    Ensures that update_user_extension_attribute returns data when updating
+    a user extension attribute with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/userextensionattributes/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_user_extension_attribute(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_user_extension_attribute_id(classic):
+    """
+    Ensures that delete_user_extension_attribute returns data when deleting a
+    user extension attribute by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/userextensionattributes/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_user_extension_attribute(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_user_extension_attribute_name(classic):
+    """
+    Ensures that delete_user_extension_attribute returns data when deleting a
+    user extension attribute by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/userextensionattributes/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_user_extension_attribute(name="testname") == EXPECTED_XML
+
+
 """
 /usergroups
 """
