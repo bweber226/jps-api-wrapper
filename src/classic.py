@@ -6315,6 +6315,98 @@ class Classic(RequestBuilder):
     /softwareupdateservers
     """
 
+    def get_software_update_servers(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all software update servers in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/softwareupdateservers"
+
+        return self._get(endpoint, data_type)
+
+    def get_software_update_server(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific software update server by either ID or name
+        in JSON or XML.
+
+        :param id: software update server ID
+        :param name: software update server name
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/softwareupdateservers/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_software_update_server(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a software update server with the given XML data. Use ID 0
+        to use the next available ID.
+
+        :param data: XML data to create the software update server with
+        :param id:
+            ID of the new software update server, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/softwareupdateservers/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_software_update_server(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates a software update server with the given XML data. Need to
+        supply at least one identifier.
+
+        :param data: XML data to update the software update server with
+        :param id: software update server ID
+        :param name: software update server name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/softwareupdateservers/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_software_update_server(
+        self, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Deletes a software update server by either ID or name. Need to supply
+        at least one identifier.
+
+        :param id: software update server ID
+        :param name: software update server name
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/softwareupdateservers/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /userextensionattributes
     """

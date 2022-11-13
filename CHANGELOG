@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.73.0] -- 2022-11-13
+### Added
+- Classic.get_software_update_servers which returns all software update servers
+- Classic.get_software_update_server which returns data on one software update server by ID or name
+- Classic.create_software_update_server which creates a software update server 
+- Classic.update_software_update_server which updates an existing software update server by ID or name
+- Classic.delete_software_update_server which deletes an existing software update server by ID or name
+
 ## [0.72.0] -- 2022-11-12
 ### Added
 - Classic.get_smtp_server which returns info on the SMTP server of the JPS server

@@ -9339,6 +9339,145 @@ def test_update_smtp_server(classic):
 /softwareupdateservers
 """
 
+
+@responses.activate
+def test_get_software_update_servers_json(classic):
+    """
+    Ensures that get_software_update_servers returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/softwareupdateservers"))
+    )
+    assert classic.get_software_update_servers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_software_update_servers_xml(classic):
+    """
+    Ensures that get_software_update_servers returns a XML str when passing
+    "xml" as the data_type param
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/softwareupdateservers"), data_type="xml"
+        )
+    )
+    assert classic.get_software_update_servers(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_software_update_server_id_json(classic):
+    """
+    Ensures that get_software_update_server returns a JSON dict when passing
+    "json" as the data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/softwareupdateservers/id/1001"))
+    )
+    assert classic.get_software_update_server(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_software_update_server_name_xml(classic):
+    """
+    Ensures that get_software_update_server returns XML when passing "xml"
+    as the data_type and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/softwareupdateservers/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.get_software_update_server(name="testname", data_type="xml")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_create_software_update_server_id(classic):
+    """
+    Ensures that create_software_update_server returns data when creating
+    a software update server with id
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/softwareupdateservers/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_software_update_server(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_software_update_server_id(classic):
+    """
+    Ensures that update_software_update_server returns data when creating
+    a software update server with id
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/softwareupdateservers/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_software_update_server(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_software_update_server_name(classic):
+    """
+    Ensures that update_software_update_server returns data when updating
+    a software update server with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/softwareupdateservers/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert (
+        classic.update_software_update_server(EXPECTED_XML, name="testname")
+        == EXPECTED_XML
+    )
+
+
+@responses.activate
+def test_delete_software_update_server_id(classic):
+    """
+    Ensures that delete_software_update_server returns data when deleting a
+    software update server by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/softwareupdateservers/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_software_update_server(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_software_update_server_name(classic):
+    """
+    Ensures that delete_software_update_server returns data when deleting a
+    software update server by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/softwareupdateservers/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_software_update_server(name="testname") == EXPECTED_XML
+
+
 """
 /userextensionattributes
 """
