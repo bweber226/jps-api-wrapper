@@ -10012,6 +10012,99 @@ def test_delete_vpp_account(classic):
 /vppassignments
 """
 
+
+@responses.activate
+def test_get_vpp_assignments_json(classic):
+    """
+    Ensures that get_vpp_assignments returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/vppassignments")))
+    assert classic.get_vpp_assignments() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_vpp_assignments_xml(classic):
+    """
+    Ensures that get_vpp_assignments returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/vppassignments"), data_type="xml")
+    )
+    assert classic.get_vpp_assignments("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_vpp_assignment_id_json(classic):
+    """
+    Ensures that get_vpp_assignment returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/vppassignments/id/1001"))
+    )
+    assert classic.get_vpp_assignment(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_vpp_assignment_id_xml(classic):
+    """
+    Ensures that get_vpp_assignment returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/vppassignments/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.get_vpp_assignment(1001, data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_vpp_assignment(classic):
+    """
+    Ensures that create_vpp_assignment completes successfully when
+    run without optional params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/vppassignments/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_vpp_assignment(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_vpp_assignment(classic):
+    """
+    Ensures that update_vpp_assignment completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/vppassignments/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_vpp_assignment(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_vpp_assignment(classic):
+    """
+    Ensures that delete_vpp_assignment completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/vppassignments/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_vpp_assignment(1001) == EXPECTED_XML
+
+
 """
 /vppinvitations
 """
