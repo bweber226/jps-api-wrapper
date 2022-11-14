@@ -10109,6 +10109,122 @@ def test_delete_vpp_assignment(classic):
 /vppinvitations
 """
 
+
+@responses.activate
+def test_get_vpp_invitations_json(classic):
+    """
+    Ensures that get_vpp_invitations returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/vppinvitations")))
+    assert classic.get_vpp_invitations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_vpp_invitations_xml(classic):
+    """
+    Ensures that get_vpp_invitations returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/vppinvitations"), data_type="xml")
+    )
+    assert classic.get_vpp_invitations("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_vpp_invitation_id_json(classic):
+    """
+    Ensures that get_vpp_invitation returns JSON when used without optional
+    params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/vppinvitations/id/1001"))
+    )
+    assert classic.get_vpp_invitation(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_vpp_invitation_id_xml(classic):
+    """
+    Ensures that get_vpp_invitation returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/vppinvitations/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.get_vpp_invitation(1001, data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_vpp_invitation_id_subsets(classic):
+    """
+    Ensures that get_vpp_incitation returns JSON when used with id as the
+    identifier and all subsets
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/JSSResource/vppinvitations/id/1001"
+                "/subset/General%26Scope%26InvitationUsages"
+            ),
+        )
+    )
+    assert (
+        classic.get_vpp_invitation(
+            1001, subsets=["General", "Scope", "InvitationUsages"]
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_vpp_invitation(classic):
+    """
+    Ensures that create_vpp_invitation completes successfully when
+    run without optional params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/vppinvitations/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_vpp_invitation(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_vpp_invitation(classic):
+    """
+    Ensures that update_vpp_invitation completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/vppinvitations/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_vpp_invitation(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_vpp_invitation(classic):
+    """
+    Ensures that delete_vpp_invitation completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/vppinvitations/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_vpp_invitation(1001) == EXPECTED_XML
+
+
 """
 /webhooks
 """

@@ -6771,7 +6771,7 @@ class Classic(RequestBuilder):
 
     def get_vpp_assignments(self, data_type: str = "json") -> Union[dict, str]:
         """
-        Returns all VPP assignmentss in JSON or XML
+        Returns all VPP assignments in JSON or XML
 
         :param data_type: json or xml
         """
@@ -6783,9 +6783,9 @@ class Classic(RequestBuilder):
         self, id: Union[int, str], data_type: str = "json"
     ) -> Union[dict, str]:
         """
-        Returns data on one VPP assignments in JSON or XML
+        Returns data on one VPP assignment in JSON or XML
 
-        :param id: VPP assignments ID
+        :param id: VPP assignment ID
         :param data_type: json or xml
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
@@ -6794,10 +6794,10 @@ class Classic(RequestBuilder):
 
     def create_vpp_assignment(self, data: str, id: Union[int, str] = 0) -> str:
         """
-        Creates a VPP assignments by ID with XML data
+        Creates a VPP assignment by ID with XML data
 
-        :param data: XML data to create the VPP assignments with
-        :param id: VPP assignments ID, set to 0 for next available ID
+        :param data: XML data to create the VPP assignment with
+        :param id: VPP assignment ID, set to 0 for next available ID
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
 
@@ -6805,10 +6805,10 @@ class Classic(RequestBuilder):
 
     def update_vpp_assignment(self, data: str, id: Union[int, str]) -> str:
         """
-        Updates a VPP assignments by ID with XML data
+        Updates a VPP assignment by ID with XML data
 
-        :param data: XML data to udpate the VPP assignments with
-        :param id: VPP assignments ID
+        :param data: XML data to udpate the VPP assignment with
+        :param id: VPP assignment ID
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
 
@@ -6816,9 +6816,9 @@ class Classic(RequestBuilder):
 
     def delete_vpp_assignment(self, id: Union[int, str]) -> str:
         """
-        Deletes a VPP assignments by ID
+        Deletes a VPP assignment by ID
 
-        :param id: VPP assignments ID
+        :param id: VPP assignment ID
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
 
@@ -6827,6 +6827,73 @@ class Classic(RequestBuilder):
     """
     /vppinvitations
     """
+
+    def get_vpp_invitations(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all VPP invitations in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/vppinvitations"
+
+        return self._get(endpoint, data_type)
+
+    def get_vpp_invitation(
+        self, id: Union[int, str], subsets: List[str] = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on one VPP invitation in JSON or XML
+
+        :param id: VPP invitation ID
+        :param subsets:
+            Subset(s) of data from the VPP invitation in a list of strings
+
+            Options:
+            - General
+            - Scope
+            - InvitationUsages
+
+        :param data_type: json or xml
+        """
+        subset_options = ["General", "Scope", "InvitationUsages"]
+        if valid_subsets(subsets, subset_options):
+            endpoint = f"/JSSResource/vppinvitations/id/{id}/subset/{'&'.join(subsets)}"
+        else:
+            endpoint = f"/JSSResource/vppinvitations/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def create_vpp_invitation(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a VPP invitation by ID with XML data
+
+        :param data: XML data to create the VPP invitation with
+        :param id: VPP invitation ID, set to 0 for next available ID
+        """
+        endpoint = f"/JSSResource/vppinvitations/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_vpp_invitation(self, data: str, id: Union[int, str]) -> str:
+        """
+        Updates a VPP invitation by ID with XML data
+
+        :param data: XML data to udpate the VPP invitation with
+        :param id: VPP invitation ID
+        """
+        endpoint = f"/JSSResource/vppinvitations/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_vpp_invitation(self, id: Union[int, str]) -> str:
+        """
+        Deletes a VPP invitation by ID
+
+        :param id: VPP invitation ID
+        """
+        endpoint = f"/JSSResource/vppinvitations/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /webhooks

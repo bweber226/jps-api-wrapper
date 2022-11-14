@@ -5,13 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.79.0] -- 2022-11-14
+### Added
+- Classic.get_vpp_invitations which returns all VPP invitations
+- Classic.get_vpp_invitation which returns data on one VPP invitation by ID and optionally filter by subsets
+- Classic.create_vpp_invitation which creates a VPP invitation by ID
+- Classic.update_vpp_invitation which updates an existing VPP invitation by ID
+- Classic.delete_vpp_invitation which deletes an existing VPP invitation by ID
+
 ## [0.78.0] -- 2022-11-13
 ### Added
-- Classic.get_vpp_assignments which returns all VPP assignmentss
-- Classic.get_vpp_assignment which returns data on one VPP assignments by ID
-- Classic.create_vpp_assignment which creates a VPP assignments by ID
-- Classic.update_vpp_assignment which updates an existing VPP assignments by ID
-- Classic.delete_vpp_assignment which deletes an existing VPP assignments by ID
+- Classic.get_vpp_assignments which returns all VPP assignments
+- Classic.get_vpp_assignment which returns data on one VPP assignment by ID
+- Classic.create_vpp_assignment which creates a VPP assignment by ID
+- Classic.update_vpp_assignment which updates an existing VPP assignment by ID
+- Classic.delete_vpp_assignment which deletes an existing VPP assignment by ID
 
 ## [0.77.0] -- 2022-11-13
 ### Added
