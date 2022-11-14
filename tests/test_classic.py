@@ -10228,3 +10228,120 @@ def test_delete_vpp_invitation(classic):
 """
 /webhooks
 """
+
+
+@responses.activate
+def test_get_webhooks_json(classic):
+    """
+    Ensures that get_webhooks returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/webhooks")))
+    assert classic.get_webhooks() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_webhooks_xml(classic):
+    """
+    Ensures that get_webhooks returns a XML str when passing "xml" as the
+    data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/webhooks"), data_type="xml")
+    )
+    assert classic.get_webhooks(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_webhook_id_json(classic):
+    """
+    Ensures that get_webhook returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/webhooks/id/1001")))
+    assert classic.get_webhook(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_webhook_name_xml(classic):
+    """
+    Ensures that get_webhook returns XML when passing "xml" as the data_type
+    and using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/webhooks/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_webhook(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_webhook_id(classic):
+    """
+    Ensures that create_webhook returns data when creating a webhook with id
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/webhooks/id/0"), data_type="xml")
+    )
+    assert classic.create_webhook(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_webhook_id(classic):
+    """
+    Ensures that update_webhook returns data when creating a webhook with id
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/webhooks/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_webhook(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_webhook_name(classic):
+    """
+    Ensures that update_webhook returns data when updating a webhook with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/webhooks/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_webhook(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_webhook_id(classic):
+    """
+    Ensures that delete_webhook returns data when deleting a webhook by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/webhooks/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_webhook(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_webhook_name(classic):
+    """
+    Ensures that delete_webhook returns data when deleting a webhook by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/webhooks/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_webhook(name="testname") == EXPECTED_XML

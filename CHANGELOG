@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.80.0] -- 2022-11-14
+### Added
+- Classic.get_webhooks which returns all webhooks
+- Classic.get_webhook which returns data on one webhook by ID or name
+- Classic.create_webhook which creates a webhook 
+- Classic.update_webhook which updates an existing webhook by ID or name
+- Classic.delete_webhook which deletes an existing webhook by ID or name
+
 ## [0.79.0] -- 2022-11-14
 ### Added
 - Classic.get_vpp_invitations which returns all VPP invitations
