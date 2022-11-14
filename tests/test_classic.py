@@ -9758,6 +9758,161 @@ def test_delete_user_group_name(classic):
 /users
 """
 
+
+@responses.activate
+def test_get_users_json(classic):
+    """
+    Ensures that get_users returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/users")))
+    assert classic.get_users() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_users_xml(classic):
+    """
+    Ensures that get_users returns a XML str when passing "xml" as the
+    data_type param
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/users"), data_type="xml")
+    )
+    assert classic.get_users(data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_user_id_json(classic):
+    """
+    Ensures that get_user returns a JSON dict when passing "json" as the
+    data_type param
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/users/id/1001")))
+    assert classic.get_user(id=1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_user_name_xml(classic):
+    """
+    Ensures that get_user returns XML when passing "xml" as the data_type and
+    using name as the identifier
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/JSSResource/users/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.get_user(name="testname", data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_user_email(classic):
+    """
+    Ensures that get_user works with email as the identifier
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/users/email/test%40email.com"))
+    )
+    assert classic.get_user(email="test@email.com") == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_user_id(classic):
+    """
+    Ensures that create_user returns data when creating a user with id
+    """
+    responses.add(
+        response_builder("POST", jps_url("/JSSResource/users/id/0"), data_type="xml")
+    )
+    assert classic.create_user(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_user_id(classic):
+    """
+    Ensures that update_user returns data when creating a user with id
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/JSSResource/users/id/1001"), data_type="xml")
+    )
+    assert classic.update_user(EXPECTED_XML, id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_user_name(classic):
+    """
+    Ensures that update_user returns data when updating a user with name
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url("/JSSResource/users/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.update_user(EXPECTED_XML, name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_update_user_email(classic):
+    """
+    Ensures that update_user works with email as the identifier
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/users/email/test%40email.com"), data_type="xml"
+        )
+    )
+    assert classic.update_user(EXPECTED_XML, email="test@email.com") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_user_id(classic):
+    """
+    Ensures that delete_user returns data when deleting a user by ID
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/users/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_user(id=1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_user_name(classic):
+    """
+    Ensures that delete_user returns data when deleting a user by name
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/users/name/testname"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_user(name="testname") == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_user_email(classic):
+    """
+    Ensures that delete_user works with email as the identifier
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/users/email/test%40email.com"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_user(email="test@email.com") == EXPECTED_XML
+
+
 """
 /vppaccounts
 """

@@ -6332,8 +6332,8 @@ class Classic(RequestBuilder):
         Returns data on a specific software update server by either ID or name
         in JSON or XML.
 
-        :param id: software update server ID
-        :param name: software update server name
+        :param id: Software update server ID
+        :param name: Software update server name
         :param data_type: json or xml
         """
         identification_options = {
@@ -6370,8 +6370,8 @@ class Classic(RequestBuilder):
         supply at least one identifier.
 
         :param data: XML data to update the software update server with
-        :param id: software update server ID
-        :param name: software update server name
+        :param id: Software update server ID
+        :param name: Software update server name
         """
         identification_options = {
             "id": id,
@@ -6392,8 +6392,8 @@ class Classic(RequestBuilder):
         Deletes a software update server by either ID or name. Need to supply
         at least one identifier.
 
-        :param id: software update server ID
-        :param name: software update server name
+        :param id: Software update server ID
+        :param name: Software update server name
         """
         identification_options = {
             "id": id,
@@ -6430,8 +6430,8 @@ class Classic(RequestBuilder):
         Returns data on a specific user extension attribute by either ID or
         name in JSON or XML.
 
-        :param id: user extension attribute ID
-        :param name: user extension attribute name
+        :param id: User extension attribute ID
+        :param name: User extension attribute name
         :param data_type: json or xml
         """
         identification_options = {
@@ -6470,8 +6470,8 @@ class Classic(RequestBuilder):
         supply at least one identifier.
 
         :param data: XML data to update the user extension attribute with
-        :param id: user extension attribute ID
-        :param name: user extension attribute name
+        :param id: User extension attribute ID
+        :param name: User extension attribute name
         """
         identification_options = {
             "id": id,
@@ -6492,8 +6492,8 @@ class Classic(RequestBuilder):
         Deletes a user extension attribute by either ID or name. Need to supply
         at least one identifier.
 
-        :param id: user extension attribute ID
-        :param name: user extension attribute name
+        :param id: User extension attribute ID
+        :param name: User extension attribute name
         """
         identification_options = {
             "id": id,
@@ -6525,11 +6525,11 @@ class Classic(RequestBuilder):
         self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
-        Returns data on a specific user group by either ID or name
-        in JSON or XML.
+        Returns data on a specific user group by either ID or name in JSON
+        or XML.
 
-        :param id: user group ID
-        :param name: user group name
+        :param id: User group ID
+        :param name: User group name
         :param data_type: json or xml
         """
         identification_options = {
@@ -6546,8 +6546,8 @@ class Classic(RequestBuilder):
 
     def create_user_group(self, data: str, id: Union[int, str] = 0) -> str:
         """
-        Creates a user group with the given XML data. Use ID 0
-        to use the next available ID.
+        Creates a user group with the given XML data. Use ID 0 to use the next
+        available ID.
 
         :param data: XML data to create the user group with
         :param id:
@@ -6562,12 +6562,12 @@ class Classic(RequestBuilder):
         self, data: str, id: Union[int, str] = None, name: str = None
     ) -> str:
         """
-        Updates a user group with the given XML data. Need to
-        supply at least one identifier.
+        Updates a user group with the given XML data. Need to supply at least
+        one identifier.
 
         :param data: XML data to update the user group with
-        :param id: user group ID
-        :param name: user group name
+        :param id: User group ID
+        :param name: User group name
         """
         identification_options = {
             "id": id,
@@ -6583,11 +6583,11 @@ class Classic(RequestBuilder):
 
     def delete_user_group(self, id: Union[int, str] = None, name: str = None) -> str:
         """
-        Deletes a user group by either ID or name. Need to supply
-        at least one identifier.
+        Deletes a user group by either ID or name. Need to supply at least one
+        identifier.
 
-        :param id: user group ID
-        :param name: user group name
+        :param id: User group ID
+        :param name: User group name
         """
         identification_options = {
             "id": id,
@@ -6604,6 +6604,107 @@ class Classic(RequestBuilder):
     """
     /users
     """
+
+    def get_users(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all users in either JSON or XML.
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/users"
+
+        return self._get(endpoint, data_type)
+
+    def get_user(
+        self,
+        id: Union[int, str] = None,
+        name: str = None,
+        email: str = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Returns data on a specific user by either ID or name in JSON or XML.
+
+        :param id: User ID
+        :param name: User name
+        :param email: User email
+        :param data_type: json or xml
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "email": email,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/users/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def create_user(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a user with the given XML data. Use ID 0 to use the next
+        available ID.
+
+        :param data: XML data to create the user with
+        :param id:
+            ID of the new user, use 0 for next
+            available ID
+        """
+        endpoint = f"/JSSResource/users/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_user(
+        self, data: str, id: Union[int, str] = None, name: str = None, email: str = None
+    ) -> str:
+        """
+        Updates a user with the given XML data. Need to supply at least
+        one identifier.
+
+        :param data: XML data to update the user with
+        :param id: User ID
+        :param name: User name
+        :param email: User email
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "email": email,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/users/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_user(
+        self, id: Union[int, str] = None, name: str = None, email: str = None
+    ) -> str:
+        """
+        Deletes a user by either ID or name. Need to supply at least one
+        identifier.
+
+        :param id: User ID
+        :param name: User name
+        :param email: User email
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+            "email": email,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/users/{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
 
     """
     /vppaccounts
