@@ -6710,6 +6710,61 @@ class Classic(RequestBuilder):
     /vppaccounts
     """
 
+    def get_vpp_accounts(self, data_type: str = "json") -> Union[dict, str]:
+        """
+        Returns all VPP accounts in JSON or XML
+
+        :param data_type: json or xml
+        """
+        endpoint = "/JSSResource/vppaccounts"
+
+        return self._get(endpoint, data_type)
+
+    def get_vpp_account(
+        self, id: Union[int, str], data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns data on one VPP account in JSON or XML
+
+        :param id: VPP account ID
+        :param data_type: json or xml
+        """
+        endpoint = f"/JSSResource/vppaccounts/id/{id}"
+
+        return self._get(endpoint, data_type)
+
+    def create_vpp_account(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates a VPP account by ID with XML data
+
+        :param data: XML data to create the VPP account with
+        :param id: VPP account ID, set to 0 for next available ID
+        """
+        endpoint = f"/JSSResource/vppaccounts/id/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def update_vpp_account(self, data: str, id: Union[int, str]) -> str:
+        """
+        Updates a VPP account by ID with XML data
+
+        :param data: XML data to udpate the VPP account with
+        :param id: VPP account ID
+        """
+        endpoint = f"/JSSResource/vppaccounts/id/{id}"
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def delete_vpp_account(self, id: Union[int, str]) -> str:
+        """
+        Deletes a VPP account by ID
+
+        :param id: VPP account ID
+        """
+        endpoint = f"/JSSResource/vppaccounts/id/{id}"
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /vppassignments
     """

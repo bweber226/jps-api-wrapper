@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.77.0] -- 2022-11-13
+### Added
+- Classic.get_vpp_accounts which returns all VPP accounts
+- Classic.get_vpp_account which returns data on one VPP account by ID
+- Classic.create_vpp_account which creates a VPP account by ID
+- Classic.update_vpp_account which updates an existing VPP account by ID
+- Classic.delete_vpp_account which deletes an existing patch softwaer title by ID
+
 ## [0.76.0] -- 2022-11-13
 ### Added
 - Classic.get_users which returns all users

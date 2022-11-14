@@ -9917,6 +9917,97 @@ def test_delete_user_email(classic):
 /vppaccounts
 """
 
+
+@responses.activate
+def test_get_vpp_accounts_json(classic):
+    """
+    Ensures that get_vpp_accounts returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/vppaccounts")))
+    assert classic.get_vpp_accounts() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_vpp_accounts_xml(classic):
+    """
+    Ensures that get_vpp_accounts returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder("GET", jps_url("/JSSResource/vppaccounts"), data_type="xml")
+    )
+    assert classic.get_vpp_accounts("xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_get_vpp_account_id_json(classic):
+    """
+    Ensures that get_vpp_account returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/JSSResource/vppaccounts/id/1001")))
+    assert classic.get_vpp_account(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_vpp_account_id_xml(classic):
+    """
+    Ensures that get_vpp_account returns XML when used with data_type
+    set to "xml"
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/JSSResource/vppaccounts/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.get_vpp_account(1001, data_type="xml") == EXPECTED_XML
+
+
+@responses.activate
+def test_create_vpp_account(classic):
+    """
+    Ensures that create_vpp_account completes successfully when
+    run without optional params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/JSSResource/vppaccounts/id/0"), data_type="xml"
+        )
+    )
+    assert classic.create_vpp_account(EXPECTED_XML) == EXPECTED_XML
+
+
+@responses.activate
+def test_update_vpp_account(classic):
+    """
+    Ensures that update_vpp_account completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/JSSResource/vppaccounts/id/1001"), data_type="xml"
+        )
+    )
+    assert classic.update_vpp_account(EXPECTED_XML, 1001) == EXPECTED_XML
+
+
+@responses.activate
+def test_delete_vpp_account(classic):
+    """
+    Ensures that delete_vpp_account completes successfully when run
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/JSSResource/vppaccounts/id/1001"),
+            data_type="xml",
+        )
+    )
+    assert classic.delete_vpp_account(1001) == EXPECTED_XML
+
+
 """
 /vppassignments
 """
