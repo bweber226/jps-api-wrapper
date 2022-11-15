@@ -97,6 +97,7 @@ class RequestBuilder:
         data: Union[dict, str],
         file: dict = None,
         query_string: list = None,
+        success_message: str = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
@@ -111,6 +112,8 @@ class RequestBuilder:
             File to upload in format {"filename": file}
         :param query_string:
             Optional query string for the request
+        :param success_message:
+            Optional string to return instead of request data
         :param data_type:
             json or xml
 
@@ -136,7 +139,9 @@ class RequestBuilder:
             response = self.session.post(full_url, data=data, files=file)
         self._raise_recognized_errors(response)
         response.raise_for_status()
-        if data_type == "json":
+        if success_message:
+            return success_message
+        elif data_type == "json":
             return response.json()
         elif data_type in ["xml"]:
             return response.text
@@ -192,6 +197,7 @@ class RequestBuilder:
         endpoint: str,
         data: Union[dict, str] = None,
         query_string: list = None,
+        success_message: str = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
@@ -202,6 +208,8 @@ class RequestBuilder:
             e.g. /JSSResource/computers
         :param query_string:
             Optional query string for the request
+        :param success_message:
+            Optional string to return instead of request data
         :param data_type:
             json or xml
 
@@ -222,7 +230,9 @@ class RequestBuilder:
         response = self.session.delete(full_url, headers=headers, data=data)
         self._raise_recognized_errors(response)
         response.raise_for_status()
-        if data_type == "json":
+        if success_message:
+            return success_message
+        elif data_type == "json":
             return response.json()
         elif data_type == "xml":
             return response.text

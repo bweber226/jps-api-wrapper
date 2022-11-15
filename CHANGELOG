@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.81.0] -- 2022-11-14
+### Added
+- Pro.get_advanced_mobile_device_searches which returns all advanced mobile device searches in JSON
+- Pro.get_advanced_mobile_device_search_criteria_options which returns all choices for a given advanced mobile device search criteria
+- Pro.get_advanced_mobile_device_search returns data on one advanced mobile device search in JSON
+- Pro.create_advanced_mobile_device_search which creates an advanced mobile device search with JSON data
+- Pro.update_advanced_mobile_device_search which updates an existing advanced mobile device search by ID with JSON
+- Pro.delete_advanced_mobile_device_search which deletes either one or multiple advanced mobile device searches by ID
+### Changed
+- RequestBuilder._post updated to return a optional success message instead of returning the request response
+- RequestBuilder._delete updated to return a optional success message instead of returning the request response
+
 ## [0.80.0] -- 2022-11-14
 ### Added
 - Classic.get_webhooks which returns all webhooks
