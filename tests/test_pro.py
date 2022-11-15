@@ -6,7 +6,6 @@ from requests.auth import AuthBase
 from pro import Pro
 from request_builder import (
     InvalidDataType,
-
 )
 
 
@@ -289,6 +288,18 @@ def test_get_api_authentication(pro):
 """
 app-dynamics-configuration-preview
 """
+
+
+@responses.activate
+def test_get_app_dynamics_configuration(pro):
+    """
+    Ensures that get_app_dynamics_configuration returns JSON data when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/app-dynamics/script-configuration"))
+    )
+    assert pro.get_app_dynamics_configuration() == EXPECTED_JSON
+
 
 """
 app-request-preview

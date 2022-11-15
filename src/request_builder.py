@@ -30,7 +30,7 @@ class RequestBuilder:
     @classmethod
     def _raise_recognized_errors(self, r: requests.Response):
         if r.status_code == 400:
-            raise MalformedRequest(
+            raise ClientError(
                 "The request was not successful due to a client error, check "
                 "your data for malformed JSON, XML, or URL. Jamf's response "
                 "code was 400.\n "
@@ -252,7 +252,7 @@ class InvalidDataType(Exception):
     """Raised when the data_type parameter is not json or xml"""
 
 
-class MalformedRequest(Exception):
+class ClientError(Exception):
     """
     The request was not successful due to a client error, check your data
     for malformed xml or json. Jamf's response code was 400.

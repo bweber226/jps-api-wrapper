@@ -9,7 +9,7 @@ from requests.exceptions import HTTPError
 from classic import Classic
 from request_builder import (
     InvalidDataType,
-    MalformedRequest,
+    ClientError,
     NotFound,
     RequestConflict,
     RequestTimedOut,
@@ -2869,13 +2869,13 @@ def test_update_computer_id(classic):
 @responses.activate
 def test_update_computer_id_400(classic):
     """
-    Ensures that update_computer raises MalformedRequest when the request
+    Ensures that update_computer raises ClientError when the request
     returns a 400 status code.
     """
     responses.add(
         response_builder("PUT", jps_url("/JSSResource/computers/id/1001"), status=400)
     )
-    with pytest.raises(MalformedRequest):
+    with pytest.raises(ClientError):
         classic.update_computer(EXPECTED_XML, id="1001")
 
 
@@ -7283,7 +7283,7 @@ def test_update_mobile_device_id(classic):
 @responses.activate
 def test_update_mobile_device_id_400(classic):
     """
-    Ensures that update_mobile_device raises MalformedRequest when the request
+    Ensures that update_mobile_device raises ClientError when the request
     returns a 400 status code.
     """
     responses.add(
@@ -7291,7 +7291,7 @@ def test_update_mobile_device_id_400(classic):
             "PUT", jps_url("/JSSResource/mobiledevices/id/1001"), status=400
         )
     )
-    with pytest.raises(MalformedRequest):
+    with pytest.raises(ClientError):
         classic.update_mobile_device(EXPECTED_XML, id="1001")
 
 

@@ -191,6 +191,15 @@ class Pro(RequestBuilder):
     app-dynamics-configuration-preview
     """
 
+    # TODO Preview
+    def get_app_dynamics_configuration(self) -> dict:
+        """
+        Returns AppDynamicsConfig object
+        """
+        endpoint = "/api/v1/app-dynamics/script-configuration"
+
+        return self._get(endpoint)
+
     """
     app-request-preview
     """
