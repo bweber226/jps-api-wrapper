@@ -132,9 +132,14 @@ class RequestBuilder:
             )
         if data_type in ["json", "xml"] and not file:
             headers = {"Content-type": f"application/{data_type}"}
-            response = self.session.post(
-                full_url, headers=headers, data=data, files=file
-            )
+            if data_type == "xml":
+                response = self.session.post(
+                    full_url, headers=headers, data=data, files=file
+                )
+            else:
+                response = self.session.post(
+                    full_url, headers=headers, json=data, files=file
+                )
         if not data_type and file:
             response = self.session.post(full_url, data=data, files=file)
         self._raise_recognized_errors(response)
@@ -182,7 +187,10 @@ class RequestBuilder:
         else:
             full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": f"application/{data_type}"}
-        response = self.session.put(full_url, headers=headers, data=data)
+        if data_type == "xml":
+            response = self.session.put(full_url, headers=headers, data=data)
+        else:
+            response = self.session.put(full_url, headers=headers, json=data)
         self._raise_recognized_errors(response)
         response.raise_for_status()
         if data_type == "json":

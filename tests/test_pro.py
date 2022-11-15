@@ -184,7 +184,7 @@ def test_delete_advanced_mobile_device_search(pro):
 
 
 @responses.activate
-def test_delete_advanced_mobile_device_search(pro):
+def test_delete_advanced_mobile_device_search_multiple(pro):
     """
     Ensures that delete_advanced_mobile_device_search completes successfully
     when run with ids
@@ -200,9 +200,92 @@ def test_delete_advanced_mobile_device_search(pro):
     )
 
 
+def test_delete_advanced_mobile_search_id_typerror(pro):
+    """
+    Ensures that delete_advanced_mobile_device_search raises TypeError when
+    id is not an int or str
+    """
+    with pytest.raises(TypeError):
+        pro.delete_advanced_mobile_device_search([1001, 1002])
+
+
+def test_delete_advanced_mobile_search_ids_typerror(pro):
+    """
+    Ensures that delete_advanced_mobile_device_search raises TypeError when
+    ids is not a list
+    """
+    with pytest.raises(TypeError):
+        pro.delete_advanced_mobile_device_search(ids=1001)
+
+
 """
 advanced-user-content-searches
 """
+
+
+@responses.activate
+def test_get_advanced_user_content_searches(pro):
+    """
+    Ensures that get_advanced_user_content_searches returns JSON when run
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/advanced-user-content-searches"))
+    )
+    assert pro.get_advanced_user_content_searches() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_advanced_user_content_search(pro):
+    """
+    Ensures that get_advanced_user_content_search returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/advanced-user-content-searches/1001"))
+    )
+    assert pro.get_advanced_user_content_search(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_advanced_user_content_search(pro):
+    """
+    Ensures that create_advanced_user_content_search completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/advanced-user-content-searches"))
+    )
+    assert pro.create_advanced_user_content_search(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_advanced_user_content_search(pro):
+    """
+    Ensures that update_advanced_user_content_search completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/advanced-user-content-searches/1001"))
+    )
+    assert pro.update_advanced_user_content_search(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_advanced_user_content_search(pro):
+    """
+    Ensures that delete_advanced_user_content_search completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/advanced-user-content-searches/1001")
+        )
+    )
+    assert (
+        pro.delete_advanced_user_content_search(1001)
+        == "Advanced user content search 1001 successfully deleted."
+    )
+
 
 """
 api-authentication

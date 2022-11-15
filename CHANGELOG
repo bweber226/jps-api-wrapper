@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.82.0] -- 2022-11-14
+### Added
+- Pro.get_advanced_user_content_searches which returns all advanced user content search in JSON
+- Pro.get_advanced_user_content_search which returns data on one advanced user content search in JSON
+- Pro.create_advanced_user_content_search which creates an advanced user content search
+- Pro.update_advanced_user_content_search which updates an existing advanced user content search by ID
+- Pro.delete_advanced_user_content_search which deletes an existing advanced user content search by ID
+### Changed
+- RequestBuilder._post updated to handle JSON data body
+- RequestBuilder._put updated to handle JSON data body 
+
 ## [0.81.0] -- 2022-11-14
 ### Added
 - Pro.get_advanced_mobile_device_searches which returns all advanced mobile device searches in JSON

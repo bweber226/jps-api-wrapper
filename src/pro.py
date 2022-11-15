@@ -82,7 +82,7 @@ class Pro(RequestBuilder):
 
     def delete_advanced_mobile_device_search(
         self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
-    ) -> dict:
+    ) -> str:
         """
         Deletes an advanced mobile device search by ID or IDS, use id for a
         single device and ids to delete multiple
@@ -94,29 +94,89 @@ class Pro(RequestBuilder):
         identification_type(identifier_options)
         check_conflicting_params(identifier_options)
         if id:
-            endpoint = f"/api/v1/advanced-mobile-device-searches/{id}"
-            return self._delete(
-                endpoint,
-                success_message=(
-                    f"Advanced mobile device search {id} successfully deleted.",
-                ),
-            )
+            if isinstance(id, str) or isinstance(id, int):
+                endpoint = f"/api/v1/advanced-mobile-device-searches/{id}"
+                return self._delete(
+                    endpoint,
+                    success_message=(
+                        f"Advanced mobile device search {id} successfully deleted."
+                    ),
+                )
+            else:
+                raise TypeError("id must be a single number")
         # I have a ticket in with Jamf about this one not working
         if ids:
-            ids = [str(id) for id in ids]
-            endpoint = "/api/v1/advanced-mobile-device-searches/delete-multiple"
-            return self._post(
-                endpoint,
-                data={"ids": ids},
-                success_message=(
-                    "Advanced mobile device search(es) "
-                    f"{', '.join(ids)} successfully deleted."
-                ),
-            )
+            if isinstance(ids, List):
+                ids = [str(id) for id in ids]
+                endpoint = "/api/v1/advanced-mobile-device-searches/delete-multiple"
+                return self._post(
+                    endpoint,
+                    data={"ids": ids},
+                    success_message=(
+                        "Advanced mobile device search(es) "
+                        f"{', '.join(ids)} successfully deleted."
+                    ),
+                )
+            else:
+                raise TypeError("ids must be a List of ids")
 
     """
     advanced-user-content-searches
     """
+
+    def get_advanced_user_content_searches(self) -> dict:
+        """
+        Returns all advanced user content searches in JSON
+        """
+        endpoint = "/api/v1/advanced-user-content-searches"
+
+        return self._get(endpoint)
+
+    def get_advanced_user_content_search(self, id: Union[int, str]) -> dict:
+        """
+        Returns data on one advanced user content search in JSON
+
+        :param id: Advanced user content search ID
+        """
+        endpoint = f"/api/v1/advanced-user-content-searches/{id}"
+
+        return self._get(endpoint)
+
+    def create_advanced_user_content_search(self, data: dict) -> dict:
+        """
+        Creates an advanced user content search with JSON data
+
+        :param data: JSON data to create advanced user content search with
+        """
+        endpoint = "/api/v1/advanced-user-content-searches"
+
+        return self._post(endpoint, data)
+
+    def update_advanced_user_content_search(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates an advanced user content search with JSON data by ID
+
+        :param data: JSON data to update advanced user content search with
+        :param id: Advanced user content search ID
+        """
+        endpoint = f"/api/v1/advanced-user-content-searches/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_advanced_user_content_search(self, id: Union[int, str]) -> str:
+        """
+        Deletes an advances user content search by ID
+
+        :param id: Advanced user content search ID
+        """
+        endpoint = f"/api/v1/advanced-user-content-searches/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Advanced user content search {id} successfully deleted.",
+        )
 
     """
     api-authentication
