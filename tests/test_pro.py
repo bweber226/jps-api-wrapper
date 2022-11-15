@@ -404,6 +404,17 @@ def test_delete_app_request_form_input_field(pro):
 app-store-country-codes-preview
 """
 
+
+@responses.activate
+def test_get_app_store_country_codes(pro):
+    """
+    Ensures that get_app_store_country_codes completes successfully when run
+    with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/app-store-country-codes")))
+    assert pro.get_app_store_country_codes() == EXPECTED_JSON
+
+
 """
 buildings
 """

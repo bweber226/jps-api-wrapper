@@ -296,6 +296,15 @@ class Pro(RequestBuilder):
     app-store-country-codes-preview
     """
 
+    def get_app_store_country_codes(self) -> dict:
+        """
+        Returns a list of countries and the associated codes that can be use
+        for the App Store locale
+        """
+        endpoint = "/api/v1/app-store-country-codes"
+
+        return self._get(endpoint)
+
     """
     buildings
     """
