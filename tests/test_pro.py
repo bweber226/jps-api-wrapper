@@ -305,6 +305,101 @@ def test_get_app_dynamics_configuration(pro):
 app-request-preview
 """
 
+
+@responses.activate
+def test_get_app_request_settings(pro):
+    """
+    Ensures that get_app_request_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/app-request/settings")))
+    assert pro.get_app_request_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_app_request_form_input_fields(pro):
+    """
+    Ensures that get_app_request_form_input_fields returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/app-request/form-input-fields"))
+    )
+    assert pro.get_app_request_form_input_fields() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_app_request_form_input_field(pro):
+    """
+    Ensures that get_app_request_form_input_field returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/app-request/form-input-fields/1001"))
+    )
+    assert pro.get_app_request_form_input_field(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_app_request_form_input_field(pro):
+    """
+    Ensures that create_app_request_form_input_field completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/app-request/form-input-fields"))
+    )
+    assert pro.create_app_request_form_input_field(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_app_request_settings(pro):
+    """
+    Ensures that update_app_request_settings completes successfully when run
+    with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/app-request/settings")))
+    assert pro.update_app_request_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_app_request_form_input_field(pro):
+    """
+    Ensures that update_app_request_form_input_field completes successfully
+    when run with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/app-request/form-input-fields/1001"))
+    )
+    assert pro.update_app_request_form_input_field(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_replace_app_request_form_input_fields(pro):
+    """
+    Ensures that replace_app_request_form_input_fields completes successfully
+    when run with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/app-request/form-input-fields"))
+    )
+    assert pro.replace_app_request_form_input_fields(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_app_request_form_input_field(pro):
+    """
+    Ensures that delete_app_request_form_input_field completes successfully
+    when run with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/app-request/form-input-fields/1001")
+        )
+    )
+    assert (
+        pro.delete_app_request_form_input_field(1001)
+        == "App request form input field 1001 successfully deleted."
+    )
+
+
 """
 app-store-country-codes-preview
 """

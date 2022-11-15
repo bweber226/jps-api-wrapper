@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.85.0] -- 2022-11-15
+### Added
+- Pro.get_app_request_settings which reutrns the app request settings in JSON
+- Pro.get_app_request_form_input_fields which returns the app request form input fields in JSON
+- Pro.get_app_request_form_input_field which returns specified app request form input field object by ID
+- Pro.create_app_request_form_input_field which creates a app request form input field record with JSON data
+- Pro.update_app_request_settings which updates the app request settings with JSON data
+- Pro.update_app_request_form_input_field which updates the specified app request form input field object by ID with JSON data
+- Pro.replace_app_request_form_input_fields which replaces all app request form input fields with JSON data
+- Pro.delete_app_request_form_input_field which deletes a specified app request form input field by ID
+
 ## [0.84.0] -- 2022-11-15
 ### Added
 - Pro.get_app_dynamics_configuration which returns the AppDynamicsConfig object from the JPS server

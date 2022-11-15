@@ -203,6 +203,94 @@ class Pro(RequestBuilder):
     """
     app-request-preview
     """
+    # TODO Preview
+
+    def get_app_request_settings(self) -> dict:
+        """
+        Returns the app request settings in JSON
+        """
+        endpoint = "/api/v1/app-request/settings"
+
+        return self._get(endpoint)
+
+    def get_app_request_form_input_fields(self) -> dict:
+        """
+        Returns the app request form input fields in JSON
+        """
+        endpoint = "/api/v1/app-request/form-input-fields"
+
+        return self._get(endpoint)
+
+    def get_app_request_form_input_field(self, id: Union[int, str]) -> dict:
+        """
+        Returns specified app request form input field object by ID
+
+        :param id: App request form input field ID
+        """
+        endpoint = f"/api/v1/app-request/form-input-fields/{id}"
+
+        return self._get(endpoint)
+
+    def create_app_request_form_input_field(self, data: dict) -> dict:
+        """
+        Creates a app request form input field record with JSON data
+
+        :param data: JSON data to create the app request form input field with
+        """
+        endpoint = "/api/v1/app-request/form-input-fields"
+
+        return self._post(endpoint, data)
+
+    def update_app_request_settings(self, data: dict) -> dict:
+        """
+        Updates the app request settings with JSON data
+
+        :param data: JSON data to update the app request settings with
+        """
+        endpoint = "/api/v1/app-request/settings"
+
+        return self._put(endpoint, data)
+
+    def update_app_request_form_input_field(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates the specified app request form input field object by ID with
+        JSON data
+
+        :param id: App request form input field ID
+        :param data: JSON data to update the app request form input field with
+        """
+        endpoint = f"/api/v1/app-request/form-input-fields/{id}"
+
+        return self._put(endpoint, data)
+
+    def replace_app_request_form_input_fields(self, data: List[dict]) -> dict:
+        """
+        Replaces all app request form input fields with JSON data
+
+        :param data:
+            List of JSON dicts to replace all app request form input
+            fields with
+        """
+        endpoint = "/api/v1/app-request/form-input-fields"
+
+        return self._put(endpoint, data)
+
+    def delete_app_request_form_input_field(self, id: Union[int, str]) -> str:
+        """
+        Deletes a specified app request form input field by ID
+
+        :param id: App request form input field ID
+        """
+        endpoint = f"/api/v1/app-request/form-input-fields/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"App request form input field {id} successfully deleted."
+            ),
+        )
 
     """
     app-store-country-codes-preview
