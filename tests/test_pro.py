@@ -1,29 +1,14 @@
-from unittest import mock
-
 import pytest
 import requests
 import responses
 from requests.auth import AuthBase
-from requests.exceptions import HTTPError
 
 from pro import Pro
 from request_builder import (
     InvalidDataType,
-    MalformedRequest,
-    NotFound,
-    RequestConflict,
-    RequestTimedOut,
+
 )
-from utils import (
-    ConflictingParameters,
-    InvalidParameterOptions,
-    InvalidSubset,
-    MissingParameters,
-    MultipleIdentifications,
-    NoIdentification,
-    NoParametersOrData,
-    ParametersAndData,
-)
+
 
 MOCK_AUTH_STRING = "This is a MockAuth"
 EXPECTED_AUTH = {"Authorization": MOCK_AUTH_STRING}
@@ -290,6 +275,16 @@ def test_delete_advanced_user_content_search(pro):
 """
 api-authentication
 """
+
+
+@responses.activate
+def test_get_api_authentication(pro):
+    """
+    Ensures that get_api_authentication returns JSON data when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/auth")))
+    assert pro.get_api_authentication() == EXPECTED_JSON
+
 
 """
 app-dynamics-configuration-preview

@@ -3946,6 +3946,39 @@ def test_file_upload_ebooks_invalid_file_type(classic):
         classic.file_upload("ebooks", "/file.text", id=1001)
 
 
+def test_file_upload_diskencryptionconfigurations_invalid_file_type(classic):
+    """
+    Ensures that file_upload raises ValueError when the
+    diskencryptionconfigurations resource is used with an unrecognized file
+    type
+    """
+    with pytest.raises(ValueError):
+        classic.file_upload("diskencryptionconfigurations", "/file.txt", id=1001)
+
+
+@responses.activate
+def test_file_upload_diskencryptionconfigurations_pem(classic):
+    """
+    Ensures that file_upload completes successfully when used with the
+    diskencryptionconfigurations resource and filepath as a pem file
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder(
+                "POST",
+                jps_url(
+                    "/JSSResource/fileuploads/diskencryptionconfigurations/id/1001"
+                ),
+            )
+        )
+        assert (
+            classic.file_upload("diskencryptionconfigurations", "file.pem", id=1001)
+            == "File uploaded successfully."
+        )
+
+
 """
 /gsxconnection
 """
@@ -4873,6 +4906,15 @@ def test_log_flush_interval_id(classic):
     assert classic.log_flush_interval("Six+Months", 1001) == EXPECTED_XML
 
 
+def test_log_flush_interval_value_error(classic):
+    """
+    Ensures that log_flush raises ValueError when an interval is passed without
+    a "+" in the string
+    """
+    with pytest.raises(ValueError):
+        classic.log_flush_interval("One Week", id=1001)
+
+
 """
 /macapplications
 """
@@ -5599,8 +5641,25 @@ def test_get_mobile_device_command_xml(classic):
         )
     )
     assert (
-        classic.get_mobile_device_command("1a2b3c-4d", data_type="xml") == EXPECTED_XML
+        classic.get_mobile_device_command(uuid="1a2b3c-4d", data_type="xml")
+        == EXPECTED_XML
     )
+
+
+@responses.activate
+def test_create_mobile_device_command_data(classic):
+    """
+    Ensures that create_mobile_device_command completes successfully when run
+    with data
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/JSSResource/mobiledevicecommands/command"),
+            data_type="xml",
+        )
+    )
+    assert classic.create_mobile_device_command(data=EXPECTED_XML) == EXPECTED_XML
 
 
 @responses.activate

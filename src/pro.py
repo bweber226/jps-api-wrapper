@@ -3,13 +3,7 @@ from typing import List, Union
 from request_builder import RequestBuilder
 from utils import (
     check_conflicting_params,
-    enforce_params,
     identification_type,
-    param_or_data,
-    valid_param_options,
-    valid_subsets,
-    validate_date,
-    InvalidParameterOptions,
 )
 
 
@@ -181,6 +175,17 @@ class Pro(RequestBuilder):
     """
     api-authentication
     """
+    # Only the get method is available here because the other endpoints will
+    # cause the current session to fail and break the api wrapper
+
+    def get_api_authentication(self) -> dict:
+        """
+        Returns all the authorization details associated with the current API
+        token
+        """
+        endpoint = "/api/v1/auth"
+
+        return self._get(endpoint)
 
     """
     app-dynamics-configuration-preview
