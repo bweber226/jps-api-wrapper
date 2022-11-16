@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.89.0] -- 2022-11-16
+### Added
+- Pro.get_categories which returns all category objects in JSON
+- Pro.get_category which returns specified category object by ID in JSON
+- Pro.get_category_history which returns specified category history object by ID in JSON
+- Pro.create_category which creates a category record with JSON data
+- Pro.create_category_history_note which creates a category history object note by ID with JSON data
+- Pro.udpate_category which updates a category by ID with JSON data
+- Pro.delete_category which deletes a category by ID or IDS, use id for a single category and ids to delete multiple
+
 ## [0.88.0] -- 2022-11-16
 ### Added
 - Pro.get_cache_settings which returns cache settings of the JPS server in JSON
@@ -20,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.create_building which creates a building record with JSON data
 - Pro.create_building_history_note which creates specified building history notes with JSON data by ID
 - Pro.update_building which updates a specified building with JSON data by ID
-- Pro.delete_building which deletes an building by ID or IDS, use id for a single device and ids to delete multiple
+- Pro.delete_building which deletes an building by ID or IDS, use id for a single building and ids to delete multiple
 - utils.remove_empty_params which removes all key, value pairs where the value is None
 - utils.enforce_type which makes sure that a value is the specified type, used when a different type of data may cause issues
 ### Changed

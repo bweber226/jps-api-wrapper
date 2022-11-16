@@ -318,18 +318,22 @@ class Pro(RequestBuilder):
         """
         Returns all buildings or search for sorted and paged buildings
 
-        :param page: Page to return, index starts at 0
-        :param page_size: Page size to return
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
-            with a comma. Example: ["date:desc", "name:asc"]
+            with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
         :param filter:
             Query in the RSQL format, allowing to filter buildings collection.
             Default filter is empty query - returning all results for the
             requested page. Fields allowed in the query: name, streetAddress1,
             streetAddress2, city, stateProvince, zipPostalCode, country. This
             param can be combined with paging and sorting.
+
             Example: city=="Chicago" and name=="build"
         """
         endpoint = "/api/v1/buildings"
@@ -361,20 +365,23 @@ class Pro(RequestBuilder):
         Returns specified building history object by ID in JSON
 
         :param id: Building ID
-        :param page: Page to return, index starts at 0
-        :param page_size: Page size to return
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
-            separated with a comma. Example: ["date:desc", "name:asc"]
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
         :param filter:
             Query in the RSQL format, allowing to filter history notes
             collection. Default filter is empty query - returning all results
             for the requested page. Fields allowed in the query: username,
             date, note, details. This param can be combined with paging and
-            sorting. Example: username!=admin and details==disabled and
-            date<2019-12-15
+            sorting.
 
+            Example: username!=admin and details==disabled and date<2019-12-15
         """
         endpoint = f"/api/v1/buildings/{id}/history"
         params = remove_empty_params(
@@ -414,11 +421,11 @@ class Pro(RequestBuilder):
             Example: export_labels=["identification", "buildingName"] with
             matching: export_fields=["id", "name"]
 
-        :param page: Page to return, index starts at 0
-        :param page_size: Page size to return
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
-            id:desc. Multiple sort criteria are supported and must be
+            id:asc. Multiple sort criteria are supported and must be
             separated with a comma.
 
             Example: ["id:desc", "name:asc"]
@@ -479,8 +486,8 @@ class Pro(RequestBuilder):
             Example: export_labels=["identification", "name"] with
             matching: export_fields=["id", "username"]
 
-        :param page: Page to return, index starts at 0
-        :param page_size: Page size to return
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -547,7 +554,7 @@ class Pro(RequestBuilder):
         self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
     ) -> str:
         """
-        Deletes an building by ID or IDS, use id for a single device and ids
+        Deletes a building by ID or IDS, use id for a single building and ids
         to delete multiple
 
         :param id: Building ID
@@ -600,6 +607,161 @@ class Pro(RequestBuilder):
     """
     categories
     """
+
+    def get_categories(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all category objects in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter categories
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: name,
+            priority. This param can be combined with paging and sorting.
+
+            Example: name=="Apps*" and priority>=5
+        """
+        endpoint = "/api/v1/categories"
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+
+        return self._get(endpoint, params=params)
+
+    def get_category(self, id: Union[int, str]) -> dict:
+        """
+        Returns specified category object by ID in JSON
+
+        :param id: Category ID
+        """
+        endpoint = f"/api/v1/categories/{id}"
+
+        return self._get(endpoint)
+
+    def get_category_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns specified category history object by ID in JSON
+
+        :param id: Category ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        endpoint = f"/api/v1/categories/{id}/history"
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+
+        return self._get(endpoint, params=params)
+
+    def create_category(self, data: dict) -> dict:
+        """
+        Creates a category record with JSON data
+
+        :param data: JSON data to create the category with
+        """
+        endpoint = "/api/v1/categories"
+
+        return self._post(endpoint, data)
+
+    def create_category_history_note(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Creates a category history object note by ID with JSON data
+
+        :param data: JSON data to create the category history note with
+        :param id: Category ID
+        """
+        endpoint = f"/api/v1/categories/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_category(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a category by with by ID with JSON data
+
+        :param data: JSON data to update the category with
+        :param id: Category ID
+        """
+        endpoint = f"/api/v1/categories/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_category(
+        self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
+    ) -> str:
+        """
+        Deletes a category by ID or IDS, use id for a single category and ids
+        to delete multiple
+
+        :param id: Category ID
+        :param ids: List of categories IDs
+        """
+        identifier_options = {"id": id, "ids": ids}
+        identification_type(identifier_options)
+        check_conflicting_params(identifier_options)
+        if id:
+            if enforce_type(id, (int, str)):
+                endpoint = f"/api/v1/categories/{id}"
+                return self._delete(
+                    endpoint,
+                    success_message=(f"Category {id} successfully deleted."),
+                )
+        if ids:
+            if enforce_type(ids, (List)):
+                ids = [str(id) for id in ids]
+                endpoint = "/api/v1/categories/delete-multiple"
+                return self._post(
+                    endpoint,
+                    data={"ids": ids},
+                    success_message=(
+                        f"Category(s) {', '.join(ids)} successfully deleted."
+                    ),
+                )
 
     """
     certificate-authority

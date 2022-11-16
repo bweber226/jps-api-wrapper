@@ -151,6 +151,20 @@ def test_create_advanced_mobile_device_search(pro):
 
 
 @responses.activate
+def test_update_advanced_movile_device(pro):
+    """
+    Ensures that update_advanced_mobile_device_search completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/advanced-mobile-device-searches/1001"))
+    )
+    assert (
+        pro.update_advanced_mobile_device_search(EXPECTED_JSON, 1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
 def test_delete_advanced_mobile_device_search(pro):
     """
     Ensures that delete_advanced_mobile_device_search completes successfully
@@ -631,6 +645,115 @@ def test_update_cache_settings(pro):
 """
 categories
 """
+
+
+@responses.activate
+def test_get_categories(pro):
+    """
+    Ensures taht get_categories returns JSON when used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/categories")))
+    assert pro.get_categories() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_categories_optional_params(pro):
+    """
+    Ensures that get_categories returns JSON when used with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/categories")))
+    assert pro.get_categories(0, 50, ["name:asc"], "name=='*-*'") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_category(pro):
+    responses.add(response_builder("GET", jps_url("/api/v1/categories/1001")))
+    assert pro.get_category(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_category_history(pro):
+    responses.add(response_builder("GET", jps_url("/api/v1/categories/1001/history")))
+    assert pro.get_category_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_category_history_optional_params(pro):
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v1/categories/1001/history?page=0&page-size=100&"
+                "sort=date%3Aasc&sort=id%3Adesc&filter=username%21%3Dadmin+"
+                "and+details%3D%3Ddisabled+and+date%3C2019-12-15"
+            ),
+        )
+    )
+    assert (
+        pro.get_category_history(
+            1001,
+            0,
+            100,
+            ["date:asc", "id:desc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_category(pro):
+    """
+    Ensures that create_category completes successfully when used with required
+    params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/categories")))
+    assert pro.create_category(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_category_history_note(pro):
+    """
+    Ensures that create_category_history_note completes successfully when used
+    with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/categories/1001/history")))
+    assert pro.create_category_history_note(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_category(pro):
+    """
+    Ensures that update_category completes successfully when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/categories/1001")))
+    assert pro.update_category(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_category_id(pro):
+    """
+    Ensures that delete_category completes successfully when used with id
+    params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/categories/1001")))
+    assert pro.delete_category(1001) == "Category 1001 successfully deleted."
+
+
+@responses.activate
+def test_delete_category_ids(pro):
+    """
+    Ensures that delete_category completes successfully when used with ids
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/categories/delete-multiple"))
+    )
+    assert (
+        pro.delete_category(ids=[1001, 1002])
+        == "Category(s) 1001, 1002 successfully deleted."
+    )
+
 
 """
 certificate-authority

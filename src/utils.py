@@ -163,18 +163,19 @@ def remove_empty_params(params: dict) -> dict:
     return params
 
 
-def enforce_type(value, type: tuple) -> bool:
+def enforce_type(value, types: tuple) -> bool:
     """
     Makes sure that a value is the specified type, used when a different type
     of data may cause issues
 
     :param value: Value to check type of
-    :param type: Tuple of types
+    :param types: Tuple of types
     """
-    if isinstance(value, type):
+    if isinstance(value, types):
         return True
     else:
-        raise TypeError(f"{value} must be of type(s): {', '.join(type)}")
+        types = (i.__name__ for i in types)
+        raise TypeError(f"{value} must be of type(s): {', '.join(types)}")
 
 
 class NoIdentification(Exception):
