@@ -2701,16 +2701,20 @@ class Classic(RequestBuilder):
                     raise ValueError(f"Unable to detect MIME type of file {filename}")
                 file = {"name": (filename, f, content_type)}
                 if force_ipa_upload:
-                    query_string = ["FORCE_IPA_UPLOAD=true"]
+                    params = {"FORCE_IPA_UPLOAD": "true"}
                 else:
-                    query_string = None
+                    params = None
                 endpoint = (
                     f"/JSSResource/fileuploads/{resource}/{identification}"
                     f"/{identification_options[identification]}"
                 )
 
                 return self._post(
-                    endpoint, None, file=file, data_type=None, query_string=query_string
+                    endpoint,
+                    file=file,
+                    data_type=None,
+                    params=params,
+                    success_message="File uploaded successfully.",
                 )
         except FileNotFoundError:
             raise FileNotFoundError(f"{filepath} could not be opened.")

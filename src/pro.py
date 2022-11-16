@@ -4,6 +4,8 @@ from request_builder import RequestBuilder
 from utils import (
     check_conflicting_params,
     identification_type,
+    remove_empty_params,
+    enforce_type,
 )
 
 
@@ -37,9 +39,11 @@ class Pro(RequestBuilder):
         :param contains:
         """
         endpoint = "/api/v1/advanced-mobile-device-searches/choices"
-        query_string = [f"criteria={criteria}", f"site={site}", f"contains={contains}"]
+        params = remove_empty_params(
+            params={"criteria": criteria, "site": site, "contains": contains}
+        )
 
-        return self._get(endpoint, query_string=query_string)
+        return self._get(endpoint, params=params)
 
     def get_advanced_mobile_device_search(self, id: Union[int, str]) -> dict:
         """
@@ -88,7 +92,7 @@ class Pro(RequestBuilder):
         identification_type(identifier_options)
         check_conflicting_params(identifier_options)
         if id:
-            if isinstance(id, str) or isinstance(id, int):
+            if enforce_type(id, (str, int)):
                 endpoint = f"/api/v1/advanced-mobile-device-searches/{id}"
                 return self._delete(
                     endpoint,
@@ -96,11 +100,8 @@ class Pro(RequestBuilder):
                         f"Advanced mobile device search {id} successfully deleted."
                     ),
                 )
-            else:
-                raise TypeError("id must be a single number")
-        # I have a ticket in with Jamf about this one not working
         if ids:
-            if isinstance(ids, List):
+            if enforce_type(ids, (List)):
                 ids = [str(id) for id in ids]
                 endpoint = "/api/v1/advanced-mobile-device-searches/delete-multiple"
                 return self._post(
@@ -111,8 +112,6 @@ class Pro(RequestBuilder):
                         f"{', '.join(ids)} successfully deleted."
                     ),
                 )
-            else:
-                raise TypeError("ids must be a List of ids")
 
     """
     advanced-user-content-searches
@@ -308,6 +307,273 @@ class Pro(RequestBuilder):
     """
     buildings
     """
+
+    def get_buildings(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all buildings or search for sorted and paged buildings
+
+        :param page: Page to return, index starts at 0
+        :param page_size: Page size to return
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma. Example: ["date:desc", "name:asc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter buildings collection.
+            Default filter is empty query - returning all results for the
+            requested page. Fields allowed in the query: name, streetAddress1,
+            streetAddress2, city, stateProvince, zipPostalCode, country. This
+            param can be combined with paging and sorting.
+            Example: city=="Chicago" and name=="build"
+        """
+        endpoint = "/api/v1/buildings"
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+
+        return self._get(endpoint, params=params)
+
+    def get_building(self, id: Union[int, str]) -> dict:
+        """
+        Returns specified building object by ID in JSON
+
+        :param id: Building ID
+        """
+        endpoint = f"/api/v1/buildings/{id}"
+
+        return self._get(endpoint)
+
+    def get_building_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns specified building history object by ID in JSON
+
+        :param id: Building ID
+        :param page: Page to return, index starts at 0
+        :param page_size: Page size to return
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma. Example: ["date:desc", "name:asc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting. Example: username!=admin and details==disabled and
+            date<2019-12-15
+
+        """
+        endpoint = f"/api/v1/buildings/{id}/history"
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+
+        return self._get(endpoint, params=params)
+
+    def get_building_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Exports buildings collection in CSV
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Options: id, name, streetAddress1, streetAddress2, city,
+            stateProvince, zipPostalCode, country
+
+            Example: ["id", "name"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["identification", "buildingName"] with
+            matching: export_fields=["id", "name"]
+
+        :param page: Page to return, index starts at 0
+        :param page_size: Page size to return
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name.
+            This param can be combined with paging and sorting.
+
+            Example: name=="buildings"
+
+        """
+        endpoint = "/api/v1/buildings/export"
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def get_building_history_export(
+        self,
+        id: Union[int, str],
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Exports building history in specified format by ID
+
+        :param id: Building ID
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Options: id, username, date, note, details
+
+            Example: ["id", "username"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["identification", "name"] with
+            matching: export_fields=["id", "username"]
+
+        :param page: Page to return, index starts at 0
+        :param page_size: Page size to return
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "date:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name.
+            This param can be combined with paging and sorting.
+
+            Example: username=="exampleuser"
+        """
+        endpoint = f"/api/v1/buildings/{id}/history/export"
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def create_building(self, data: dict) -> dict:
+        """
+        Creates a building record with JSON data
+
+        :param data: JSON data to create the building record with
+        """
+        endpoint = "/api/v1/buildings"
+
+        return self._post(endpoint, data)
+
+    def create_building_history_note(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Creates specified building history notes
+
+        :param data: JSON data to create building note with
+        :param id: Building ID
+        """
+        endpoint = f"/api/v1/buildings/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_building(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a specified building with JSON data by ID
+
+        :param data: JSON data to create building record with
+        :param id: Building ID
+        """
+        endpoint = f"/api/v1/buildings/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_building(
+        self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
+    ) -> str:
+        """
+        Deletes an building by ID or IDS, use id for a single device and ids
+        to delete multiple
+
+        :param id: Building ID
+        :param ids: List of building IDs
+        """
+        identifier_options = {"id": id, "ids": ids}
+        identification_type(identifier_options)
+        check_conflicting_params(identifier_options)
+        if id:
+            if enforce_type(id, (int, str)):
+                endpoint = f"/api/v1/buildings/{id}"
+                return self._delete(
+                    endpoint,
+                    success_message=(f"Building {id} successfully deleted."),
+                )
+        if ids:
+            if enforce_type(ids, (List)):
+                ids = [str(id) for id in ids]
+                endpoint = "/api/v1/buildings/delete-multiple"
+                return self._post(
+                    endpoint,
+                    data={"ids": ids},
+                    success_message=(
+                        f"Building(s) {', '.join(ids)} successfully deleted."
+                    ),
+                )
 
     """
     cache-settings

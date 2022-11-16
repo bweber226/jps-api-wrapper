@@ -5,7 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.86.0] - 2022-11-15
+## [0.87.0] -- 2022-11-16
+### Added
+- Pro.get_buildings which returns all buildings or search for sorted and paged buildings
+- Pro.get_building which returns specified building object by ID in JSON
+- Pro.get_building_history which returns specified building history object by ID in JSON
+- Pro.get_building_export which exports buildings collection in CSV
+- Pro.get_building_history_export which exports building history in specified format by ID
+- Pro.create_building which creates a building record with JSON data
+- Pro.create_building_history_note which creates specified building history notes with JSON data by ID
+- Pro.update_building which updates a specified building with JSON data by ID
+- Pro.delete_building which deletes an building by ID or IDS, use id for a single device and ids to delete multiple
+- utils.remove_empty_params which removes all key, value pairs where the value is None
+- utils.enforce_type which makes sure that a value is the specified type, used when a different type of data may cause issues
+### Changed
+- RequestBuilder._get now handles params
+- RequestBuilder._post now handles params
+- RequestBuilder._put now handles params
+- RequestBuilder._delete now handles params
+- Classic.file_uploads now uses params and success_message
+
+## [0.86.0] -- 2022-11-15
 ### Added
 - Pro.get_app_store_country_codes which returns a list of countries and the associated codes that can be use for the App Store locale
 

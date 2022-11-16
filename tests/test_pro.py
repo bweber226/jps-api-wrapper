@@ -93,7 +93,7 @@ def test_get_advanced_mobile_device_search_criteria_choices(pro):
             "GET",
             jps_url(
                 "/api/v1/advanced-mobile-device-searches/choices"
-                "?criteria=Managed&site=-1&contains=None"
+                "?criteria=Managed&site=-1"
             ),
         )
     )
@@ -418,6 +418,191 @@ def test_get_app_store_country_codes(pro):
 """
 buildings
 """
+
+
+@responses.activate
+def test_get_buildings(pro):
+    """
+    Ensures that get_buildings returns JSON when run without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/buildings")))
+    assert pro.get_buildings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_buildings_all_params(pro):
+    """
+    Ensures that get_buildings returns JSON when run with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/buildings")))
+    assert (
+        pro.get_buildings(
+            page=0,
+            page_size=100,
+            sort=["id:asc", "name:asc"],
+            filter='filter=city=="Chicago" and name=="build"',
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_building(pro):
+    """
+    Ensures that get_building returns JSON when run with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/buildings/1001")))
+    assert pro.get_building(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_building_history(pro):
+    """
+    Ensures that get_building_history returns JSON when run with required
+    params and all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/buildings/1001/history")))
+    assert (
+        pro.get_building_history(
+            1001,
+            page=0,
+            page_size=100,
+            sort=["date:desc"],
+            filter="username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_building_export(pro):
+    """
+    Ensures that get_building_export returns a CSV formatted str when
+    used without optional params
+    """
+    responses.add("POST", jps_url("/api/v1/buildings/export"), status=200)
+    assert pro.get_building_export() == ""
+
+
+@responses.activate
+def test_get_building_export_params(pro):
+    """
+    Ensures that get_building_export returns a CSV formatted str when
+    used with all optional params
+    """
+    responses.add("POST", jps_url("/api/v1/buildings/export"), status=200)
+    assert (
+        pro.get_building_export(
+            ["id", "name"],
+            ["identification", "buildingName"],
+            0,
+            100,
+            ["id:desc"],
+            "name=='example",
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_get_building_history_export(pro):
+    """
+    Ensures that get_building_history_export returns a str when used without
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v1/buildings/1001/history/export"), status=200)
+    assert pro.get_building_history_export(1001) == ""
+
+
+@responses.activate
+def test_get_building_history_export_params(pro):
+    """
+    Ensures that get_building_history_export returns a  str when used with all
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v1/buildings/1001/history/export"), status=200)
+    assert (
+        pro.get_building_history_export(
+            1001,
+            ["id", "username"],
+            ["identification", "name"],
+            0,
+            100,
+            ["id:desc", "date:asc"],
+            "username=='example'",
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_create_building(pro):
+    """
+    Ensures that create_building completes successfully when used with required
+    params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/buildings")))
+    assert pro.create_building(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_building_history_note(pro):
+    """
+    Ensures that create_building_history_note completes successfully when used
+    with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/buildings/1001/history")))
+    assert pro.create_building_history_note(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_building(pro):
+    """
+    Ensures that update_building completes successfully when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/buildings/1001")))
+    assert pro.update_building(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_building_id(pro):
+    """
+    Ensures that delete_building completes successfully when used with ID
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/buildings/1001")))
+    assert pro.delete_building(1001) == "Building 1001 successfully deleted."
+
+
+@responses.activate
+def test_delete_building_ids(pro):
+    """
+    Ensures that delete_building completes successfully when used with IDs
+    """
+    responses.add("POST", jps_url("/api/v1/buildings/delete-multiple"))
+    assert (
+        pro.delete_building(ids=[1001, 1002])
+        == "Building(s) 1001, 1002 successfully deleted."
+    )
+
+
+def test_delete_building_id_list(pro):
+    """
+    Ensures that delete_building raises TypeError when the value that is not
+    a str or int is passed as id
+    """
+    with pytest.raises(TypeError):
+        pro.delete_building(id=[1001])
+
+
+def test_delete_building_ids_str(pro):
+    """
+    Ensures that delete_building raises TypeError when the value that is not
+    a list is passed as ids
+    """
+    with pytest.raises(TypeError):
+        pro.delete_building(ids=1001)
+
 
 """
 cache-settings

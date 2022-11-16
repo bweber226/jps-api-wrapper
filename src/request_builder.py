@@ -56,7 +56,7 @@ class RequestBuilder:
             )
 
     def _get(
-        self, endpoint: str, data_type: str = "json", query_string: list = None
+        self, endpoint: str, data_type: str = "json", params: dict = None
     ) -> Union[dict, str]:
         """
         Sends get requests given an endpoint and data type
@@ -66,8 +66,8 @@ class RequestBuilder:
             e.g. /JSSResource/computers
         :param data_type:
             json or xml
-        :param query_string:
-            Optional query string for the request
+        :param params:
+            Optional params for the request
 
         :returns:
             - response.json - Returned if the data_type was json
@@ -76,12 +76,9 @@ class RequestBuilder:
         :raises InvalidDataType:
             data_type is not json or xml
         """
-        if query_string:
-            full_url = self.base_url + quote(endpoint) + f"?{'&'.join(query_string)}"
-        else:
-            full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint)
         headers = {"Accept": f"application/{data_type}"}
-        response = self.session.get(full_url, headers=headers)
+        response = self.session.get(full_url, headers=headers, params=params)
         self._raise_recognized_errors(response)
         response.raise_for_status()
         if data_type == "json":
@@ -94,9 +91,10 @@ class RequestBuilder:
     def _post(
         self,
         endpoint: str,
-        data: Union[dict, str],
+        data: Union[dict, str] = None,
         file: dict = None,
-        query_string: list = None,
+        params: dict = None,
+        headers: dict = None,
         success_message: str = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
@@ -110,8 +108,11 @@ class RequestBuilder:
             XML data or json dict used in the post request
         :param file:
             File to upload in format {"filename": file}
-        :param query_string:
-            Optional query string for the request
+        :param params:
+            Optional params for the request
+        :param headers:
+            Optional headers for content that is not JSON or XML which are
+            handled by the method
         :param success_message:
             Optional string to return instead of request data
         :param data_type:
@@ -122,36 +123,32 @@ class RequestBuilder:
         :raises ContentTypeAndFile:
             Content-type and file were both sent to the post module
         """
-        if query_string:
-            full_url = self.base_url + quote(endpoint) + f"?{'&'.join(query_string)}"
-        else:
-            full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint)
         if file and data_type:
             raise ContentTypeAndFile(
                 "The post request cannot use both file and content-type headers."
             )
-        if data_type in ["json", "xml"] and not file:
-            headers = {"Content-type": f"application/{data_type}"}
+        if not file:
+            if not headers:
+                headers = {"Content-type": f"application/{data_type}"}
             if data_type == "xml":
                 response = self.session.post(
-                    full_url, headers=headers, data=data, files=file
+                    full_url, headers=headers, data=data, params=params
                 )
             else:
                 response = self.session.post(
-                    full_url, headers=headers, json=data, files=file
+                    full_url, headers=headers, json=data, params=params
                 )
-        if not data_type and file:
-            response = self.session.post(full_url, data=data, files=file)
+        if file:
+            response = self.session.post(full_url, data=data, params=params, files=file)
         self._raise_recognized_errors(response)
         response.raise_for_status()
         if success_message:
             return success_message
         elif data_type == "json":
             return response.json()
-        elif data_type in ["xml"]:
+        elif data_type in ["xml", None]:
             return response.text
-        elif not data_type:
-            return "File uploaded successfully."
         else:
             raise InvalidDataType("data_type needs to be either json or xml")
 
@@ -159,7 +156,7 @@ class RequestBuilder:
         self,
         endpoint: str,
         data: Union[dict, str],
-        query_string: list = None,
+        params: dict = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
@@ -170,8 +167,8 @@ class RequestBuilder:
             e.g. /JSSResource/computers
         :param data:
             xml data or json dict used in the put request
-        :param query_string:
-            Optional query string for the request
+        :param params:
+            Optional params for the request
         :param data_type:
             json or xml
 
@@ -182,15 +179,16 @@ class RequestBuilder:
         :raises InvalidDataType:
             data_type is not json or xml
         """
-        if query_string:
-            full_url = self.base_url + quote(endpoint) + f"?{'&'.join(query_string)}"
-        else:
-            full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": f"application/{data_type}"}
         if data_type == "xml":
-            response = self.session.put(full_url, headers=headers, data=data)
+            response = self.session.put(
+                full_url, headers=headers, data=data, params=params
+            )
         else:
-            response = self.session.put(full_url, headers=headers, json=data)
+            response = self.session.put(
+                full_url, headers=headers, json=data, params=params
+            )
         self._raise_recognized_errors(response)
         response.raise_for_status()
         if data_type == "json":
@@ -204,7 +202,7 @@ class RequestBuilder:
         self,
         endpoint: str,
         data: Union[dict, str] = None,
-        query_string: list = None,
+        params: dict = None,
         success_message: str = None,
         data_type: str = "json",
     ) -> Union[dict, str]:
@@ -214,8 +212,8 @@ class RequestBuilder:
         :param endpoint:
             The url section of the api endpoint following the base_url
             e.g. /JSSResource/computers
-        :param query_string:
-            Optional query string for the request
+        :param params:
+            Optional params for the request
         :param success_message:
             Optional string to return instead of request data
         :param data_type:
@@ -228,14 +226,13 @@ class RequestBuilder:
         :raises InvalidDataType:
             data_type is not json or xml
         """
-        if query_string:
-            full_url = self.base_url + quote(endpoint) + f"?{'&'.join(query_string)}"
-        else:
-            # + was added as a safe character to make
-            # Classic.log_flush_interval work, need to find a better workaround
-            full_url = self.base_url + quote(endpoint, safe="/+")
+        # + was added as a safe character to make
+        # Classic.log_flush_interval work, need to find a better workaround
+        full_url = self.base_url + quote(endpoint, safe="/+")
         headers = {"Content-type": f"application/{data_type}"}
-        response = self.session.delete(full_url, headers=headers, data=data)
+        response = self.session.delete(
+            full_url, headers=headers, data=data, params=params
+        )
         self._raise_recognized_errors(response)
         response.raise_for_status()
         if success_message:

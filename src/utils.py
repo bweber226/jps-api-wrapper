@@ -142,12 +142,39 @@ def validate_date(date: str):
 def check_conflicting_params(params: dict):
     """
     Ensures that only one of the parameters given has a non NoneType value
+
+    :param params: Dictionary of params
     """
     i = iter(params.values())
     if any(i) and any(i):
         raise ConflictingParameters(
             f"Only one of the following parameters are allowed:\n" f"{params.keys()}"
         )
+
+
+def remove_empty_params(params: dict) -> dict:
+    """
+    Removes all key, value pairs where the value is None
+
+    :param params: Dictionary of params
+    """
+    params = {k: v for k, v in params.items() if v is not None}
+
+    return params
+
+
+def enforce_type(value, type: tuple) -> bool:
+    """
+    Makes sure that a value is the specified type, used when a different type
+    of data may cause issues
+
+    :param value: Value to check type of
+    :param type: Tuple of types
+    """
+    if isinstance(value, type):
+        return True
+    else:
+        raise TypeError(f"{value} must be of type(s): {', '.join(type)}")
 
 
 class NoIdentification(Exception):
