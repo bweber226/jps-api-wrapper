@@ -608,6 +608,26 @@ def test_delete_building_ids_str(pro):
 cache-settings
 """
 
+
+@responses.activate
+def test_get_cache_settings(pro):
+    """
+    Ensures that get_cache_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/cache-settings")))
+    assert pro.get_cache_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_cache_settings(pro):
+    """
+    Ensures that update_cache_settings completes successfully when used with
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/cache-settings")))
+    assert pro.update_cache_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 categories
 """

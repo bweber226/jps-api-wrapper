@@ -523,7 +523,7 @@ class Pro(RequestBuilder):
 
     def create_building_history_note(self, data: dict, id: Union[int, str]) -> dict:
         """
-        Creates specified building history notes
+        Creates specified building history notes with JSON data by ID
 
         :param data: JSON data to create building note with
         :param id: Building ID
@@ -578,6 +578,24 @@ class Pro(RequestBuilder):
     """
     cache-settings
     """
+
+    def get_cache_settings(self):
+        """
+        Returns cache settings of the JPS server in JSON
+        """
+        endpoint = "/api/v1/cache-settings"
+
+        return self._get(endpoint)
+
+    def update_cache_settings(self, data: dict) -> dict:
+        """
+        Updates cache settings of the JPS server in JSON
+
+        :param data: JSON data to update cache settings with
+        """
+        endpoint = "/api/v1/cache-settings"
+
+        return self._put(endpoint, data)
 
     """
     categories
