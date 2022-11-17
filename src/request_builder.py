@@ -56,7 +56,7 @@ class RequestBuilder:
             )
 
     def _get(
-        self, endpoint: str, data_type: str = "json", params: dict = None
+        self, endpoint: str, data_type: str = "json", params: dict = None, headers=None
     ) -> Union[dict, str]:
         """
         Sends get requests given an endpoint and data type
@@ -68,6 +68,9 @@ class RequestBuilder:
             json or xml
         :param params:
             Optional params for the request
+        :param headers:
+            Optional headers for content that is not JSON or XML which are
+            handled by the method
 
         :returns:
             - response.json - Returned if the data_type was json
@@ -77,13 +80,14 @@ class RequestBuilder:
             data_type is not json or xml
         """
         full_url = self.base_url + quote(endpoint)
-        headers = {"Accept": f"application/{data_type}"}
+        if not headers:
+            headers = {"Content-type": f"application/{data_type}"}
         response = self.session.get(full_url, headers=headers, params=params)
         self._raise_recognized_errors(response)
         response.raise_for_status()
         if data_type == "json":
             return response.json()
-        elif data_type == "xml":
+        elif data_type in ["xml", None]:
             return response.text
         else:
             raise InvalidDataType("data_type needs to be either json or xml")

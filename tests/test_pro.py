@@ -759,6 +759,79 @@ def test_delete_category_ids(pro):
 certificate-authority
 """
 
+
+@responses.activate
+def test_get_certificate_authority_active_json(pro):
+    """
+    Ensures that get_certificate_authority_active returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/pki/certificate-authority/active"))
+    )
+    assert pro.get_certificate_authority_active() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_certificate_authority_active_der(pro):
+    """
+    Ensures that get_certificate_authority_active returns a str when used with
+    der set to True
+    """
+    responses.add(
+        "GET", jps_url("/api/v1/pki/certificate-authority/active/der"), status=200
+    )
+    assert pro.get_certificate_authority_active(der=True) == ""
+
+
+@responses.activate
+def test_get_certificate_authority_active_pem(pro):
+    """
+    Ensures that get_certificate_authority_active returns a str when used with
+    der set to True
+    """
+    responses.add(
+        "GET", jps_url("/api/v1/pki/certificate-authority/active/pem"), status=200
+    )
+    assert pro.get_certificate_authority_active(pem=True) == ""
+
+
+@responses.activate
+def test_get_certificate_authority_json(pro):
+    """
+    Ensures that get_certificate_authority returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/pki/certificate-authority/1a2b3c4d"))
+    )
+    assert pro.get_certificate_authority("1a2b3c4d") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_certificate_authority_der(pro):
+    """
+    Ensures that get_certificate_authority returns a str when used with der set
+    to True
+    """
+    responses.add(
+        "GET", jps_url("/api/v1/pki/certificate-authority/1a2b3c4d/der"), status=200
+    )
+    assert pro.get_certificate_authority("1a2b3c4d", der=True) == ""
+
+
+@responses.activate
+def test_get_certificate_authority_pem(pro):
+    """
+    Ensures that get_certificate_authority returns a str when used with pem set
+    to True
+    """
+    responses.add(
+        "GET", jps_url("/api/v1/pki/certificate-authority/1a2b3c4d/pem"), status=200
+    )
+    assert pro.get_certificate_authority("1a2b3c4d", pem=True) == ""
+
+
 """
 classic-ldap
 """

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.90.0] -- 2022-11-17
+### Added
+- Pro.get_certificate_authority_active which returns X.509 details of the active certificate authority in JSON, der, or pem format
+- Pro.get_certificate_authority which returns X.509 details of certificate authority by ID in JSON, der, or pem format
+### Changed
+- RequestBuilder._get now handles custom headers outside of JSON and XML
+
 ## [0.89.0] -- 2022-11-16
 ### Added
 - Pro.get_categories which returns all category objects in JSON

@@ -767,6 +767,59 @@ class Pro(RequestBuilder):
     certificate-authority
     """
 
+    def get_certificate_authority_active(
+        self, der: bool = None, pem: bool = None
+    ) -> Union[dict, str]:
+        """
+        Returns X.509 details of the active certificate authority in JSON,
+        der, or pem format
+
+        :param der: Set to True to return the certificate info in der format
+        :param pem: Set to True to return the certificate info in pem format
+        """
+        check_conflicting_params({"der": der, "pem": pem})
+        if der:
+            data_type = None
+            headers = {"accept": "application/pkix-cert"}
+            endpoint = "/api/v1/pki/certificate-authority/active/der"
+        elif pem:
+            data_type = None
+            headers = {"accept": "application/pem-certificate-chain"}
+            endpoint = "/api/v1/pki/certificate-authority/active/pem"
+        else:
+            data_type = "json"
+            headers = None
+            endpoint = "/api/v1/pki/certificate-authority/active"
+
+        return self._get(endpoint, headers=headers, data_type=data_type)
+
+    def get_certificate_authority(
+        self, uuid: str, der: bool = None, pem: bool = None
+    ) -> Union[dict, str]:
+        """
+        Returns X.509 details of certificate authority by ID in JSON, der,
+        or pem format
+
+        :param uuid: Certificate ID
+        :param der: Set to True to return the certificate info in der format
+        :param pem: Set to True to return the certificate info in pem format
+        """
+        check_conflicting_params({"der": der, "pem": pem})
+        if der:
+            data_type = None
+            headers = {"accept": "application/pkix-cert"}
+            endpoint = f"/api/v1/pki/certificate-authority/{uuid}/der"
+        elif pem:
+            data_type = None
+            headers = {"accept": "application/pem-certificate-chain"}
+            endpoint = f"/api/v1/pki/certificate-authority/{uuid}/pem"
+        else:
+            data_type = "json"
+            headers = None
+            endpoint = f"/api/v1/pki/certificate-authority/{uuid}"
+
+        return self._get(endpoint, headers=headers, data_type=data_type)
+
     """
     classic-ldap
     """
