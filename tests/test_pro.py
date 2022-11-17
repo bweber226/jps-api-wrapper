@@ -836,6 +836,16 @@ def test_get_certificate_authority_pem(pro):
 classic-ldap
 """
 
+
+@responses.activate
+def test_get_classic_ldap(pro):
+    """
+    Ensures that get_classic_ldap returns JSON when run with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/classic-ldap/1001")))
+    assert pro.get_classic_ldap(1001) == EXPECTED_JSON
+
+
 """
 client-check-in
 """

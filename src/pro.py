@@ -824,6 +824,16 @@ class Pro(RequestBuilder):
     classic-ldap
     """
 
+    def get_classic_ldap(self, id: Union[int, str]) -> dict:
+        """
+        Returns mappings for OnPrem Ldap configuration with given id
+
+        :param id: Classic LDAP ID
+        """
+        endpoint = f"/api/v1/classic-ldap/{id}"
+
+        return self._get(endpoint)
+
     """
     client-check-in
     """
