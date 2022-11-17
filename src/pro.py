@@ -826,7 +826,7 @@ class Pro(RequestBuilder):
 
     def get_classic_ldap(self, id: Union[int, str]) -> dict:
         """
-        Returns mappings for OnPrem Ldap configuration with given id
+        Returns mappings for OnPrem LDAP configuration with given id
 
         :param id: Classic LDAP ID
         """
@@ -837,6 +837,74 @@ class Pro(RequestBuilder):
     """
     client-check-in
     """
+
+    def get_client_check_in(self) -> dict:
+        """
+        Returns client check-in settings in JSON
+        """
+        endpoint = "/api/v3/check-in"
+
+        return self._get(endpoint)
+
+    def get_client_check_in_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns client check-in settings history in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            is date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "username:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v3/check-in/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_client_check_in_history_note(self, data: dict) -> dict:
+        """
+        Creates a client check-in history note with JSON data
+
+        :param data: JSON data to create client check-in history note with
+        """
+        endpoint = "/api/v3/check-in/history"
+
+        return self._post(endpoint, data)
+
+    def update_client_check_in(self, data) -> dict:
+        """
+        Updates client check-in settings with JSON data
+
+        :param data: JSON data to updatae client check-in settings with
+        """
+        endpoint = "/api/v3/check-in"
+
+        return self._put(endpoint, data)
 
     """
     cloud-azure

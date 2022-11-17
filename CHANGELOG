@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.92.0] -- 2022-11-17
+### Added
+- Pro.get_client_check_in which returns client check-in settings in JSON
+- Pro.get_client_check_in_history which returns client check-in settings history in JSON
+- Pro.create_client_check_in_history_note which creates a client check-in history note with JSON data
+- Pro.update_client_check_in which updates client check-in settings with JSON data
+
 ## [0.91.0] -- 2022-11-17
 ### Added
 - Pro.get_classic_ldap which returns mappings for OnPrem LDAP configuration with given id

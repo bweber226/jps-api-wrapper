@@ -850,6 +850,58 @@ def test_get_classic_ldap(pro):
 client-check-in
 """
 
+
+@responses.activate
+def test_get_client_check_in(pro):
+    """
+    Ensures that get_client_check_in returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/check-in")))
+    assert pro.get_client_check_in() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_client_check_in_history(pro):
+    """
+    Ensures that get_client_check_in_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/check-in/history")))
+    assert pro.get_client_check_in_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_client_check_in_history_params(pro):
+    """
+    Ensures that get_client_check_in_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/check-in/history")))
+    assert pro.get_client_check_in_history(
+        0, 100, ["id:asc"], "username!=admin and details==disabled and date<2019-12-15"
+    )
+
+
+@responses.activate
+def test_create_client_check_in_history_note(pro):
+    """
+    Ensures that create_client_check_in_history_note completes successfully
+    when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v3/check-in/history")))
+    assert pro.create_client_check_in_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_client_check_in(pro):
+    """
+    Ensures that update_client_check_in completes successfully when used with
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v3/check-in")))
+    assert pro.update_client_check_in(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 cloud-azure
 """
