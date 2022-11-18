@@ -906,6 +906,131 @@ def test_update_client_check_in(pro):
 cloud-azure
 """
 
+
+@responses.activate
+def test_get_cloud_azure_default_server_configuration(pro):
+    """
+    Ensures that get_cloud_azure_default_server_configuration returns JSON when
+    used
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/cloud-azure/defaults/server-configuration")
+        )
+    )
+    assert pro.get_cloud_azure_default_server_configuration() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_azure_default_mappings(pro):
+    """
+    Ensures that get_cloud_azure_default_mappings returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/cloud-azure/defaults/mappings"))
+    )
+    assert pro.get_cloud_azure_default_mappings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_azure_identity_provider_configuration(pro):
+    """
+    Ensures that get_cloud_azure_identity_provider_configuration returns JSON
+    when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/cloud-azure/1001")))
+    assert pro.get_cloud_azure_identity_provider_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_azure_report(pro):
+    """
+    Ensures that get_cloud_azure_report completes succesfully when run with
+    required pararms
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/azure-ad-migration/reports/1001/download")
+        )
+    )
+    assert pro.get_cloud_azure_report(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_azure_report_status(pro):
+    """
+    Ensures that get_cloud_azure_report_status completes successfully when
+    run with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/azure-ad-migration/reports/1001"))
+    )
+    assert pro.get_cloud_azure_report_status(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_azure_pending_report(pro):
+    """
+    Ensures that get_cloud_azure_pending_report completes successfully when
+    run with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/azure-ad-migration/reports/pending"))
+    )
+    assert pro.get_cloud_azure_pending_report() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_cloud_azure_report(pro):
+    """
+    Ensures that create_cloud_azure_report completes successfully when run with
+    required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/azure-ad-migration/reports"))
+    )
+    assert pro.create_cloud_azure_report(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_cloud_azure_identity_provider_configuration(pro):
+    """
+    Ensures that create_cloud_azure_identity_provider_configuration completes
+    successfully when run with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/cloud-azure")))
+    assert (
+        pro.create_cloud_azure_identity_provider_configuration(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_cloud_azure_identity_provider_configuration(pro):
+    """
+    Ensures that update_cloud_azure_identity_provider_configuration completes
+    successfully when run with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/cloud-azure/1001")))
+    assert (
+        pro.update_cloud_azure_identity_provider_configuration(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_cloud_azure_identity_provider_configuration(pro):
+    """
+    Ensures that delete_cloud_azure_identity_provider_configuration completes
+    successfully when run with required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/cloud-azure/1001")))
+    assert (
+        pro.delete_cloud_azure_identity_provider_configuration(1001)
+        == "Cloud identity provider 1001 successfully deleted."
+    )
+
+
 """
 cloud-idp
 """

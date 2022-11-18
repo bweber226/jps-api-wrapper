@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.93.0] -- 2022-11-18
+### Added
+- Pro.get_cloud_azure_default_server_configuration which returns the default set of server attributes that allows you to return the data you need from Azure AD
+- Pro.get_cloud_azure_default_mappings which returns the default set of mapping attributes that allows you to return the data you need from Azure AD
+- Pro.get_cloud_azure_identity_provider_configuration which returns Azure cloud identity provider configuration with given ID in JSON
+- Pro.get_cloud_azure_report which returns excel file of generated cloud azure report
+- Pro.get_cloud_azure_report_status which returns status of Azure AD migration report
+- Pro.get_cloud_azure_pending_report which returns info about pending report
+- Pro.create_cloud_azure_report which starts a new process in background that will generate Excel report with JSON data
+- Pro.create_cloud_azure_identity_provider_configuration which create new Azure Cloud Identity Provider configuration with unique display name
+- Pro.update_cloud_azure_identity_provider_configuration which updates an Azure Cloud Identity Provider configuration
+- Pro.delete_cloud_azire_identity_provider_configuration which deletes a cloud identity provider configuration by ID
+
 ## [0.92.0] -- 2022-11-17
 ### Added
 - Pro.get_client_check_in which returns client check-in settings in JSON

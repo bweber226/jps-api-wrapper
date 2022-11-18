@@ -910,6 +910,119 @@ class Pro(RequestBuilder):
     cloud-azure
     """
 
+    def get_cloud_azure_default_server_configuration(self) -> dict:
+        """
+        Returns the default set of server attributes that allows you to return
+        the data you need from Azure AD. Some fields may be empty and may be
+        edited when creating a new configuration.
+        """
+        endpoint = "/api/v1/cloud-azure/defaults/server-configuration"
+
+        return self._get(endpoint)
+
+    def get_cloud_azure_default_mappings(self) -> dict:
+        """
+        Returns the default set of mapping attributes that allows you to return
+        the data you need from Azure AD. Some fields may be empty and may be
+        edited when creating a new configuration.
+        """
+        endpoint = "/api/v1/cloud-azure/defaults/mappings"
+
+        return self._get(endpoint)
+
+    def get_cloud_azure_identity_provider_configuration(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns Azure cloud identity provider configuration with given ID
+        in JSON
+        """
+        endpoint = f"/api/v1/cloud-azure/{id}"
+
+        return self._get(endpoint)
+
+    def get_cloud_azure_report(self, id: Union[int, str]):
+        """
+        Returns excel file of generated cloud azure report
+
+        :param id: Existing report ID
+        """
+        headers = {
+            "accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "Content-type": "application/json",
+        }
+        endpoint = f"/api/v1/azure-ad-migration/reports/{id}/download"
+
+        return self._get(endpoint, headers=headers)
+
+    def get_cloud_azure_report_status(self, id: Union[int, str]) -> dict:
+        """
+        Returns status of Azure AD migration report
+
+        :param id: Existing report ID
+        """
+        endpoint = f"/api/v1/azure-ad-migration/reports/{id}"
+
+        return self._get(endpoint)
+
+    def get_cloud_azure_pending_report(self):
+        """
+        Returns info about pending report
+        """
+        endpoint = "/api/v1/azure-ad-migration/reports/pending"
+
+        return self._get(endpoint)
+
+    def create_cloud_azure_report(self, data: dict) -> dict:
+        """
+        Starts a new process in background that will generate Excel report
+        with JSON data
+
+        :param data: JSON data to create the report with
+        """
+        endpoint = "/api/v1/azure-ad-migration/reports"
+
+        return self._post(endpoint, data)
+
+    def create_cloud_azure_identity_provider_configuration(self, data: dict) -> dict:
+        """
+        Create new Azure Cloud Identity Provider configuration with unique
+        display name
+
+        :param data:
+            JSON data to create the azure vloud identity provider configuration
+            with
+        """
+        endpoint = "/api/v1/cloud-azure"
+
+        return self._post(endpoint, data)
+
+    def update_cloud_azure_identity_provider_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates an Azure Cloud Identity Provider configuration. Cannot be used 
+        for partial updates, all content body parameters must be sent.
+        """
+        endpoint = f"/api/v1/cloud-azure/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_cloud_azure_identity_provider_configuration(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        Deletes a Cloud Identity Provider configuration by ID
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v1/cloud-azure/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Cloud identity provider {id} successfully deleted.",
+        )
+
     """
     cloud-idp
     """
