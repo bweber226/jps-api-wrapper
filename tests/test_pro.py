@@ -1035,6 +1035,135 @@ def test_delete_cloud_azure_identity_provider_configuration(pro):
 cloud-idp
 """
 
+
+@responses.activate
+def test_get_cloud_idps(pro):
+    """
+    Ensures that get_cloud_idps returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/cloud-idp")))
+    assert pro.get_cloud_idps() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_idps_params(pro):
+    """
+    Ensures that get_cloud_idps returns JSON when used with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/cloud-idp")))
+    assert pro.get_cloud_idps(0, 100, ["id:asc"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_idp(pro):
+    """
+    Ensures that get_cloud_idp returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/cloud-idp/1001")))
+    assert pro.get_cloud_idp(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_idp_history(pro):
+    """
+    Ensures that get_cloud_idp_history returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/v1/cloud-idp/1001/history")))
+    assert pro.get_cloud_idp_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_idp_history_params(pro):
+    """
+    Ensures that get_cloud_idp_history returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/v1/cloud-idp/1001/history")))
+    assert pro.get_cloud_idp_history(
+        1001,
+        0,
+        100,
+        ["id:asc", "date:asc"],
+        "username!=admin and details==disabled and date<2019-12-15",
+    )
+
+
+@responses.activate
+def test_get_cloud_idp_export(pro):
+    """
+    Ensures that get_cloud_idp_history returns a str when used without optional
+    params
+    """
+    responses.add("POST", jps_url("/api/v1/cloud-idp/export"), status=200)
+    assert pro.get_cloud_idp_export() == ""
+
+
+@responses.activate
+def test_get_cloud_idp_export_params(pro):
+    """
+    Ensures that get_cloud_idp_export returns a str when used with all optional
+    params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/cloud-idp/export")))
+    assert pro.get_cloud_idp_export(
+        ["id", "username"],
+        ["identifier", "name"],
+        0,
+        100,
+        ["id:desc", "name:asc"],
+        'name=="department"',
+    )
+
+
+@responses.activate
+def test_create_cloud_idp_history_note(pro):
+    """
+    Ensures that create_cloud_idp_history_note completes successfully when run
+    with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/cloud-idp/1001/history")))
+    assert pro.create_cloud_idp_history_note(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_cloud_idp_group_test_search(pro):
+    """
+    Ensures that create_cloud_idp_group_test_search compeltes successfully when
+    used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/cloud-idp/1001/test-group"))
+    )
+    assert pro.create_cloud_idp_group_test_search(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_cloud_idp_user_test_search(pro):
+    """
+    Ensures that create_cloud_idp_user_test_search compeltes successfully when
+    used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/cloud-idp/1001/test-user")))
+    assert pro.create_cloud_idp_user_test_search(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_cloud_idp_user_membership_test_search(pro):
+    """
+    Ensures that create_cloud_idp_user_membership_test_search compeltes
+    successfully when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/cloud-idp/1001/test-user-membership"))
+    )
+    assert (
+        pro.create_cloud_idp_user_membership_test_search(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
 """
 cloud-ldap
 """

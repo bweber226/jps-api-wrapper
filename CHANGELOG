@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.94.0] -- 2022-11-18
+### Added
+- Pro.get_cloud_idps which returns basic informations about all configured Cloud Identitym Providers
+- Pro.get_cloud_idp which returns cloud identity provider configuration by ID
+- Pro.get_cloud_idp_history which returns specified cloud identity provider history by ID
+- Pro.get_cloud_idp_export which returns CSV export of cloud identity providers collection
+- Pro.create_cloud_idp_history_note which creates specified cloud identity provider history note by ID
+- Pro.create_cloud_idp_group_test_search which creates a cloud identify provider group test search and returns result
+- Pro.create_cloud_idp_user_test_search which creates a cloud identify provider user test search and returns result
+- Pro.create_cloud_idp_user_membership_test_search which creates a cloud identify provider user membership test search and returns result
+
 ## [0.93.0] -- 2022-11-18
 ### Added
 - Pro.get_cloud_azure_default_server_configuration which returns the default set of server attributes that allows you to return the data you need from Azure AD

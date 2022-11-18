@@ -948,7 +948,8 @@ class Pro(RequestBuilder):
         :param id: Existing report ID
         """
         headers = {
-            "accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "accept": "application/vnd.openxmlformats-officedocument"
+            ".spreadsheetml.sheet",
             "Content-type": "application/json",
         }
         endpoint = f"/api/v1/azure-ad-migration/reports/{id}/download"
@@ -1001,7 +1002,7 @@ class Pro(RequestBuilder):
         self, data: dict, id: Union[int, str]
     ) -> dict:
         """
-        Updates an Azure Cloud Identity Provider configuration. Cannot be used 
+        Updates an Azure Cloud Identity Provider configuration. Cannot be used
         for partial updates, all content body parameters must be sent.
         """
         endpoint = f"/api/v1/cloud-azure/{id}"
@@ -1026,6 +1027,197 @@ class Pro(RequestBuilder):
     """
     cloud-idp
     """
+
+    def get_cloud_idps(
+        self, page: int = None, page_size=None, sort: List[str] = ["id:desc"]
+    ) -> dict:
+        """
+        Returns basic informations about all configured Cloud Identity
+        Providers
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:desc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["date:desc", "name:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/cloud-idp"
+
+        return self._get(endpoint, params=params)
+
+    def get_cloud_idp(self, id: Union[int, str]) -> dict:
+        """
+        Returns cloud identity provider configuration by ID
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v1/cloud-idp/{id}"
+
+        return self._get(endpoint)
+
+    def get_cloud_idp_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns specified cloud identity provider history by ID
+
+        :param id: Cloud identity provider ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/v1/cloud-idp/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_cloud_idp_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Returns CSV export of cloud identity providers collection
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Example: ["id", "username"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: ["identifier", "name"] with matching export-fields
+            ["id", "username"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be seperated
+            with a comma.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name.
+            This param can be combined with paging and sorting.
+
+            Example: name=="department"
+        """
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"accept": "text/csv", "content-type": "application/json"}
+        endpoint = "/api/v1/cloud-idp/export"
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def create_cloud_idp_history_note(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Creates specified cloud identity provider history note by ID
+
+        :param data: JSON data to create cloud identity provider history with
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v1/cloud-idp/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def create_cloud_idp_group_test_search(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a cloud identify provider group test search and returns the
+        result
+
+        :param data: JSON data to run group test search with
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v1/cloud-idp/{id}/test-group"
+
+        return self._post(endpoint, data)
+
+    def create_cloud_idp_user_test_search(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a cloud identify provider user test search and returns result
+
+        :param data: JSON data to run user test search with
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v1/cloud-idp/{id}/test-user"
+
+        return self._post(endpoint, data)
+
+    def create_cloud_idp_user_membership_test_search(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a cloud identify provider user membership test search and
+        returns the result
+
+        :param data: JSON data to run user membership test search with
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v1/cloud-idp/{id}/test-user-membership"
+
+        return self._post(endpoint, data)
 
     """
     cloud-ldap
