@@ -2,11 +2,10 @@ import pytest
 import requests
 import responses
 from requests.auth import AuthBase
+from unittest import mock
 
 from pro import Pro
-from request_builder import (
-    InvalidDataType,
-)
+from request_builder import InvalidDataType, NotFound
 
 
 MOCK_AUTH_STRING = "This is a MockAuth"
@@ -1325,8 +1324,166 @@ def test_get_computer_groups(pro):
 computer-inventory
 """
 
+
+@responses.activate
+def test_get_computer_inventories(pro):
+    """
+    Ensures that get_computer_inventories returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/computers-inventory")))
+    assert pro.get_computer_inventories() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventories_optional(pro):
+    """
+    Ensures that get_computer_inventories returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/computers-inventory")))
+    assert pro.get_computer_inventories(
+        ["ALL"], 0, 100, ["udid:desc", "general.name:asc"], 'general.name=="Orchard"'
+    )
+
+
+@responses.activate
+def test_get_computer_inventory(pro):
+    """
+    Ensures that get_computer_inventory returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/computers-inventory/1001")))
+    assert pro.get_computer_inventory(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_detail(pro):
+    """
+    Ensures that get_computer_inventory_detail returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computers-inventory-detail/1001"))
+    )
+    assert pro.get_computer_inventory_detail(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_filevaults(pro):
+    """
+    Ensures that get_computer_inventory_filevaults returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computers-inventory/filevault"))
+    )
+    assert pro.get_computer_inventory_filevaults() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_filevaults_optional_params(pro):
+    """
+    Ensures that get_computer_inventory_filevaults returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computers-inventory/filevault"))
+    )
+    assert pro.get_computer_inventory_filevaults(0, 100) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_filevault(pro):
+    """
+    Ensures that get_computer_inventory_filevault returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computers-inventory/1001/filevault"))
+    )
+    assert pro.get_computer_inventory_filevault(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_recovery_lock_password(pro):
+    """
+    Ensures that get_computer_inventory_recovery_lock_password returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/computers-inventory/1001/view-recovery-lock-password"),
+        )
+    )
+    assert pro.get_computer_inventory_recovery_lock_password(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_attachment_404(pro):
+    """
+    Ensures that get_computer_inventory_attachment_file raises NotFound when
+    the file attachmemt is not found
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/computers-inventory/1001/attachments/1002"),
+            status=404,
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_computer_inventory_attachment(1001, 1002)
+
+
+@responses.activate
+def test_create_computer_inventory_attachment(pro):
+    """
+    Ensures that create_computer_inventory_attachment runs successfully when
+    uploading a txt file as a computer attachment
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add("POST", jps_url("/api/v1/computers-inventory/1001/attachments"))
+        assert (
+            pro.create_computer_inventory_attachment("/file.txt", 1001)
+            == "File uploaded successfully."
+        )
+
+
+@responses.activate
+def test_delete_computer_inventory(pro):
+    """
+    Ensures that delete_computer_inventory returns a str success message after
+    it successfully compeltes
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v1/computers-inventory/1001"))
+    )
+    assert pro.delete_computer_inventory(1001) == "Computer 1001 successfully deleted."
+
+
+@responses.activate
+def test_delete_computer_inventory_attachment(pro):
+    """
+    Ensures that delete_computer_inventory_attachment completes successfully
+    when used with required params and returns a success message
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/computers-inventory/1001/attachments/1002")
+        )
+    )
+    assert (
+        pro.delete_computer_inventory_attachment(1001, 1002)
+        == "Attachment 1002 from computer 1001 successfully deleted."
+    )
+
+
 """
-computer-inventory-collection-settings
+computer-inventory-collection-settingsx
 """
 
 """

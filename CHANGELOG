@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.97.0] -- 2022-11-21
+### Added
+- Pro.get_computer_inventories which returns paginated list of computer inventory records
+- Pro.get_computer_inventory which returns general section of a computer by ID
+- Pro.get_computer_inventory_detail which returns all sections of a computer by ID
+- Pro.get_computer_inventory_filevaults which is a beta module which returns paginated FileVault information for all computers
+- Pro.get_computer_inventory_filevault which is a beta module which returns FileVault information for a specific computer
+- Pro.get_computer_inventory_recovery_lock_password which returns a computers recovery lock password by ID in JSON
+- Pro.get_computer_inventory_attachment which downloads specified attachment file by the ID of the computer and ID of the attachment
+- Pro.create_computer_inventory_attachment which uploads attachment to a specified computer by ID
+- Pro.update_computer_inventory which updates specific fields on a computer by ID, then returns the updated computer object in JSON
+- Pro.delete_computer_inventory which deletes specified computer record by ID
+- Pro.delete_computer_inventory_attachment which deletes specified computer attachment by computer ID and computer attachment ID
+- RequestBuilder._download which sends get requests with special cases that require file downloads
+
 ## [0.96.0] -- 2022-11-20
 ### Added
 - Pro.get_computer_groups which returns all computer groups

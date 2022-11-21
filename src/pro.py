@@ -1,4 +1,6 @@
 from typing import List, Union
+from os.path import basename
+from mimetypes import guess_type
 
 from request_builder import RequestBuilder
 from utils import (
@@ -303,6 +305,12 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/app-store-country-codes"
 
         return self._get(endpoint)
+
+    """
+    branding
+    """
+
+    # TODO
 
     """
     buildings
@@ -1372,6 +1380,269 @@ class Pro(RequestBuilder):
     """
     computer-inventory
     """
+
+    def get_computer_inventories(
+        self,
+        section: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = None,
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns paginated list of computer inventory records
+        :param section:
+            Section of computer details, if not specified, General section
+            data is returned. Multiple section parameters are supported,
+
+            Options:
+            ALL, GENERAL, DISK_ENCRYPTION, PURCHASING, APPLICATIONS, STORAGE,
+            USER_AND_LOCATION, CONFIGURATION_PROFILES, PRINTERS, SERVICES,
+            HARDWARE, LOCAL_USER_ACCOUNTS, CERTIFICATES, ATTACHMENTS,
+            PLUGINS, PACKAGE_RECEIPTS, FONTS, SECURITY, OPERATING_SYSTEM,
+            LICENSED_SOFTWARE, IBEACONS, SOFTWARE_UPDATES,
+            EXTENSION_ATTRIBUTES, CONTENT_CACHING, GROUP_MEMBERSHIPS
+
+            Example ["GENERAL", "HARDWARE"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            is general.name:asc. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Fields allowed in the sort:
+            general.name, udid, id, general.assetTag,
+            general.jamfBinaryVersion, general.lastContactTime,
+            general.lastEnrolledDate, general.lastCloudBackupDate,
+            general.reportDate, general.remoteManagement.managementUsername,
+            general.mdmCertificateExpiration, general.platform,
+            hardware.make, hardware.model, operatingSystem.build,
+            operatingSystem.name, operatingSystem.version,
+            userAndLocation.realname, purchasing.lifeExpectancy,
+            purchasing.warrantyDate
+
+            Example: ["udid:desc", "general.name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter computer inventory
+            collection. Default filter is empty query - returning all results
+            for the requested page. This param can be combined with paging and
+            sorting.
+
+            Fields allowed in the query:
+            general.name, udid, id, general.assetTag, general.barcode1,
+            general.barcode2, general.enrolledViaAutomatedDeviceEnrollment,
+            general.lastIpAddress, general.itunesStoreAccountActive,
+            general.jamfBinaryVersion, general.lastContactTime,
+            general.lastEnrolledDate, general.lastCloudBackupDate,
+            general.reportDate, general.lastReportedIp,
+            general.remoteManagement.managed, general.
+            remoteManagement.managementUsername,
+            general.mdmCapable.capable, general.mdmCertificateExpiration,
+            general.platform, general.supervised, general.userApprovedMdm,
+            hardware.bleCapable, hardware.macAddress, hardware.make,
+            hardware.model, hardware.modelIdentifier, hardware.serialNumber,
+            hardware.supportsIosAppInstalls, hardware.isAppleSilicon,
+            operatingSystem.activeDirectoryStatus,
+            operatingSystem.fileVault2Status, operatingSystem.build,
+            operatingSystem.name, operatingSystem.version,
+            operatingSystem.softwareUpdateDeviceId,
+            security.activationLockEnabled, security.recoveryLockEnabled,
+            security.firewallEnabled, userAndLocation.buildingId,
+            userAndLocation.departmentId, userAndLocation.email,
+            userAndLocation.realname, userAndLocation.phone,
+            userAndLocation.position, userAndLocation.room,
+            userAndLocation.username, purchasing.appleCareId,
+            purchasing.lifeExpectancy, purchasing.purchased, purchasing.leased,
+            purchasing.vendor, purchasing.warrantyDate
+
+            Example: general.name=="Orchard"
+        """
+        if section == ["ALL"]:
+            section = [
+                "GENERAL",
+                "DISK_ENCRYPTION",
+                "PURCHASING",
+                "APPLICATIONS",
+                "STORAGE",
+                "USER_AND_LOCATION",
+                "CONFIGURATION_PROFILES",
+                "PRINTERS",
+                "SERVICES",
+                "HARDWARE",
+                "LOCAL_USER_ACCOUNTS",
+                "CERTIFICATES",
+                "ATTACHMENTS",
+                "PLUGINS",
+                "PACKAGE_RECEIPTS",
+                "FONTS",
+                "SECURITY",
+                "OPERATING_SYSTEM",
+                "LICENSED_SOFTWARE",
+                "IBEACONS",
+                "SOFTWARE_UPDATES",
+                "EXTENSION_ATTRIBUTES",
+                "CONTENT_CACHING",
+                "GROUP_MEMBERSHIPS",
+            ]
+        params = remove_empty_params(
+            {
+                "section": section,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/computers-inventory"
+
+        return self._get(endpoint, params=params)
+
+    def get_computer_inventory(self, id: Union[int, str]) -> dict:
+        """
+        Returns general section of a computer by ID
+
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/computers-inventory/{id}"
+
+        return self._get(endpoint)
+
+    def get_computer_inventory_detail(self, id: Union[int, str]) -> dict:
+        """
+        Returns all sections of a computer by ID
+
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/computers-inventory-detail/{id}"
+
+        return self._get(endpoint)
+
+    def get_computer_inventory_filevaults(
+        self, page: int = None, page_size: int = None
+    ) -> dict:
+        """
+        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
+
+        Returns paginated FileVault information for all computers
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+            }
+        )
+        endpoint = "/api/v1/computers-inventory/filevault"
+
+        return self._get(endpoint, params=params)
+
+    def get_computer_inventory_filevault(self, id: Union[int, str]) -> dict:
+        """
+        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
+
+        Returns FileVault information for a specific computer
+
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/computers-inventory/{id}/filevault"
+
+        return self._get(endpoint)
+
+    def get_computer_inventory_recovery_lock_password(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns a computers recovery lock password by ID in JSON
+
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/computers-inventory/{id}/view-recovery-lock-password"
+
+        return self._get(endpoint)
+
+    def get_computer_inventory_attachment(
+        self, id: Union[int, str], attachmentId: Union[int, str]
+    ) -> str:
+        """
+        Downloads specified attachment file by the ID of the computer and ID
+        of the attachment
+
+        :param id: Computer ID
+        :param attachmentID: Attachment ID
+        """
+        endpoint = f"/api/v1/computers-inventory/{id}/attachments/{attachmentId}"
+
+        return self._download(endpoint)
+
+    def create_computer_inventory_attachment(
+        self, filepath: str, id: Union[int, str]
+    ) -> str:
+        """
+        Uploads attachment to a specified computer by ID
+
+        :param filepath: Filepath to the file to upload
+        :param id: Computer ID
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+
+        endpoint = f"/api/v1/computers-inventory/{id}/attachments"
+
+        return self._post(
+            endpoint,
+            file=file,
+            data_type=None,
+            success_message="File uploaded successfully.",
+        )
+
+    def update_computer_inventory(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates specific fields on a computer by ID, then returns the updated
+        computer object in JSON
+
+        :param data: JSON data to update the computer with
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/computers-inventory-detail/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_computer_inventory(self, id: Union[int, str]) -> str:
+        """
+        Deletes specified computer record by ID
+
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/computers-inventory/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"Computer {id} successfully deleted."
+        )
+
+    def delete_computer_inventory_attachment(
+        self, id: Union[int, str], attachmentId: str
+    ) -> str:
+        """
+        Deletes specified computer attachment by computer ID and computer
+        attachment ID
+
+        :param id: Computer ID
+        :param attachmnetId: Computer attachment ID
+        """
+        endpoint = f"/api/v1/computers-inventory/{id}/attachments/{attachmentId}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Attachment {attachmentId} from computer {id} successfully deleted."
+            ),
+        )
 
     """
     computer-inventory-collection-settings

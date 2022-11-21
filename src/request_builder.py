@@ -1,5 +1,7 @@
 from typing import Union
 from urllib.parse import quote
+import re
+from os.path import expanduser, exists, splitext
 
 import requests
 
@@ -91,6 +93,44 @@ class RequestBuilder:
             return response.text
         else:
             raise InvalidDataType("data_type needs to be either json or xml")
+
+    def _download(self, endpoint: str):
+        """
+        Sends get request with special cases that require file downloads
+
+        :param endpoint:
+            The url section of the api endpoint following the base_url
+            e.g. /JSSResource/computers
+        """
+        full_url = self.base_url + quote(endpoint)
+        headers = {"Content-type": "application/json"}
+        response = self.session.get(full_url, headers=headers)
+        self._raise_recognized_errors(response)
+        response.raise_for_status()
+
+        filename = re.findall(
+            '(?<=filename=").*(?=")', response.headers.get("content-disposition")
+        )[0]
+        filepath = expanduser(f"~/Downloads/{filename}")
+        if exists(filepath):
+            original_filepath = filepath
+            i = 1
+            if "." in filename:
+                name, ext = splitext(original_filepath)
+                while exists(filepath):
+                    filepath = name + f"({i})" + ext
+                    i += 1
+            else:
+                while exists(filepath):
+                    filepath = original_filepath + f"({i})"
+            filename = filepath.split("/")[-1]
+
+        with open(filepath, "wb") as f:
+            f.write(response.content)
+        return (
+            f"File {filename} successfully downloaded to current users "
+            "Downloads folder."
+        )
 
     def _post(
         self,
