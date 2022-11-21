@@ -1311,6 +1311,16 @@ def test_delete_cloud_ldap_configuration(pro):
 computer_groups
 """
 
+
+@responses.activate
+def test_get_computer_groups(pro):
+    """
+    Ensures that get_computer_groups returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/computer-groups")))
+    assert pro.get_computer_groups() == EXPECTED_JSON
+
+
 """
 computer-inventory
 """

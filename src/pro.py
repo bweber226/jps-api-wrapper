@@ -1309,7 +1309,7 @@ class Pro(RequestBuilder):
 
     def create_cloud_ldap_keystore_validation(self, data: dict) -> dict:
         """
-        Validate keystore for Cloud Identity Provider secure connection
+        Validates keystore for Cloud Identity Provider secure connection
 
         :param data: JSON data to create validation of keystore with
         """
@@ -1358,8 +1358,16 @@ class Pro(RequestBuilder):
         )
 
     """
-    computer_groups
+    computer-groups
     """
+
+    def get_computer_groups(self) -> dict:
+        """
+        Returns all computer groups in JSON
+        """
+        endpoint = "/api/v1/computer-groups"
+
+        return self._get(endpoint)
 
     """
     computer-inventory
