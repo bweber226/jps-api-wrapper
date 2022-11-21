@@ -1168,6 +1168,145 @@ def test_create_cloud_idp_user_membership_test_search(pro):
 cloud-ldap
 """
 
+
+@responses.activate
+def test_get_cloud_ldap_default_server_configuration(pro):
+    """
+    Ensures that get_cloud_ldap_defailt_server_configuration returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/cloud-ldaps/defaults/google/server-configuration")
+        )
+    )
+    assert pro.get_cloud_ldap_default_server_configuration("google") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_ldap_default_mappings(pro):
+    """
+    Ensures that get_cloud_ldap_default_mappings returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/cloud-ldaps/defaults/google/mappings"))
+    )
+    assert pro.get_cloud_ldap_default_mappings("google") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_ldap_configuration(pro):
+    """
+    Ensures that get_cloud_ldap_configuration returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/cloud-ldaps/1001")))
+    assert pro.get_cloud_ldap_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_ldap_mappings(pro):
+    """
+    Ensures that get_cloud_ldap_mappings returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/cloud-ldaps/1001/mappings")))
+    assert pro.get_cloud_ldap_mappings(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_ldap_connection_status(pro):
+    """
+    Ensures that get_cloud_ldap_connection_status returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/cloud-ldaps/1001/connection/status"))
+    )
+    assert pro.get_cloud_ldap_connection_status(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_ldap_bind_connection_pool(pro):
+    """
+    Ensures that get_cloud_ldap_bind_connection_pool returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/cloud-ldaps/1001/connection/bind"))
+    )
+    assert pro.get_cloud_ldap_bind_connection_pool(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_cloud_ldap_search_connection_pool(pro):
+    """
+    Ensures that get_cloud_ldap_search_connection_pool returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/cloud-ldaps/1001/connection/search"))
+    )
+    assert pro.get_cloud_ldap_search_connection_pool(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_cloud_ldap_configuration(pro):
+    """
+    Ensures that create_cloud_ldap_configuration completes successfully with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v2/cloud-ldaps")))
+    assert pro.create_cloud_ldap_configuration(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_cloud_ldap_keystore_validation(pro):
+    """
+    Ensures that create_cloud_ldap_keystore_validation completes successfully
+    when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/ldap-keystore/verify")))
+    assert pro.create_cloud_ldap_keystore_validation(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_cloud_ldap_configuration(pro):
+    """
+    Ensures that update_cloud_ldap_configuration compeltes successfully when
+    used with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v2/cloud-ldaps/1001")))
+    assert pro.update_cloud_ldap_configuration(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_cloud_ldap_mappings_configuration(pro):
+    """
+    Ensures that update_cloud_ldap_mappings_configuration compeltes
+    successfully when used with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v2/cloud-ldaps/1001/mappings")))
+    assert (
+        pro.update_cloud_ldap_mappings_configuration(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_cloud_ldap_configuration(pro):
+    """
+    Ensures that delete_cloud_ldap_configuration completes successfully when
+    used with required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v2/cloud-ldaps/1001")))
+    assert (
+        pro.delete_cloud_ldap_configuration(1001)
+        == "Cloud LDAP configuration 1001 successfully deleted."
+    )
+
+
 """
 computer_groups
 """

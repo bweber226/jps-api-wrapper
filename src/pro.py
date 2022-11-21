@@ -1223,6 +1223,140 @@ class Pro(RequestBuilder):
     cloud-ldap
     """
 
+    def get_cloud_ldap_default_server_configuration(self, provider: str) -> dict:
+        """
+        Returns default server configuration for cloud identity provider by
+        provider name
+
+        :param provider: Cloud identity provider name
+        """
+        endpoint = f"/api/v2/cloud-ldaps/defaults/{provider}/server-configuration"
+
+        return self._get(endpoint)
+
+    def get_cloud_ldap_default_mappings(self, provider: str) -> dict:
+        """
+        Returns default mapping configuration for cloud identity provider
+        by provider name
+
+        :param provider: Cloud identity provider name
+        """
+        endpoint = f"/api/v2/cloud-ldaps/defaults/{provider}/mappings"
+
+        return self._get(endpoint)
+
+    def get_cloud_ldap_configuration(self, id: Union[int, str]) -> dict:
+        """
+        Returns the cloud identity provider configuration by ID
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}"
+
+        return self._get(endpoint)
+
+    def get_cloud_ldap_mappings(self, id: Union[int, str]) -> dict:
+        """
+        Returns the cloud identity provider mappings configuratiion by ID
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}/mappings"
+
+        return self._get(endpoint)
+
+    def get_cloud_ldap_connection_status(self, id: Union[int, str]) -> dict:
+        """
+        Returns the cloud identity provider connection status
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}/connection/status"
+
+        return self._get(endpoint)
+
+    def get_cloud_ldap_bind_connection_pool(self, id: Union[int, str]) -> dict:
+        """
+        Returns the cloud identity provider bind connection pool statistics
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}/connection/bind"
+
+        return self._get(endpoint)
+
+    def get_cloud_ldap_search_connection_pool(self, id: Union[int, str]) -> dict:
+        """
+        Returns the cloud identity provider search connection pool statistics
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}/connection/search"
+
+        return self._get(endpoint)
+
+    def create_cloud_ldap_configuration(self, data: dict) -> dict:
+        """
+        Creates new Cloud Identity Provider configuration with unique display
+        name. If mappings not provided, then defaults will be generated
+        instead.
+
+        :param data: JSON data to create the cloud LDAP configuration with
+        """
+        endpoint = "/api/v2/cloud-ldaps"
+
+        return self._post(endpoint, data)
+
+    def create_cloud_ldap_keystore_validation(self, data: dict) -> dict:
+        """
+        Validate keystore for Cloud Identity Provider secure connection
+
+        :param data: JSON data to create validation of keystore with
+        """
+        endpoint = "/api/v1/ldap-keystore/verify"
+
+        return self._post(endpoint, data)
+
+    def update_cloud_ldap_configuration(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates Cloud Identity Provider configuration. Cannot be used for
+        partial updates, all content body params must be sent.
+
+        :param data: JSON data to update the cloud LDAP configuration with
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}"
+
+        return self._put(endpoint, data)
+
+    def update_cloud_ldap_mappings_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates Cloud Identity Provider mappings configuration. Cannot be used
+        for partial updates, all content body params must be sent.
+
+        :param data:
+            JSON data to update the cloud LDAP mappings coniguration with
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}/mappings"
+
+        return self._put(endpoint, data)
+
+    def delete_cloud_ldap_configuration(self, id: Union[int, str]) -> str:
+        """
+        Deletes Cloud Identity Provider configuration.
+
+        :param id: Cloud identity provider ID
+        """
+        endpoint = f"/api/v2/cloud-ldaps/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Cloud LDAP configuration {id} successfully deleted.",
+        )
+
     """
     computer_groups
     """

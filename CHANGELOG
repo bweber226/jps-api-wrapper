@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.95.0] -- 2022-11-20
+### Added
+- Pro.get_cloud_ldap_default_server_configuration which returns default server configuration for cloud identity provider by provider name
+- Pro.get_cloud_ldap_default_mappings which returns default mapping configuration for cloud identity provider by provider name
+- Pro.get_cloud_ldap_configuration which returns the cloud identity provider configuration by ID
+- Pro.get_cloud_ldap_mappings which returns the cloud identity provider mappings configuratiion by ID
+- Pro.get_cloud_ldap_connection_status which returns the cloud identity provider connection status
+- Pro.get_cloud_ldap_bind_connection_pool which returns the cloud identity provider bind connection pool statistics
+- Pro.get_cloud_ldap_search_connection_pool which returns the cloud identity provider search connection pool statistics
+- Pro.create_cloud_ldap_configuration which creates new Cloud Identity Provider configuration with unique display name
+- Pro.create_cloud_ldap_keystore_validation which validates keystore for Cloud Identity Provider secure connection
+- Pro.update_cloud_ldap_configuration which updates Cloud Identity Provider configuration
+- Pro.update_cloud_ldap_mappings_configuration which updates Cloud Identity Provider mappings configuration
+- Pro.delete_cloud_ldap_configuration which deletes Cloud Identity Provider configuration
+
 ## [0.94.0] -- 2022-11-18
 ### Added
 - Pro.get_cloud_idps which returns basic informations about all configured Cloud Identitym Providers
@@ -12,9 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_cloud_idp_history which returns specified cloud identity provider history by ID
 - Pro.get_cloud_idp_export which returns CSV export of cloud identity providers collection
 - Pro.create_cloud_idp_history_note which creates specified cloud identity provider history note by ID
-- Pro.create_cloud_idp_group_test_search which creates a cloud identify provider group test search and returns result
-- Pro.create_cloud_idp_user_test_search which creates a cloud identify provider user test search and returns result
-- Pro.create_cloud_idp_user_membership_test_search which creates a cloud identify provider user membership test search and returns result
+- Pro.create_cloud_idp_group_test_search which creates a cloud identify provider group test search and returns the result
+- Pro.create_cloud_idp_user_test_search which creates a cloud identify provider user test search and returns the result
+- Pro.create_cloud_idp_user_membership_test_search which creates a cloud identify provider user membership test search and returns the result
 
 ## [0.93.0] -- 2022-11-18
 ### Added
