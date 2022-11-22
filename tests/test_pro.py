@@ -1483,8 +1483,76 @@ def test_delete_computer_inventory_attachment(pro):
 
 
 """
-computer-inventory-collection-settingsx
+computer-inventory-collection-settings
 """
+
+
+@responses.activate
+def test_get_computer_inventory_collection_settings(pro):
+    """
+    Ensures that get_computer_inventory_collection_settings returns JSON
+    when used
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/computer-inventory-collection-settings")
+        )
+    )
+    assert pro.get_computer_inventory_collection_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_computer_inventory_collection_settings(pro):
+    """
+    Ensures that create_computer_inventory_collection_settings_custom_path
+    completes successfully when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v1/computer-inventory-collection-settings/custom-path"),
+        )
+    )
+    assert (
+        pro.create_computer_inventory_collection_settings_custom_path(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_computer_inventory_collection_settings(pro):
+    """
+    Ensures that update_computer_inventory_collection_settings completes
+    successfully when used with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/api/v1/computer-inventory-collection-settings")
+        )
+    )
+    assert (
+        pro.update_computer_inventory_collection_settings(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_computer_inventory_collection_settings_custom_path(pro):
+    """
+    Ensures that delete_computer_inventory_collection_settings_custom_path
+    returns a success message when it completes successfully
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/api/v1/computer-inventory-collection-settings/custom-path/1001"),
+        )
+    )
+    assert pro.delete_computer_inventory_collection_settings_custom_path(1001) == (
+        "Computer inventory collection settings custom path 1001 "
+        "successfully deleted."
+    )
+
 
 """
 computer-prestages

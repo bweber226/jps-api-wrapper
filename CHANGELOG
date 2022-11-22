@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.98.0] -- 2022-11-22
+### Added
+- Pro.get_computer_inventory_collection_settings which returns computer inventory collection settings in JSON
+- Pro.create_computer_inventory_collection_settings_custom_path which creates a custom search path to use when collecting applications, fonts, and plug-ins
+- Pro.update_computer_inventory_collection_settings which updates computer inventory settings
+- Pro.delete_computer_inventory_collection_settings_custom_path which deletes Custom Path from Computer Inventory Collection Settings
+
 ## [0.97.0] -- 2022-11-21
 ### Added
 - Pro.get_computer_inventories which returns paginated list of computer inventory records

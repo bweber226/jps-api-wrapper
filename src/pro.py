@@ -1648,6 +1648,58 @@ class Pro(RequestBuilder):
     computer-inventory-collection-settings
     """
 
+    def get_computer_inventory_collection_settings(self) -> dict:
+        """
+        Returns computer inventory collection settings in JSON
+        """
+        endpoint = "/api/v1/computer-inventory-collection-settings"
+
+        return self._get(endpoint)
+
+    def create_computer_inventory_collection_settings_custom_path(
+        self, data: dict
+    ) -> dict:
+        """
+        Creates a custom search path to use when collecting applications,
+        fonts, and plug-ins.
+
+        :param data:
+            JSON data to create computer inventory collection settings  custom
+            path with
+        """
+        endpoint = "/api/v1/computer-inventory-collection-settings/custom-path"
+
+        return self._post(endpoint, data)
+
+    def update_computer_inventory_collection_settings(self, data: dict) -> dict:
+        """
+        Updates computer inventory settings
+
+        :param data:
+            JSON data to update computer inventory collection settings with
+        """
+        endpoint = "/api/v1/computer-inventory-collection-settings"
+
+        return self._put(endpoint, data)
+
+    def delete_computer_inventory_collection_settings_custom_path(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        Deletes Custom Path from Computer Inventory Collection Settings
+
+        :param id: Custom path ID
+        """
+        endpoint = f"/api/v1/computer-inventory-collection-settings/custom-path/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Computer inventory collection settings custom path {id} "
+                "successfully deleted."
+            ),
+        )
+
     """
     computer-prestages
     """
