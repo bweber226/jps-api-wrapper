@@ -1454,6 +1454,18 @@ def test_create_computer_inventory_attachment(pro):
 
 
 @responses.activate
+def test_update_computer_inventory(pro):
+    """
+    Ensures that update_computer_inventory runs successfully when used with
+    required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/computers-inventory-detail/1001"))
+    )
+    assert pro.update_computer_inventory(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
 def test_delete_computer_inventory(pro):
     """
     Ensures that delete_computer_inventory returns a str success message after
@@ -1557,6 +1569,134 @@ def test_delete_computer_inventory_collection_settings_custom_path(pro):
 """
 computer-prestages
 """
+
+
+@responses.activate
+def test_get_computer_prestages(pro):
+    """
+    Ensures that get_computer_prestages returns JSON when used with no optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/computer-prestages")))
+    assert pro.get_computer_prestages() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_prestages_optional_params(pro):
+    """
+    Ensure that get_computer_prestages returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/computer-prestages")))
+    assert (
+        pro.get_computer_prestages(0, 100, ["id:desc", "enrollmentCustomizationId:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_computer_prestage_scopes(pro):
+    """
+    Ensures that get_computer_prestage_scopes returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/computer-prestages/scope")))
+    assert pro.get_computer_prestage_scopes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_prestage(pro):
+    """
+    Ensures that get_computer_prestage returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/computer-prestages/1001")))
+    assert pro.get_computer_prestage(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_prestage_scope(pro):
+    """
+    Ensures that get_computer_prestage_scope returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/computer-prestages/1001/scope"))
+    )
+    assert pro.get_computer_prestage_scope(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_computer_prestage(pro):
+    """
+    Ensures that create_computer_prestage returns JSON when used with required
+    params and completes successfully
+    """
+    responses.add(response_builder("POST", jps_url("/api/v2/computer-prestages")))
+    assert pro.create_computer_prestage(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_computer_prestage_scope(pro):
+    """
+    Ensures that create_computer_prestage_scope returns JSON when it completes
+    successfully with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/computer-prestages/1001/scope"))
+    )
+    assert pro.create_computer_prestage_scope(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_computer_prestage(pro):
+    """
+    Ensures that update_computer_prestage returns JSON when completed
+    successfully with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v2/computer-prestages/1001")))
+    assert pro.update_computer_prestage(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_replace_computer_prestage_scope(pro):
+    """
+    Ensures that replace_computer_prestage_scope returns JSON when compelted
+    successfully with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v2/computer-prestages/1001/scope"))
+    )
+    assert pro.replace_computer_prestage_scope(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_computer_prestage(pro):
+    """
+    Ensures that delete_computer_prestage returns a success message str when
+    used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v2/computer-prestages/1001"))
+    )
+    assert (
+        pro.delete_computer_prestage(1001)
+        == "Computer prestage 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_computer_prestage_scope(pro):
+    """
+    Ensures that delete_computer_prestage_scope returns JSON when completed
+    successfully with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v2/computer-prestages/1001/scope/delete-multiple")
+        )
+    )
+    assert pro.delete_computer_prestage_scope(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
 
 """
 computers-preview

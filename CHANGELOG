@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+##[0.99.0] -- 2022-11-22
+### Added
+- Pro.get_computer_prestages which returns sorted and paged computer prestages
+- Pro.get_computer_prestage_scopes which returns all device scopes for all computer prestages
+- Pro.get_computer_prestage which returns a computer prestage with the supplied ID
+- Pro.get_computer_prestage_scope which returns device scope for a specified computer prestage by ID
+- Pro.create_computer_prestage which creates a computer prestage with supplied JSON data
+- Pro.create_computer_prestage_scope which adds device(s) to a specific computer prestage's scope by ID
+- Pro.update_computer_prestage updates a computer prestage by ID with JSON data
+- Pro.replace_computer_prestage_scope which replaces device scope for a specified computer prestag
+- Pro.delete_computer_prestage which deletes a computer prestage with the supplied ID
+- Pro.delete_computer_prestage_scope which removes device scope for a specified computer prestage by ID
+
 ## [0.98.0] -- 2022-11-22
 ### Added
 - Pro.get_computer_inventory_collection_settings which returns computer inventory collection settings in JSON

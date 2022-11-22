@@ -1704,6 +1704,126 @@ class Pro(RequestBuilder):
     computer-prestages
     """
 
+    def get_computer_prestages(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:desc"]
+    ) -> dict:
+        """
+        Returns sorted and paged computer prestages
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            is id:desc. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["id:desc", "enrollmentCustomizationId:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v2/computer-prestages"
+
+        return self._get(endpoint, params=params)
+
+    def get_computer_prestage_scopes(self) -> dict:
+        """
+        Returns all device scopes for all computer prestages
+        """
+        endpoint = "/api/v2/computer-prestages/scope"
+
+        return self._get(endpoint)
+
+    def get_computer_prestage(self, id: Union[int, str]) -> dict:
+        """
+        Returns a computer prestage with the supplied ID
+
+        :param id: Computer prestage ID
+        """
+        endpoint = f"/api/v2/computer-prestages/{id}"
+
+        return self._get(endpoint)
+
+    def get_computer_prestage_scope(self, id: Union[int, str]) -> dict:
+        """
+        Returns device scope for a specified computer prestage by ID
+
+        :param id: Computer prestage ID
+        """
+        endpoint = f"/api/v2/computer-prestages/{id}/scope"
+
+        return self._get(endpoint)
+
+    def create_computer_prestage(self, data: dict) -> dict:
+        """
+        Creates a computer prestage with supplied JSON data
+
+        :param data: JSON data to create computer prestage with
+        """
+        endpoint = "/api/v2/computer-prestages"
+
+        return self._post(endpoint, data)
+
+    def create_computer_prestage_scope(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Add device(s) to a specific computer prestage's scope by ID
+
+        :param data: JSON data to create the new computer prestage scope with
+        :param id: Computer prestage scope
+        """
+        endpoint = f"/api/v2/computer-prestages/{id}/scope"
+
+        return self._post(endpoint, data)
+
+    def update_computer_prestage(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a computer prestage by ID with JSON data
+
+        :param data: JSON data to update the computer prestage with
+        :param id: Computer prestage ID
+        """
+        endpoint = f"/api/v2/computer-prestages/{id}"
+
+        return self._put(endpoint, data)
+
+    def replace_computer_prestage_scope(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Replaces device scope for a specified computer prestage
+
+        :param data: JSON data to place the computer prestage scope with
+        :param id: Computer prestage ID
+        """
+        endpoint = f"/api/v2/computer-prestages/{id}/scope"
+
+        return self._put(endpoint, data)
+
+    def delete_computer_prestage(self, id: Union[int, str]) -> str:
+        """
+        Deletes a computer prestage with the supplied id
+
+        :param id: Computer prestage ID
+        """
+        endpoint = f"/api/v2/computer-prestages/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"Computer prestage {id} successfully deleted."
+        )
+
+    def delete_computer_prestage_scope(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Removes device scope for a specified computer prestage by ID
+
+        :param data: JSON data to remove the computer prestage scope with
+        :param id: Computer prestage ID
+        """
+        endpoint = f"/api/v2/computer-prestages/{id}/scope/delete-multiple"
+
+        return self._post(endpoint, data)
+
     """
     computers-preview
     """
