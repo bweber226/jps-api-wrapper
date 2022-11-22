@@ -1702,6 +1702,26 @@ def test_delete_computer_prestage_scope(pro):
 computers-preview
 """
 
+
+@responses.activate
+def test_get_computers(pro):
+    """
+    Ensures that get_computers returns JSON when completed with no optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/preview/computers")))
+    assert pro.get_computers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer(pro):
+    """
+    Ensures that get_computers returns JSON when used with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/preview/computers")))
+    assert pro.get_computers(0, 100, ["id:desc", "name:asc"])
+
+
 """
 conditional-access
 """

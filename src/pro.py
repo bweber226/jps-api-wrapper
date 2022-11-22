@@ -1770,7 +1770,7 @@ class Pro(RequestBuilder):
 
     def create_computer_prestage_scope(self, data: dict, id: Union[int, str]) -> dict:
         """
-        Add device(s) to a specific computer prestage's scope by ID
+        Adds device(s) to a specific computer prestage's scope by ID
 
         :param data: JSON data to create the new computer prestage scope with
         :param id: Computer prestage scope
@@ -1803,7 +1803,7 @@ class Pro(RequestBuilder):
 
     def delete_computer_prestage(self, id: Union[int, str]) -> str:
         """
-        Deletes a computer prestage with the supplied id
+        Deletes a computer prestage with the supplied ID
 
         :param id: Computer prestage ID
         """
@@ -1827,6 +1827,28 @@ class Pro(RequestBuilder):
     """
     computers-preview
     """
+
+    def get_computers(
+        self, page: int = None, page_size: int = None, section: List[str] = ["name:asc"]
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Returns a paginated list of computers
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param section:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            name:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "name:asc"]
+        """
+        endpoint = "/api/preview/computers"
+
+        return self._get(endpoint)
 
     """
     conditional-access
