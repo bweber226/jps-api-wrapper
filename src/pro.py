@@ -1854,6 +1854,30 @@ class Pro(RequestBuilder):
     conditional-access
     """
 
+    def get_conditional_access_computer(self, id: Union[int, str]) -> dict:
+        """
+        Returns basic compliance information for the given computer by ID
+
+        :param id: Computer ID
+        """
+        endpoint = (
+            f"/api/v1/conditional-access/device-compliance-information/computer/{id}"
+        )
+
+        return self._get(endpoint)
+
+    def get_conditional_access_mobile_device(self, id: Union[int, str]) -> dict:
+        """
+        Returns basic compliance information for the given mobile device by ID
+
+        :param id: Mobile device ID
+        """
+        endpoint = (
+            f"/api/v1/conditional-access/device-compliance-information/mobile/{id}"
+        )
+
+        return self._get(endpoint)
+
     """
     csa
     """

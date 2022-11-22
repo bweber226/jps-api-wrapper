@@ -1726,6 +1726,41 @@ def test_get_computer(pro):
 conditional-access
 """
 
+
+@responses.activate
+def test_get_conditional_access_computer(pro):
+    """
+    Ensures that get_conditional_access_computer returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v1/conditional-access/device-compliance-information/computer/1001"
+            ),
+        )
+    )
+    assert pro.get_conditional_access_computer(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_conditional_access_mobile_device(pro):
+    """
+    Ensures that get_conditional_access_mobile_device returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v1/conditional-access/device-compliance-information/mobile/1001"
+            ),
+        )
+    )
+    assert pro.get_conditional_access_mobile_device(1001) == EXPECTED_JSON
+
+
 """
 csa
 """
