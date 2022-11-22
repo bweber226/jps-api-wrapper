@@ -1765,6 +1765,44 @@ def test_get_conditional_access_mobile_device(pro):
 csa
 """
 
+
+@responses.activate
+def test_get_csa(pro):
+    """
+    Ensures that get_csa returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/csa/token")))
+    assert pro.get_csa() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_csa(pro):
+    """
+    Ensures that create_csa returns JSON when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/csa/token")))
+    assert pro.create_csa(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_csa(pro):
+    """
+    Ensures that update_csa returns JSON when used with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/csa/token")))
+    assert pro.update_csa(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_csa(pro):
+    """
+    Ensures that delete_csa returns a success message str when used with
+    required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/csa/token")))
+    assert pro.delete_csa() == "CSA Token Exchange successfully deleted."
+
+
 """
 departments
 """

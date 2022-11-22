@@ -1882,6 +1882,46 @@ class Pro(RequestBuilder):
     csa
     """
 
+    def get_csa(self) -> dict:
+        """
+        Returns details regarding the CSA token exchange
+        """
+        endpoint = "/api/v1/csa/token"
+
+        return self._get(endpoint)
+
+    def create_csa(self, data: dict) -> dict:
+        """
+        Initializes the CSA token exchange - This will allow Jamf Pro to
+        authenticate with cloud-hosted services
+
+        :param data: JSON data to initialize the CSA token exchange with
+        """
+        endpoint = "/api/v1/csa/token"
+
+        return self._post(endpoint, data)
+
+    def update_csa(self, data: dict) -> dict:
+        """
+        Re-initializes the CSA token exchange with new credentials
+
+        :param data: JSON data to re-initialize the CSA token exchange with
+        """
+        endpoint = "/api/v1/csa/token"
+
+        return self._put(endpoint, data)
+
+    def delete_csa(self) -> str:
+        """
+        Deletes the CSA token exchange - This will disable Jamf Pro's ability
+        to authenticate with cloud-hosted services
+        """
+        endpoint = "/api/v1/csa/token"
+
+        return self._delete(
+            endpoint, success_message="CSA Token Exchange successfully deleted."
+        )
+
     """
     departments
     """
