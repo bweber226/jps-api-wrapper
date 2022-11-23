@@ -1926,6 +1926,160 @@ class Pro(RequestBuilder):
     departments
     """
 
+    def get_departments(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns a paginated list of departments
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter department collection.
+            Default filter is empty query - returning all results for the
+            requested page. Fields allowed in the query: id, name.
+
+            Example: name=="department"
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/departments"
+
+        return self._get(endpoint, params=params)
+
+    def get_department(self, id: Union[int, str]) -> dict:
+        """
+        Returns specified department
+
+        :param id: Department ID
+        """
+        endpoint = f"/api/v1/departments/{id}"
+
+        return self._get(endpoint)
+
+    def get_department_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns specified, paginated department history
+
+        :param id: Department ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/departments/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_department(self, data: dict) -> dict:
+        """
+        Creates department record with JSON data
+
+        :param data: JSON data to create the department with
+        """
+        endpoint = "/api/v1/departments"
+
+        return self._post(endpoint, data)
+
+    def create_department_history_note(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Creates note in specifed department history with JSON data
+
+        :param data: JSON data to create department history note with
+        :param id: Department ID
+        """
+        endpoint = f"/api/v1/departments/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_department(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates specified department by ID with JSON data
+
+        :param data: JSON data to update department with
+        :param id: Department ID
+        """
+        endpoint = f"/api/v1/departments/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_department(
+        self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
+    ) -> str:
+        """
+        Deletes a department search by ID or IDS, use id for a single device
+        and ids to delete multiple.
+
+        :param id: Department ID
+        :param ids: List of department IDs
+        """
+        identifier_options = {"id": id, "ids": ids}
+        identification_type(identifier_options)
+        check_conflicting_params(identifier_options)
+        if id:
+            if enforce_type(id, (str, int)):
+                endpoint = f"/api/v1/departments/{id}"
+                return self._delete(
+                    endpoint,
+                    success_message=(f"Department {id} successfully deleted."),
+                )
+        if ids:
+            if enforce_type(ids, (List)):
+                ids = [str(id) for id in ids]
+                endpoint = "/api/v1/departments/delete-multiple"
+                return self._post(
+                    endpoint,
+                    data={"ids": ids},
+                    success_message=(
+                        f"Department(s) {', '.join(ids)} successfully deleted."
+                    ),
+                )
+
     """
     device-communication-settings
     """

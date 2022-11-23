@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.103.0] -- 2022-11-23
+### Added
+- Pro.get_departments which returns a paginated list of departments
+- Pro.get_department which returns specified department
+- Pro.get_department_history which returns specified, paginated department history
+- Pro.create_department which creates department record with JSON data
+- Pro.create_department_history_note which creates note in specifed department history with JSON data
+- Pro.update_department which updates specified department by ID with JSON data
+- Pro.delete_department which deletes a department search by ID or IDS, use id for a single device and ids to delete multiple.
+
 ## [0.102.0] -- 2022-11-22
 ### Added
 - Pro.get_csa which returns details regarding the CSA token exchange

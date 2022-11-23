@@ -1807,6 +1807,118 @@ def test_delete_csa(pro):
 departments
 """
 
+
+@responses.activate
+def test_get_departments(pro):
+    """
+    Ensures that get_departments returns JSON when used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/departments")))
+    assert pro.get_departments() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_departments_optional_params(pro):
+    """
+    Ensures that get_departments returns JSON when used with optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/departments")))
+    assert (
+        pro.get_departments(0, 100, ["id:desc", "name:asc"], 'name=="department"')
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_department(pro):
+    """
+    Ensures that get_department returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/departments/1001")))
+    assert pro.get_department(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_department_history(pro):
+    """
+    Ensures that get_department_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/departments/1001/history")))
+    assert pro.get_department_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_department_history_optional_params(pro):
+    """
+    Ensures that get_department_history returns JSON when used with all
+    optional parrams
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/departments/1001/history")))
+    assert pro.get_department_history(
+        1001,
+        0,
+        100,
+        ["date:desc", "name:asc"],
+        "username!=admin and details==disabled and date<2019-12-15",
+    )
+
+
+@responses.activate
+def test_create_department(pro):
+    """
+    Ensures that create_department returns JSON when used with required params
+    and completes successfully
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/departments")))
+    assert pro.create_department(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_department_history_note(pro):
+    """
+    Ensures that create_department_history_note returns JSON when used with
+    required params and completes successfully
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/departments/1001/history")))
+    assert pro.create_department_history_note(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_department(pro):
+    """
+    Ensures that update_department returns JSON when used with required params
+    and completes successfully
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/departments/1001")))
+    assert pro.update_department(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_department_id(pro):
+    """
+    Ensures that delete_department returns a success message str when used
+    with id
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/departments/1001")))
+    assert pro.delete_department(1001) == "Department 1001 successfully deleted."
+
+
+@responses.activate
+def test_delete_department_ids(pro):
+    """
+    Ensures that delete_department returns a success message str when used with
+    ids
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/departments/delete-multiple"))
+    )
+    assert (
+        pro.delete_department(ids=[1001, 1002])
+        == "Department(s) 1001, 1002 successfully deleted."
+    )
+
+
 """
 device-communication-settings
 """
