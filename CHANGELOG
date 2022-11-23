@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.104.0] -- 2022-11-23
+### Added
+- Pro.get_device_communication_settings which returns all device communication settings, including automatic renewal of the MDM profile.
+- Pro.get_device_communication_settings_history which returns paginated device communication settings history
+- Pro.create_device_communication_settings_history_note which creates a note on the device communication settings history by JSON data
+- Pro.update_device_communication_settings which updates device communication settings with JSON
+
 ## [0.103.0] -- 2022-11-23
 ### Added
 - Pro.get_departments which returns a paginated list of departments

@@ -1923,6 +1923,83 @@ def test_delete_department_ids(pro):
 device-communication-settings
 """
 
+
+@responses.activate
+def test_get_device_communication_settings(pro):
+    """
+    Ensures that get_device_communication_settings returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/device-communication-settings"))
+    )
+    assert pro.get_device_communication_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_communication_settings_history(pro):
+    """
+    Ensures that get_device_communication_settings_history returns JSON when
+    used without
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/device-communication-settings/history")
+        )
+    )
+    assert pro.get_device_communication_settings_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_communication_settings_history_optional_params(pro):
+    """
+    Ensures that get_device_communication_settings_history returns JSON when
+    used with optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/device-communication-settings/history")
+        )
+    )
+    assert (
+        pro.get_device_communication_settings_history(
+            0,
+            100,
+            ["date:desc", "name:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_device_communication_settings_history_note(pro):
+    """
+    Ensures that create_device_communication_settings_history_note returns JSON
+    when completed succesfully
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/device-communication-settings/history")
+        )
+    )
+    assert (
+        pro.create_device_communication_settings_history_note(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_device_communication_settings(pro):
+    """
+    Ensures that update_device_communication_settings returns JSON when
+    completed successfully with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/device-communication-settings"))
+    )
+    assert pro.update_device_communication_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 device-enrollments
 """
