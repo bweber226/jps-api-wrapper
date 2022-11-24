@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.105.0] -- 2022-11-24
+### Added
+- Pro.get_device_enrollments which returns sorted and paged device enrollment instances
+- Pro.get_device_enrollment which returns a device enrollment instance with the supplied ID
+- Pro.get_device_enrollment_history which returns sorted and paged device enrollment history by ID in JSON
+- Pro.get_device_enrollments_public_key which returns the Jamf Pro device enrollment public key in a string
+- Pro.get_device_enrollments_instance_sync_states which returns all device enrollments instance sync states
+- Pro.get_device_enrollment_instance_sync_states which returns all instance sync states for a single instance by ID
+- Pro.get_device_enrollment_instance_sync_state_latest which returns the latest sync state for a single device enrollment
+- Pro.create_device_enrollment which creates a device enrollment instance with JSON data
+- Pro.create_device_enrollment_history_note which creates a device enrollment history note by ID with JSON data
+- Pro.update_device_enrollment which updates a Device Enrollment Instance by ID with JSON data
+- Pro.update_device_enrollment_token which updates a device enrollment instance with the supplied token by ID with JSON
+- Pro.delete_device_enrollment which deletes a device enrollment instance by ID
+- Pro.delete_device_enrollment_device which disowns devices from the given device enrollment instance by ID with JSON
+
 ## [0.104.0] -- 2022-11-23
 ### Added
 - Pro.get_device_communication_settings which returns all device communication settings, including automatic renewal of the MDM profile.

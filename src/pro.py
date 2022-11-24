@@ -2159,6 +2159,193 @@ class Pro(RequestBuilder):
     device-enrollments
     """
 
+    def get_device_enrollments(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"]
+    ) -> dict:
+        """
+        Returns sorted and paged device enrollment instances
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "name:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/device-enrollments"
+
+        return self._get(endpoint, params=params)
+
+    def get_device_enrollment(self, id: Union[int, str]) -> dict:
+        """
+        Returns a device enrollment instance with the supplied ID
+
+        :param id: Device enrollment instance ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}"
+
+        return self._get(endpoint)
+
+    def get_device_enrollment_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted and paged device enrollment history by ID in JSON
+
+        :param id: Device enrollment instance ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default search is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/device-enrollments/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_device_enrollments_public_key(self) -> str:
+        """
+        Returns the Jamf Pro device enrollment public key in a string
+        """
+        endpoint = "/api/v1/device-enrollments/public-key"
+
+        return self._get(endpoint, data_type=None)
+
+    def get_device_enrollments_instance_sync_states(self) -> dict:
+        """
+        Returns all device enrollments instance sync states
+        """
+        endpoint = "/api/v1/device-enrollments/syncs"
+
+        return self._get(endpoint)
+
+    def get_device_enrollment_instance_sync_states(self, id: Union[int, str]) -> dict:
+        """
+        Returns all instance sync states for a single instance by ID
+
+        :param id: Device enrollment ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}/syncs"
+
+        return self._get(endpoint)
+
+    def get_device_enrollment_instance_sync_state_latest(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns the latest sync state for a single device enrollment
+
+        :param id: Device enrollment ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}/syncs/latest"
+
+        return self._get(endpoint)
+
+    def create_device_enrollment(self, data: dict) -> dict:
+        """
+        Creates a device enrollment instance with JSON data
+
+        :param data: JSON data to create the device enrollment instance with
+        """
+        endpoint = "/api/v1/device-enrollments/upload-token"
+
+        return self._post(endpoint, data)
+
+    def create_device_enrollment_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a device enrollment history note by ID with JSON data
+
+        :param data:
+            JSON data to create the device enrollment history note with
+        :param id: Device enrollment ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_device_enrollment(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a Device Enrollment Instance by ID with JSON data
+
+        :param data: JSON data to update device enrollment instance with
+        :param id: Device enrollment ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}"
+
+        return self._put(endpoint, data)
+
+    def update_device_enrollment_token(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a device enrollment instance with the supplied token by ID with
+        JSON
+
+        :param data: JSON data to update device enrollment instance with
+        :param id: Device enrollment ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}/upload-token"
+
+        return self._put(endpoint, data)
+
+    def delete_device_enrollment(self, id: Union[int, str]) -> str:
+        """
+        Deletes a device enrollment instance by ID
+
+        :param id: Device enrollment ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Device enrollment instance {id} successfully deleted.",
+        )
+
+    def delete_device_enrollment_device(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Disowns devices from the given device enrollment instance by ID with
+        JSON
+
+        :param data: JSON data to disown device enrollment devices with
+        :param id: Device Enrollment ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}/disown"
+
+        return self._post(endpoint, data)
+
     """
     device-enrollments-devices
     """

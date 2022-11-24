@@ -2004,6 +2004,188 @@ def test_update_device_communication_settings(pro):
 device-enrollments
 """
 
+
+@responses.activate
+def test_get_device_enrollments(pro):
+    """
+    Ensures that get_device_enrollments returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/device-enrollments")))
+    assert pro.get_device_enrollments() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_enrollments_optional_params(pro):
+    """
+    Ensures that get_device_enrollments returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/device-enrollments")))
+    assert pro.get_device_enrollments(0, 100, ["id:desc", "name:asc"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_enrollment(pro):
+    """
+    Ensures that get_device_enrollment returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/device-enrollments/1001")))
+    assert pro.get_device_enrollment(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_enrollment_history(pro):
+    """
+    Ensures that get_device_enrollment_history returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/device-enrollments/1001/history"))
+    )
+    assert pro.get_device_enrollment_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_enrollment_history_optional_params(pro):
+    """
+    Ensures that get_device_enrollment_history returns JSON when used with all
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/device-enrollments/1001/history"))
+    )
+    assert (
+        pro.get_device_enrollment_history(
+            1001,
+            0,
+            100,
+            ["date:desc", "name:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_device_enrollments_public_key(pro):
+    """
+    Ensures that get_device_enrollments_public_key returns a str when used
+    """
+    responses.add("GET", jps_url("/api/v1/device-enrollments/public-key"), status=200)
+    assert pro.get_device_enrollments_public_key() == ""
+
+
+@responses.activate
+def test_get_device_enrollments_instance_sync_states(pro):
+    """
+    Ensures that get_device_enrollments_instance_sync_states returns JSON when
+    used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/device-enrollments/syncs")))
+    assert pro.get_device_enrollments_instance_sync_states() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_enrollment_instance_sync_states(pro):
+    """
+    Ensures that get_device_enrollment_instance_sync_states returns JSON when
+    with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/device-enrollments/1001/syncs"))
+    )
+    assert pro.get_device_enrollment_instance_sync_states(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_device_enrollment_instance_sync_state_latest(pro):
+    """
+    Ensures that get_device_enrollment_instance_sync_state_latest returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/device-enrollments/1001/syncs/latest"))
+    )
+    assert pro.get_device_enrollment_instance_sync_state_latest(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_device_enrollment(pro):
+    """
+    Ensures that create_device_enrollment returns JSON when completed
+    successfully
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/device-enrollments/upload-token"))
+    )
+    assert pro.create_device_enrollment(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_device_enrollment_history_note(pro):
+    """
+    Ensures that create_device_enrollment_history_note returns JSON when it
+    completes successfully with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/device-enrollments/1001/history"))
+    )
+    assert (
+        pro.create_device_enrollment_history_note(EXPECTED_JSON, 1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_device_enrollment(pro):
+    """
+    Ensures that update_device_enrollment returns JSON when completed
+    successfully with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/device-enrollments/1001")))
+    assert pro.update_device_enrollment(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_device_enrollment_token(pro):
+    """
+    Ensures that update_device_enrollment_token returns JSON when completed
+    successfully with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/device-enrollments/1001/upload-token"))
+    )
+    assert pro.update_device_enrollment_token(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_device_enrollment(pro):
+    """
+    Ensures that delete_device_enrollment returns a success message str
+    when completed successfully
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v1/device-enrollments/1001"))
+    )
+    assert (
+        pro.delete_device_enrollment(1001)
+        == "Device enrollment instance 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_device_enrollment_device(pro):
+    """
+    Ensures that delete_device_enrollment_device returns JSON when used with
+    required params and it completes successfully
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/device-enrollments/1001/disown"))
+    )
+    assert pro.delete_device_enrollment_device(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
 """
 device-enrollments-devices
 """
