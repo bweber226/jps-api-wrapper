@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.108.0] -- 2022-11-24
+### Added
+- Pro.get_engage_settings which returns Engage settings
+- Pro.get_engage_settings_history which returns Engage settings history
+- Pro.create_engage_settings_history_note which creates Engage settings history notes with JSON
+- Pro.update_engage_settings which updates Engage settings with JSON
+
 ## [0.107.0] -- 2022-11-24
 ### Added
 - Pro.get_ebooks which returns sorted, paginated list of all eBooks

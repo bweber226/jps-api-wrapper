@@ -2414,6 +2414,73 @@ class Pro(RequestBuilder):
     engage
     """
 
+    def get_engage_settings(self) -> dict:
+        """
+        Returns Engage settings
+        """
+        endpoint = "/api/v1/engage"
+
+        return self._get(endpoint)
+
+    def get_engage_settings_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns Engage settings history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default search is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/engage/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_engage_settings_history_note(self, data: dict) -> dict:
+        """
+        Creates Engage settings history notes with JSON
+
+        :param data: JSON data to create Engage settings history notes with
+        """
+        endpoint = "/api/v1/engage/history"
+
+        return self._post(endpoint, data)
+
+    def update_engage_settings(self, data: dict) -> dict:
+        """
+        Updates Engage settings with JSON
+
+        :param data: JSON data to update the engage settings with
+        """
+        endpoint = "/api/v1/engage"
+
+        return self._put(endpoint, data)
+
     """
     enrollment
     """

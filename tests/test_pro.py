@@ -2249,6 +2249,64 @@ def test_get_ebook_scope(pro):
 engage
 """
 
+
+@responses.activate
+def test_get_engage_settings(pro):
+    """
+    Ensures that get_engage_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/engage")))
+    assert pro.get_engage_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_engage_settings_history(pro):
+    """
+    Ensures that get_engage_settings_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/engage/history")))
+    assert pro.get_engage_settings_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_engage_settings_history_optional_params(pro):
+    """
+    Ensures that get_engage_settings_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/engage/history")))
+    assert (
+        pro.get_engage_settings_history(
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_engage_settings_history_note(pro):
+    """
+    Ensures that create_engage_settings_history_note returns JSON when
+    completes successfully with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/engage/history")))
+    assert pro.create_engage_settings_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_engage_settings(pro):
+    """
+    Ensures that update_engage_settings returns JSON when completed
+    successfully with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/engage")))
+    assert pro.update_engage_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 enrollment
 """
