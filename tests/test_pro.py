@@ -2207,6 +2207,44 @@ def test_get_device_enrollments_devices(pro):
 ebooks
 """
 
+
+@responses.activate
+def test_get_ebooks(pro):
+    """
+    Ensures that get_ebooks returns JSON when used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/ebooks")))
+    assert pro.get_ebooks() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ebooks_optional_params(pro):
+    """
+    Ensures that get_ebooks returns JSON when used with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/ebooks")))
+    assert pro.get_ebooks(0, 100, ["id:desc", "name:asc"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ebook(pro):
+    """
+    Ensures that get_ebook returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/ebooks/1001")))
+    assert pro.get_ebook(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ebook_scope(pro):
+    """
+    Ensures that get_ebook_scope returns JSON when used with the required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/ebooks/1001/scope")))
+    assert pro.get_ebook_scope(1001) == EXPECTED_JSON
+
+
 """
 engage
 """

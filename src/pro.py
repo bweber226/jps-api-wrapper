@@ -2373,7 +2373,42 @@ class Pro(RequestBuilder):
         :param page: Page to return, default page is 0.
         :param page_size: Page size to return Default page-size is 100.
         :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            name:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "name:asc"]
         """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/ebooks"
+
+        return self._get(endpoint, params=params)
+
+    def get_ebook(self, id: Union[int, str]) -> dict:
+        """
+        Returns the specified eBook by ID
+
+        :param id: eBook ID
+        """
+        endpoint = f"/api/v1/ebooks/{id}"
+
+        return self._get(endpoint)
+
+    def get_ebook_scope(self, id: Union[int, str]) -> dict:
+        """
+        Returns the scope of the specified eBook by ID
+
+        :param id: eBook ID
+        """
+        endpoint = f"/api/v1/ebooks/{id}/scope"
+
+        return self._get(endpoint)
 
     """
     engage
