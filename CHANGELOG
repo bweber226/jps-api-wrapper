@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.106.0] -- 2022-11-24
+### Added
+- Pro.get_device_enrollments_devices which returns all devices assigned to the device enrollment instance by ID
+
 ## [0.105.0] -- 2022-11-24
 ### Added
 - Pro.get_device_enrollments which returns sorted and paged device enrollment instances

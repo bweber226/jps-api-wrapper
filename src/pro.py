@@ -2350,9 +2350,30 @@ class Pro(RequestBuilder):
     device-enrollments-devices
     """
 
+    def get_device_enrollments_devices(self, id: Union[int, str]) -> dict:
+        """
+        Returns all devices assigned to the device enrollment instance by ID
+
+        :param id: Device enrollment instance ID
+        """
+        endpoint = f"/api/v1/device-enrollments/{id}/devices"
+
+        return self._get(endpoint)
+
     """
     ebooks
     """
+
+    def get_ebooks(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["name:asc"]
+    ) -> dict:
+        """
+        Returns sorted, paginated list of all eBooks
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+        """
 
     """
     engage

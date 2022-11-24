@@ -2190,6 +2190,19 @@ def test_delete_device_enrollment_device(pro):
 device-enrollments-devices
 """
 
+
+@responses.activate
+def test_get_device_enrollments_devices(pro):
+    """
+    Ensures that get_device_enrollments_devices returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/device-enrollments/1001/devices"))
+    )
+    assert pro.get_device_enrollments_devices(1001) == EXPECTED_JSON
+
+
 """
 ebooks
 """
