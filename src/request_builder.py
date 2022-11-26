@@ -107,10 +107,16 @@ class RequestBuilder:
         response = self.session.get(full_url, headers=headers)
         self._raise_recognized_errors(response)
         response.raise_for_status()
-
-        filename = re.findall(
-            '(?<=filename=").*(?=")', response.headers.get("content-disposition")
-        )[0]
+        try:
+            filename = re.findall(
+                '(?<=filename=").*(?=")', response.headers.get("content-disposition")
+            )[0]
+        except TypeError:
+            filename = "jamf-download"
+            if "image" in response.headers.get("Content-type"):
+                filename = (
+                    filename + "." + response.headers.get("Content-type").split("/")[-1]
+                )
         filepath = expanduser(f"~/Downloads/{filename}")
         if exists(filepath):
             original_filepath = filepath
@@ -164,14 +170,8 @@ class RequestBuilder:
 
         :raises InvalidDataType:
             data_type is not json or xml
-        :raises ContentTypeAndFile:
-            Content-type and file were both sent to the post module
         """
         full_url = self.base_url + quote(endpoint)
-        if file and data_type:
-            raise ContentTypeAndFile(
-                "The post request cannot use both file and content-type headers."
-            )
         if not file:
             if not headers:
                 headers = {"Content-type": f"application/{data_type}"}
@@ -317,10 +317,4 @@ class RequestTimedOut(Exception):
     """
     The request timed out, check if you can load the endpoint in the GUI.
     Jamf's response code was 502.
-    """
-
-
-class ContentTypeAndFile(Exception):
-    """
-    The post request cannot use both file and content-type headers.
     """

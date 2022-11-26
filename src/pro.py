@@ -1597,8 +1597,6 @@ class Pro(RequestBuilder):
         return self._post(
             endpoint,
             file=file,
-            data_type=None,
-            success_message="File uploaded successfully.",
         )
 
     def update_computer_inventory(self, data: dict, id: Union[int, str]) -> dict:
@@ -2808,6 +2806,158 @@ class Pro(RequestBuilder):
     """
     enrollment-customization
     """
+
+    def get_enrollment_customizations(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"]
+    ) -> dict:
+        """
+        Returns sorted and paged enrollment customizations
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "displayName:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v2/enrollment-customizations"
+
+        return self._get(endpoint, params=params)
+
+    def get_enrollment_customization(self, id: Union[int, str]) -> dict:
+        """
+        Returns an enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v2/enrollment-customizations/{id}"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+    ) -> dict:
+        """
+        Returns sorted and paged enrollment customization history by ID
+
+        :param id: Enrollment customization ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["date:desc", "note:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = f"/api/v2/enrollment-customizations/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_enrollment_customization_prestages(self, id: Union[int, str]) -> dict:
+        """
+        Returns prestages using the specified enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v2/enrollment-customizations/{id}/prestages"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_image(self, id: Union[int, str]) -> dict:
+        """
+        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
+
+        Downloads the specified enrollment customization image to the current
+        users Downloads folder
+
+        :param id: Enrollment customization image ID
+        """
+        endpoint = f"/api/v2/enrollment-customizations/images/{id}"
+
+        return self._download(endpoint)
+
+    def create_enrollment_customization(self, data: dict) -> dict:
+        """
+        Creates an enrollment customization with JSON data
+
+        :param data: JSON data to create the enrollment customization with
+        """
+        endpoint = "/api/v2/enrollment-customizations"
+
+        return self._post(endpoint, data)
+
+    def create_enrollment_customization_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates enrollment customization history note with JSON data by ID
+
+        :param data:
+            JSON data to create the enrollment customization history note with
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v2/enrollment-customizations/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def create_enrollment_customization_image(self, filepath: str) -> dict:
+        """
+        Uploads an enrollment customization image
+
+        :param filepath: Filepath to the file to upload
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+
+        endpoint = "/api/v2/enrollment-customizations/images"
+
+        return self._post(endpoint, file=file)
+
+    def update_enrollment_customization(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates an enrollment customization by ID with JSON data
+
+        :param data: JSON data to update enrollment customization with
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v2/enrollment-customizations/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_enrollment_customization(self, id: Union[int, str]) -> str:
+        """
+        Deletes an enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v2/enrollment-customizations/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Enrollment customization {id} successfully deleted.",
+        )
 
     """
     enrollment-customization-preview

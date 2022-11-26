@@ -1446,10 +1446,13 @@ def test_create_computer_inventory_attachment(pro):
     read_data = "Test document content"
     mock_open = mock.mock_open(read_data=read_data)
     with mock.patch("builtins.open", mock_open):
-        responses.add("POST", jps_url("/api/v1/computers-inventory/1001/attachments"))
+        responses.add(
+            response_builder(
+                "POST", jps_url("/api/v1/computers-inventory/1001/attachments")
+            )
+        )
         assert (
-            pro.create_computer_inventory_attachment("/file.txt", 1001)
-            == "File uploaded successfully."
+            pro.create_computer_inventory_attachment("/file.txt", 1001) == EXPECTED_JSON
         )
 
 
@@ -2586,6 +2589,177 @@ def test_delete_enrollment_language_messaging_ids(pro):
 """
 enrollment-customization
 """
+
+
+@responses.activate
+def test_get_enrollment_customizations(pro):
+    """
+    Ensures that get_enrollment_customization returns JSON when used without
+    optoonal params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/enrollment-customizations")))
+    assert pro.get_enrollment_customizations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customizations_optional_params(pro):
+    """
+    Ensures that get_enrollment_customization returns JSON when used with all
+    optoonal params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/enrollment-customizations")))
+    assert (
+        pro.get_enrollment_customizations(0, 100, ["id:desc", "displayName:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_enrollment_customization(pro):
+    """
+    Ensures that get_enrollment_customization returns JSON when completed
+    successfully
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/enrollment-customizations/1001"))
+    )
+    assert pro.get_enrollment_customization(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_history(pro):
+    """
+    Ensures that get_enrollment_customization_history returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/enrollment-customizations/1001/history")
+        )
+    )
+    assert pro.get_enrollment_customization_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_history_optional_params(pro):
+    """
+    Ensures that get_enrollment_customization_history returns JSON when used
+    with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/enrollment-customizations/1001/history")
+        )
+    )
+    assert (
+        pro.get_enrollment_customization_history(
+            1001, 0, 100, ["date:desc", "note:asc"]
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_enrollment_customization_prestages(pro):
+    """
+    Ensures that get_enrollment_customization_prestages returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/enrollment-customizations/1001/prestages")
+        )
+    )
+    assert pro.get_enrollment_customization_prestages(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_image(pro):
+    """
+    Ensures that get_enrollment_customization_image raises NotFound when
+    a 404 HTTPError is returned
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/enrollment-customizations/images/1001"), status=404
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_enrollment_customization_image(1001)
+
+
+@responses.activate
+def test_create_enrollment_customization(pro):
+    """
+    Ensures that create_enrollment_customization returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/enrollment-customizations"))
+    )
+    assert pro.create_enrollment_customization(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_enrollment_customization_history_note(pro):
+    """
+    Ensures that create_enrollment_history_note returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v2/enrollment-customizations/1001/history")
+        )
+    )
+    assert (
+        pro.create_enrollment_customization_history_note(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_enrollment_customization_image(pro):
+    """
+    Ensures that create_enrollment_customization_image returns a success
+    message str when used with required params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder(
+                "POST", jps_url("/api/v2/enrollment-customizations/images")
+            )
+        )
+        assert pro.create_enrollment_customization_image("/file.jpg") == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_enrollment_customization(pro):
+    """
+    Ensures that update_enrollment_customization returns JSON when used with
+    all required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v2/enrollment-customizations/1001"))
+    )
+    assert pro.update_enrollment_customization(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_enrollment_customization(pro):
+    """
+    Ensures that delete_enrollment_customization returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v2/enrollment-customizations/1001"))
+    )
+    assert (
+        pro.delete_enrollment_customization(1001)
+        == "Enrollment customization 1001 successfully deleted."
+    )
+
 
 """
 enrollment-customization-preview
