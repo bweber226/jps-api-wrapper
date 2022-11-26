@@ -2052,8 +2052,8 @@ class Pro(RequestBuilder):
         self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
     ) -> str:
         """
-        Deletes a department search by ID or IDS, use id for a single device
-        and ids to delete multiple.
+        Deletes a department search by ID or IDS, use id for a single
+        department and ids to delete multiple.
 
         :param id: Department ID
         :param ids: List of department IDs
@@ -2484,6 +2484,326 @@ class Pro(RequestBuilder):
     """
     enrollment
     """
+
+    def get_enrollment_settings(self) -> dict:
+        """
+        Returns Enrollment object and re-enrollment settings
+        """
+        endpoint = "/api/v2/enrollment"
+
+        return self._get(endpoint)
+
+    def get_enrollment_history(
+        self, page: int = None, page_size: int = None, sort: List[str] = None
+    ) -> dict:
+        """
+        Returns sorted and paged enrollment history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            is date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v2/enrollment/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_enrollment_history_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns CSV export of enrollment history collection
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Example: ["id", "username"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: ["identifier", "name" with matching export-fields
+            ["id", "username"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:desc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "note:asc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name.
+            This param can be combined with paging and sorting.
+
+            Example: username!="admin"
+        """
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = "/api/v2/enrollment/history/export"
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def get_enrollment_adue_session_token_settings(self):
+        """
+        Returns the Account Driven User Enrollment Session Token Settings
+        """
+        endpoint = "/api/v1/adue-session-token-settings"
+
+        return self._get(endpoint)
+
+    def get_enrollment_ldap_groups(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = None,
+        all_users_option_first: bool = False,
+    ) -> dict:
+        """
+        Returns the configured LDAP groups configured for user-initiated
+        enrollment
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            name:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["name:asc"]
+
+        :param all_users_opton_first:
+            Return "All LDAP Users" option on the first position if it is
+            present in the current page
+
+            Options: True or False
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "all-users-option-first": all_users_option_first,
+            }
+        )
+        endpoint = "/api/v3/enrollment/access-groups"
+
+        return self._get(endpoint, params=params)
+
+    def get_enrollment_ldap_group(self, id: Union[int, str]) -> dict:
+        """
+        Returns the configured LDAP group configured for User-Initiated
+        Enrollment by ID
+        """
+        endpoint = f"/api/v3/enrollment/access-groups/{id}"
+
+        return self._get(endpoint)
+
+    def get_enrollment_languages_messaging(
+        self, page: int = None, page_size: int = None, sort: List[str] = None
+    ) -> dict:
+        """
+        Returns the language codes that have enrollment messaging currently
+        configured
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            languageCode:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["languageCode:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v3/enrollment/languages"
+
+        return self._get(endpoint, params=params)
+
+    def get_enrollment_language_messaging(self, languageId: str) -> dict:
+        """
+        Returns the enrollment messaging for a language
+
+        :param languageId:
+            Two letter ISO 639-1 Language Code
+
+            Example: en
+        """
+        endpoint = f"/api/v3/enrollment/languages/{languageId}"
+
+        return self._get(endpoint)
+
+    def get_enrollment_language_codes(self) -> dict:
+        """
+        Returns all languages and corresponding ISO 639-1 codes
+        """
+        endpoint = "/api/v3/enrollment/language-codes"
+
+        return self._get(endpoint)
+
+    def get_enrollment_unused_language_codes(self) -> dict:
+        """
+        Returns languages and corresponding ISO 639-1 Codes, but only those not
+        already added to enrollment
+        """
+        endpoint = "/api/v3/enrollment/filtered-language-codes"
+
+        return self._get(endpoint)
+
+    def create_enrollment_history_note(self, data: dict) -> dict:
+        """
+        Creates enrollment history object note with JSON data
+
+        :param date: JSON data to create the enrollment history note with
+        """
+        endpoint = "/api/v2/enrollment/history"
+
+        return self._post(endpoint, data)
+
+    def create_enrollment_ldap_group(self, data: dict) -> dict:
+        """
+        Creates the configured LDAP group for user-initiated enrollment with
+        JSON data
+
+        :param data: JSON data to create the enrollment LDAP group with
+        """
+        endpoint = "/api/v3/enrollment/access-groups"
+
+        return self._post(endpoint, data)
+
+    def update_enrollment_settings(self, data: dict) -> dict:
+        """
+        Updates enrollment settings with JSON data
+
+        :param data: JSON data to update the enrollment settings with
+        """
+        endpoint = "/api/v2/enrollment"
+
+        return self._put(endpoint, data)
+
+    def update_enrollment_adue_session_token_settings(self, data: dict) -> dict:
+        """
+        Updates the account driven user enrollment session token settings
+
+        :param data:
+            JSON data to update the enrollment ADUE session token settings with
+        """
+        endpoint = "/api/v1/adue-session-token-settings"
+
+        return self._put(endpoint, data)
+
+    def update_enrollment_ldap_group(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates the configured LDAP groups configured for user-initiated
+        enrollment by ID with JSON data
+
+        :param data: JSON data to update the enrollment LDAP group with
+        :param id: Enrollment LDAP group ID
+        """
+        endpoint = f"/api/v3/enrollment/access-groups/{id}"
+
+        return self._put(endpoint, data)
+
+    def update_enrollment_language_messaging(self, data: dict, languageId: str) -> dict:
+        """
+        Updates enrollment messaging for a specified language by languageId
+
+        :param languageId: Two letter ISO 639-1 Language Code
+        """
+        endpoint = f"/api/v3/enrollment/languages/{languageId}"
+
+        return self._put(endpoint, data)
+
+    def delete_enrollment_ldap_group(self, id: Union[int, str]) -> str:
+        """
+        Deletes an LDAP group's access to user initiated enrollment. The group
+        "All LDAP Users" cannot be deleted, but it can be modified to disallow
+        User-Initiated Enrollment.
+
+        :param id: Enrollment LDAP group ID
+        """
+        endpoint = f"/api/v3/enrollment/access-groups/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Enrollment LDAP group {id} successfully deleted.",
+        )
+
+    def delete_enrollment_language_messaging(
+        self, languageId: str = None, languageIds: List[str] = None
+    ) -> str:
+        """
+        Deletes a enrollment language messaging search by language ID or IDS,
+        use languageId for a single language and languageIds to delete multiple
+
+        :param id: Enrollment language ID, two letter ISO 639-1 Language Code
+        :param ids:
+            List of enrollment language IDs, two letter ISO 639-1 Language Code
+        """
+        identifier_options = {"id": languageId, "ids": languageIds}
+        identification_type(identifier_options)
+        check_conflicting_params(identifier_options)
+        if languageId:
+            if enforce_type(languageId, (str)):
+                endpoint = f"/api/v3/enrollment/languages/{languageId}"
+                return self._delete(
+                    endpoint,
+                    success_message=(
+                        f"Enrollment language messaging for {languageId} "
+                        "successfully deleted."
+                    ),
+                )
+        if languageIds:
+            if enforce_type(languageIds, (List)):
+                endpoint = "/api/v3/enrollment/languages/delete-multiple"
+                return self._post(
+                    endpoint,
+                    data={"ids": languageIds},
+                    success_message=(
+                        f"Enrollment language messaging for {', '.join(languageIds)} "
+                        "successfully deleted."
+                    ),
+                )
 
     """
     enrollment-customization

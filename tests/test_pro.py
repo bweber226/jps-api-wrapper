@@ -2311,6 +2311,278 @@ def test_update_engage_settings(pro):
 enrollment
 """
 
+
+@responses.activate
+def test_get_enrollment_settings(pro):
+    """
+    Ensures that get_enrollment_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/enrollment")))
+    assert pro.get_enrollment_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_history(pro):
+    """
+    Ensures that get_enrollment_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/enrollment/history")))
+    assert pro.get_enrollment_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_history_optional_params(pro):
+    """
+    Ensures that get_enrollment_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/enrollment/history")))
+    assert (
+        pro.get_enrollment_history(0, 100, ["date:desc", "note:asc"]) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_enrollment_adue_session_token_settings(pro):
+    """
+    Ensures that get_enrollment_adue_session_token_settings returns JSON when
+    used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/adue-session-token-settings"))
+    )
+    assert pro.get_enrollment_adue_session_token_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_ldap_groups(pro):
+    """
+    Ensures that get_enrollment_ldap_groups returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/enrollment/access-groups")))
+    assert pro.get_enrollment_ldap_groups() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_ldap_groups_optional_params(pro):
+    """
+    Ensures that get_enrollment_ldap_groups returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/enrollment/access-groups")))
+    assert pro.get_enrollment_ldap_groups(0, 100, ["name:asc"], True) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_ldap_group(pro):
+    """
+    Ensures that get_enrollment_ldap_group returns JSON when used with required
+    params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v3/enrollment/access-groups/1001"))
+    )
+    assert pro.get_enrollment_ldap_group(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_languages_messaging(pro):
+    """
+    Ensures that get_enrollment_languages_messaging returns JSON when used
+    without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/enrollment/languages")))
+    assert pro.get_enrollment_languages_messaging() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_languages_messaging_optional_params(pro):
+    """
+    Ensures that get_enrollment_languages_messaging returns JSON when used with
+    all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/enrollment/languages")))
+    assert pro.get_enrollment_languages_messaging(0, 100, ["languageCode:asc"])
+
+
+@responses.activate
+def test_get_enrollment_language_messaging(pro):
+    """
+    Ensures that get_enrollment_language_messaging returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/enrollment/languages/en")))
+    assert pro.get_enrollment_language_messaging("en") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_language_codes(pro):
+    """
+    Ensures that get_enrollment_language_codes returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/enrollment/language-codes")))
+    assert pro.get_enrollment_language_codes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_unused_language_codes(pro):
+    """
+    Ensures that get_enrollment_usused_language_codes returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v3/enrollment/filtered-language-codes"))
+    )
+    assert pro.get_enrollment_unused_language_codes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_history_export(pro):
+    """
+    Ensures that get_enrollment_history_export returns a csv when used without
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v2/enrollment/history/export"), status=200)
+    assert pro.get_enrollment_history_export() == ""
+
+
+@responses.activate
+def test_get_enrollment_history_export_optional_params(pro):
+    """
+    Ensures that get_enrollment_history_export returns a csv when used with all
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v2/enrollment/history/export"), status=200)
+    assert (
+        pro.get_enrollment_history_export(
+            ["id", "username"],
+            ["ident", "name"],
+            0,
+            100,
+            ["id:desc", "note:asc"],
+            'username!="admin"',
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_create_enrollment_history_note(pro):
+    """
+    Ensures that create_enrollment_history_note returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v2/enrollment/history")))
+    assert pro.create_enrollment_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_enrollment_ldap_group(pro):
+    """
+    Ensures that create_enrollment_ldap_group returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v3/enrollment/access-groups")))
+    assert pro.create_enrollment_ldap_group(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_enrollment_settings(pro):
+    """
+    Ensures that update_enrollment_settings returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v2/enrollment")))
+    assert pro.update_enrollment_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_enrollment_adue_session_token_settings(pro):
+    """
+    Ensures that update_enrollment_adue_session_token_Settings returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/adue-session-token-settings"))
+    )
+    assert (
+        pro.update_enrollment_adue_session_token_settings(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_enrollment_ldap_group(pro):
+    """
+    Ensures that udpate_enrollment_ldap_group returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v3/enrollment/access-groups/1001"))
+    )
+    assert pro.update_enrollment_ldap_group(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_enrollment_language_messaging(pro):
+    """
+    Ensures that update_enrollment_language_messaging returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v3/enrollment/languages/en")))
+    assert (
+        pro.update_enrollment_language_messaging(EXPECTED_JSON, "en") == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_enrollment_ldap_group(pro):
+    """
+    Ensures that delete_enrollment_ldap_group returns success message str when
+    completed successfully
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v3/enrollment/access-groups/1001"))
+    )
+    assert (
+        pro.delete_enrollment_ldap_group(1001)
+        == "Enrollment LDAP group 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_enrollment_language_messaging_id(pro):
+    """
+    Ensures that delete_enrollment_language_messaging returns a success message
+    str when completed successfully using languageId
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v3/enrollment/languages/en"))
+    )
+    assert (
+        pro.delete_enrollment_language_messaging("en")
+        == "Enrollment language messaging for en successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_enrollment_language_messaging_ids(pro):
+    """
+    Ensures that delete_enrollment_language_messaging returns a success message
+    str when completed successfully using languageIds
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v3/enrollment/languages/delete-multiple")
+        )
+    )
+    assert (
+        pro.delete_enrollment_language_messaging(languageIds=["en", "no"])
+        == "Enrollment language messaging for en, no successfully deleted."
+    )
+
+
 """
 enrollment-customization
 """

@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.109.0] -- 2022-11-25
+### Added
+- Pro.get_enrollment_settings which returns Enrollment object and re-enrollment settings
+- Pro.get_enrollment_history which returns sorted and paged enrollment history
+- Pro.get_enrollment_history_export which returns CSV export of enrollment history collection
+- Pro.get_enrollment_adue_session_token_settings which returns the Account Driven User Enrollment Session Token Settings
+- Pro.get_enrollment_ldap_groups which returns the configured LDAP groups configured for user-initiated enrollment
+- Pro.get_enrollment_ldap_group which returns the configured LDAP group configured for User-Initiated Enrollment by ID
+- Pro.get_enrollment_languages_messaging which returns the language codes that have enrollment messaging currently configured
+- Pro.get_enrollment_language_messaging which returns the enrollment messaging for a language
+- Pro.get_enrollment_language_codes which returns all languages and corresponding ISO 639-1 codes
+- Pro.get_enrollment_unused_language_codes which returns languages and corresponding ISO 639-1 Codes, but only those not already added to enrollment
+- Pro.create_enrollment_history_note which creates enrollment history object note with JSON data
+- Pro.create_enrollment_ldap_group which creates the configured LDAP group for user-initiated enrollment with JSON data
+- Pro.update_enrollment_settings which updates enrollment settings with JSON data
+- Pro.update_enrollment_adue_session_token_settings which updates the account driven user enrollment session token settings
+- Pro.update_enrollment_ldap_group which updates the configured LDAP groups configured for user-initiated enrollment by ID with JSON data
+- Pro.update_enrollment_language_messaging which updates enrollment messaging for a specified language by languageId
+- Pro.delete_enrollment_ldap_group which deletes an LDAP group's access to user initiated enrollment
+- Pro.delete_enrollment_language_messaging which deletes a enrollment language messaging search by language ID or IDS
+
 ## [0.108.0] -- 2022-11-24
 ### Added
 - Pro.get_engage_settings which returns Engage settings
