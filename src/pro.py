@@ -3278,6 +3278,15 @@ class Pro(RequestBuilder):
     inventory-information
     """
 
+    def get_inventory_information(self):
+        """
+        Returns statistics about managed/unmanaged devices and computers in the
+        inventory
+        """
+        endpoint = "/api/v1/inventory-information"
+
+        return self._get(endpoint)
+
     """
     inventory-preload
     """

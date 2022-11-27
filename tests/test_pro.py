@@ -3074,6 +3074,16 @@ def test_create_icon(pro):
 inventory-information
 """
 
+
+@responses.activate
+def test_get_inventory_information(pro):
+    """
+    Ensures that get_inventory_information returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/inventory-information")))
+    assert pro.get_inventory_information() == EXPECTED_JSON
+
+
 """
 inventory-preload
 """
