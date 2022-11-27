@@ -129,6 +129,7 @@ class RequestBuilder:
             else:
                 while exists(filepath):
                     filepath = original_filepath + f"({i})"
+                    i += 1
             filename = filepath.split("/")[-1]
 
         with open(filepath, "wb") as f:

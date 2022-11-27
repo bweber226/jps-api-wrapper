@@ -3035,6 +3035,28 @@ def test_delete_enrollment_customization_text_panel(pro):
 icon
 """
 
+
+@responses.activate
+def test_get_icon(pro):
+    """
+    Ensures that get_icon returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/icon/1001")))
+    assert pro.get_icon(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_icon(pro):
+    """
+    Ensures that create_icon returns JSON when used with required params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(response_builder("POST", jps_url("/api/v1/icon")))
+        assert pro.create_icon("/file.txt") == EXPECTED_JSON
+
+
 """
 inventory-information
 """

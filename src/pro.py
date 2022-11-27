@@ -3224,6 +3224,29 @@ class Pro(RequestBuilder):
     icon
     """
 
+    def get_icon(self, id: Union[int, str]) -> dict:
+        """
+        Returns information on on a specified icon by ID
+
+        :param id: Icon ID
+        """
+        endpoint = f"/api/v1/icon/{id}"
+
+        return self._get(endpoint)
+
+    def create_icon(self, filepath: str) -> dict:
+        """
+        Uploads an icon with the specified local filepath
+
+        :param filepath:
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+        endpoint = "/api/v1/icon"
+
+        return self._post(endpoint, file=file)
+
     """
     inventory-information
     """
