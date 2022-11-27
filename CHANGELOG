@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.111.0] -- 2022-11-26
+### Added
+- Pro.get_enrollment_customization_panels which returns all panels for a single enrollment customization by ID
+- Pro.get_enrollment_customization_panel which returns a single panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_ldap_panel which returns a single LDAP panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_sso_panel which returns a single SSO panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_text_panel which returns a single text panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_text_panel_markdown which returns a single text panel markdown for a single enrollment customization by ID
+- Pro.get_enrollment_customization_parsed_markdown which returns HTML based on provided markdown string in JSON data
+- Pro.create_enrollment_customization_ldap_panel which creates a LDAP panel for a single enrollment customization by ID with JSON
+- Pro.create_enrollment_customization_sso_panel which creates a SSO panel for a single enrollment customization by ID with JSON data
+- Pro.create_enrollment_customization_text_panel which creates a text panel for a single enrollment customization by ID with JSON data
+- Pro.update_enrollment_customization_ldap_panel which updates a single LDAP panel for a single enrollment customization by ID with JSON
+- Pro.update_enrollment_customization_sso_panel which updates a single SSO panel for a single enrollment customization by ID with JSON
+- Pro.update_enrollment_customization_text_panel which updates a single text panel for a single enrollment customization by ID with JSON
+- Pro.delete_enrollment_customization_panel which deletes a single panel from an enrollment customization by ID
+- Pro.delete_enrollment_customization_ldap_panel which deletes a single LDAP panel from an enrollment customization by ID
+- Pro.delete_enrollment_customization_sso_panel which deletes a single SSO panel from an enrollment customization by ID
+- Pro.delete_enrollment_customization_text_panel which deletes a single text panel from an enrollment customization by ID
+
 ## [0.110.0] -- 2022-11-26
 ### Added
 - Pro.get_enrollment_customizations which returns sorted and paged enrollment customizations

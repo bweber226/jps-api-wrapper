@@ -2963,6 +2963,263 @@ class Pro(RequestBuilder):
     enrollment-customization-preview
     """
 
+    def get_enrollment_customization_panels(self, id: Union[int, str]) -> dict:
+        """
+        Returns all panels for a single enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/all"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Returns a single panel for a single enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: Panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/all/{panel_id}"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_ldap_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Returns a single LDAP panel for a single enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: LDAP panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/ldap/{panel_id}"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_sso_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Returns a single SSO panel for a single enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: SSO panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/sso/{panel_id}"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_text_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Returns a single text panel for a single enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: Text panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_text_panel_markdown(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Returns a single text panel markdown for a single enrollment
+        customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: SSO panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}/markdown"
+
+        return self._get(endpoint)
+
+    def get_enrollment_customization_parsed_markdown(self, data: str) -> dict:
+        """
+        Returns HTML based on provided markdown string in JSON data
+
+        :param data: JSON data with markdown to parse into HTML
+        """
+        endpoint = "/api/v1/enrollment-customization/parse-markdown"
+
+        return self._post(endpoint, data)
+
+    def create_enrollment_customization_ldap_panel(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a LDAP panel for a single enrollment customization by ID with
+        JSON. If multiple LDAP access groups are defined with the same name and
+        id, only one will be saved.
+
+        :param data:
+            JSON data to create enrollment customization LDAP panel with
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/ldap"
+
+        return self._post(endpoint, data)
+
+    def create_enrollment_customization_sso_panel(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a SSO panel for a single enrollment customization by ID with
+        JSON data
+
+        :param data:
+            JSON data to create enrollment customization SSO panel with
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/sso"
+
+        return self._post(endpoint, data)
+
+    def create_enrollment_customization_text_panel(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a text panel for a single enrollment customization by ID with
+        JSON data
+
+        :param data:
+            JSON data to create enrollment customization text panel with
+        :param id: Enrollment customization ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/text"
+
+        return self._post(endpoint, data)
+
+    def update_enrollment_customization_ldap_panel(
+        self, data: dict, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Updates a single LDAP panel for a single enrollment customization by ID
+        with JSON. If  multiple LDAP access groups are defined with the same
+        name and id, only one will be saved.
+
+        :param data:
+            JSON data to update enrollment customization LDAP panel with
+        :param id: Enrollment customization ID
+        :param panel_id: LDAP panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/ldap/{panel_id}"
+
+        return self._put(endpoint, data)
+
+    def update_enrollment_customization_sso_panel(
+        self, data: dict, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Updates a single SSO panel for a single enrollment customization by ID
+        with JSON
+
+        :param data:
+            JSON data to update enrollment customization SSO panel with
+        :param id: Enrollment customization ID
+        :param panel_id: LDAP panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/sso/{panel_id}"
+
+        return self._put(endpoint, data)
+
+    def update_enrollment_customization_text_panel(
+        self, data: dict, id: Union[int, str], panel_id: Union[int, str]
+    ) -> dict:
+        """
+        Updates a single text panel for a single enrollment customization by ID
+        with JSON
+
+        :param data:
+            JSON data to update enrollment customization text panel with
+        :param id: Enrollment customization ID
+        :param panel_id: Text panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}"
+
+        return self._put(endpoint, data)
+
+    def delete_enrollment_customization_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> str:
+        """
+        Deletes a single panel from an enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: Panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/all/{panel_id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Panel {panel_id} of enrollment customization {id} "
+                "successfully deleted."
+            ),
+        )
+
+    def delete_enrollment_customization_ldap_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> str:
+        """
+        Deletes a single LDAP panel from an enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: LDAP panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/ldap/{panel_id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"LDAP panel {panel_id} of enrollment customization {id} "
+                "successfully deleted."
+            ),
+        )
+
+    def delete_enrollment_customization_sso_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> str:
+        """
+        Deletes a single SSO panel from an enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: SSO panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/sso/{panel_id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"SSO panel {panel_id} of enrollment customization {id} "
+                "successfully deleted."
+            ),
+        )
+
+    def delete_enrollment_customization_text_panel(
+        self, id: Union[int, str], panel_id: Union[int, str]
+    ) -> str:
+        """
+        Deletes a single text panel from an enrollment customization by ID
+
+        :param id: Enrollment customization ID
+        :param panel_id: Text panel ID
+        """
+        endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Text panel {panel_id} of enrollment customization {id} "
+                "successfully deleted."
+            ),
+        )
+
     """
     icon
     """

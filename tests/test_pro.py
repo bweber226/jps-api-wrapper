@@ -2765,6 +2765,272 @@ def test_delete_enrollment_customization(pro):
 enrollment-customization-preview
 """
 
+
+@responses.activate
+def test_get_enrollment_customization_panels(pro):
+    """
+    Ensures that get_enrollment_customization_panels returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/enrollment-customization/1001/all"))
+    )
+    assert pro.get_enrollment_customization_panels(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_panel(pro):
+    """
+    Ensures that get_enrollment_customization_panel returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/enrollment-customization/1001/all/1002")
+        )
+    )
+    assert pro.get_enrollment_customization_panel(1001, 1002) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_ldap_panel(pro):
+    """
+    Ensures that get_enrollment_customization_ldap_panel returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/enrollment-customization/1001/ldap/1002")
+        )
+    )
+    assert pro.get_enrollment_customization_ldap_panel(1001, 1002) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_sso_panel(pro):
+    """
+    Ensures that get_enrollment_customization_sso_panel returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/enrollment-customization/1001/sso/1002")
+        )
+    )
+    assert pro.get_enrollment_customization_sso_panel(1001, 1002) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_text_panel(pro):
+    """
+    Ensures that get_enrollment_customization_text_panel returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/enrollment-customization/1001/text/1002")
+        )
+    )
+    assert pro.get_enrollment_customization_text_panel(1001, 1002) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_enrollment_customization_text_panel_markdown(pro):
+    """
+    Ensures that get_enrollment_customization_text_panel_markdown returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/enrollment-customization/1001/text/1002/markdown")
+        )
+    )
+    assert (
+        pro.get_enrollment_customization_text_panel_markdown(1001, 1002)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_enrollment_customization_parsed_markdown(pro):
+    """
+    Ensures that get_enrollment_customization_parsed_markdown returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/enrollment-customization/parse-markdown")
+        )
+    )
+    assert (
+        pro.get_enrollment_customization_parsed_markdown(EXPECTED_JSON) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_enrollment_customization_ldap_panel(pro):
+    """
+    Ensures that create_enrollment_customization_ldap_panel returns JSON when
+    completed successfully
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/enrollment-customization/1001/ldap"))
+    )
+    assert (
+        pro.create_enrollment_customization_ldap_panel(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_enrollment_customization_sso_panel(pro):
+    """
+    Ensures that create_enrollment_customization_sso_panel returns JSON when
+    completed successfully
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/enrollment-customization/1001/sso"))
+    )
+    assert (
+        pro.create_enrollment_customization_sso_panel(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_enrollment_customization_text_panel(pro):
+    """
+    Ensures that create_enrollment_customization_text_panel returns JSON when
+    completed successfully
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/enrollment-customization/1001/text"))
+    )
+    assert (
+        pro.create_enrollment_customization_text_panel(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_enrollment_customization_ldap_panel(pro):
+    """
+    Ensures that update_enrollment_customization_ldap_panel returns JSON when
+    completed successfully
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/api/v1/enrollment-customization/1001/ldap/1002")
+        )
+    )
+    assert (
+        pro.update_enrollment_customization_ldap_panel(EXPECTED_JSON, 1001, 1002)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_enrollment_customization_sso_panel(pro):
+    """
+    Ensures that update_enrollment_customization_sso_panel returns JSON when
+    completed successfully
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/api/v1/enrollment-customization/1001/sso/1002")
+        )
+    )
+    assert (
+        pro.update_enrollment_customization_sso_panel(EXPECTED_JSON, 1001, 1002)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_enrollment_customization_text_panel(pro):
+    """
+    Ensures that update_enrollment_customization_text_panel returns JSON when
+    completed successfully
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/api/v1/enrollment-customization/1001/text/1002")
+        )
+    )
+    assert (
+        pro.update_enrollment_customization_text_panel(EXPECTED_JSON, 1001, 1002)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_enrollment_customization_panel(pro):
+    """
+    Ensures that delete_enrollment_customization_panel returns a success
+    message str when completed successfully
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/enrollment-customization/1001/all/1002")
+        )
+    )
+    assert (
+        pro.delete_enrollment_customization_panel(1001, 1002)
+        == "Panel 1002 of enrollment customization 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_enrollment_customization_ldap_panel(pro):
+    """
+    Ensures that delete_enrollment_customization_ldap_panel returns a success
+    message str when completed successfully
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/enrollment-customization/1001/ldap/1002")
+        )
+    )
+    assert (
+        pro.delete_enrollment_customization_ldap_panel(1001, 1002)
+        == "LDAP panel 1002 of enrollment customization 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_enrollment_customization_sso_panel(pro):
+    """
+    Ensures that delete_enrollment_customization_sso_panel returns a success
+    message str when completed successfully
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/enrollment-customization/1001/sso/1002")
+        )
+    )
+    assert (
+        pro.delete_enrollment_customization_sso_panel(1001, 1002)
+        == "SSO panel 1002 of enrollment customization 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_enrollment_customization_text_panel(pro):
+    """
+    Ensures that delete_enrollment_customization_text_panel returns a success
+    message str when completed successfully
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/enrollment-customization/1001/text/1002")
+        )
+    )
+    assert (
+        pro.delete_enrollment_customization_text_panel(1001, 1002)
+        == "Text panel 1002 of enrollment customization 1001 successfully deleted."
+    )
+
+
 """
 icon
 """
