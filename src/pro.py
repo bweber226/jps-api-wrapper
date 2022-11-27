@@ -3234,6 +3234,33 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def get_icon_image(
+        self, id: Union[int, str], resolution: str = None, scale: str = None
+    ) -> str:
+        """
+        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
+        BETA: THIS ENDPOINT CURRENTLY DOES NOT WORK
+
+        Downloads a self service icon by ID along with res and scale options
+
+        :param id: Self service icon ID
+        :param resolution:
+            Request a specific resolution of original, 300, or 512; invalid
+            options will result in original resolution
+        :param scale:
+            Request a scale; 0 results in original image, non-0 results in
+            scaled to 300
+        """
+        params = remove_empty_params(
+            {
+                "res": resolution,
+                "scale": scale,
+            }
+        )
+        endpoint = f"/api/v1/icon/download/{id}"
+
+        return self._download(endpoint, params=params)
+
     def create_icon(self, filepath: str) -> dict:
         """
         Uploads an icon with the specified local filepath

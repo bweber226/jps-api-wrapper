@@ -3046,6 +3046,19 @@ def test_get_icon(pro):
 
 
 @responses.activate
+def test_get_icon_image_404(pro):
+    """
+    Ensures that get_icon_image raises NotFound when it returns a 404 response
+    code
+    """
+    responses.activate(
+        response_builder("GET", jps_url("/api/v1/icon/download/1001"), status=404)
+    )
+    with pytest.raises(NotFound):
+        pro.get_icon_image(1001)
+
+
+@responses.activate
 def test_create_icon(pro):
     """
     Ensures that create_icon returns JSON when used with required params

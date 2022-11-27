@@ -94,17 +94,19 @@ class RequestBuilder:
         else:
             raise InvalidDataType("data_type needs to be either json or xml")
 
-    def _download(self, endpoint: str):
+    def _download(self, endpoint: str, params: dict = None):
         """
         Sends get request with special cases that require file downloads
 
         :param endpoint:
             The url section of the api endpoint following the base_url
             e.g. /JSSResource/computers
+        :param params:
+            Optional params for the request
         """
         full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": "application/json"}
-        response = self.session.get(full_url, headers=headers)
+        response = self.session.get(full_url, headers=headers, params=params)
         self._raise_recognized_errors(response)
         response.raise_for_status()
         try:

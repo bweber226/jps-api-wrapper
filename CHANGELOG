@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.112.0] -- 2022-11-27
 ### Added
 - Pro.get_icon which returns information on on a specified icon by ID
+- Pro.get_icon_image which is a beta module which downloads a self service icon by ID along with resolution and scale options
 - Pro.create_icon which uploads an icon with the specified local filepath
 
 ## [0.111.0] -- 2022-11-26
