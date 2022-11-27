@@ -3051,7 +3051,7 @@ def test_get_icon_image_404(pro):
     Ensures that get_icon_image raises NotFound when it returns a 404 response
     code
     """
-    responses.activate(
+    responses.add(
         response_builder("GET", jps_url("/api/v1/icon/download/1001"), status=404)
     )
     with pytest.raises(NotFound):
