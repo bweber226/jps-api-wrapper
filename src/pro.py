@@ -3752,6 +3752,23 @@ class Pro(RequestBuilder):
     jamf-package
     """
 
+    def get_jamf_package(self, application: str) -> dict:
+        """
+        Returns the packages for a given Jamf application by application key
+
+        :param application:
+            The Jamf Application key. The only supported values are protect
+            and connect.
+        """
+        if application not in ["protect", "connect"]:
+            raise ValueError(
+                "The only supported values for application are protect and connect."
+            )
+        params = {"application": application}
+        endpoint = "/api/v2/jamf-package"
+
+        return self._get(endpoint, params=params)
+
     """
     jamf-pro-information
     """

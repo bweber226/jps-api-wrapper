@@ -3486,6 +3486,25 @@ def test_create_jamf_management_framework_redeploy(pro):
 jamf-package
 """
 
+
+@responses.activate
+def test_get_jamf_package(pro):
+    """
+    Ensures that get_jamf_package returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/jamf-package")))
+    assert pro.get_jamf_package("protect") == EXPECTED_JSON
+
+
+def test_get_jamf_package_valueerror(pro):
+    """
+    Ensures that get_jamf_package raises ValueError when setting application
+    to a value that is not protect or connect
+    """
+    with pytest.raises(ValueError):
+        pro.get_jamf_package("test")
+
+
 """
 jamf-pro-information
 """
