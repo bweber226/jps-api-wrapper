@@ -3314,6 +3314,155 @@ def test_delete_inventory_preloads_all(pro):
 jamf-connect
 """
 
+
+@responses.activate
+def test_get_jamf_connect_settings(pro):
+    """
+    Ensures that get_jamf_connect_settings returns a success message str when
+    completed successfully
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-connect")))
+    assert (
+        pro.get_jamf_connect_settings()
+        == "Success, this endpoint does not return content."
+    )
+
+
+@responses.activate
+def test_get_jamf_connect_config_profiles(pro):
+    """
+    Ensures that get_jamf_connect_config_profiles returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/jamf-connect/config-profiles"))
+    )
+    assert pro.get_jamf_connect_config_profiles() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_connect_config_profiles_optional_params(pro):
+    """
+    Ensures that get_jamf_connect_config_profiles returns JSON when used
+    with all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/jamf-connect/config-profiles"))
+    )
+    assert (
+        pro.get_jamf_connect_config_profiles(
+            0, 100, ["profileId:asc", "version:desc"], 'profileId==180 and version==""'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_jamf_connect_config_profile_deployment_tasks(pro):
+    """
+    Ensures that get_jamf_connect_config_profile_deployment_tasks returns JSON
+    when used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/jamf-connect/deployments/1a2b3c4d/tasks")
+        )
+    )
+    assert (
+        pro.get_jamf_connect_config_profile_deployment_tasks("1a2b3c4d")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_jamf_connect_config_profile_deployment_tasks_optional_params(pro):
+    """
+    Ensures that get_jamf_connect_config_profile_deployment_tasks return JSON
+    when used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/jamf-connect/deployments/1a2b3c4d/tasks")
+        )
+    )
+    assert pro.get_jamf_connect_config_profile_deployment_tasks(
+        "1a2b3c4d", 0, 100, ["status:asc", "updated:desc"], 'version==""'
+    )
+
+
+@responses.activate
+def test_get_jamf_connect_history(pro):
+    """
+    Ensures that get_jamf_connect_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-connect/history")))
+    assert pro.get_jamf_connect_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_connect_history_optional_params(pro):
+    """
+    Ensures that get_jamf_connect_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-connect/history")))
+    assert (
+        pro.get_jamf_connect_history(
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_jamf_connect_config_profile_deployment_task_retry(pro):
+    """
+    Ensures that create_jamf_connect_config_profile_deployment_task_retry
+    returns a success message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/jamf-connect/deployments/1a2b3c4d/tasks/retry")
+        )
+    )
+    assert (
+        pro.create_jamf_connect_config_profile_deployment_task_retry(
+            EXPECTED_JSON, "1a2b3c4d"
+        )
+        == "Retrying specified tasks for Jamf Connect config profile 1a2b3c4d."
+    )
+
+
+@responses.activate
+def test_create_jamf_connect_history_note(pro):
+    """
+    Ensures that create_jamf_connect_history_note returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/jamf-connect/history")))
+    assert pro.create_jamf_connect_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_jamf_connect_app_update_method(pro):
+    """
+    Ensures that update_jamf_connect_app_update_method returns JSON when used
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/api/v1/jamf-connect/config-profiles/1a2b3c4d")
+        )
+    )
+    assert (
+        pro.update_jamf_connect_app_update_method(EXPECTED_JSON, "1a2b3c4d")
+        == EXPECTED_JSON
+    )
+
+
 """
 jamf-management-framework
 """

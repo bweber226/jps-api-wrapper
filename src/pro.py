@@ -380,7 +380,7 @@ class Pro(RequestBuilder):
             date:desc. Multiple sort criteria are supported and must be
             separated with a comma.
 
-            Example: ["date:desc", "name:asc"]
+            Example: ["date:desc", "note:asc"]
 
         :param filter:
             Query in the RSQL format, allowing to filter history notes
@@ -3491,7 +3491,7 @@ class Pro(RequestBuilder):
 
     def create_inventory_preloads_csv_validation(self, filepath: str) -> dict:
         """
-        Validate a given CSV file. Serial number and device type are required.
+        Validates a given CSV file. Serial number and device type are required.
         All other fields are optional. A CSV template can be downloaded from
         Pro.get_inventory_preloads_csv_template
 
@@ -3506,7 +3506,7 @@ class Pro(RequestBuilder):
 
     def create_inventory_preloads_csv(self, filepath: str) -> dict:
         """
-        Create one or more new Inventory Preload records using CSV.
+        Creates one or more new Inventory Preload records using CSV.
         A CSV template can be downloaded from
         /v2/inventory-preload/csv-template. Serial number and device type are
         required. All other fields are optional. When a matching serial number
@@ -3565,6 +3565,174 @@ class Pro(RequestBuilder):
     """
     jamf-connect
     """
+
+    def get_jamf_connect_settings(self) -> dict:
+        """
+        Returns the Jamf Connect settings that you have access to see
+        """
+        endpoint = "/api/v1/jamf-connect"
+
+        return self._get(
+            endpoint, success_message="Success, this endpoint does not return content."
+        )
+
+    def get_jamf_connect_config_profiles(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["profileId:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted, paginated config profiles linked to Jamf Connect
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            order is ["profileId:asc"]. Multiple sort criteria are supported
+            and must be seperated by a comma. Options are status, updated.
+
+            Example ["profileId:asc", "version:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter results. Default
+            filter is empty query - returning all results for the requested
+            page. Fields allowed in the query: status, updated, version This
+            param can be combined with paging and sorting.
+
+            Example: profileId==1001 and version==""
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/jamf-connect/config-profiles"
+
+        return self._get(endpoint, params=params)
+
+    def get_jamf_connect_config_profile_deployment_tasks(
+        self,
+        uuid: str,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["status:desc"],
+        filter: str = None,
+    ):
+        """
+        Returns deployment tasks for specified config profile linked to Jamf
+        Connect by ID
+
+        :param uuid: Jamf Connect config profile UUID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            order is ["status:desc"]. Multiple sort criteria are supported
+            and must be seperated by a comma. Options are status, updated.
+
+            Example ["status:asc", "updated:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter results. Default
+            filter is empty query - returning all results for the requested
+            page. Fields allowed in the query: status, updated, version This
+            param can be combined with paging and sorting.
+
+            Example: version==""
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/jamf-connect/deployments/{uuid}/tasks"
+
+        return self._get(endpoint, params=params)
+
+    def get_jamf_connect_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted, paginated Jamf Connect history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        endpoint = "/api/v1/jamf-connect/history"
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+
+        return self._get(endpoint, params=params)
+
+    def create_jamf_connect_config_profile_deployment_task_retry(
+        self, data: dict, uuid: str
+    ) -> str:
+        """
+        Request a retry of deployment task(s) of specified Jamf Connect config
+        profile by UUID with JSON
+
+        :param data: JSON data to of deployment task ID(s) to retry
+        :param uuid: Jamf Connect configuration profile UUID
+        """
+        endpoint = f"/api/v1/jamf-connect/deployments/{uuid}/tasks/retry"
+
+        return self._post(
+            endpoint,
+            data,
+            success_message=(
+                f"Retrying specified tasks for Jamf Connect config profile {uuid}."
+            ),
+        )
+
+    def create_jamf_connect_history_note(self, data: dict) -> dict:
+        """
+        Creates Jamf Connect history note with JSON
+
+        :param data: JSON data to create Jamf Connect history note with
+        """
+        endpoint = "/api/v1/jamf-connect/history"
+
+        return self._post(endpoint, data)
+
+    def update_jamf_connect_app_update_method(self, data: dict, uuid: str) -> dict:
+        """
+        Updates the way the Jamf Connect app gets updated on computers with the
+        scope of the specified configuration profile by UUID with JSON
+
+        :param data: JSON data to update Jamf Connect app update method with
+        :param uuid: Jamf Connect config profile UUID
+        """
+        endpoint = f"/api/v1/jamf-connect/config-profiles/{uuid}"
+
+        return self._put(endpoint, data)
 
     """
     jamf-management-framework

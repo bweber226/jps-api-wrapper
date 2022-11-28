@@ -58,7 +58,12 @@ class RequestBuilder:
             )
 
     def _get(
-        self, endpoint: str, data_type: str = "json", params: dict = None, headers=None
+        self,
+        endpoint: str,
+        data_type: str = "json",
+        params: dict = None,
+        success_message: str = None,
+        headers=None,
     ) -> Union[dict, str]:
         """
         Sends get requests given an endpoint and data type
@@ -87,7 +92,9 @@ class RequestBuilder:
         response = self.session.get(full_url, headers=headers, params=params)
         self._raise_recognized_errors(response)
         response.raise_for_status()
-        if data_type == "json":
+        if success_message:
+            return success_message
+        elif data_type == "json":
             return response.json()
         elif data_type in ["xml", None]:
             return response.text
