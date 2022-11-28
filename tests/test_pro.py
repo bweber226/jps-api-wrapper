@@ -3467,6 +3467,21 @@ def test_update_jamf_connect_app_update_method(pro):
 jamf-management-framework
 """
 
+
+@responses.activate
+def test_create_jamf_management_framework_redeploy(pro):
+    """
+    Ensures that create_jamf_management_framework_redeploy returns JSON when
+    used
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/jamf-management-framework/redeploy/1001")
+        )
+    )
+    assert pro.create_jamf_management_framework_redeploy(1001) == EXPECTED_JSON
+
+
 """
 jamf-package
 """

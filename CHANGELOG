@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.116.0] -- 2022-11-28
+### Added
+- Pro.create_jamf_management_framework_redeploy which redeploys the Jamf Management Framework for enrolled computer by ID
+
 ## [0.115.0] -- 2022-11-28
 ### Added
 - Pro.get_jamf_connect_settings which returns the Jamf Connect settings that you have access to see

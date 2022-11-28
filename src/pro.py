@@ -3696,7 +3696,7 @@ class Pro(RequestBuilder):
         self, data: dict, uuid: str
     ) -> str:
         """
-        Request a retry of deployment task(s) of specified Jamf Connect config
+        Requests a retry of deployment task(s) of specified Jamf Connect config
         profile by UUID with JSON
 
         :param data: JSON data to of deployment task ID(s) to retry
@@ -3737,6 +3737,16 @@ class Pro(RequestBuilder):
     """
     jamf-management-framework
     """
+
+    def create_jamf_management_framework_redeploy(self, id: Union[int, str]):
+        """
+        Redeploys the Jamf Management Framework for enrolled computer by ID
+
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/jamf-management-framework/redeploy/{id}"
+
+        return self._post(endpoint)
 
     """
     jamf-package
