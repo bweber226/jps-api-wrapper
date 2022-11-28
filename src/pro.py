@@ -3291,6 +3291,277 @@ class Pro(RequestBuilder):
     inventory-preload
     """
 
+    def get_inventory_preloads(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: str = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns paged and sorted inventory preload records
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            is id:asc. Multiple sort criteria are supported and must be
+            separated with a comma. All inventory preload fields are supported,
+            however fields added by extension attributes are not supported. If
+            sorting by deviceType, use 0 for Computer and 1 for Mobile Device.
+
+            Example: ["id:desc", "deviceType:1"]
+
+        :param filter:
+            Allowing to filter inventory preload records. Default search is
+            empty query - returning all results for the requested page.
+            All inventory preload fields are supported, however fields added by
+            extension attributes are not supported. If filtering by deviceType,
+            use 0 for Computer and 1 for Mobile Device. Query in the RSQL
+            format, allowing ==, !=, >, <, and =in=.
+
+            Example: username=="admin"
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v2/inventory-preload/records"
+
+        return self._get(endpoint, params=params)
+
+    def get_inventory_preload(self, id: Union[int, str]) -> dict:
+        """
+        Returns an inventory preload record by ID
+
+        :param id: Inventory preload ID
+        """
+        endpoint = f"/api/v2/inventory-preload/records/{id}"
+
+        return self._get(endpoint)
+
+    def get_inventory_preloads_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: str = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns inventory preload history entries
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            is date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Allows filtering inventory preload history records. Default search
+            is empty query - returning all results for the requested page. All
+            inventory preload history fields are supported. Query in the RSQL
+            format, allowing ==, !=, >, <, and =in=.
+
+            Example: username=="admin"
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v2/inventory-preload/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_inventory_preloads_extension_attributes(self) -> dict:
+        """
+        Returns extension attribute columns currently associated with inventory
+        preload records
+        """
+        endpoint = "/api/v2/inventory-preload/ea-columns"
+
+        return self._get(endpoint)
+
+    def get_inventory_preloads_csv_template(self) -> str:
+        """
+        Returns the inventory preload CSV file template
+        """
+        endpoint = "/api/v2/inventory-preload/csv-template"
+
+        return self._get(endpoint, data_type=None)
+
+    def get_inventory_preloads_csv(self) -> str:
+        """
+        Returns the inventory preload records as CSV data
+        """
+        endpoint = "/api/v2/inventory-preload/csv"
+
+        return self._get(endpoint, data_type=None)
+
+    # TODO export_fields and export_labels are not actually working correctly
+    def get_inventory_preloads_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Exports a collection of inventory preload records in CSV format
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Example: ["username", "department"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["name", "dept"] with matching:
+            export_fields=["username", "department"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["department:desc", "username:asc"]
+
+        :param filter:
+            Allows filtering inventory preload history records. Default search
+            is empty query - returning all results for the requested page. All
+            inventory preload history fields are supported. Query in the RSQL
+            format, allowing ==, !=, >, <, and =in=.
+
+            Example: username=="admin"
+        """
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = "/api/v2/inventory-preload/export"
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def create_inventory_preload(self, data: dict) -> dict:
+        """
+        Creates an inventory preload record with JSON
+
+        :param data: JSON data to create inventory preload record with
+        """
+        endpoint = "/api/v2/inventory-preload/records"
+
+        return self._post(endpoint, data)
+
+    def create_inventory_preloads_history_note(self, data: dict) -> dict:
+        """
+        Creates inventory preload history note
+
+        :param data: JSON data to create inventory preload history note with
+        """
+        endpoint = "/api/v2/inventory-preload/history"
+
+        return self._post(endpoint, data)
+
+    def create_inventory_preloads_csv_validation(self, filepath: str) -> dict:
+        """
+        Validate a given CSV file. Serial number and device type are required.
+        All other fields are optional. A CSV template can be downloaded from
+        Pro.get_inventory_preloads_csv_template
+
+        :param filepath: Path to CSV file to be validated
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+        endpoint = "/api/v2/inventory-preload/csv-validate"
+
+        return self._post(endpoint, file=file)
+
+    def create_inventory_preloads_csv(self, filepath: str) -> dict:
+        """
+        Create one or more new Inventory Preload records using CSV.
+        A CSV template can be downloaded from
+        /v2/inventory-preload/csv-template. Serial number and device type are
+        required. All other fields are optional. When a matching serial number
+        exists in the Inventory Preload data, the record will be overwritten
+        with the CSV data. If the CSV file contains a new username and an email
+        address is provided, the new user is created in Jamf Pro. If the CSV
+        file contains an existing username, the following user-related fields
+        are updated in Jamf Pro. Full Name, Email Address, Phone Number,
+        Position. This endpoint does not do full validation of each record in
+        the CSV data. To do full validation, use the
+        Pro.create_inventory_preloads_csv_validation module first.
+
+        :param filepath:
+            Path to the CSV file use for inventory preload creation
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+        endpoint = "/api/v2/inventory-preload/csv"
+
+        return self._post(endpoint, file=file)
+
+    def update_inventory_preload(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates an inventory preload record by ID with JSON
+
+        :param data: JSON data to update inventory preload with
+        :param id: Inventory preload ID
+        """
+        endpoint = f"/api/v2/inventory-preload/records/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_inventory_preload(self, id: Union[int, str]) -> str:
+        """
+        Deletes an inventory preload record by ID
+
+        :param id: Inventory preload ID
+        """
+        endpoint = f"/api/v2/inventory-preload/records/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"Inventory preload {id} successfully deleted."
+        )
+
+    def delete_inventory_preloads_all(self) -> str:
+        """
+        Deletes all inventory preload records
+        """
+        endpoint = "/api/v2/inventory-preload/records/delete-all"
+
+        return self._post(
+            endpoint, success_message="All inventory preloads successfully deleted."
+        )
+
     """
     jamf-connect
     """

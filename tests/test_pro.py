@@ -3088,6 +3088,228 @@ def test_get_inventory_information(pro):
 inventory-preload
 """
 
+
+@responses.activate
+def test_get_inventory_preloads(pro):
+    """
+    Ensures that get_inventory_preload returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/inventory-preload/records")))
+    assert pro.get_inventory_preloads() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_inventory_preloads_optional_params(pro):
+    """
+    Ensures that get_inventory_preload returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/inventory-preload/records")))
+    assert (
+        pro.get_inventory_preloads(
+            0, 100, ["id:desc", "deviceType:1"], 'username=="admin"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_inventory_preload(pro):
+    """
+    Ensures that get_inventory_preload returns JSON when used with required
+    params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/inventory-preload/records/1001"))
+    )
+    assert pro.get_inventory_preload(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_inventory_preloads_history(pro):
+    """
+    Ensures that get_inventory_preload returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/inventory-preload/history")))
+    assert pro.get_inventory_preloads_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_inventory_preloads_history_optional_params(pro):
+    """
+    Ensures that get_inventory_preload returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/inventory-preload/history")))
+    assert (
+        pro.get_inventory_preloads_history(
+            0, 100, ["date:desc", "note:asc"], 'username=="admin"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_inventory_preloads_extension_attributes(pro):
+    """
+    Ensures that get_inventory_preloads_extension_attributes returns JSON when
+    used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/inventory-preload/ea-columns"))
+    )
+    assert pro.get_inventory_preloads_extension_attributes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_inventory_preloads_csv_template(pro):
+    """
+    Ensures that get_inventory_preloads_csv_template returns a str when used
+    """
+    responses.add("GET", jps_url("/api/v2/inventory-preload/csv-template"))
+    assert pro.get_inventory_preloads_csv_template() == ""
+
+
+@responses.activate
+def test_get_inventory_preloads_csv(pro):
+    """
+    Ensures that get_inventory_preloads_csv returns a str when used
+    """
+    responses.add("GET", jps_url("/api/v2/inventory-preload/csv"))
+    assert pro.get_inventory_preloads_csv() == ""
+
+
+@responses.activate
+def test_get_inventory_preloads_export(pro):
+    """
+    Ensures that get_inventory_preloads_export returns str when used without
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v2/inventory-preload/export"))
+    assert pro.get_inventory_preloads_export() == ""
+
+
+@responses.activate
+def test_get_inventory_preloads_export_optional_params(pro):
+    """
+    Ensures that get_inventory_preloads_export returns str when used with all
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v2/inventory-preload/export"))
+    assert (
+        pro.get_inventory_preloads_export(
+            ["username", "department"],
+            ["name", "dept"],
+            0,
+            100,
+            ["department:desc", "username:asc"],
+            'username=="admin"',
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_create_inventory_preload(pro):
+    """
+    Ensures that create_inventory_preload returns JSON when run successfully
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/inventory-preload/records"))
+    )
+    assert pro.create_inventory_preload(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_inventory_preloads_history_note(pro):
+    """
+    Ensures that create_inventory_preloads_history_note returns JSON when
+    completed successfully
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/inventory-preload/history"))
+    )
+    assert pro.create_inventory_preloads_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_inventory_preloads_csv_validation(pro):
+    """
+    Ensures that create_inventory_preloads_csv_validation returns JSON when
+    used with required params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder("POST", jps_url("/api/v2/inventory-preload/csv-validate"))
+        )
+        assert (
+            pro.create_inventory_preloads_csv_validation("/file.txt") == EXPECTED_JSON
+        )
+
+
+@responses.activate
+def test_create_inventory_preloads_csv(pro):
+    """
+    Ensures that create_inventory_preloads_csv returns JSON when used with
+    required params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder("POST", jps_url("/api/v2/inventory-preload/csv"))
+        )
+        assert pro.create_inventory_preloads_csv("/file.txt") == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_inventory_preload(pro):
+    """
+    Ensures that update_inventory_preload returns JSON when used with required
+    params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v2/inventory-preload/records/1001"))
+    )
+    assert pro.update_inventory_preload(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_inventory_preload(pro):
+    """
+    Ensures that delete_inventory_preload returns a success message str when
+    completed successfully
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v2/inventory-preload/records/1001"))
+    )
+    assert (
+        pro.delete_inventory_preload(1001)
+        == "Inventory preload 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_inventory_preloads_all(pro):
+    """
+    Ensures that delete_inventory_preloads_all returns a success message str
+    when used
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v2/inventory-preload/records/delete-all")
+        )
+    )
+    assert (
+        pro.delete_inventory_preloads_all()
+        == "All inventory preloads successfully deleted."
+    )
+
+
 """
 jamf-connect
 """

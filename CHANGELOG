@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.114.0]
+### Added
+- Pro.get_inventory_preloads which returns paged and sorted inventory preload records
+- Pro.get_inventory_preload which returns an inventory preload record by ID
+- Pro.get_inventory_preloads_history which returns inventory preload history entries
+- Pro.get_inventory_preloads_extension_attributes which returns extension attribute columns currently associated with inventory preload records
+- Pro.get_inventory_preloads_csv_template which returns the inventory preload CSV file template
+- Pro.get_inventory_preloads_csv which returns the inventory preload records as CSV data
+- Pro.get_inventory_preloads_export which exports a collection of inventory preload records in CSV format
+- Pro.create_inventory_preload which creates an inventory preload record with JSON
+- Pro.create_inventory_preloads_history_note which creates inventory preload history note
+- Pro.create_inventory_preloads_csv_validation which validates a given CSV file
+- Pro.create_inventory_preloads_csv which creates one or more new Inventory Preload records using CSV
+- Pro.update_inventory_preload which updates an inventory preload record by ID with JSON
+- Pro.delete_inventory_preload which deletes an inventory preload record by ID
+- Pro.delete_inventory_preloads_all which deletes all inventory preload records
+
 ## [0.113.0] -- 2022-11-27
 ### Added
 - Pro.get_inventory_information which returns statistics about managed/unmanaged devices and computers in the inventory
