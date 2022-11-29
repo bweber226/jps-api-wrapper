@@ -3773,6 +3773,14 @@ class Pro(RequestBuilder):
     jamf-pro-information
     """
 
+    def get_jamf_pro_information(self) -> dict:
+        """
+        Returns basic information about the Jamf Pro Server
+        """
+        endpoint = "/api/v2/jamf-pro-information"
+
+        return self._get(endpoint)
+
     """
     jamf-pro-initialization
     """

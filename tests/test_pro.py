@@ -3509,6 +3509,16 @@ def test_get_jamf_package_valueerror(pro):
 jamf-pro-information
 """
 
+
+@responses.activate
+def test_get_jamf_pro_information(pro):
+    """
+    Ensures that get_jamf_pro_information returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/jamf-pro-information")))
+    assert pro.get_jamf_pro_information() == EXPECTED_JSON
+
+
 """
 jamf-pro-initialization
 """
