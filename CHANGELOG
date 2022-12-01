@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.121.0] -- 2022-12-1
+### Added
+- Pro.get_jamf_pro_server_url_settings which returns Jamf Pro URL settings
+- Pro.get_jamf_pro_server_url_settings_history which returns sorted, paginated Jamf Pro Server URL settings history
+- Pro.create_jamf_pro_server_url_settings_history_note which creates Jamf Pro Server URL settings history note with JSON
+- Pro.update_jamf_pro_server_url_settings which updates Jamf Pro Server URL settings with JSON
+
 ## [0.120.0] -- 2022-12-1
 ### Added
 - Pro.get_jamf_pro_notifications which returns notifictions for user and site

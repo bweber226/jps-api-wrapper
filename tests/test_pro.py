@@ -3587,9 +3587,73 @@ def test_delete_jamf_pro_notifications(pro):
 jamf-pro-notifications-preview
 """
 
+# All deprecated
+
 """
 jamf-pro-server-url-preview
 """
+
+
+@responses.activate
+def test_get_jamf_pro_server_url_settings(pro):
+    """
+    Ensures that get_jamf_pro_server_url_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-pro-server-url")))
+    assert pro.get_jamf_pro_server_url_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_pro_server_url_settings_history(pro):
+    """
+    Ensures that get_jamf_pro_server_url_settings_history returns JSON when
+    used without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/jamf-pro-server-url/history"))
+    )
+    assert pro.get_jamf_pro_server_url_settings_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_pro_server_url_settings_history_optional_params(pro):
+    """
+    Ensures that get_jamf_pro_server_url_settings_history returns JSON when
+    used with all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/jamf-pro-server-url/history"))
+    )
+    assert (
+        pro.get_jamf_pro_server_url_settings_history(0, 100, ["date:desc", "note:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_jamf_pro_server_url_settings_history_note(pro):
+    """
+    Ensures that create_jamf_pro_server_url_settings_history_note returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/jamf-pro-server-url/history"))
+    )
+    assert (
+        pro.create_jamf_pro_server_url_settings_history_note(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_jamf_pro_server_url_settings(pro):
+    """
+    Ensures that update_jamf_pro_server_url_settings returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/jamf-pro-server-url")))
+    assert pro.update_jamf_pro_server_url_settings(EXPECTED_JSON) == EXPECTED_JSON
+
 
 """
 jamf-pro-user-account-settings

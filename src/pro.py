@@ -3843,9 +3843,68 @@ class Pro(RequestBuilder):
     jamf-pro-notifications-preview
     """
 
+    # All deprecated
+
     """
     jamf-pro-server-url-preview
     """
+
+    def get_jamf_pro_server_url_settings(self) -> dict:
+        """
+        Returns Jamf Pro URL settings
+        """
+        endpoint = "/api/v1/jamf-pro-server-url"
+
+        return self._get(endpoint)
+
+    def get_jamf_pro_server_url_settings_history(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["date:desc"]
+    ) -> dict:
+        """
+        Returns sorted, paginated Jamf Pro Server URL settings history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/jamf-pro-server-url/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_jamf_pro_server_url_settings_history_note(self, data: dict) -> dict:
+        """
+        Creates Jamf Pro Server URL settings history note with JSON. Only
+        usable on non-hosted JPS environments.
+
+        :param data:
+            JSON data to create Jamf Pro Server URL settings history note with
+        """
+        endpoint = "/api/v1/jamf-pro-server-url/history"
+
+        return self._post(endpoint, data)
+
+    def update_jamf_pro_server_url_settings(self, data: dict) -> dict:
+        """
+        Updates Jamf Pro Server URL settings with JSON. Only usable on
+        non-hosted JPS environments.
+
+        :param data: JSON data to update the Jamf Pro Server URL settings with
+        """
+        endpoint = "/api/v1/jamf-pro-server-url"
+
+        return self._put(endpoint, data)
 
     """
     jamf-pro-user-account-settings
