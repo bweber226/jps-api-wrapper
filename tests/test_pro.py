@@ -3523,6 +3523,29 @@ def test_get_jamf_pro_information(pro):
 jamf-pro-initialization
 """
 
+
+@responses.activate
+def test_create_jamf_pro_initialization(pro):
+    """
+    Ensures that create_jamf_pro_initialization returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/system/initialize")))
+    assert pro.create_jamf_pro_initialization(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_jamf_pro_initialization_password(pro):
+    """
+    Ensures that create_jamf_pro_initialization_password returns JSON when used
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/system/initialize-database-connection")
+        )
+    )
+    assert pro.create_jamf_pro_initialization_password(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 jamf-pro-initialization-preview
 """

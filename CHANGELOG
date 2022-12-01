@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.119.0] -- 2022-12-1
+### Added
+- Pro.create_jamf_pro_initialization which sets up a freshly installed Jamf Pro Server
+- Pro.create_jamf_pro_initialization_password which provides database password during setup
+
 ## [0.118.0] -- 2022-11-29
+### Added
 - Pro.get_jamf_pro_information which returns basic information about the Jamf Pro Server
 
 ## [0.117.0] -- 2022-11-28

@@ -3785,6 +3785,28 @@ class Pro(RequestBuilder):
     jamf-pro-initialization
     """
 
+    def create_jamf_pro_initialization(self, data: dict) -> dict:
+        """
+        Set up a freshly installed Jamf Pro Server
+
+        :param data: JSON data t set up Jamf Pro Server with
+        """
+        endpoint = "/api/v1/system/initialize"
+
+        return self._post(endpoint, data)
+
+    def create_jamf_pro_initialization_password(self, data: dict) -> dict:
+        """
+        Provides database password during startup. Endpoint is accessible when
+        database password was not configured and Jamf Pro server has not been
+        initialized yet.
+
+        :param data: JSON data to provide the database password with
+        """
+        endpoint = "/api/v1/system/initialize-database-connection"
+
+        return self._post(endpoint, data)
+
     """
     jamf-pro-initialization-preview
     """
