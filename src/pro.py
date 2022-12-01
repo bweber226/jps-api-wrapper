@@ -3811,9 +3811,33 @@ class Pro(RequestBuilder):
     jamf-pro-initialization-preview
     """
 
+    # All deprecated
+
     """
     jamf-pro-notifications
     """
+
+    def get_jamf_pro_notifications(self) -> dict:
+        """
+        Returns notifications for user and site
+        """
+        endpoint = "/api/v1/notifications"
+
+        return self._get(endpoint)
+
+    def delete_jamf_pro_notifications(self, type: str, id: Union[int, str]) -> str:
+        """
+        Deletes notifications with give type and ID
+
+        :param type: Type of the notification
+        :param id: Instance ID of the notification
+        """
+        endpoint = f"/api/v1/notifications/{type}/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Notifications of type {type} deleted from site {id}.",
+        )
 
     """
     jamf-pro-notifications-preview

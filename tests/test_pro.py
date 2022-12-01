@@ -3550,9 +3550,38 @@ def test_create_jamf_pro_initialization_password(pro):
 jamf-pro-initialization-preview
 """
 
+# All deprecated
+
 """
 jamf-pro-notifications
 """
+
+
+@responses.activate
+def test_get_jamf_pro_notifications(pro):
+    """
+    Ensures that get_jamf_pro_notifications returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/notifications")))
+    assert pro.get_jamf_pro_notifications() == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_jamf_pro_notifications(pro):
+    """
+    Ensures that delete_jamf_pro_notifications returns a success message str
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/notifications/EXCEEDED_LICENSE_COUNT/-1")
+        )
+    )
+    assert (
+        pro.delete_jamf_pro_notifications("EXCEEDED_LICENSE_COUNT", -1)
+        == "Notifications of type EXCEEDED_LICENSE_COUNT deleted from site -1."
+    )
+
 
 """
 jamf-pro-notifications-preview
