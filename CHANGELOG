@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.122.0] -- 2022-12-2
+### Added
+- Pro.get_jamf_pro_user_account_setting which returns the user setting for the authennticated user and key by key ID
+- Pro.update_jamf_pro_user_account_setting which updates the user setting with JSON by key ID
+- Pro.delete_jamf_pro_user_account_setting which deletes specified setting for the authenticated user by key ID
+
 ## [0.121.0] -- 2022-12-1
 ### Added
 - Pro.get_jamf_pro_server_url_settings which returns Jamf Pro URL settings

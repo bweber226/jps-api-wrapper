@@ -3659,6 +3659,42 @@ def test_update_jamf_pro_server_url_settings(pro):
 jamf-pro-user-account-settings
 """
 
+
+@responses.activate
+def test_get_jamf_pro_user_account_setting(pro):
+    """
+    Ensures that get_jamf_pro_user_account_setting returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/user/preferences/1001")))
+    assert pro.get_jamf_pro_user_account_setting(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_jamf_pro_user_account_setting(pro):
+    """
+    Ensures that update_jamf_pro_user_account_setting returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/user/preferences/1001")))
+    assert (
+        pro.update_jamf_pro_user_account_setting(EXPECTED_JSON, 1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_jamf_pro_user_account_setting(pro):
+    """
+    Ensures that delete_jamf_pro_user_account_setting returns a success
+    messsage str when used with required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/user/preferences/1001")))
+    assert (
+        pro.delete_jamf_pro_user_account_setting(1001)
+        == "User setting with key ID 1001 successfully deleted."
+    )
+
+
 """
 jamf-pro-user-account-settings-preview
 """

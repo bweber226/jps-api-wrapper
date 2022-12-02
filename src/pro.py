@@ -3910,6 +3910,40 @@ class Pro(RequestBuilder):
     jamf-pro-user-account-settings
     """
 
+    def get_jamf_pro_user_account_setting(self, keyId: str) -> dict:
+        """
+        Returns the user setting for the authennticated user and key by key ID
+
+        :param keyId: User setting to be retrieved
+        """
+        endpoint = f"/api/v1/user/preferences/{keyId}"
+
+        return self._get(endpoint)
+
+    def update_jamf_pro_user_account_setting(self, data: dict, keyId: str) -> dict:
+        """
+        Updates the user setting with JSON by key ID
+
+        :param data: JSON data to update user setting with
+        :param keyId: Unique key of user setting to be updated
+        """
+        endpoint = f"/api/v1/user/preferences/{keyId}"
+
+        return self._put(endpoint, data)
+
+    def delete_jamf_pro_user_account_setting(self, keyId) -> str:
+        """
+        Deletes specified setting for the authenticated user by key ID
+
+        :param keyID: Unique key of user setting to be deleted
+        """
+        endpoint = f"/api/v1/user/preferences/{keyId}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"User setting with key ID {keyId} successfully deleted.",
+        )
+
     """
     jamf-pro-user-account-settings-preview
     """
