@@ -3699,9 +3699,21 @@ def test_delete_jamf_pro_user_account_setting(pro):
 jamf-pro-user-account-settings-preview
 """
 
+# All endpoints deprecated
+
 """
 jamf-pro-version
 """
+
+
+@responses.activate
+def test_get_jamf_pro_version(pro):
+    """
+    Ensures that get_jamf_pro_version returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-pro-version")))
+    assert pro.get_jamf_pro_version() == EXPECTED_JSON
+
 
 """
 jamf-protect

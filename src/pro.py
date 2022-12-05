@@ -3948,9 +3948,20 @@ class Pro(RequestBuilder):
     jamf-pro-user-account-settings-preview
     """
 
+    # All endpoints deprecated
+
     """
     jamf-pro-version
     """
+
+    def get_jamf_pro_version(self) -> dict:
+        """
+        Returns information about the Jamf Pro Server including the current
+        version
+        """
+        endpoint = "/api/v1/jamf-pro-version"
+
+        return self._get(endpoint)
 
     """
     jamf-protect
