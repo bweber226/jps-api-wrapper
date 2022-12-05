@@ -88,7 +88,7 @@ class RequestBuilder:
         """
         full_url = self.base_url + quote(endpoint)
         if not headers:
-            headers = {"Content-type": f"application/{data_type}"}
+            headers = {"Accept": f"application/{data_type}"}
         response = self.session.get(full_url, headers=headers, params=params)
         self._raise_recognized_errors(response)
         response.raise_for_status()
@@ -112,7 +112,7 @@ class RequestBuilder:
             Optional params for the request
         """
         full_url = self.base_url + quote(endpoint)
-        headers = {"Content-type": "application/json"}
+        headers = {"Accept": "application/json"}
         response = self.session.get(full_url, headers=headers, params=params)
         self._raise_recognized_errors(response)
         response.raise_for_status()

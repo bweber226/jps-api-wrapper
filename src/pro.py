@@ -3967,12 +3967,195 @@ class Pro(RequestBuilder):
     jamf-protect
     """
 
+    def get_jamf_protect_integration_settings(self) -> dict:
+        """
+        Returns Jamf Protect integration settings for the Jamf Pro server
+        """
+        endpoint = "/api/v1/jamf-protect"
+
+        return self._get(endpoint)
+
+    def get_jamf_protect_config_profile_deployment_tasks(
+        self,
+        uuid: str,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["status:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns deployment tasks linked to Jamf Protect config profiles by UUID
+
+        :param uuid: Jamf Protect config profile UUID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            order is ["status:desc"]. Multiple sort criteria are supported
+            and must be seperated by a comma.
+
+            Example ["id:asc", "version:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter results. Default
+            filter is empty query - returning all results for the requested
+            page. Fields allowed in the query: version, updated, status This
+            param can be combined with paging and sorting.
+
+            Example: name=="Test"
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = f"/api/v1/jamf-protect/deployments/{uuid}/tasks"
+
+        return self._get(endpoint, params=params)
+
+    def get_jamf_protect_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted, paginated Jamf Protect history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v1/jamf-protect/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_jamf_protect_plans(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all of the previously synced Jamf Portect Plans with
+        information about their associated configuration profile
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query:  profileId,
+            name, description, id, uuid. This param can be combined with paging
+            and sorting.
+
+            Example: id==1001
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v1/jamf-protect/plans"
+
+        return self._get(endpoint, params=params)
+
+    def create_jamf_protect_config_profile_deployment_tasks_retry(
+        self, data: dict, uuid: str
+    ) -> dict:
+        """
+        Requests a retry of Jamf Protect install tasks with JSON by UUID
+
+        :param data: JSON data containing the IDs of the tasks to retry
+        :param uuid: Jamf Protect config profile UUID
+        """
+        endpoint = f"/api/v1/jamf-protect/deployments/{uuid}/tasks/retry"
+
+        return self._post(endpoint, data)
+
+    def create_jamf_protect_history_note(self, data: dict) -> dict:
+        """
+        Creates a Jamf Protect history note with JSON
+
+        :param data: JSON data to create the Jamf Protect history note
+        """
+        endpoint = "/api/v1/jamf-protect/history"
+
+        return self._post(endpoint, data)
+
+    def create_jamf_protect_plans_sync(self) -> str:
+        """
+        Syncs plans with Jamf Protect. Configuration profiles associated with
+        new plans will be imported to Jamf Pro.
+        """
+        endpoint = "/api/v1/jamf-protect/plans/sync"
+
+        return self._post(
+            endpoint, success_message="Jamf Protect plans successfully synced."
+        )
+
+    def create_jamf_protect_api_configuration(self, data: dict) -> dict:
+        """
+        Registers a Jamf Protect API configuration with Jamf Pro with JSON
+
+        :param data:
+            JSON data to register the Jamf Protect API configuration with
+        """
+        endpoint = "/api/v1/jamf-protect/register"
+
+        return self._post(endpoint, data)
+
+    def update_jamf_protect_integration_settings(self, data: dict) -> dict:
+        """
+        Updates the Jamf Protect integration settings with JSON
+
+        :param data:
+            JSON data to update the Jamf Protect integration settings with
+        """
+        endpoint = "/api/v1/jamf-protect"
+
+        return self._put(endpoint, data)
+
+    def delete_jamf_protect_api_registration(self) -> dict:
+        """
+        Deletes an existing Jamf Protect API registration if present. Jamf
+        Protect API integration will be disabled.
+        """
+        endpoint = "/api/v1/jamf-protect"
+
+        return self._delete(
+            endpoint,
+            success_message="Jamf Protect API registration successfully deleted.",
+        )
+
     """
     ldap
     """
 
     """
-    locales-preview
+    locales-previewu    `
     """
 
     """

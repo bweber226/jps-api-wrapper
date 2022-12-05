@@ -3719,6 +3719,178 @@ def test_get_jamf_pro_version(pro):
 jamf-protect
 """
 
+
+@responses.activate
+def test_get_jamf_protect_integration_settings(pro):
+    """
+    Ensures that get_jamf_protect_integration_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-protect")))
+    assert pro.get_jamf_protect_integration_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_protect_config_profile_deployment_tasks(pro):
+    """
+    Ensures that get_jamf_protect_config_deployment_deployment_tasks returns
+    JSON when used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/jamf-protect/deployments/1a2b3c4d/tasks")
+        )
+    )
+    assert (
+        pro.get_jamf_protect_config_profile_deployment_tasks("1a2b3c4d")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_jamf_protect_config_profile_deployment_tasks_optional_params(pro):
+    """
+    Ensures that get_jamf_protect_config_profile_deployment_tasks reurns JSON
+    when used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/jamf-protect/deployments/1a2b3c4d/tasks")
+        )
+    )
+    assert (
+        pro.get_jamf_protect_config_profile_deployment_tasks(
+            "1a2b3c4d", 0, 100, ["id:asc", "name:desc"], 'name=="Test"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_jamf_protect_history(pro):
+    """
+    Ensures that get_jamf_protect_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-protect/history")))
+    assert pro.get_jamf_protect_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_protect_history_optional_params(pro):
+    """
+    Ensures that get_jamf_protect_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-protect/history")))
+    assert (
+        pro.get_jamf_protect_history(
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_jamf_protect_plans(pro):
+    """
+    Ensures that get_jamf_protect_plans returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-protect/plans")))
+    assert pro.get_jamf_protect_plans() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_protect_plans_optional_params(pro):
+    """
+    Ensures that get_jamf_protect_plans returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jamf-protect/plans")))
+    assert (
+        pro.get_jamf_protect_plans(0, 100, ["id:desc", "name:asc"], "id=1001")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_jamf_protect_config_profile_deployment_tasks_retry(pro):
+    """
+    Ensures that create_jamf_protect_config_profile_deployment_tasks_retry
+    returns JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/jamf-protect/deployments/1a2b3c4d/tasks/retry")
+        )
+    )
+    assert (
+        pro.create_jamf_protect_config_profile_deployment_tasks_retry(
+            EXPECTED_JSON, "1a2b3c4d"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_jamf_protect_history_note(pro):
+    """
+    Ensures that create_jamf_protect_history_note returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/jamf-protect/history")))
+    assert pro.create_jamf_protect_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_jamf_protect_plans_sync(pro):
+    """
+    Ensures that create_jamf_protect_plans_sync returns a success message str
+    when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/jamf-protect/plans/sync")))
+    assert (
+        pro.create_jamf_protect_plans_sync()
+        == "Jamf Protect plans successfully synced."
+    )
+
+
+@responses.activate
+def test_create_jamf_protect_api_configuration(pro):
+    """
+    Ensures that create_jamf_protect_api_configuration returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/jamf-protect/register")))
+    assert pro.create_jamf_protect_api_configuration(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_jamf_protect_integration_settings(pro):
+    """
+    Ensures that update_jamf_protect_integration_settings returns JSON when
+    used with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/jamf-protect")))
+    assert pro.update_jamf_protect_integration_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_jamf_protect_api_registration(pro):
+    """
+    Ensures that delete_jamf_protect_api_registration returns a success message
+    str when used
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/jamf-protect")))
+    assert (
+        pro.delete_jamf_protect_api_registration()
+        == "Jamf Protect API registration successfully deleted."
+    )
+
+
 """
 ldap
 """

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.124.0] -- 2022-12-5
+### Added
+- Pro.get_jamf_protect_integration_settings which returns Jamf Protect integration settings for the Jamf Pro server
+- Pro.get_jamf_protect_config_profile_deployment_tasks which returns deployment tasks linked to Jamf Protect config profiles by UUID
+- Pro.get_jamf_protect_history which returns sorted, paginated Jamf Protect history
+- Pro.get_jamf_protect_plans which returns all of the previously synced Jamf Portect Plans with information about their associated configuration profile
+- Pro.create_jamf_protect_config_profile_deployment_tasks_retry which requests a retry of Jamf Protect install tasks with JSON by UUID
+- Pro.create_jamf_protect_history_note which creates a Jamf Protect history note with JSON
+- Pro.create_jamf_protect_plans_sync which syncs plans with Jamf Protect
+- Pro.create_jamf_protect_api_configuration which registers a Jamf Protect API configuration with Jamf Pro with JSON
+- Pro.update_jamf_protect_integration_settings which updates the Jamf Protect integration settings with JSON
+- Pro.delete_jamf_protect_api_registration which deletes an existing Jamf Protect API registration if present
+
 ## [0.123.0] -- 2022-12-5
 ### Added 
 - Pro.get_jamf_pro_version which returns information about the Jamf Pro Server including the current version
