@@ -3928,6 +3928,16 @@ def test_get_ldap_group_search(pro):
 locales-preview
 """
 
+
+@responses.activate
+def test_get_locales(pro):
+    """
+    Ensures that get_locales returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/locales")))
+    assert pro.get_locales() == EXPECTED_JSON
+
+
 """
 macos-managed-software-updates
 """

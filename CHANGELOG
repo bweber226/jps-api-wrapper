@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.126.0] -- 2022-12-6
+### Added
+- Pro.get_locales which returns locales that can be used in other features
+
 ## [0.125.0] -- 2022-12-6
 ### Added
 - Pro.get_ldap_servers which returns all active servers including LDAP and cloud identity providers

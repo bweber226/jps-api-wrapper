@@ -192,7 +192,6 @@ class Pro(RequestBuilder):
     app-dynamics-configuration-preview
     """
 
-    # TODO Preview
     def get_app_dynamics_configuration(self) -> dict:
         """
         Returns AppDynamicsConfig object
@@ -204,7 +203,6 @@ class Pro(RequestBuilder):
     """
     app-request-preview
     """
-    # TODO Preview
 
     def get_app_request_settings(self) -> dict:
         """
@@ -4181,8 +4179,16 @@ class Pro(RequestBuilder):
         return self._get(endpoint, params=params)
 
     """
-    locales-previewu    `
+    locales-preview
     """
+
+    def get_locales(self) -> dict:
+        """
+        Returns locales that can be used in other features
+        """
+        endpoint = "/api/v1/locales"
+
+        return self._get(endpoint)
 
     """
     macos-managed-software-updates
