@@ -3895,6 +3895,35 @@ def test_delete_jamf_protect_api_registration(pro):
 ldap
 """
 
+
+@responses.activate
+def test_get_ldap_servers(pro):
+    """
+    Ensures that get_ldap_servers returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/ldap/servers")))
+    assert pro.get_ldap_servers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ldap_local_servers(pro):
+    """
+    Ensures that get_ldap_local_servers returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/ldap/ldap-servers")))
+    assert pro.get_ldap_local_servers() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_ldap_group_search(pro):
+    """
+    Ensures that get_ldap_group_search returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/ldap/groups")))
+    assert pro.get_ldap_group_search("test") == EXPECTED_JSON
+
+
 """
 locales-preview
 """

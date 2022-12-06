@@ -4154,6 +4154,32 @@ class Pro(RequestBuilder):
     ldap
     """
 
+    def get_ldap_servers(self) -> dict:
+        """
+        Returns all active servers including LDAP and cloud identity providers
+        """
+        endpoint = "/api/v1/ldap/servers"
+
+        return self._get(endpoint)
+
+    def get_ldap_local_servers(self) -> dict:
+        """
+        Returns all not migrated, LDAP servers
+        """
+        endpoint = "/api/v1/ldap/ldap-servers"
+
+        return self._get(endpoint)
+
+    def get_ldap_group_search(self, search: str) -> dict:
+        """
+        Returns the configured acess groups that containt the text in the
+        search param
+        """
+        params = {"q": search}
+        endpoint = "/api/v1/ldap/groups"
+
+        return self._get(endpoint, params=params)
+
     """
     locales-previewu    `
     """
