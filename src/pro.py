@@ -4194,6 +4194,24 @@ class Pro(RequestBuilder):
     macos-managed-software-updates
     """
 
+    def get_macos_managed_software_updates(self) -> dict:
+        """
+        Returns available macOS manages software updates
+        """
+        endpoint = "/api/v1/macos-managed-software-updates/available-updates"
+
+        return self._get(endpoint)
+
+    def create_macos_managed_software_updates(self, data: dict) -> dict:
+        """
+        Sends macOS manged software updates
+
+        :param data: JSON data to send MacO
+        """
+        endpoint = "/api/v1/macos-managed-software-updates/send-updates"
+
+        return self._post(endpoint, data)
+
     """
     mdm
     """

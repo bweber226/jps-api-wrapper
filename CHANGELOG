@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.127.0] -- 2022-12-6
+### Added
+- Pro.get_macos_managed_software_updates which returns available macOS manages software updates
+- Pro.create_macos_managed_software_udpates which sends macOS manged software updates
+
 ## [0.126.0] -- 2022-12-6
 ### Added
 - Pro.get_locales which returns locales that can be used in other features

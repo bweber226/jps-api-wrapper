@@ -3942,6 +3942,34 @@ def test_get_locales(pro):
 macos-managed-software-updates
 """
 
+
+@responses.activate
+def test_get_macos_managed_software_updates(pro):
+    """
+    Ensures that get_macos_managed_software_updates returns JSON when used
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/macos-managed-software-updates/available-updates")
+        )
+    )
+    assert pro.get_macos_managed_software_updates() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_mac_managed_software_updates(pro):
+    """
+    Ensures that create_macos_managed_software_updates returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/macos-managed-software-updates/send-updates")
+        )
+    )
+    assert pro.create_macos_managed_software_updates(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 mdm
 """
