@@ -4216,6 +4216,84 @@ class Pro(RequestBuilder):
     mdm
     """
 
+    # Filter needs to be set to something otherwise it will return a 400 error
+    def get_mdm_commands(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["dateSent:asc"],
+        filter: str = "dateSent>=1970-01-01T00:00:00Z",
+    ) -> dict:
+        """
+        Returns information about MDM commands made by Jamf Pro
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Default sort is dateSent:asc. Multiple sort criteria are supported
+            and must be separated with a comma.
+
+            ["dateSent:desc", "command:asc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter, for a list of
+            commands. All url must contain minimum one filter field. Fields
+            allowed in the query: uuid, clientManagementId, command, status,
+            clientType, dateSent, validAfter, dateCompleted, profileIdentifier,
+            and active. This param can be combined with paging.
+
+            Example: status==Pending
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v2/mdm/commands"
+
+        return self._get(endpoint, params=params)
+
+    def create_mdm_command(self, data: dict) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Create and queue an MDM command with given JSON data
+
+        :param data: JSON data to create the MDM command with
+        """
+        endpoint = "/api/preview/mdm/commands"
+
+        return self._post(endpoint, data)
+
+    def create_mdm_profile_renew(self, data: dict) -> dict:
+        """
+        Renews the device's MDM Profile, including the device identity
+        certificate within the MDM Profile with JSON data.
+
+        :param data: JSON data to define which profiles to renew
+        """
+        endpoint = "/api/v1/mdm/renew-profile"
+
+        return self._post(endpoint, data)
+
+    def create_mdm_deploy_package(self, data: dict, verbose: bool = False) -> dict:
+        """
+        Deploys packages to macOS devices using the
+        InstallEnterpriseApplication MDM command.
+
+        :param data: JSON data to deploy package with
+        :param verbose:
+            Deploys packages to macOS devices using the
+            InstallEnterpriseApplication MDM command.
+        """
+        params = {"verbose": verbose}
+        endpoint = "/api/v1/deploy-package"
+
+        return self._post(endpoint, data, params=params)
+
     """
     mobile-device-enrollment-profile
     """

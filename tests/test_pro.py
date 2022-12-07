@@ -3974,6 +3974,69 @@ def test_create_mac_managed_software_updates(pro):
 mdm
 """
 
+
+@responses.activate
+def test_get_mdm_commands(pro):
+    """
+    Ensures that get_mdm_commands returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/mdm/commands")))
+    assert pro.get_mdm_commands() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mdm_commands_optional_params(pro):
+    """
+    Ensures that get_mdm_commands returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/mdm/commands")))
+    assert (
+        pro.get_mdm_commands(0, 100, ["dateSent:desc"], "status==Pending")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_mdm_command(pro):
+    """
+    Ensures that create_mdm_command returns JSON when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/preview/mdm/commands")))
+    assert pro.create_mdm_command(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_mdm_profile_renew(pro):
+    """
+    Ensures that create_mdm_profile_renew returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/mdm/renew-profile")))
+    assert pro.create_mdm_profile_renew(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_mdm_deploy_package(pro):
+    """
+    Ensures that create_mdm_deploy_package returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/deploy-package")))
+    assert pro.create_mdm_deploy_package(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_mdm_deploy_package_optional_params(pro):
+    """
+    Ensures that create_mdm_deploy_package returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/deploy-package")))
+    assert pro.create_mdm_deploy_package(EXPECTED_JSON, True) == EXPECTED_JSON
+
+
 """
 mobile-device-enrollment-profile
 """

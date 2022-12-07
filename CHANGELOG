@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.128.0] -- 2022-12-7
+### Added
+- Pro.get_mdm_commands which returns information about MDM commands made by Jamf Pro
+- Pro.create_mdm_command which is a preview endpoint which reate and queue an MDM command with given JSON data
+- Pro.create_mdm_profile_renew which renews the device's MDM Profile, including the device identity certificate within the MDM Profile with JSON data
+- Pro.create_mdm_deploy_package which deploys packages to macOS devices using the InstallEnterpriseApplication MDM command.
+
 ## [0.127.0] -- 2022-12-6
 ### Added
 - Pro.get_macos_managed_software_updates which returns available macOS manages software updates
