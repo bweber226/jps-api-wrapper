@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.131.0] -- 2022-12-8
+### Added
+- Pro.get_mobile_device_groups which returns all mobile device groups
+
+## [0.130.0] -- 2022-12-8
+### Added
+- Pro.get_mobile_device_extension_attributes which returns mobile device extension attribute values placed in select parameter
+
 ## [0.129.0] -- 2022-12-7
 ### Added
 - Pro.get_mobile_device_enrollment_profile which downloads the MDM enrollment profile to the current users Downloads folder by ID

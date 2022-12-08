@@ -4063,9 +4063,30 @@ def test_get_mobile_device_enrollment_profile_NotFound(pro):
 mobile-device-extension-attributes-preview
 """
 
+
+@responses.activate
+def test_get_mobile_device_extension_attributes(pro):
+    """
+    Ensures that get_mobile_device_extension_attributes returns JSON when
+    used
+    """
+    responses.add(response_builder("GET", jps_url("/api/devices/extensionAttributes")))
+    assert pro.get_mobile_device_extension_attributes() == EXPECTED_JSON
+
+
 """
 mobile-device-groups-preview
 """
+
+
+@responses.activate
+def test_get_mobile_device_groups(pro):
+    """
+    Ensures that get_mobile_device_extension_attributes returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/mobile-device-groups")))
+    assert pro.get_mobile_device_groups() == EXPECTED_JSON
+
 
 """
 mobile-device-prestages

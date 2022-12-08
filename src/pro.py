@@ -4313,9 +4313,31 @@ class Pro(RequestBuilder):
     mobile-device-extension-attributes-preview
     """
 
+    def get_mobile_device_extension_attributes(self, select: str = "name") -> dict:
+        """
+        Returns mobile device extension attribute values placed in select
+        parameter. The only supported select value curently is name.
+
+        :param select:
+            Extension attribute value to return, the only supported value
+            currently is name. Default value is name.
+        """
+        params = {"select": select}
+        endpoint = "/api/devices/extensionAttributes"
+
+        return self._get(endpoint, params=params)
+
     """
     mobile-device-groups-preview
     """
+
+    def get_mobile_device_groups(self) -> dict:
+        """
+        Returns all mobile device groups
+        """
+        endpoint = "/api/v1/mobile-device-groups"
+
+        return self._get(endpoint)
 
     """
     mobile-device-prestages
