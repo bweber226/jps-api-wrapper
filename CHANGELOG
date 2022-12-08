@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.132.0] -- 2022-12-8
+### Added
+- Pro.get_mobile_device_prestages which returns sorted and paged mobile device prestages
+- Pro.get_mobile_device_prestages_scopes which returns all device scopes for all mobile device prestages
+- Pro.get_mobile_device_prestages_sync_states which returns all prestage sync states for all prestages
+- Pro.get_mobile_device_prestage which returns a mobile device prestage by ID
+- Pro.get_mobile_device_prestage_attachments which returns attachments for a mobile device prestage by ID
+- Pro.get_mobile_device_prestage_history which returns sorted and paged mobile device prestage history by ID
+- Pro.get_mobile_device_prestage_scope which returns device scope for a specific mobile device prestage by ID
+- Pro.get_mobile_device_prestage_sync_states which returns all prestage sync states for a single prestage by ID
+- Pro.get_mobile_device_prestage_latest_sync_state which returns the latest sync state for a single prestage by ID
+- Pro.create_mobile_device_prestage which creates a mobile device prestage with JSON data
+- Pro.create_mobile_device_prestage_attachment which uploads a mobile device prestage attachment by ID and filepath
+- Pro.create_mobile_device_prestage_history_note which creates a mobile device prestage history note by ID with JSON
+- Pro.create_mobile_device_prestage_scope which adds device scope for a specific mobile device prestage by ID
+- Pro.update_mobile_device_prestage which updates a mobile device prestage by ID with JSON
+- Pro.replace_mobile_device_prestage_scope which replaces device scope for a specific mobiule device prestage by ID with JSON
+- Pro.delete_mobile_device_prestage which deletes a mobile device prestage by ID
+- Pro.delete_mobile_device_prestage_attachment which deletes mobile device prestage attachment(s) by ID with JSON
+- Pro.delete_mobile_device_prestage_scope which removes device scope for a specific mobile device prestage by ID with JSON
+
 ## [0.131.0] -- 2022-12-8
 ### Added
 - Pro.get_mobile_device_groups which returns all mobile device groups

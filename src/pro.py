@@ -4343,6 +4343,247 @@ class Pro(RequestBuilder):
     mobile-device-prestages
     """
 
+    def get_mobile_device_prestages(
+        self, page: int = None, page_size: int = None, sort: int = ["id:desc"]
+    ) -> dict:
+        """
+        Returns sorted and paged mobile device prestages
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Multiple sort
+            criteria are supported and must be separated with a comma. Default
+            sort is id:desc.
+
+            Example: ["id:asc", "defaultPrestage:desc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v2/mobile-device-prestages"
+
+        return self._get(endpoint, params=params)
+
+    def get_mobile_device_prestages_scopes(self) -> dict:
+        """
+        Returns all device scopes for all mobile device prestages
+        """
+        endpoint = "/api/v2/mobile-device-prestages/scope"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_prestages_sync_states(self) -> dict:
+        """
+        Returns all prestage sync states for all prestages
+        """
+        endpoint = "/api/v2/mobile-device-prestages/syncs"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_prestage(self, id: Union[int, str]) -> dict:
+        """
+        Returns a mobile device prestage by ID
+
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_prestage_attachments(self, id: Union[int, str]) -> dict:
+        """
+        Returns attachments for a mobile device prestage by ID
+
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/attachments"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_prestage_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: int = ["date:desc"],
+    ) -> dict:
+        """
+        Returns sorted and paged mobile device prestage history by ID
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/history"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_prestage_scope(self, id: Union[int, str]) -> dict:
+        """
+        Returns device scope for a specific mobile device prestage by ID
+
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/scope"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_prestage_sync_states(self, id: Union[int, str]) -> dict:
+        """
+        Returns all prestage sync states for a single prestage by ID
+
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/syncs"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_prestage_latest_sync_state(self, id: Union[int, str]) -> dict:
+        """
+        Returns the latest sync state for a single prestage by ID
+
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/syncs/latest"
+
+        return self._get(endpoint)
+
+    def create_mobile_device_prestage(self, data: dict) -> dict:
+        """
+        Creates a mobile device prestage with JSON data
+
+        :param data: JSON data to create mobile device prestage with
+        """
+        endpoint = "/api/v2/mobile-device-prestages"
+
+        return self._post(endpoint, data)
+
+    def create_mobile_device_prestage_attachment(
+        self, filepath: str, id: Union[int, str]
+    ) -> dict:
+        """
+        Uploads a mobile device prestage attachment by ID and filepath
+
+        :param filepath: Literal path to file to upload
+        :param id: Mobile device prestage ID
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/attachments"
+
+        return self._post(endpoint, file=file)
+
+    def create_mobile_device_prestage_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a mobile device prestage history note by ID with JSON
+
+        :param data:
+            JSON data to create mobile device prestage history note with
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def create_mobile_device_prestage_scope(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Adds device scope for a specific mobile device prestage by ID
+
+        :param data: JSON data to add device scope with
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/scope"
+
+        return self._post(endpoint, data)
+
+    def update_mobile_device_prestage(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a mobile device prestage by ID with JSON
+
+        :param data: JSON data to update mobile device prestage with
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}"
+
+        return self._put(endpoint, data)
+
+    def replace_mobile_device_prestage_scope(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Replaces device scope for a specific mobiule device prestage by ID with
+        JSON
+
+        :param data: JSON data to replace device scope with
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/scope"
+
+        return self._put(endpoint, data)
+
+    def delete_mobile_device_prestage(self, id: Union[int, str]) -> str:
+        """
+        Deletes a mobile device prestage by ID
+
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Mobile device prestage {id} successfully deleted.",
+        )
+
+    def delete_mobile_device_prestage_attachment(
+        self, data: dict, id: Union[int, str]
+    ) -> str:
+        """
+        Deletes mobile device prestage attachment(s) by ID with JSON
+
+        :param data:
+            JSON data to delete mobile device prestage attachments with
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/attachments/delete-multiple"
+
+        return self._post(
+            endpoint,
+            data,
+            success_message=(
+                f"Attachment(s) {', '.join(data['ids'])} of mobile device "
+                f"prestage {id} successfully deleted."
+            ),
+        )
+
+    def delete_mobile_device_prestage_scope(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Removes device scope for a specific mobile device prestage by ID with
+        JSON
+
+        :param data: JSON data to remove device scope with
+        :param id: Mobile device prestage ID
+        """
+        endpoint = f"/api/v2/mobile-device-prestages/{id}/scope/delete-multiple"
+
+        return self._post(endpoint, data)
+
     """
     mobile-devices
     """

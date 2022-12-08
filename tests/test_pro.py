@@ -4092,6 +4092,273 @@ def test_get_mobile_device_groups(pro):
 mobile-device-prestages
 """
 
+
+@responses.activate
+def test_get_mobile_device_prestages(pro):
+    """
+    Ensures that get_mobile_device_prestages returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/mobile-device-prestages")))
+    assert pro.get_mobile_device_prestages() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestages_optional_params(pro):
+    """
+    Ensures that get_mobile_device_prestages returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/mobile-device-prestages")))
+    assert (
+        pro.get_mobile_device_prestages(0, 100, ["id:asc", "defaultPrestage:desc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_mobile_device_prestages_scopes(pro):
+    """
+    Ensures that get_mobile_device_prestages_scopes returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-device-prestages/scope"))
+    )
+    assert pro.get_mobile_device_prestages_scopes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestages_sync_states(pro):
+    """
+    Ensures that get_mobile_device_prestages_sync_states returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-device-prestages/syncs"))
+    )
+    assert pro.get_mobile_device_prestages_sync_states() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestage(pro):
+    """
+    Ensures that get_mobile_device_prestage returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-device-prestages/1001"))
+    )
+    assert pro.get_mobile_device_prestage(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestage_attachments(pro):
+    """
+    Ensures that get_mobile_device_prestage_attachments return JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/mobile-device-prestages/1001/attachments")
+        )
+    )
+    assert pro.get_mobile_device_prestage_attachments(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestage_history(pro):
+    """
+    Ensures that get_mobile_device_prestage_history returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-device-prestages/1001/history"))
+    )
+    assert pro.get_mobile_device_prestage_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestage_history_optional_params(pro):
+    """
+    Ensures that get_mobile_device_prestage_history returns JSON when used
+    with all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-device-prestages/1001/history"))
+    )
+    assert (
+        pro.get_mobile_device_prestage_history(1001, 0, 100, ["date:desc", "note:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_mobile_device_prestage_scope(pro):
+    """
+    Ensures that get_mobile_device_prestage_scope returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-device-prestages/1001/scope"))
+    )
+    assert pro.get_mobile_device_prestage_scope(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestage_sync_states(pro):
+    """
+    Ensures that get_mobile_device_prestage_sync_states returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-device-prestages/1001/syncs"))
+    )
+    assert pro.get_mobile_device_prestage_sync_states(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_prestage_latest_sync_state(pro):
+    """
+    Ensures that get_mobile_device_prestage_latest_sync_state returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/mobile-device-prestages/1001/syncs/latest")
+        )
+    )
+    assert pro.get_mobile_device_prestage_latest_sync_state(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_mobile_device_prestage(pro):
+    """
+    Ensures that create_mobile_device_prestage returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v2/mobile-device-prestages")))
+    assert pro.create_mobile_device_prestage(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_mobile_device_prestage_attachment(pro):
+    """
+    Ensures that create_mobile_device_prestage_attachment returns JSON when
+    uploading a txt file
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder(
+                "POST", jps_url("/api/v2/mobile-device-prestages/1001/attachments")
+            )
+        )
+        assert pro.create_mobile_device_prestage_attachment("/file.txt", 1001)
+
+
+@responses.activate
+def test_create_mobile_device_prestage_history_note(pro):
+    """
+    Ensures that create_mobile_device_prestage_history_note returns JSON when
+    used
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v2/mobile-device-prestages/1001/history")
+        )
+    )
+    assert (
+        pro.create_mobile_device_prestage_history_note(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_mobile_device_prestage_scope(pro):
+    """
+    Ensures that create_mobile_device_prestage_scope returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/mobile-device-prestages/1001/scope"))
+    )
+    assert pro.create_mobile_device_prestage_scope(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_mobile_device_prestage(pro):
+    """
+    Ensures that update_mobile_device_prestage returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v2/mobile-device-prestages/1001"))
+    )
+    assert pro.update_mobile_device_prestage(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_replace_mobile_device_prestage_scope(pro):
+    """
+    Ensures that replace_mobile_device_pretage_scope returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v2/mobile-device-prestages/1001/scope"))
+    )
+    assert (
+        pro.replace_mobile_device_prestage_scope(EXPECTED_JSON, 1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_prestage(pro):
+    """
+    Ensures that delete_mobile_device_prestage returns a success message str
+    when used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v2/mobile-device-prestages/1001"))
+    )
+    assert (
+        pro.delete_mobile_device_prestage(1001)
+        == "Mobile device prestage 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_prestage_attachment(pro):
+    """
+    Ensures that delete_mobile_device_prestage_attachment returns a success
+    message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v2/mobile-device-prestages/1001/attachments/delete-multiple"),
+        )
+    )
+    assert (
+        pro.delete_mobile_device_prestage_attachment({"ids": ["1", "2"]}, 1001)
+        == "Attachment(s) 1, 2 of mobile device prestage 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_mobile_device_prestage_scope(pro):
+    """
+    Ensures that delete_mobile_device_prestage_scope returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v2/mobile-device-prestages/1001/scope/delete-multiple"),
+        )
+    )
+    assert pro.delete_mobile_device_prestage_scope(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
 """
 mobile-devices
 """
