@@ -4041,6 +4041,24 @@ def test_create_mdm_deploy_package_optional_params(pro):
 mobile-device-enrollment-profile
 """
 
+
+@responses.activate
+def test_get_mobile_device_enrollment_profile_NotFound(pro):
+    """
+    Ensures that get_mobile_device_enrollment_profile raises NotFound when
+    the response returns a 404 HTTPError
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/mobile-device-enrollment-profile/1001/download-profile"),
+            status=404,
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_mobile_device_enrollment_profile(1001)
+
+
 """
 mobile-device-extension-attributes-preview
 """

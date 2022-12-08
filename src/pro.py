@@ -4298,6 +4298,17 @@ class Pro(RequestBuilder):
     mobile-device-enrollment-profile
     """
 
+    def get_mobile_device_enrollment_profile(self, id: Union[int, str]) -> dict:
+        """
+        Downloads the MDM enrollment profile to the current users Downloads
+        folder by ID
+
+        :param id: MDM enrollment profile ID
+        """
+        endpoint = f"/api/v1/mobile-device-enrollment-profile/{id}/download-profile"
+
+        return self._download(endpoint)
+
     """
     mobile-device-extension-attributes-preview
     """
