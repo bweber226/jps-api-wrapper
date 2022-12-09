@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.134.0] -- 2022-12-9
+### Added
+- Pro.get_parent_app_settings which returns the current Jamf Parent app settings
+- Pro.get_parent_app_settings_history which returns Jamf Paret app settings history
+- Pro.create_parent_app_settings_history_note which creates a Jamf Parent app settings history note with JSON
+- Pro.update_parent_app_settings which updates Jamf Parent app settings with JSON
+
 ## [0.133.0] -- 2022-12-9
 ### Added
 - Pro.get_mobile_devices which returns sorted and paginated mobile devices
