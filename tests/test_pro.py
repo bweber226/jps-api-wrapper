@@ -4363,6 +4363,58 @@ def test_delete_mobile_device_prestage_scope(pro):
 mobile-devices
 """
 
+
+@responses.activate
+def test_get_mobile_devices(pro):
+    """
+    Ensures that get_mobile_devices returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/mobile-devices")))
+    assert pro.get_mobile_devices() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_devices_optional_params(pro):
+    """
+    Ensures that get_mobile_device returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/mobile-devices")))
+    assert pro.get_mobile_devices(0, 100, ["id:desc", "name:asc"]) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device(pro):
+    """
+    Ensures that get_mobile_device returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/mobile-devices/1001")))
+    assert pro.get_mobile_device(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_detail(pro):
+    """
+    Ensures that get_mobile_device_detail returns JSON when used with required
+    params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-devices/1001/detail"))
+    )
+    assert pro.get_mobile_device_detail(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_mobile_device(pro):
+    """
+    Ensures that update_mobile_device returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v2/mobile-devices/1001")))
+    assert pro.update_mobile_device(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
 """
 parent-app-preview
 """

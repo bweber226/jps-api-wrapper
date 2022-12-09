@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.133.0] -- 2022-12-9
+### Added
+- Pro.get_mobile_devices which returns sorted and paginated mobile devices
+- Pro.get_mobile_device which returns mobile device with limited details by ID
+- Pro.get_mobile_device_detail which returns mobile device with all info by ID
+- Pro.update_mobile_device which updates mobile device by ID with JSON
+
 ## [0.132.0] -- 2022-12-8
 ### Added
 - Pro.get_mobile_device_prestages which returns sorted and paged mobile device prestages

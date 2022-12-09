@@ -4588,6 +4588,63 @@ class Pro(RequestBuilder):
     mobile-devices
     """
 
+    def get_mobile_devices(
+        self, page: int = None, page_size: int = None, sort: List["str"] = None
+    ) -> dict:
+        """
+        Returns sorted and paginated mobile devices
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "name:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v2/mobile-devices"
+
+        return self._get(endpoint, params=params)
+
+    def get_mobile_device(self, id: Union[int, str]) -> dict:
+        """
+        Returns mobile device with limited details by ID
+
+        :param id: Mobile device ID
+        """
+        endpoint = f"/api/v2/mobile-devices/{id}"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_detail(self, id: Union[int, str]) -> dict:
+        """
+        Returns mobile device with all info by ID
+
+        :param id: Mobile device ID
+        """
+        endpoint = f"/api/v2/mobile-devices/{id}/detail"
+
+        return self._get(endpoint)
+
+    def update_mobile_device(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates mobile device by ID with JSON
+
+        :param data: JSON data to update mobile device with
+        :param id: Mobile device ID
+        """
+        endpoint = f"/api/v2/mobile-devices/{id}"
+
+        return self._put(endpoint, data)
+
     """
     parent-app-preview
     """
