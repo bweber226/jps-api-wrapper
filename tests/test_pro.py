@@ -4481,6 +4481,46 @@ def test_update_parent_app_settings(pro):
 patch-policies-preview
 """
 
+
+@responses.activate
+def test_get_patch_policy_dashboard(pro):
+    """
+    Ensures that get_patch_policy_dashboard returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/patch/patch-policies/1001/dashboard"))
+    )
+    assert pro.get_patch_policy_dashboard(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_patch_policy_dashboard(pro):
+    """
+    Ensures that create_patch_policy_dashboard returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/patch/patch-policies/1001/dashboard"))
+    )
+    assert pro.create_patch_policy_dashboard(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_patch_policy_dashboard(pro):
+    """
+    Ensures that delete_patch_policy_dashboard returns a success message str
+    when used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/patch/patch-policies/1001/dashboard"))
+    )
+    assert (
+        pro.delete_patch_policy_dashboard(1001)
+        == "Patch policy 1001 removed from dashboard."
+    )
+
+
 """
 patch-policy-logs-preview
 """

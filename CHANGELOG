@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.135.0] -- 2022-12-12
+### Added
+- Pro.get_patch_policy_dashboard which returns whether or not the requested patch policy is on the dashboard by ID
+- Pro.create_patch_policy_dashboard which adds a patch policy to the dashboard by ID
+- Pro.delete_patch_policy_dashboard which removes a patch policy from the dashboard by ID
+
 ## [0.134.0] -- 2022-12-9
 ### Added
 - Pro.get_parent_app_settings which returns the current Jamf Parent app settings

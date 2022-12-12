@@ -4721,6 +4721,39 @@ class Pro(RequestBuilder):
     patch-policies-preview
     """
 
+    def get_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
+        """
+        Returns whether or not the requested patch policy is on the dashboard
+        by ID
+
+        :param id: Patch policy ID
+        """
+        endpoint = f"/api/patch/patch-policies/{id}/dashboard"
+
+        return self._get(endpoint)
+
+    def create_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
+        """
+        Adds a patch policy to the dashboard by ID
+
+        :param id: Patch policy ID
+        """
+        endpoint = f"/api/patch/patch-policies/{id}/dashboard"
+
+        return self._post(endpoint)
+
+    def delete_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
+        """
+        Removes a patch policy from the dashboard by ID
+
+        :param id: Patch policy ID
+        """
+        endpoint = f"/api/patch/patch-policies/{id}/dashboard"
+
+        return self._delete(
+            endpoint, success_message=f"Patch policy {id} removed from dashboard."
+        )
+
     """
     patch-policy-logs-preview
     """
