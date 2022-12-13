@@ -4899,7 +4899,7 @@ class Pro(RequestBuilder):
         page_size: int = None,
         sort: List[str] = ["id:asc"],
         filter: str = None,
-    ) -> dict:
+    ) -> str:
         """
         Exports reenrollment history collection in CSV format
 
@@ -4976,6 +4976,25 @@ class Pro(RequestBuilder):
     """
     remote-administration
     """
+
+    def get_remote_administration_configurations(
+        self, page: int = None, page_size: int = None
+    ) -> dict:
+        """
+        Returns remote administration configurations
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+            }
+        )
+        endpoint = "/api/preview/remote-administration-configurations"
+
+        return self._get(endpoint, params=params)
 
     """
     scripts

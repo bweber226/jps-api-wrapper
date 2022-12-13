@@ -4664,6 +4664,36 @@ def test_get_reenrollment_history_optional_params(pro):
 
 
 @responses.activate
+def test_get_reenrollment_history_export(pro):
+    """
+    Ensures that get_reenrollment_history_export returns a str when used
+    without optional params
+    """
+    responses.add("POST", jps_url("/api/v1/reenrollment/history/export"), status=200)
+    assert pro.get_reenrollment_history_export() == ""
+
+
+@responses.activate
+def test_get_reenrollment_history_export_optional_params(pro):
+    """
+    Ensures that get_reenrollment_history_export returns a str when used
+    with all optional params
+    """
+    responses.add("POST", jps_url("/api/v1/reenrollment/history/export"), status=200)
+    assert (
+        pro.get_reenrollment_history_export(
+            ["id", "username"],
+            ["identification", "name"],
+            0,
+            100,
+            ["id:desc", "date:asc"],
+            'username=="exampleuser"',
+        )
+        == ""
+    )
+
+
+@responses.activate
 def test_create_reenrollment_history_note(pro):
     """
     Ensures that create_enrollment_history_note returns JSON when used with
@@ -4686,6 +4716,35 @@ def test_update_reenrollment_settings(pro):
 """
 remote-administration
 """
+
+
+@responses.activate
+def test_get_remote_administration_configurations(pro):
+    """
+    Ensures that get_remote_administration_configurations returns JSON when
+    used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/preview/remote-administration-configurations")
+        )
+    )
+    assert pro.get_remote_administration_configurations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_remote_administration_configurations_optional_params(pro):
+    """
+    Ensures that get_remote_administration_configurations returns JSON when
+    used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/preview/remote-administration-configurations")
+        )
+    )
+    assert pro.get_remote_administration_configurations(0, 100) == EXPECTED_JSON
+
 
 """
 scripts
