@@ -4758,13 +4758,78 @@ class Pro(RequestBuilder):
     patch-policy-logs-preview
     """
 
+    # All endpoints deprecated
+
     """
     patches
     """
 
+    # All endpoints deprecated
+
     """
     patches-preview
     """
+
+    def get_patch_dashboards(self) -> dict:
+        """
+        Returns list of patch IDs on dashboard
+        """
+        endpoint = "/api/patch/onDashboard"
+
+        return self._get(endpoint)
+
+    def get_patch_summary(self, id: Union[int, str]) -> dict:
+        """
+        Returns patch policy summary by ID
+
+        :param id: Patch policy ID
+        """
+        endpoint = f"/api/patch/objs/policy/{id}"
+
+        return self._get(endpoint)
+
+    def get_patch_software_summary(self, id: Union[int, str]) -> dict:
+        """
+        Returns the summaries of the patch policies for the software title by
+        ID
+
+        :param id: Software title ID
+        """
+        endpoint = f"/api/patch/obj/softwareTitle/{id}/policies"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_id(self, id: Union[int, str]) -> dict:
+        """
+        Returns the software title configuration ID for the given patch policy
+        by ID
+
+        :param ID: Policy ID
+        """
+        endpoint = f"/api/patch/obj/policy/{id}/softwareTitleConfigurationId"
+
+        return self._get(endpoint)
+
+    def create_patch_disclaimer_accept(self) -> str:
+        """
+        Accepts patch reporting disclaimer
+        """
+        endpoint = "/api/patch/disclaimerAgree"
+
+        return self._post(
+            endpoint, success_message="Patch reporting disclaimer accepted."
+        )
+
+    def update_patch_report(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates patch report by ID with JSON
+
+        :param data: JSON data to update patch report with
+        :param id: Patch ID
+        """
+        endpoint = f"/api/patch/obj/{id}"
+
+        return self._put(endpoint, data)
 
     """
     policies-preview

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.136.0] -- 2022-12-13
+### Added 
+- Pro.get_patch_dashboards which returns list of patch IDs on dashboard
+- Pro.get_patch_summary which returns patch policy summary by ID
+- Pro.get_patch_software_summary which returns the summaries of the patch policies for the software title by ID
+- Pro.get_patch_software_title_configuration_id which returns the software title configuration ID for the given patch policy by ID
+- Pro.create_patch_disclaimer_accept which accepts patch reporting disclaimer
+- Pro.update_patch_report which updates patch report by ID with JSON
+
 ## [0.135.0] -- 2022-12-12
 ### Added
 - Pro.get_patch_policy_dashboard which returns whether or not the requested patch policy is on the dashboard by ID

@@ -4525,13 +4525,83 @@ def test_delete_patch_policy_dashboard(pro):
 patch-policy-logs-preview
 """
 
+# All endpoints deprecated
+
 """
 patches
 """
 
+# All endpoints deprecated
+
 """
 patches-preview
 """
+
+
+@responses.activate
+def test_get_patch_dashboards(pro):
+    """
+    Ensures that get_patch_dashboards returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/patch/onDashboard")))
+    assert pro.get_patch_dashboards() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_summary(pro):
+    """
+    Ensures that get_patch_summary returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/patch/objs/policy/1001")))
+    assert pro.get_patch_summary(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_summary(pro):
+    """
+    Ensures that get_patch_software_summary returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/patch/obj/softwareTitle/1001/policies"))
+    )
+    assert pro.get_patch_software_summary(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_id(pro):
+    """
+    Ensures that get_patch_software_title_configuration_id returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/patch/obj/policy/1001/softwareTitleConfigurationId")
+        )
+    )
+    assert pro.get_patch_software_title_configuration_id(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_patch_disclaimer_accept(pro):
+    """
+    Ensures that create_patch_disclaimer_accept returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/patch/disclaimerAgree")))
+    assert (
+        pro.create_patch_disclaimer_accept() == "Patch reporting disclaimer accepted."
+    )
+
+
+@responses.activate
+def test_update_patch_report(pro):
+    """
+    Ensures that update_patch_report returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/patch/obj/1001")))
+    assert pro.update_patch_report(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
 
 """
 policies-preview
