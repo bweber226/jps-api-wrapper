@@ -4857,6 +4857,108 @@ class Pro(RequestBuilder):
     re-enrollment-preview
     """
 
+    def get_reenrollment_settings(self) -> dict:
+        """
+        Returns re-enrollment settings
+        """
+        endpoint = "/api/v1/reenrollment"
+
+        return self._get(endpoint)
+
+    def get_reenrollment_history(self, page: int = None, page_size: int = None, sort: List[str] = ["date:desc"]) -> dict:
+        """
+        Returns paginated and sorted re-enrollment history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+        """
+        params = remove_empty_params({
+            "page": page,
+            "page-size": page_size,
+            "sort": sort,
+        })
+        endpoint = "/api/v1/reenrollment/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_reenrollment_history_export(self, export_fields: List[str] = None, export_labels: List[str] = None, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"], filter: str = None) -> dict:
+        """
+        Exports reenrollment history collection in CSV format
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Options: id, username, date, note, details
+
+            Example: ["id", "username"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["identification", "name"] with
+            matching: export_fields=["id", "username"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "date:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name.
+            This param can be combined with paging and sorting.
+
+            Example: username=="exampleuser"
+        """
+        params = remove_empty_params({
+            "export-fields": export_fields,
+            "export-labels": export_labels,
+            "page": page,
+            "page-size": page_size,
+            "sort": sort,
+            "filter": filter
+        })
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = "/api/v1/reenrollment/history/export"
+
+        return self._post(endpoint, headers=headers, params=params, data_type=None)
+
+    def create_reenrollment_history_note(self, data: dict) -> dict:
+        """
+        Adds specified re-enrollment history note with JSON
+
+        :param data: JSON data to create re-enrollment history note with
+        """
+        endpoint = "/api/v1/reenrollment/history"
+
+        return self._post(endpoint, data)
+
+    def update_reenrollment_settings(self, data: dict) -> dict:
+        """
+        Updates the re-enrollment settings
+
+        :param data: JSON data to update re-enrollment settings with
+        """
+        endpoint = "/api/v1/reenrollment"
+
+        return self._put(endpoint, data)
+
     """
     remote-administration
     """

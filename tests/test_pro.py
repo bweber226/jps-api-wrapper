@@ -4631,6 +4631,50 @@ def test_update_policy_properties(pro):
 re-enrollment-preview
 """
 
+@responses.activate
+def test_get_reenrollment_settings(pro):
+    """
+    Ensures that get_reenrollment_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/reenrollment")))
+    assert pro.get_reenrollment_settings() == EXPECTED_JSON
+
+@responses.activate
+def test_get_reenrollment_history(pro):
+    """
+    Ensures that get_reenrollment_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/reenrollment/history")))
+    assert pro.get_reenrollment_history() == EXPECTED_JSON
+
+@responses.activate
+def test_get_reenrollment_history_optional_params(pro):
+    """
+    Ensures that get_reenorllment_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/reenrollment/history")))
+    assert pro.get_reenrollment_history(0, 100, ["date:desc", "note:asc"]) == EXPECTED_JSON
+
+@responses.activate
+def test_create_enrollment_history_note(pro):
+    """
+    Ensures that create_enrollment_history_note returns JSON when used with 
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/reenrollment/history")))
+    assert pro.create_reenrollment_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+@responses.activate
+def test_update_enrollment_settings(pro):
+    """
+    Ensures that update_reenrollment_settings returns JSON when used with 
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/reenrollment")))
+    assert pro.update_reenrollment_settings(EXPECTED_JSON) == EXPECTED_JSON
+
 """
 remote-administration
 """
