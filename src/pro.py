@@ -4835,6 +4835,24 @@ class Pro(RequestBuilder):
     policies-preview
     """
 
+    def get_policy_properties(self) -> dict:
+        """
+        Returns policy properties
+        """
+        endpoint = "/api/v1/policy-properties"
+
+        return self._get(endpoint)
+
+    def update_policy_properties(self, data: dict) -> dict:
+        """
+        Updates policy properties with JSON
+
+        :param data: JSON data to update policy properties with
+        """
+        endpoint = "/api/v1/policy-properties"
+
+        return self._put(endpoint, data)
+
     """
     re-enrollment-preview
     """

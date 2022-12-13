@@ -4607,6 +4607,26 @@ def test_update_patch_report(pro):
 policies-preview
 """
 
+
+@responses.activate
+def test_get_policy_properties(pro):
+    """
+    Ensures that get_policy_properties returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/policy-properties")))
+    assert pro.get_policy_properties() == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_policy_properties(pro):
+    """
+    Ensures that update_policy_properties returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/policy-properties")))
+    assert pro.update_policy_properties(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 re-enrollment-preview
 """
