@@ -4865,7 +4865,9 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
-    def get_reenrollment_history(self, page: int = None, page_size: int = None, sort: List[str] = ["date:desc"]) -> dict:
+    def get_reenrollment_history(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["date:desc"]
+    ) -> dict:
         """
         Returns paginated and sorted re-enrollment history
 
@@ -4878,16 +4880,26 @@ class Pro(RequestBuilder):
 
             Example: ["date:desc", "note:asc"]
         """
-        params = remove_empty_params({
-            "page": page,
-            "page-size": page_size,
-            "sort": sort,
-        })
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
         endpoint = "/api/v1/reenrollment/history"
 
         return self._get(endpoint, params=params)
 
-    def get_reenrollment_history_export(self, export_fields: List[str] = None, export_labels: List[str] = None, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"], filter: str = None) -> dict:
+    def get_reenrollment_history_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
         """
         Exports reenrollment history collection in CSV format
 
@@ -4926,14 +4938,16 @@ class Pro(RequestBuilder):
 
             Example: username=="exampleuser"
         """
-        params = remove_empty_params({
-            "export-fields": export_fields,
-            "export-labels": export_labels,
-            "page": page,
-            "page-size": page_size,
-            "sort": sort,
-            "filter": filter
-        })
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
         headers = {"Content-type": "application/json", "Accept": "text/csv"}
         endpoint = "/api/v1/reenrollment/history/export"
 

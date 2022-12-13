@@ -4631,6 +4631,7 @@ def test_update_policy_properties(pro):
 re-enrollment-preview
 """
 
+
 @responses.activate
 def test_get_reenrollment_settings(pro):
     """
@@ -4638,6 +4639,7 @@ def test_get_reenrollment_settings(pro):
     """
     responses.add(response_builder("GET", jps_url("/api/v1/reenrollment")))
     assert pro.get_reenrollment_settings() == EXPECTED_JSON
+
 
 @responses.activate
 def test_get_reenrollment_history(pro):
@@ -4648,6 +4650,7 @@ def test_get_reenrollment_history(pro):
     responses.add(response_builder("GET", jps_url("/api/v1/reenrollment/history")))
     assert pro.get_reenrollment_history() == EXPECTED_JSON
 
+
 @responses.activate
 def test_get_reenrollment_history_optional_params(pro):
     """
@@ -4655,25 +4658,30 @@ def test_get_reenrollment_history_optional_params(pro):
     optional params
     """
     responses.add(response_builder("GET", jps_url("/api/v1/reenrollment/history")))
-    assert pro.get_reenrollment_history(0, 100, ["date:desc", "note:asc"]) == EXPECTED_JSON
+    assert (
+        pro.get_reenrollment_history(0, 100, ["date:desc", "note:asc"]) == EXPECTED_JSON
+    )
+
 
 @responses.activate
-def test_create_enrollment_history_note(pro):
+def test_create_reenrollment_history_note(pro):
     """
-    Ensures that create_enrollment_history_note returns JSON when used with 
+    Ensures that create_enrollment_history_note returns JSON when used with
     required params
     """
     responses.add(response_builder("POST", jps_url("/api/v1/reenrollment/history")))
     assert pro.create_reenrollment_history_note(EXPECTED_JSON) == EXPECTED_JSON
 
+
 @responses.activate
-def test_update_enrollment_settings(pro):
+def test_update_reenrollment_settings(pro):
     """
-    Ensures that update_reenrollment_settings returns JSON when used with 
+    Ensures that update_reenrollment_settings returns JSON when used with
     required params
     """
     responses.add(response_builder("PUT", jps_url("/api/v1/reenrollment")))
     assert pro.update_reenrollment_settings(EXPECTED_JSON) == EXPECTED_JSON
+
 
 """
 remote-administration
