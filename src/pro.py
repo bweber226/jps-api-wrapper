@@ -5000,6 +5000,157 @@ class Pro(RequestBuilder):
     scripts
     """
 
+    def get_scripts(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["name:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted and paged scripts
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            name:asc. Multiple sort criteria are supported and must be
+            separated with a comma. Fields allowed in the query: id, name,
+            info, notes, priority, categoryId, categoryName, parameter4 up to
+            parameter11, osRequirements, scriptContents.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter scripts collection.
+            Default search is empty query - returning all results for the
+            requested page. Fields allowed in the query: id, name, info, notes,
+            priority, categoryId, categoryName, parameter4 up to parameter11,
+            osRequirements, scriptContents. This param can be combined with
+            paging and sorting.
+
+            Example: categoryName=="Category" and name=="script name"
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/scripts"
+
+        return self._get(endpoint, params=params)
+
+    def get_script(self, id: Union[int, str]) -> dict:
+        """
+        Returns script by ID
+
+        :param id: Script ID
+        """
+        endpoint = f"/api/v1/scripts/{id}"
+
+        return self._get(endpoint)
+
+    def get_script_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["name:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted and paged script history by ID
+
+        :param id: Script ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/scripts/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_script_file(self, id: Union[int, str]) -> str:
+        """
+        Not working in Swagger documentation or here, returns 500 error
+
+        Downloads a text file of the script contents by ID
+
+        :param id: Script ID
+        """
+        endpoint = f"/api/v1/scripts/{id}/download"
+
+        return self._download(endpoint)
+
+    def create_script(self, data: dict) -> dict:
+        """
+        Creates a script with JSON
+
+        :param data: JSON data to create script with
+        """
+        endpoint = "/api/v1/scripts"
+
+        return self._post(endpoint, data)
+
+    def create_script_history_note(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Creates specified script history note by ID with JSON
+
+        :param data: JSON data to create the script history note with
+        :param id: Script ID
+        """
+        endpoint = f"/api/v1/scripts/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_script(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates the script with ID by JSON
+
+        :param data: JSON data to update script with
+        :param id: Script ID
+        """
+        endpoint = f"/api/v1/scripts/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_script(self, id: Union[int, str]) -> dict:
+        """
+        Deletes a script by ID
+
+        :param id: Script ID
+        """
+        endpoint = f"/api/v1/scripts/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"Script {id} successfully deleted."
+        )
+
     """
     self-service
     """

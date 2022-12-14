@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.140.0] -- 2022-12-14
+### Added
+- Pro.get_scripts which returns sorted and paged scripts
+- Pro.get_script which returns script by ID
+- Pro.get_script_history which returns sorted and paged script history by ID
+- Pro.get_script_file which downloads a text file of the script contents by ID
+- Pro.create_script which creates a script with JSON
+- Pro.create_script_history_note which creates specified script history note by ID with JSON
+- Pro.update_script which updates the script with ID by JSON
+- Pro.delete_script which deletes a script by ID
+
 ## [0.139.0] -- 2022-12-13
 ### Added
 - Pro.get_remote_administration_configurations which returns remote administration configurations

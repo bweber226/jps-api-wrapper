@@ -4750,6 +4750,115 @@ def test_get_remote_administration_configurations_optional_params(pro):
 scripts
 """
 
+
+@responses.activate
+def test_get_scripts(pro):
+    """
+    Ensures that get_scripts returns JSON when used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/scripts")))
+    assert pro.get_scripts() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_scripts_optional_params(pro):
+    """
+    Ensures that get_scripts returns JSON when used with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/scripts")))
+    assert pro.get_scripts(
+        0,
+        100,
+        ["id:desc", "name:asc"],
+        'categoryName=="Category" and name=="script name"',
+    )
+
+
+@responses.activate
+def test_get_script(pro):
+    """
+    Ensures that get_script returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/scripts/1001")))
+    assert pro.get_script(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_script_history(pro):
+    """
+    Ensures that get_script_history returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/scripts/1001/history")))
+    assert pro.get_script_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_script_history_optional_params(pro):
+    """
+    Ensures that get_script_history returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/scripts/1001/history")))
+    assert (
+        pro.get_script_history(
+            1001,
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_script_file_NotFound(pro):
+    """
+    Ensures that get_script_file raises NotFound when the HTTP response is 404
+    """
+    responses.add("GET", jps_url("/api/v1/scripts/1001/download"), status=404)
+    with pytest.raises(NotFound):
+        pro.get_script_file(1001)
+
+
+@responses.activate
+def test_create_script(pro):
+    """
+    Ensures that create_script returns JSON when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/scripts")))
+    assert pro.create_script(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_script_history_note(pro):
+    """
+    Ensures that create_script_history_note returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/scripts/1001/history")))
+    assert pro.create_script_history_note(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_script(pro):
+    """
+    Ensures that update_script returns JSON when used with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/scripts/1001")))
+    assert pro.update_script(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_script(pro):
+    """
+    Ensures that delete_script returns JSON when used with required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/scripts/1001")))
+    assert pro.delete_script(1001) == "Script 1001 successfully deleted."
+
+
 """
 self-service
 """
