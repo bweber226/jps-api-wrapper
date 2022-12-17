@@ -5155,6 +5155,24 @@ class Pro(RequestBuilder):
     self-service
     """
 
+    def get_self_service_settings(self) -> dict:
+        """
+        Returns the self service settings of the Jamf Pro server
+        """
+        endpoint = "/api/v1/self-service/settings"
+
+        return self._get(endpoint)
+
+    def update_self_service_settings(self, data: dict) -> dict:
+        """
+        Updates the self service settings with JSON
+
+        :param data: JSON data to update self service settings with
+        """
+        endpoint = "/api/v1/self-service/settings"
+
+        return self._put(endpoint, data)
+
     """
     self-service-branding-ios
     """

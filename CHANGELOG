@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.141.0] == 2022-12-17
+### Added
+- Pro.get_self_service_settings which returns the self service settings of the Jamf Pro server
+- Pro.update_self_service_settings which updates the self service settings with JSON
+
 ## [0.140.0] -- 2022-12-14
 ### Added
 - Pro.get_scripts which returns sorted and paged scripts

@@ -4863,6 +4863,26 @@ def test_delete_script(pro):
 self-service
 """
 
+
+@responses.activate
+def test_get_self_service_settings(pro):
+    """
+    Ensures that get_self_service_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/self-service/settings")))
+    assert pro.get_self_service_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_self_service_settings(pro):
+    """
+    Ensures that update_self_service_settings returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/self-service/settings")))
+    assert pro.update_self_service_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 self-service-branding-ios
 """
