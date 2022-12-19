@@ -5190,7 +5190,7 @@ class Pro(RequestBuilder):
             id:asc. Multiple sort criteria are supported and must be separated
             with a comma.
 
-            Example: sort=id:desc,brandingName:asc
+            Example: ["id:desc", "brandingName:asc"]
         """
         params = remove_empty_params(
             {
@@ -5258,6 +5258,86 @@ class Pro(RequestBuilder):
     """
     self-service-branding-macos
     """
+
+    def get_self_service_branding_macos_configurations(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"]
+    ) -> dict:
+        """
+        Returns paged and sorted Self Service branding configuration for macOS
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "brandingName:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/self-service/branding/macos"
+
+        return self._get(endpoint, params=params)
+
+    def get_self_service_branding_macos_configuration(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns macOS Self Service branding configuration by ID
+
+        :param id: macOS Self Service branding configuration ID
+        """
+        endpoint = f"/api/v1/self-service/branding/macos/{id}"
+
+        return self._get(endpoint)
+
+    def create_self_service_branding_macos_configuration(self, data: dict) -> dict:
+        """
+        Creates macOS Self Service branding configuration with JSON
+
+        :param data:
+            JSON data to create macOS Self Service branding configuration with
+        """
+        endpoint = "/api/v1/self-service/branding/macos"
+
+        return self._post(endpoint, data)
+
+    def update_self_service_branding_macos_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates macOS Self Service branding configuration with JSON by ID
+
+        :param data:
+            JSON data to update macOS Self Service branding configuration with
+        :param id: macOS Self Service branding configuration ID
+        """
+        endpoint = f"/api/v1/self-service/branding/macos/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_self_service_branding_macos_configuration(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Deletes macOS Self Service branding configuration by ID
+
+        :param id: macOS Self Service branding configuration by ID
+        """
+        endpoint = f"/api/v1/self-service/branding/macos/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"macOS Self Service branding configuration {id} successfully deleted."
+            ),
+        )
 
     """
     self-service-branding-preview

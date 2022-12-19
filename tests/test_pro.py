@@ -4972,6 +4972,90 @@ def test_delete_self_service_branding_ios_configuration(pro):
 self-service-branding-macos
 """
 
+
+@responses.activate
+def test_get_self_service_branding_macos_configurations(pro):
+    """
+    Ensures that get_self_service_branding_macos_configurations returns JSON
+    when used without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/self-service/branding/macos"))
+    )
+    assert pro.get_self_service_branding_macos_configurations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_self_service_branding_macos_configurations_optional_params(pro):
+    """
+    Ensures that get_self_service_branding_macos_configurations returns JSON
+    when used with all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/self-service/branding/macos"))
+    )
+    assert (
+        pro.get_self_service_branding_macos_configurations(0, 100, ["id:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_self_service_branding_macos_configuration(pro):
+    """
+    Ensures that get_self_service_branding_macos_configuration returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/self-service/branding/macos/1001"))
+    )
+    assert pro.get_self_service_branding_macos_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_self_service_branding_macos_configuration(pro):
+    """
+    Ensures that create_self_service_branding_macos_configuration returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/self-service/branding/macos"))
+    )
+    assert (
+        pro.create_self_service_branding_macos_configuration(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_self_service_branding_macos_configuration(pro):
+    """
+    Ensures that update_self_service_branding_macos_configuration returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/self-service/branding/macos/1001"))
+    )
+    assert (
+        pro.update_self_service_branding_macos_configuration(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_self_service_branding_macos_configuration(pro):
+    """
+    Ensures that delete_self_service_branding_macos_configuration returns a
+    success message str when used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v1/self-service/branding/macos/1001"))
+    )
+    assert pro.delete_self_service_branding_macos_configuration(1001) == (
+        "macOS Self Service branding configuration 1001 successfully deleted."
+    )
+
+
 """
 self-service-branding-preview
 """
