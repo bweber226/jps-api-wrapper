@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.141.0] == 2022-12-17
+## [0.142.0] -- 2022-12-19
+### Added
+- Pro.get_self_service_branding_ios_configurations which returns paged and sorted Self Service branding configuration for iOS
+- Pro.get_self_service_branding_ios_configuration which returns iOS Self Service branding configuration by ID
+- Pro.create_self_service_branding_ios_configuration which creates iOS Self Service branding configuration with JSON
+- Pro.update_self_service_branding_ios_configuration which updates iOS Self Service branding configuration with JSON by ID
+- Pro.delete_self_service_branding_ios_configuration which deletes iOS Self Service branding configuration by ID
+
+## [0.141.0] -- 2022-12-17
 ### Added
 - Pro.get_self_service_settings which returns the self service settings of the Jamf Pro server
 - Pro.update_self_service_settings which updates the self service settings with JSON

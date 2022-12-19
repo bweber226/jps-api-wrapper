@@ -4887,6 +4887,87 @@ def test_update_self_service_settings(pro):
 self-service-branding-ios
 """
 
+
+@responses.activate
+def test_get_self_service_branding_ios_configurations(pro):
+    """
+    Ensures that get_self_service_branding_ios_configurations returns JSON
+    when used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/self-service/branding/ios")))
+    assert pro.get_self_service_branding_ios_configurations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_self_service_branding_ios_configurations_optional_params(pro):
+    """
+    Ensures that get_self_service_branding_ios_configurations returns JSON
+    when used with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/self-service/branding/ios")))
+    assert (
+        pro.get_self_service_branding_ios_configurations(0, 100, ["id:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_self_service_branding_ios_configuration(pro):
+    """
+    Ensures that get_self_service_branding_ios_configuration returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/self-service/branding/ios/1001"))
+    )
+    assert pro.get_self_service_branding_ios_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_self_service_branding_ios_configuration(pro):
+    """
+    Ensures that create_self_service_branding_ios_configuration returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/self-service/branding/ios"))
+    )
+    assert (
+        pro.create_self_service_branding_ios_configuration(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_self_service_branding_ios_configuration(pro):
+    """
+    Ensures that update_self_service_branding_ios_configuration returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/self-service/branding/ios/1001"))
+    )
+    assert (
+        pro.update_self_service_branding_ios_configuration(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_self_service_branding_ios_configuration(pro):
+    """
+    Ensures that delete_self_service_branding_ios_configuration returns a
+    success message str when used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v1/self-service/branding/ios/1001"))
+    )
+    assert (
+        pro.delete_self_service_branding_ios_configuration(1001)
+        == "iOS Self Service branding configuration 1001 successfully deleted."
+    )
+
+
 """
 self-service-branding-macos
 """

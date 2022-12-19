@@ -5177,6 +5177,84 @@ class Pro(RequestBuilder):
     self-service-branding-ios
     """
 
+    def get_self_service_branding_ios_configurations(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"]
+    ) -> dict:
+        """
+        Returns paged and sorted Self Service branding configuration for iOS
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: sort=id:desc,brandingName:asc
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/self-service/branding/ios"
+
+        return self._get(endpoint, params=params)
+
+    def get_self_service_branding_ios_configuration(self, id: Union[int, str]) -> dict:
+        """
+        Returns iOS Self Service branding configuration by ID
+
+        :param id: iOS Self Service branding configuration ID
+        """
+        endpoint = f"/api/v1/self-service/branding/ios/{id}"
+
+        return self._get(endpoint)
+
+    def create_self_service_branding_ios_configuration(self, data: dict) -> dict:
+        """
+        Creates iOS Self Service branding configuration with JSON
+
+        :param data:
+            JSON data to create iOS Self Service branding configuration with
+        """
+        endpoint = "/api/v1/self-service/branding/ios"
+
+        return self._post(endpoint, data)
+
+    def update_self_service_branding_ios_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates iOS Self Service branding configuration with JSON by ID
+
+        :param data:
+            JSON data to update iOS Self Service branding configuration with
+        :param id: iOS Self Service branding configuration ID
+        """
+        endpoint = f"/api/v1/self-service/branding/ios/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_self_service_branding_ios_configuration(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Deletes iOS Self Service branding configuration by ID
+
+        :param id: iOS Self Service branding configuration by ID
+        """
+        endpoint = f"/api/v1/self-service/branding/ios/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"iOS Self Service branding configuration {id} successfully deleted."
+            ),
+        )
+
     """
     self-service-branding-macos
     """
