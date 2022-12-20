@@ -5361,6 +5361,14 @@ class Pro(RequestBuilder):
     sites
     """
 
+    def get_sites(self) -> dict:
+        """
+        Returns all sites
+        """
+        endpoint = "/api/v1/sites"
+
+        return self._get(endpoint)
+
     """
     sites-preview
     """

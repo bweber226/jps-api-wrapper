@@ -5080,6 +5080,16 @@ def test_create_self_service_branding(pro):
 sites
 """
 
+
+@responses.activate
+def test_get_sites(pro):
+    """
+    Ensures that get_sites returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sites")))
+    assert pro.get_sites() == EXPECTED_JSON
+
+
 """
 sites-preview
 """
