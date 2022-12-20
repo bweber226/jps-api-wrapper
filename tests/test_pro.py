@@ -5060,6 +5060,22 @@ def test_delete_self_service_branding_macos_configuration(pro):
 self-service-branding-preview
 """
 
+
+@responses.activate
+def test_create_self_service_branding(pro):
+    """
+    Ensures that create_self_service_branding returns JSON when used with
+    required params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder("POST", jps_url("/api/self-service/branding/images"))
+        )
+        assert pro.create_self_service_branding("/file.txt") == EXPECTED_JSON
+
+
 """
 sites
 """

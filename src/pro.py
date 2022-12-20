@@ -5343,6 +5343,20 @@ class Pro(RequestBuilder):
     self-service-branding-preview
     """
 
+    def create_self_service_branding(self, filepath: str) -> dict:
+        """
+        Uploads a self service branding image by ID and filepath
+
+        :param filepath: Literal path to file to upload
+        :param id: Self Service branding ID
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+        endpoint = "/api/self-service/branding/images"
+
+        return self._post(endpoint, file=file)
+
     """
     sites
     """

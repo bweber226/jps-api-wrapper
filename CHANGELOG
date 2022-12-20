@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.144.0] -- 2022-12-20
+### Added
+- Pro.create_self_service_branding which uploads a self service branding image by ID and filepath
+
 ## [0.143.0] -- 2022-12-19
 ### Added
 - Pro.get_self_service_branding_macos_configurations which returns paged and sorted Self Service branding configuration for macOS
