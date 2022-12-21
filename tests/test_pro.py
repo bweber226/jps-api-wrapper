@@ -5376,6 +5376,16 @@ def test_update_sso_settings(pro):
 startup-status
 """
 
+
+@responses.activate
+def test_get_startup_status(pro):
+    """
+    Ensures get_startup_status returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/startup-status")))
+    assert pro.get_startup_status() == EXPECTED_JSON
+
+
 """
 static-user-groups-preview
 """

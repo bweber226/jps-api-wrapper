@@ -5608,7 +5608,7 @@ class Pro(RequestBuilder):
 
     def create_sso_settings_history_note(self, data: dict) -> dict:
         """
-        Creates SSO history note
+        Creates SSO history note with JSON
 
         :param data: JSON data to create SSO history note with
         """
@@ -5618,7 +5618,7 @@ class Pro(RequestBuilder):
 
     def create_sso_settings_validate_saml_metadata_url(self, data: dict) -> str:
         """
-        Validates content available udner provided metadata URL
+        Validates content available udner provided metadata URL with JSON
 
         :param data: JSON data to validate
         """
@@ -5639,6 +5639,16 @@ class Pro(RequestBuilder):
     """
     startup-status
     """
+
+    def get_startup_status(self) -> dict:
+        """
+        Returns information about application startup. Current startup
+        operation taking place (if any) and overall startup completion
+        percentage.
+        """
+        endpoint = "/api/startup-status"
+
+        return self._get(endpoint)
 
     """
     static-user-groups-preview
