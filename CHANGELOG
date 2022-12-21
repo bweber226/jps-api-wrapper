@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.150.0] -- 2022-12-21
+### Added
+- Pro.get_sso_settings which returns the current SSO configuration settings
+- Pro.get_sso_settings_enrollment_customizations which returns the list of enrollment customizations using SSO
+- Pro.get_sso_settings_history which returns paged and sorted SSO settings history
+- Pro.get_sso_settings_saml_metadata_file which downloads the Jamf Pro SAML metadata file to the current users downloads folder
+- Pro.create_sso_settings_disable which disables SSO for the Jamf Pro Server
+- Pro.create_sso_settings_history_note which creates SSO history note with JSON
+- Pro.create_sso_settings_validate_saml_metadata_url which validates content available udner provided metadata URL with JSON
+- Pro.update_sso_settings which updates the current SSSO configuration settings
+
 ### [0.149.0] -- 2022-12-21
 ### Added
 - Pro.get_sso_certificate which returns the certificate currently configured for use with SSO

@@ -5267,6 +5267,111 @@ sso-certificate-preview
 sso-settings
 """
 
+
+@responses.activate
+def test_get_sso_settings(pro):
+    """
+    Ensures that get_sso_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sso")))
+    assert pro.get_sso_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_sso_settings_enrollment_customizations(pro):
+    """
+    Ensures that get_sso_settings_enrollment_customization returns JSON when
+    used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sso/dependencies")))
+    assert pro.get_sso_settings_enrollment_customizations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_sso_settings_history(pro):
+    """
+    Ensures that get_sso_settings_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sso/history")))
+    assert pro.get_sso_settings_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_sso_settings_history_optional_params(pro):
+    """
+    Ensures that get_sso_settings_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sso/history")))
+    assert (
+        pro.get_sso_settings_history(
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_sso_settings_saml_metadata_file_notfound(pro):
+    """
+    Ensures that get_sso_settings_saml_metadata_file raises NotFound when it
+    returns a 404 HTTPError
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/sso/metadata/download"), status=404)
+    )
+    with pytest.raises(NotFound):
+        pro.get_sso_settings_saml_metadata_file()
+
+
+@responses.activate
+def test_create_sso_settings_disable(pro):
+    """
+    Ensures that create_sso_settings_disable returns a success message str when
+    used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/sso/disable")))
+    assert pro.create_sso_settings_disable() == "SSO successfully disabled."
+
+
+@responses.activate
+def test_create_sso_settings_history_note(pro):
+    """
+    Ensures that create_sso_settings_history_note returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/sso/history")))
+    assert pro.create_sso_settings_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_sso_settings_validate_saml_metadata_url(pro):
+    """
+    Ensures that create_sso_settings_validate_saml_metadata_url returns a
+    success message str when used with required params and metadata URL is
+    valid
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/sso/validate")))
+    assert (
+        pro.create_sso_settings_validate_saml_metadata_url(EXPECTED_JSON)
+        == "Metadata URL is valid."
+    )
+
+
+@responses.activate
+def test_update_sso_settings(pro):
+    """
+    Ensures that update_sso_settings returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/sso")))
+    assert pro.update_sso_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 startup-status
 """

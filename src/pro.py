@@ -5484,7 +5484,7 @@ class Pro(RequestBuilder):
 
     def create_sso_certificate(self) -> dict:
         """
-        Generate a new certificate and use it to sign SSO requests to the
+        Generates a new certificate and use it to sign SSO requests to the
         identity provider
         """
         endpoint = "/api/v2/sso/cert"
@@ -5493,7 +5493,7 @@ class Pro(RequestBuilder):
 
     def create_sso_certificate_parse(self, data: dict) -> dict:
         """
-        Parse the certificate to get details about certificate type and keys
+        Parses the certificate to get details about certificate type and keys
         needed to upload certificate file with JSON
 
         :param data: JSON data to parse certificate with
@@ -5504,7 +5504,7 @@ class Pro(RequestBuilder):
 
     def update_sso_certificate(self, data: dict) -> dict:
         """
-        Update the certificate used by Jamf Pro to sign SSO requests to the
+        Updates the certificate used by Jamf Pro to sign SSO requests to the
         identify provider with JSON
 
         :param data: JSON data to update SSO certificate with
@@ -5513,7 +5513,7 @@ class Pro(RequestBuilder):
 
         return self._put(endpoint, data)
 
-    def delete_sso_certificate(self) -> dict:
+    def delete_sso_certificate(self) -> str:
         """
         Deletes the currently configured certificate used by SSO
         """
@@ -5532,6 +5532,109 @@ class Pro(RequestBuilder):
     """
     sso-settings
     """
+
+    def get_sso_settings(self) -> dict:
+        """
+        Returns the current SSO configuration settings
+        """
+        endpoint = "/api/v1/sso"
+
+        return self._get(endpoint)
+
+    def get_sso_settings_enrollment_customizations(self) -> dict:
+        """
+        Returns the list of enrollment customizations using SSO
+        """
+        endpoint = "/api/v1/sso/dependencies"
+
+        return self._get(endpoint)
+
+    def get_sso_settings_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns paged and sorted SSO settings history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/sso/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_sso_settings_saml_metadata_file(self) -> str:
+        """
+        Downloads the Jamf Pro SAML metadata file to the current users
+        downloads folder
+        """
+        endpoint = "/api/v1/sso/metadata/download"
+
+        return self._download(endpoint)
+
+    def create_sso_settings_disable(self) -> str:
+        """
+        Disables SSO for the Jamf Pro Server
+        """
+        endpoint = "/api/v1/sso/disable"
+
+        return self._post(endpoint, success_message="SSO successfully disabled.")
+
+    def create_sso_settings_history_note(self, data: dict) -> dict:
+        """
+        Creates SSO history note
+
+        :param data: JSON data to create SSO history note with
+        """
+        endpoint = "/api/v1/sso/history"
+
+        return self._post(endpoint, data)
+
+    def create_sso_settings_validate_saml_metadata_url(self, data: dict) -> str:
+        """
+        Validates content available udner provided metadata URL
+
+        :param data: JSON data to validate
+        """
+        endpoint = "/api/v1/sso/validate"
+
+        return self._post(endpoint, data, success_message="Metadata URL is valid.")
+
+    def update_sso_settings(self, data: dict) -> dict:
+        """
+        Updates the current SSSO configuration settings
+
+        :param data: JSON data to update the SSO settings with
+        """
+        endpoint = "/api/v1/sso"
+
+        return self._put(endpoint, data)
 
     """
     startup-status
