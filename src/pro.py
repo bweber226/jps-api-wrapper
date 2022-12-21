@@ -5373,9 +5373,31 @@ class Pro(RequestBuilder):
     sites-preview
     """
 
+    # All endpoints deprecated
+
     """
     smart-computer-groups-preview
     """
+
+    def create_smart_computer_group_recalculate_computer(self, id: Union[int, str]) -> dict:
+        """
+        Recalculates a smart groups of the specified computer then returns the 
+        count of smart groups the computer falls into by ID
+               
+        :param id: Computer ID
+        """
+        endpoint = f"/api/v1/computers/{id}/recalculate-smart-groups"
+
+        return self._post(endpoint)
+
+    def create_smart_computer_group_recalculate_group(self, id: Union[int, str]) -> dict:
+        """
+        Recalculates the smart group for the given ID and then returns the 
+        IDS of the computers in the smart group
+        """
+        endpoint = f"/api/v1/smart-computer-groups/{id}/recalculate"
+
+        return self._post(endpoint)
 
     """
     smart-mobile-device-groups-preview

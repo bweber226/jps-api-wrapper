@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.146.0] -- 2022-12-20
+### Added
+- Pro.create_smart_computer_group_recalculate_computer which recalculates a smart groups of the specified computer then returns the count of smart groups the computer falls into by ID
+- Pro.create_smart_computer_group_recalculate_group which recalculates the smart group for the given ID and then returns the IDS of the computers in the smart group
+
 ## [0.145.0] -- 2022-12-20
 ### Added
 - Pro.get_sites which returns all sites
