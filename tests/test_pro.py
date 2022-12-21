@@ -5197,9 +5197,71 @@ def test_create_smart_user_group_recalculate_group(pro):
 sso-certificate
 """
 
+
+@responses.activate
+def test_get_sso_certificate(pro):
+    """
+    Ensures that get_sso_certificate returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/sso/cert")))
+    assert pro.get_sso_certificate() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_sso_certificate_file_404(pro):
+    """
+    Ensures that get_sso_certificate_file returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/sso/cert/download"), status=404)
+    )
+    with pytest.raises(NotFound):
+        pro.get_sso_certificate_file() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_sso_certificate(pro):
+    """
+    Ensures that create_sso_certificate returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v2/sso/cert")))
+    assert pro.create_sso_certificate() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_sso_certificate_parse(pro):
+    """
+    Ensures that create_sso_certicate_parse returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v2/sso/cert/parse")))
+    assert pro.create_sso_certificate_parse(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_sso_certificate(pro):
+    """
+    Ensures that update_sso_certificate returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v2/sso/cert")))
+    assert pro.update_sso_certificate(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_sso_certificate(pro):
+    """
+    Ensures that delete_sso_certificate returns a success message str when used
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v2/sso/cert")))
+    assert pro.delete_sso_certificate() == "SSO certificate successfully deleted."
+
+
 """
 sso-certificate-preview
 """
+
+# sso-certificate is a more up to date version of this collection
 
 """
 sso-settings

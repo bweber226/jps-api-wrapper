@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [0.149.0] -- 2022-12-21
+### Added
+- Pro.get_sso_certificate which returns the certificate currently configured for use with SSO
+- Pro.get_sso_certificate_file which downloads the certificate currently configured for use with Jamf Pro's SSO configuration
+- Pro.create_sso_certificate which generates a new certificate and use it to sign SSO requests to the identity provider
+- Pro.create_sso_certificate_parse which parses the certificate to get details about certificate type and keys needed to upload certificate file with JSON
+- Pro.update_sso_certificate which updates the certificate used by Jamf Pro to sign SSO requests to the identify provider with JSON
+- Pro.delete_sso_certificate which deletes the currently configured certificate used by SSO
+
 ## [0.148.0] -- 2022-12-20
 ### Added
 - Pro.create_smart_user_group_recalculate_user which recalculates smart groups of the specified user then returns the count of smart groups the user falls into by ID

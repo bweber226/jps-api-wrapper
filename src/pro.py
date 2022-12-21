@@ -5465,9 +5465,69 @@ class Pro(RequestBuilder):
     sso-certificate
     """
 
+    def get_sso_certificate(self) -> dict:
+        """
+        Returns the certificate currently configured for use with SSO
+        """
+        endpoint = "/api/v2/sso/cert"
+
+        return self._get(endpoint)
+
+    def get_sso_certificate_file(self) -> dict:
+        """
+        Downloads the certificate currently configured for use with Jamf Pro's
+        SSO configuration
+        """
+        endpoint = "/api/v2/sso/cert/download"
+
+        return self._download(endpoint)
+
+    def create_sso_certificate(self) -> dict:
+        """
+        Generate a new certificate and use it to sign SSO requests to the
+        identity provider
+        """
+        endpoint = "/api/v2/sso/cert"
+
+        return self._post(endpoint)
+
+    def create_sso_certificate_parse(self, data: dict) -> dict:
+        """
+        Parse the certificate to get details about certificate type and keys
+        needed to upload certificate file with JSON
+
+        :param data: JSON data to parse certificate with
+        """
+        endpoint = "/api/v2/sso/cert/parse"
+
+        return self._post(endpoint, data)
+
+    def update_sso_certificate(self, data: dict) -> dict:
+        """
+        Update the certificate used by Jamf Pro to sign SSO requests to the
+        identify provider with JSON
+
+        :param data: JSON data to update SSO certificate with
+        """
+        endpoint = "/api/v2/sso/cert"
+
+        return self._put(endpoint, data)
+
+    def delete_sso_certificate(self) -> dict:
+        """
+        Deletes the currently configured certificate used by SSO
+        """
+        endpoint = "/api/v2/sso/cert"
+
+        return self._delete(
+            endpoint, success_message="SSO certificate successfully deleted."
+        )
+
     """
     sso-certificate-preview
     """
+
+    # sso-certificate is a more up to date version of this collection
 
     """
     sso-settings
