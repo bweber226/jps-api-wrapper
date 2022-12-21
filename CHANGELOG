@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.152.0] -- 2022-12-21
+### Added
+- Pro.get_static_user_groups which returns all static user groups
+- Pro.get_static_user_group which returns a static user group by ID
+
 ## [0.151.0] -- 2022-12-21
 ### Added
 - Pro.get_startup_status which returns information about application startup

@@ -5390,6 +5390,26 @@ def test_get_startup_status(pro):
 static-user-groups-preview
 """
 
+
+@responses.activate
+def test_get_static_user_groups(pro):
+    """
+    Ensures that get_static_user_groups returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/static-user-groups")))
+    assert pro.get_static_user_groups() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_static_user_group(pro):
+    """
+    Ensures that get_static_user_group returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/static-user-groups/1001")))
+    assert pro.get_static_user_group(1001) == EXPECTED_JSON
+
+
 """
 supervision-identities-preview
 """

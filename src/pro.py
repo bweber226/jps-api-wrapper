@@ -5654,6 +5654,24 @@ class Pro(RequestBuilder):
     static-user-groups-preview
     """
 
+    def get_static_user_groups(self) -> List:
+        """
+        Returns all static user groups
+        """
+        endpoint = "/api/v1/static-user-groups"
+
+        return self._get(endpoint)
+
+    def get_static_user_group(self, id: Union[int, str]) -> dict:
+        """
+        Returns static user group by ID
+
+        :param id: Static user group ID
+        """
+        endpoint = f"/api/v1/static-user-groups/{id}"
+
+        return self._get(endpoint)
+
     """
     supervision-identities-preview
     """
