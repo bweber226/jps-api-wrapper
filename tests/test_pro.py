@@ -5100,14 +5100,20 @@ sites-preview
 smart-computer-groups-preview
 """
 
+
 @responses.activate
 def test_create_smart_computer_group_recalculate_computer(pro):
     """
     Ensures that create_smart_computer_group_recalculate_computer returns JSON
     when used with required params
     """
-    responses.add(response_builder("POST", jps_url("/api/v1/computers/1001/recalculate-smart-groups")))
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/computers/1001/recalculate-smart-groups")
+        )
+    )
     assert pro.create_smart_computer_group_recalculate_computer(1001) == EXPECTED_JSON
+
 
 @responses.activate
 def test_create_smart_computer_group_recalculate_group(pro):
@@ -5115,12 +5121,48 @@ def test_create_smart_computer_group_recalculate_group(pro):
     Ensures that create_smart_computer_group_recalculate_group returns JSON
     when used with required params
     """
-    responses.add(response_builder("POST", jps_url("/api/v1/smart-computer-groups/1001/recalculate")))
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/smart-computer-groups/1001/recalculate")
+        )
+    )
     assert pro.create_smart_computer_group_recalculate_group(1001) == EXPECTED_JSON
+
 
 """
 smart-mobile-device-groups-preview
 """
+
+
+@responses.activate
+def test_create_smart_mobile_device_group_recalculate_computer(pro):
+    """
+    Ensures that create_smart_mobile_device_group_recalculate_device returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/mobile-devices/1001/recalculate-smart-groups")
+        )
+    )
+    assert (
+        pro.create_smart_mobile_device_group_recalculate_device(1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_smart_mobile_device_group_recalculate_group(pro):
+    """
+    Ensures that create_smart_mobile_device_group_recalculate_group returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/smart-mobile-device-groups/1001/recalculate")
+        )
+    )
+    assert pro.create_smart_mobile_device_group_recalculate_group(1001) == EXPECTED_JSON
+
 
 """
 smart-user-groups-preview

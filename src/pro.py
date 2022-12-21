@@ -5379,21 +5379,27 @@ class Pro(RequestBuilder):
     smart-computer-groups-preview
     """
 
-    def create_smart_computer_group_recalculate_computer(self, id: Union[int, str]) -> dict:
+    def create_smart_computer_group_recalculate_computer(
+        self, id: Union[int, str]
+    ) -> dict:
         """
-        Recalculates a smart groups of the specified computer then returns the 
+        Recalculates smart groups of the specified computer then returns the
         count of smart groups the computer falls into by ID
-               
+
         :param id: Computer ID
         """
         endpoint = f"/api/v1/computers/{id}/recalculate-smart-groups"
 
         return self._post(endpoint)
 
-    def create_smart_computer_group_recalculate_group(self, id: Union[int, str]) -> dict:
+    def create_smart_computer_group_recalculate_group(
+        self, id: Union[int, str]
+    ) -> dict:
         """
-        Recalculates the smart group for the given ID and then returns the 
+        Recalculates the smart group for the given ID and then returns the
         IDS of the computers in the smart group
+
+        :param id: Smart computer group ID
         """
         endpoint = f"/api/v1/smart-computer-groups/{id}/recalculate"
 
@@ -5402,6 +5408,32 @@ class Pro(RequestBuilder):
     """
     smart-mobile-device-groups-preview
     """
+
+    def create_smart_mobile_device_group_recalculate_device(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Recalculates smart groups of the specified mobile device then returns
+        the count of smart groups the device falls into by ID
+
+        :param id: Mobile device ID
+        """
+        endpoint = f"/api/v1/mobile-devices/{id}/recalculate-smart-groups"
+
+        return self._post(endpoint)
+
+    def create_smart_mobile_device_group_recalculate_group(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Recalculates the smart group for the given ID and then returns the
+        IDS of the mobile devices in the smart group
+
+        :param id: Smart mobile device group ID
+        """
+        endpoint = f"/api/v1/smart-mobile-device-groups/{id}/recalculate"
+
+        return self._post(endpoint)
 
     """
     smart-user-groups-preview
