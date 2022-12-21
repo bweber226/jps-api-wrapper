@@ -5397,7 +5397,7 @@ class Pro(RequestBuilder):
     ) -> dict:
         """
         Recalculates the smart group for the given ID and then returns the
-        IDS of the computers in the smart group
+        count of the computers in the smart group
 
         :param id: Smart computer group ID
         """
@@ -5427,7 +5427,7 @@ class Pro(RequestBuilder):
     ) -> dict:
         """
         Recalculates the smart group for the given ID and then returns the
-        IDS of the mobile devices in the smart group
+        count of the mobile devices in the smart group
 
         :param id: Smart mobile device group ID
         """
@@ -5438,6 +5438,28 @@ class Pro(RequestBuilder):
     """
     smart-user-groups-preview
     """
+
+    def create_smart_user_group_recalculate_user(self, id: Union[int, str]) -> dict:
+        """
+        Recalculates smart groups of the specified user then returns the count
+        of smart groups the user falls into by ID
+
+        :param id: User ID
+        """
+        endpoint = f"/api/v1/users/{id}/recalculate-smart-groups"
+
+        return self._post(endpoint)
+
+    def create_smart_user_group_recalculate_group(self, id: Union[int, str]) -> dict:
+        """
+        Recalculates the smart group for the given ID and then returns the
+        count of the users in the smart group
+
+        :param id: Smart user group ID
+        """
+        endpoint = f"/api/v1/smart-user-groups/{id}/recalculate"
+
+        return self._post(endpoint)
 
     """
     sso-certificate

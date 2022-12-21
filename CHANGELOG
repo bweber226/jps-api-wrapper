@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.148.0] -- 2022-12-20
+### Added
+- Pro.create_smart_user_group_recalculate_user which recalculates smart groups of the specified user then returns the count of smart groups the user falls into by ID
+- Pro.create_smart_user_group_recalculate_group which recalculates the smart group for the given ID and then returns the count of the users in the smart group
+
 ## [0.147.0] -- 2022-12-20
 ### Added
 - Pro.create_smart_mobile_device_group_recalculate_device which recalculates smart groups of the specified mobile device then returns the count of smart groups the device falls into by ID
