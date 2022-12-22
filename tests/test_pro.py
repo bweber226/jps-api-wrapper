@@ -5414,6 +5414,106 @@ def test_get_static_user_group(pro):
 supervision-identities-preview
 """
 
+
+@responses.activate
+def test_get_supervision_identities(pro):
+    """
+    Ensures that get_supervision_identities returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/supervision-identities")))
+    assert pro.get_supervision_identities() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_supervision_identities_optional_params(pro):
+    """
+    Ensures that get_supervision_identities returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/supervision-identities")))
+    assert (
+        pro.get_supervision_identities(0, 100, ["id:desc", "commonName:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_supervision_identity(pro):
+    """
+    Ensures that get_supervision_identity returns JSON when used with required
+    params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/supervision-identities/1001"))
+    )
+    assert pro.get_supervision_identity(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_supervision_identity_file_notfound(pro):
+    """
+    Ensures that get_supervision_identity_file raises NotFound when the
+    response code is 404
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/supervision-identities/1001/download"), status=404
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_supervision_identity_file(1001)
+
+
+@responses.activate
+def test_create_supervision_identity(pro):
+    """
+    Ensures that create_supervision_identity returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/supervision-identities")))
+    assert pro.create_supervision_identity(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_supervision_identity_file(pro):
+    """
+    Ensures that create_supervision_identity_file returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/supervision-identities/upload"))
+    )
+    assert pro.create_supervision_identity_file(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_supervision_identity(pro):
+    """
+    Ensures that update_supervision_identity returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/supervision-identities/1001"))
+    )
+    assert pro.update_supervision_identity(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_supervision_identity(pro):
+    """
+    Ensures that delete_supervision_identity returns a success message str when
+    used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v1/supervision-identities/1001"))
+    )
+    assert (
+        pro.delete_supervision_identity(1001)
+        == "Supervision identity 1001 successfully deleted."
+    )
+
+
 """
 teacher-app
 """

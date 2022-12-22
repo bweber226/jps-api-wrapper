@@ -5664,7 +5664,7 @@ class Pro(RequestBuilder):
 
     def get_static_user_group(self, id: Union[int, str]) -> dict:
         """
-        Returns static user group by ID
+        Returns a static user group by ID
 
         :param id: Static user group ID
         """
@@ -5675,6 +5675,95 @@ class Pro(RequestBuilder):
     """
     supervision-identities-preview
     """
+
+    def get_supervision_identities(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"]
+    ) -> dict:
+        """
+        Returns sorted and paged supervision identities
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "commonName:asc"]
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/supervision-identities"
+
+        return self._get(endpoint, params=params)
+
+    def get_supervision_identity(self, id: Union[int, str]) -> dict:
+        """
+        Returns a supervision identity by ID
+
+        :param id: Supervision identity ID
+        """
+        endpoint = f"/api/v1/supervision-identities/{id}"
+
+        return self._get(endpoint)
+
+    def get_supervision_identity_file(self, id: Union[int, str]) -> dict:
+        """
+        Downloads the supervision identity .p12 file by ID
+
+        :param id: Supervision identity ID
+        """
+        endpoint = f"/api/v1/supervision-identities/{id}/download"
+
+        return self._download(endpoint)
+
+    def create_supervision_identity(self, data: dict) -> dict:
+        """
+        Creates a supervision identity with JSON
+
+        :param data: JSON data to create supervision identity with
+        """
+        endpoint = "/api/v1/supervision-identities"
+
+        return self._post(endpoint, data)
+
+    def create_supervision_identity_file(self, data: dict) -> dict:
+        """
+        Creates the superivision identity .p12 file with JSON
+
+        :param data: JSON data to create supervision identity p12 file with
+        """
+        endpoint = "/api/v1/supervision-identities/upload"
+
+        return self._post(endpoint, data)
+
+    def update_supervision_identity(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a supervision identity by ID with JSON
+
+        :param data: JSON data to update supervision identity with
+        :param id: Supervision identity ID
+        """
+        endpoint = f"/api/v1/supervision-identities/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_supervision_identity(self, id: Union[int, str]) -> str:
+        """
+        Deletes a supervision identity by ID
+
+        :param id: Supervision identity ID
+        """
+        endpoint = f"/api/v1/supervision-identities/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"Supervision identity {id} successfully deleted."
+        )
 
     """
     teacher-app

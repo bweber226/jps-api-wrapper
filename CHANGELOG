@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.153.0] -- 2022-12-21
+### Added
+- Pro.get_supervision_identities which returns sorted and paged supervision identities
+- Pro.get_supervision_identity which returns a supervision identity by ID
+- Pro.get_supervision_identity_file which downloads the supervision identity .p12 file by ID
+- Pro.create_supervision_identity which creates a supervision identity with JSON
+- Pro.create_supervision_identity_file which creates the superivision identity .p12 file with JSON
+- Pro.update_supervision_identity which updates a supervision identity by ID with JSON
+- Pro.delete_supervision_identity which deletes a supervision identity by ID
+
 ## [0.152.0] -- 2022-12-21
 ### Added
 - Pro.get_static_user_groups which returns all static user groups
