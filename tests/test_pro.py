@@ -5518,6 +5518,64 @@ def test_delete_supervision_identity(pro):
 teacher-app
 """
 
+
+@responses.activate
+def test_get_teacher_app_settings(pro):
+    """
+    Ensures that get_teacher_app_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/teacher-app")))
+    assert pro.get_teacher_app_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_teacher_app_history(pro):
+    """
+    Ensures that get_teacher_app_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/teacher-app/history")))
+    assert pro.get_teacher_app_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_teacher_app_history_optional_params(pro):
+    """
+    Ensures that get_teacher_app_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/teacher-app/history")))
+    assert (
+        pro.get_teacher_app_history(
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_teacher_app_history_note(pro):
+    """
+    Ensures that create_teacher_app_history_note returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/teacher-app/history")))
+    assert pro.create_teacher_app_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_teacher_app_settings(pro):
+    """
+    Ensures that update_teacher_app_settings returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/teacher-app")))
+    assert pro.update_teacher_app_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
 """
 team-viewer-remote-administration
 """

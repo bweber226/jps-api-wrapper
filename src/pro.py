@@ -5769,6 +5769,75 @@ class Pro(RequestBuilder):
     teacher-app
     """
 
+    def get_teacher_app_settings(self):
+        """
+        Returns the Jamf Teacher settings that the user has access to see
+        """
+        endpoint = "/api/v1/teacher-app"
+
+        return self._get(endpoint)
+
+    def get_teacher_app_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns Jamf Teacher settings history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/teacher-app/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_teacher_app_history_note(self, data: dict) -> dict:
+        """
+        Creates a Jamf Teacher app settings history note with JSON
+
+        :param data:
+            JSON data to create Jamf Teacher app settings history note with
+        """
+        endpoint = "/api/v1/teacher-app/history"
+
+        return self._post(endpoint, data)
+
+    def update_teacher_app_settings(self, data: dict) -> dict:
+        """
+        Updates Jamf Teacher app settings with JSON
+
+        :param data: JSON data to update Jamf Teacher app settings with
+        """
+        endpoint = "/api/v1/teacher-app"
+
+        return self._put(endpoint, data)
+
     """
     team-viewer-remote-administration
     """

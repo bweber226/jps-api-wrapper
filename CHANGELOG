@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.154.0] -- 2022-12-21
+### Added
+- Pro.get_teacher_app_settings which returns the Jamf Teacher settings that the user has access to see
+- Pro.get_teacher_app_history which returns Jamf Teacher settings history
+- Pro.create_teacher_app_history_note which creates a Jamf Teacher app settings history note with JSON
+- Pro.update_teacher_app_settings which updates Jamf Teacher app settings with JSON
+
 ## [0.153.0] -- 2022-12-21
 ### Added
 - Pro.get_supervision_identities which returns sorted and paged supervision identities
