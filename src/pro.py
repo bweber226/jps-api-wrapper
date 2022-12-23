@@ -6102,6 +6102,14 @@ class Pro(RequestBuilder):
     tomcat-zones-preview
     """
 
+    def create_tomcat_settings_ssl_certificate(self) -> str:
+        """
+        Generates a SSL certificate using Jamf Certificate Authority
+        """
+        endpoint = "/api/settings/issueTomcatSslCertificate"
+
+        return self._post(endpoint, success_message="SSL certificate successfully created.")
+
     """
     user-session-preview
     """

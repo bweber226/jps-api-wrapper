@@ -5852,6 +5852,15 @@ def test_get_time_zones(pro):
 tomcat-zones-preview
 """
 
+@responses.activate
+def test_create_tomcat_settings_ssl_certificate(pro):
+    """
+    Ensures that create_tomcat_settings_ssl_certificate returns a success
+    message str when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/settings/issueTomcatSslCertificate")))
+    assert pro.create_tomcat_settings_ssl_certificate() == "SSL certificate successfully created."
+
 """
 user-session-preview
 """
