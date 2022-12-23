@@ -5896,6 +5896,195 @@ def test_update_user_session(pro):
 venafi-preview
 """
 
+
+@responses.activate
+def test_get_venafi_configuration(pro):
+    """
+    Ensures that get_venafi_configuration returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/pki/venafi/1001")))
+    assert pro.get_venafi_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_venafi_connection_status(pro):
+    """
+    Ensures that get_venafi_connection_status returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/pki/venafi/1001/connection-status"))
+    )
+    assert pro.get_venafi_connection_status(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_venafi_dependant_configuration_profiles(pro):
+    """
+    Ensures that get_venafi_dependant_configurations_profiles returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/pki/venafi/1001/dependent-profiles"))
+    )
+    assert pro.get_venafi_dependant_configuration_profiles(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_venafi_configuration_history(pro):
+    """
+    Ensures that get_venafi_configuration_history returns JSON when used
+    without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/pki/venafi/1001/history")))
+    assert pro.get_venafi_configuration_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_venafi_configuration_history_optional_params(pro):
+    """
+    Ensures that get_venafi_configuration_history returns JSON when used
+    without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/pki/venafi/1001/history")))
+    assert (
+        pro.get_venafi_configuration_history(
+            1001,
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_venafi_jamf_public_key_notfound(pro):
+    """
+    Ensures that get_venafi_jamf_public_key raises NotFound when returning a
+    404 HTTPError
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/pki/venafi/1001/jamf-public-key"), status=404
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_venafi_jamf_public_key(1001)
+
+
+@responses.activate
+def test_get_venafi_pki_proxy_server_public_key_notfound(pro):
+    """
+    Ensures that get_venafi_pki_proxy_server_public_key raises NotFound when
+    returning a 404 HTTPError
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/pki/venafi/1001/proxy-trust-store"), status=404
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_venafi_pki_proxy_server_public_key(1001)
+
+
+@responses.activate
+def test_create_venafi_configuration(pro):
+    """
+    Ensures that create_venafi_configuration returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/pki/venafi")))
+    assert pro.create_venafi_configuration(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_venafi_configuration_history_note(pro):
+    """
+    Ensures that create_venafi_configuration_history_note returns JSON when
+    used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/pki/venafi/1001/history")))
+    assert pro.create_venafi_configuration_history_note(EXPECTED_JSON, 1001)
+
+
+@responses.activate
+def test_create_venafi_jamf_public_key(pro):
+    """
+    Ensures that create_venafi_jamf_public_key returns a success message str
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/pki/venafi/1001/jamf-public-key/regenerate")
+        )
+    )
+    assert (
+        pro.create_venafi_jamf_public_key(1001)
+        == "Venafi configuration 1001 Jamf public key successfully regenerated."
+    )
+
+
+@responses.activate
+def test_create_venafi_pki_proxy_server_public_key(pro):
+    """
+    Ensures that create_venafi_jamf_public_key returns a success message str
+    when used with required params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder(
+                "POST", jps_url("/api/v1/pki/venafi/1001/proxy-trust-store")
+            )
+        )
+        assert pro.create_venafi_pki_proxy_server_public_key("/file.txt", 1001) == (
+            "Venafi configuration 1001 PKI proxy server public key uploaded "
+            "successfully."
+        )
+
+
+@responses.activate
+def test_update_venafi_configuration(pro):
+    """
+    Ensures that update_venafi_configuration returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/pki/venafi/1001")))
+    assert pro.update_venafi_configuration(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_venafi_configuration(pro):
+    """
+    Ensures that delete_venafi_configuration returns a success message str when
+    used with required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/pki/venafi/1001")))
+    assert (
+        pro.delete_venafi_configuration(1001)
+        == "Venafi configuration 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_venafi_pki_proxy_server_public_key(pro):
+    """
+    Ensures that delete_venafi_pki_proxy_server_public_key returns a success
+    message str when used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v1/pki/venafi/1001/proxy-trust-store"))
+    )
+    assert (
+        pro.delete_venafi_pki_proxy_server_public_key(1001)
+        == "Venafi configuration 1001 PKI proxy server public key successfully deleted."
+    )
+
+
 """
 volume-purchasing-locations
 """

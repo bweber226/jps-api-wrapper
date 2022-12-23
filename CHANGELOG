@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.159.0] -- 2022-12-23
+### Added
+- Pro.get_venafi_configuration which returns a Venafi PKI configuration from Jamf Pro by ID
+- Pro.get_venafi_connection_status which tests the communication between Jamf Pro and Jamf Pro PKI proxy server by ID
+- Pro.get_venafi_dependant_configuration_profiles which returns configuration profile data connected with the Venafi CA by ID
+- Pro.get_venafi_configuration_history which returns Venafi CA configuration history by ID
+- Pro.get_venafi_jamf_public_key which downloads a certificate for an existing Venafi configuration that can be used to secure communication between Jamf Pro and a Jamf Pro PKI Proxy Server to the current user's Downloads folder by ID
+- Pro.get_venafi_pki_proxy_server_public_key which downloads the uploaded PKI Proxy Server public key to do basic TLS certificate validation between Jamf Pro and a Jamf Pro PKI Proxy Server to the current user's Downloads folder by ID
+- Pro.create_venafi_configuration which creates a Venafi PKI configuration in Jamf Pro with JSON
+- Pro.create_venafi_configuration_history_note which creates Venafi configuration history note by ID with JSON
+- Pro.create_venafi_jamf_public_key which regenerates a certificate for an existing Venafi configuration that can be used to secure communication between Jamf Pro and a Jamf Pro PKI Proxy Server by ID
+- Pro.create_venafi_pki_proxy_server_public_key which uploads the PKI Proxy Server public key to do basic TLS certificate validation between Jamf Pro and a Jamf Pro PKI Proxy Server by ID
+- Pro.update_venafi_configuration which updates a Venafi PKI configuration in Jamf Pro by ID with JSON
+- Pro.delete_venafi_configuration which deletes a Venafi configuration from Jamf Pro by ID
+- Pro.delete_venafi_pki_proxy_server_public_key which deletes the uploaded PKI Proxy Server public key by ID
+
 ## [0.158.0] -- 2022-12-23
 ### Added
 - Pro.get_user_session_accounts which returns all Jamf Pro user accounts

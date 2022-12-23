@@ -6138,6 +6138,208 @@ class Pro(RequestBuilder):
     venafi-preview
     """
 
+    def get_venafi_configuration(self, id: Union[int, str]) -> dict:
+        """
+        Returns a Venafi PKI configuration from Jamf Pro by ID
+
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}"
+
+        return self._get(endpoint)
+
+    def get_venafi_connection_status(self, id: Union[int, str]) -> dict:
+        """
+        Tests the communication between Jamf Pro and Jamf Pro PKI proxy server
+        by ID
+
+        :param id : Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}/connection-status"
+
+        return self._get(endpoint)
+
+    def get_venafi_dependant_configuration_profiles(self, id: Union[int, str]) -> dict:
+        """
+        Returns configuration profile data connected with the Venafi CA by ID
+
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}/dependent-profiles"
+
+        return self._get(endpoint)
+
+    def get_venafi_configuration_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns Venafi CA configuration history by ID
+
+        :param id: Venafi configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page_size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/pki/venafi/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_venafi_jamf_public_key(self, id: Union[int, str]) -> dict:
+        """
+        Downloads a certificate for an existing Venafi configuration that can
+        be used to secure communication between Jamf Pro and a Jamf Pro PKI
+        Proxy Server to the current user's Downloads folder by ID
+
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}/jamf-public-key"
+
+        return self._download(endpoint)
+
+    def get_venafi_pki_proxy_server_public_key(self, id: Union[int, str]) -> dict:
+        """
+        Downloads the uploaded PKI Proxy Server public key to do basic TLS
+        certificate validation between Jamf Pro and a Jamf Pro PKI Proxy Server
+        to the current user's Downloads folder by ID
+
+        :param id: Venafi configuration iD
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}/proxy-trust-store"
+
+        return self._download(endpoint)
+
+    def create_venafi_configuration(self, data: dict) -> dict:
+        """
+        Creates a Venafi PKI configuration in Jamf Pro with JSON
+
+        :param data: JSON data to create Venafi configuration with
+        """
+        endpoint = "/api/v1/pki/venafi"
+
+        return self._post(endpoint, data)
+
+    def create_venafi_configuration_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates Venafi configuration history note by ID with JSON
+
+        :param data: JSON data to create Venafi configuration history note with
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def create_venafi_jamf_public_key(self, id: Union[int, str]) -> str:
+        """
+        Regenerates a certificate for an existing Venafi configuration that can
+        be used to secure communication between Jamf Pro and a Jamf Pro PKI
+        Proxy Server by ID
+
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}/jamf-public-key/regenerate"
+
+        return self._post(
+            endpoint,
+            success_message=(
+                f"Venafi configuration {id} Jamf public key successfully "
+                "regenerated."
+            ),
+        )
+
+    def create_venafi_pki_proxy_server_public_key(
+        self, filepath: str, id: Union[int, str]
+    ) -> str:
+        """
+        Uploads the PKI Proxy Server public key to do basic TLS certificate
+        validation between Jamf Pro and a Jamf Pro PKI Proxy Server by ID
+
+        :param filepath: Literal path to file to upload
+        :param id: Venafi configuration ID
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+
+        endpoint = f"/api/v1/pki/venafi/{id}/proxy-trust-store"
+
+        return self._post(
+            endpoint,
+            file=file,
+            success_message=(
+                f"Venafi configuration {id} PKI proxy server public key "
+                "uploaded successfully."
+            ),
+        )
+
+    def update_venafi_configuration(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a Venafi PKI configuration in Jamf Pro by ID with JSON
+
+        :param data: JSON data to update Venafi configuration with
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_venafi_configuration(self, id: Union[int, str]) -> str:
+        """
+        Deletes a Venafi configuration from Jamf Pro by ID
+
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"Venafi configuration {id} successfully deleted."
+        )
+
+    def delete_venafi_pki_proxy_server_public_key(self, id: Union[int, str]) -> str:
+        """
+        Deletes the uploaded PKI Proxy Server public key by ID
+
+        :param id: Venafi configuration ID
+        """
+        endpoint = f"/api/v1/pki/venafi/{id}/proxy-trust-store"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Venafi configuration {id} PKI proxy server public key "
+                "successfully deleted."
+            ),
+        )
+
     """
     volume-purchasing-locations
     """
