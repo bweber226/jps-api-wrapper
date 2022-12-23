@@ -6090,6 +6090,14 @@ class Pro(RequestBuilder):
     time-zones-preview
     """
 
+    def get_time_zones(self) -> dict:
+        """
+        Returns information about the currently supported time zones
+        """
+        endpoint = "/api/v1/time-zones"
+
+        return self._get(endpoint)
+
     """
     tomcat-zones-preview
     """

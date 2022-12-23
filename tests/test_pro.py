@@ -5838,6 +5838,16 @@ def test_delete_team_viewer_remote_administration_session_close(pro):
 time-zones-preview
 """
 
+
+@responses.activate
+def test_get_time_zones(pro):
+    """
+    Ensures that get_time_zones returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/time-zones")))
+    assert pro.get_time_zones() == EXPECTED_JSON
+
+
 """
 tomcat-zones-preview
 """
