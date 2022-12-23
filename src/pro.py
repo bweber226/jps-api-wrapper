@@ -5851,7 +5851,7 @@ class Pro(RequestBuilder):
         """
         PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
         ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
-        
+
         Returns Team Viewer remote administration connection configuration by
         ID
 
