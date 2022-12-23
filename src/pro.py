@@ -6108,11 +6108,31 @@ class Pro(RequestBuilder):
         """
         endpoint = "/api/settings/issueTomcatSslCertificate"
 
-        return self._post(endpoint, success_message="SSL certificate successfully created.")
+        return self._post(
+            endpoint, success_message="SSL certificate successfully created."
+        )
 
     """
     user-session-preview
     """
+
+    def get_user_session_accounts(self) -> dict:
+        """
+        Returns all Jamf Pro user accounts
+        """
+        endpoint = "/api/user"
+
+        return self._get(endpoint)
+
+    def update_user_session(self, data: dict) -> dict:
+        """
+        Updates values in the user's current session with JSON
+
+        :param data: JSON data to udpate user's current session values with
+        """
+        endpoint = "/api/user/updateSession"
+
+        return self._post(endpoint, data)
 
     """
     venafi-preview

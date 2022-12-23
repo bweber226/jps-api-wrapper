@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.158.0] -- 2022-12-23
+### Added
+- Pro.get_user_session_accounts which returns all Jamf Pro user accounts
+- Pro.update_user_session which updates values in the user's current session with JSON
+
 ## [0.157.0] -- 2022-12-23
 ### Added
 - Pro.create_tomcat_settings_ssl_certificate which generates a SSL certificate using Jamf Certificate Authority
