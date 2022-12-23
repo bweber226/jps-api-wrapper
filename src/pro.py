@@ -4981,6 +4981,9 @@ class Pro(RequestBuilder):
         self, page: int = None, page_size: int = None
     ) -> dict:
         """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
         Returns remote administration configurations
 
         :param page: Page to return, default page is 0.
@@ -5841,6 +5844,247 @@ class Pro(RequestBuilder):
     """
     team-viewer-remote-administration
     """
+
+    def get_team_viewer_remote_administration_connection_configuration(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+        
+        Returns Team Viewer remote administration connection configuration by
+        ID
+
+        :param id: Team Viewer connection configuration ID
+        """
+        endpoint = f"/api/preview/remote-administration-configurations/team-viewer/{id}"
+
+        return self._get(endpoint)
+
+    def get_team_viewer_remote_administration_sessions(
+        self,
+        configuration_id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        filter: str = None,
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Returns a paginated list of sessions by configuration ID
+
+        :param configuration_id: Team Viewer connection configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param filter:
+            Query in the RSQL format, allowing to filter sessions collection.
+            Default filter is empty query - returning all results for the
+            requested page.
+
+            Fields allowed in the query: deviceId, deviceType, state
+
+            Example: deviceId==1 and deviceType=="COMPUTER" and state=="OPEN"
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "filter": filter,
+            }
+        )
+        endpoint = (
+            "/api/preview/remote-administration-configurations/team-viewer/"
+            f"{configuration_id}/sessions"
+        )
+
+        return self._get(endpoint, params=params)
+
+    def get_team_viewer_remote_administration_session(
+        self, configuration_id: Union[int, str], session_id: Union[int, str]
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Returns session details if found by ID
+
+        :param configuration_id: Team Viewer connection configuration ID
+        :param session_id: Team Viewer session ID
+        """
+        endpoint = (
+            "/api/preview/remote-administration-configurations/team-viewer/"
+            f"{configuration_id}/sessions/{session_id}"
+        )
+
+        return self._get(endpoint)
+
+    def get_team_viewer_remote_administration_session_status(
+        self, configuration_id: Union[int, str], session_id: Union[int, str]
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Returns session status by ID
+
+        :param configuration_id: Team Viewer connection configuration ID
+        :param session_id: Team Viewer session ID
+        """
+        endpoint = (
+            "/api/preview/remote-administration-configurations/team-viewer/"
+            f"{configuration_id}/sessions/{session_id}/status"
+        )
+
+        return self._get(endpoint)
+
+    def get_team_viewer_remote_administration_connection_status(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Returns Team Viewer remote administration connection status by ID
+
+        :param id: Team Viewer connection configuration ID
+        """
+        endpoint = (
+            f"/api/preview/remote-administration-configurations/team-viewer/{id}/status"
+        )
+
+        return self._get(endpoint)
+
+    def create_team_viewer_remote_administration_connection_configuration(
+        self, data: dict
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Creates Team Viewer remote administration connection configuration with
+        JSON
+
+        :param data:
+            JSON data to create Team Viewer connection configuration with
+        """
+        endpoint = "/api/preview/remote-administration-configurations/team-viewer"
+
+        return self._post(endpoint, data)
+
+    def create_team_viewer_remote_administration_session(
+        self, data: dict, configuration_id: Union[int, str]
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Creates a new Team Viewer session to be used to establish a remote
+        connection
+
+        :param data: JSON data to create Team Viewer session with
+        :param configuration_id: Team Viewer connection configuration ID
+        """
+        endpoint = (
+            "/api/preview/remote-administration-configurations/team-viewer/"
+            f"{configuration_id}/sessions"
+        )
+
+        return self._post(endpoint, data)
+
+    def create_team_viewer_remote_administration_session_notification(
+        self, configuration_id: Union[int, str], session_id: Union[int, str]
+    ) -> str:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Resends configured notifications (e.g. Self Service push notifications)
+        for Team Viewer session by ID
+
+        :param configuration_id: Team Viewer connection configuration ID
+        :param session_id: Team Viewer session ID
+        """
+        endpoint = (
+            "/api/preview/remote-administration-configurations/team-viewer/"
+            f"{configuration_id}/sessions/{session_id}/resend-notification"
+        )
+
+        return self._post(
+            endpoint,
+            success_message=(
+                (
+                    f"Team Viewer configuration {configuration_id} session "
+                    f"{session_id} notifications successfully resent."
+                )
+            ),
+        )
+
+    def update_team_viewer_remote_administration_connection_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Updates Team Viewer remote administration connection configuration by
+        ID with JSON
+
+        :param data:
+            JSON data to update Team Viewer connection configuration with
+        :param id: Team Viewer connection configuration ID
+        """
+        endpoint = f"/api/preview/remote-administration-configurations/team-viewer/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_team_viewer_remote_administration_connection_configuration(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Deletes Team Viewer remote administration connection configuration by
+        ID
+
+        :param id: Team Viewer connection configuration ID
+        """
+        endpoint = f"/api/preview/remote-administration-configurations/team-viewer/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Team Viewer connection configuration {id} successfully deleted."
+            ),
+        )
+
+    def delete_team_viewer_remote_administration_session(
+        self, configuration_id: Union[int, str], session_id: Union[int, str]
+    ) -> str:
+        """
+        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
+        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
+
+        Closes a Team Viewer remote session by ID
+
+        :param configuration_id: Team Viewer connection configuration ID
+        :param session_id: Team Viewer session ID
+        """
+        endpoint = (
+            "/api/preview/remote-administration-configurations/team-viewer/"
+            f"{configuration_id}/sessions/{session_id}/close"
+        )
+
+        return self._post(
+            endpoint,
+            success_message=(
+                (
+                    f"Team Viewer configuration {configuration_id} session "
+                    f"{session_id} successfully closed."
+                )
+            ),
+        )
 
     """
     time-zones-preview

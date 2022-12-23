@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.155.0] -- 2022-12-23
+### Added
+- Pro.get_team_viewer_remote_administration_connection_configuration which returns Team Viewer remote administration connection configuration by ID
+- Pro.get_team_viewer_remote_administration_sessions which returns a paginated list of sessions by configuration ID
+- Pro.get_team_viewer_remote_administration_session which returns session details if found by ID
+- Pro.get_team_viewer_remote_administration_session_status which returns session status by ID
+- Pro.get_team_viewer_remote_administration_connection_status which returns Team Viewer remote administration connection status by ID
+- Pro.create_team_viewer_remote_administration_connection_configuration which creates Team Viewer remote administration connection configuration with JSON
+- Pro.create_team_viewer_remote_administration_session which creates a new Team Viewer session to be used to establish a remote connection
+- Pro.create_team_viewer_remote_administration_session_notification which resends configured notifications (e.g. Self Service push notifications) for Team Viewer session by ID
+- Pro.update_team_viewer_remote_administration_connection_configuration which updates Team Viewer remote administration connection configuration by ID with JSON
+- Pro.delete_team_viewer_remote_administration_connection_configuration which deletes Team Viewer remote administration connection configuration by ID
+- Pro.delete_team_viewer_remote_administration_session which closes a Team Viewer remote session by ID
+
 ## [0.154.0] -- 2022-12-21
 ### Added
 - Pro.get_teacher_app_settings which returns the Jamf Teacher settings that the user has access to see

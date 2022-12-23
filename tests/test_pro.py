@@ -5580,6 +5580,260 @@ def test_update_teacher_app_settings(pro):
 team-viewer-remote-administration
 """
 
+
+@responses.activate
+def test_get_team_viewer_remote_administration_connection_configuration(pro):
+    """
+    Ensures that get_team_viewer_remote_administration_connection_configuration
+    returns JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+            ),
+        )
+    )
+    assert (
+        pro.get_team_viewer_remote_administration_connection_configuration(1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_team_viewer_remote_administration_sessions(pro):
+    """
+    Ensures that get_team_viewer_remote_administration_sessions returns JSON
+    when used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/sessions"
+            ),
+        )
+    )
+    assert pro.get_team_viewer_remote_administration_sessions(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_team_viewer_remote_administration_sessions_optional_params(pro):
+    """
+    Ensures that get_team_viewer_remote_administration_sessions returns JSON
+    when used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/sessions"
+            ),
+        )
+    )
+    assert (
+        pro.get_team_viewer_remote_administration_sessions(
+            1001, 0, 100, 'deviceId==1 and deviceType=="COMPUTER" and state=="OPEN"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_team_viewer_remote_administration_session(pro):
+    """
+    Ensures that get_team_viewer_remote_administration_session returns JSON
+    when used with all required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/sessions/1002"
+            ),
+        )
+    )
+    assert (
+        pro.get_team_viewer_remote_administration_session(1001, 1002) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_team_viewer_remote_administration_session_status(pro):
+    """
+    Ensures that get_team_viewer_remote_administration_session_status returns
+    JSON
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/sessions/1002/status"
+            ),
+        )
+    )
+    assert (
+        pro.get_team_viewer_remote_administration_session_status(1001, 1002)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_team_viewer_remote_administration_connection_status(pro):
+    """
+    Ensures that get_team_viewer_remote_administration_connection_status
+    returns JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/status"
+            ),
+        )
+    )
+    assert (
+        pro.get_team_viewer_remote_administration_connection_status(1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_team_viewer_remote_administration_connection_configuration(pro):
+    """
+    Ensures that
+    create_team_viewer_remote_administration_connection_configuration returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/preview/remote-administration-configurations/team-viewer"),
+        )
+    )
+    assert (
+        pro.create_team_viewer_remote_administration_connection_configuration(
+            EXPECTED_JSON
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_team_viewer_remote_administration_session(pro):
+    """
+    Ensures that create_team_viewer_remote_administration_session returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/sessions"
+            ),
+        )
+    )
+    assert (
+        pro.create_team_viewer_remote_administration_session(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_team_viewer_remote_administration_session_notification(pro):
+    """
+    Ensures that create_team_viewer_remote_administration_session_notification
+    returns a success message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/sessions/1002/resend-notification"
+            ),
+        )
+    )
+    assert pro.create_team_viewer_remote_administration_session_notification(
+        1001, 1002
+    ) == (
+        "Team Viewer configuration 1001 session 1002 notifications successfully "
+        "resent."
+    )
+
+
+@responses.activate
+def test_update_team_viewer_remote_administration_connection_configuration(pro):
+    """
+    Ensures that
+    update_team_viewer_remote_administration_configuration_connection returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+            ),
+        )
+    )
+    assert (
+        pro.update_team_viewer_remote_administration_connection_configuration(
+            EXPECTED_JSON, 1001
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_team_viewer_remote_administration_connection_configuration(pro):
+    """
+    Ensures that
+    delete_team_viewer_remote_administration_connection_configuration returns
+    a success message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+            ),
+        )
+    )
+    assert (
+        pro.delete_team_viewer_remote_administration_connection_configuration(1001)
+        == "Team Viewer connection configuration 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_team_viewer_remote_administration_session_close(pro):
+    """
+    Ensures that delete_team_viewer_remote_administration_session_close returns
+    a success message str when used
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url(
+                "/api/preview/remote-administration-configurations/team-viewer/1001"
+                "/sessions/1002/close"
+            ),
+        )
+    )
+    assert (
+        pro.delete_team_viewer_remote_administration_session(1001, 1002)
+        == "Team Viewer configuration 1001 session 1002 successfully closed."
+    )
+
+
 """
 time-zones-preview
 """
