@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.160.0] -- 2022-12-23
+- Pro.get_branding_image which downloads a Self Service branding image to the current user's Downloads folder by ID
+
 ## [0.159.0] -- 2022-12-23
 ### Added
 - Pro.get_venafi_configuration which returns a Venafi PKI configuration from Jamf Pro by ID

@@ -308,7 +308,18 @@ class Pro(RequestBuilder):
     branding
     """
 
-    # TODO
+    def get_branding_image(self, id: Union[int, str]) -> str:
+        """
+        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
+
+        Downloads a Self Service branding image to the current user's Downloads
+        folder by ID
+
+        :param id: Self Service branding image ID
+        """
+        endpoint = f"/api/v1/branding-images/download/{id}"
+
+        return self._download(endpoint)
 
     """
     buildings

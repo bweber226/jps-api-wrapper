@@ -429,6 +429,26 @@ def test_get_app_store_country_codes(pro):
 
 
 """
+branding
+"""
+
+
+@responses.activate
+def test_get_branding_image_notfound(pro):
+    """
+    Ensures that get_branding_image raises NotFound when returning a 404
+    HTTPError
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/branding-images/download/1001"), status=404
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_branding_image(1001)
+
+
+"""
 buildings
 """
 
