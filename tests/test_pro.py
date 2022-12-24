@@ -6322,10 +6322,97 @@ def test_delete_volume_purchasing_location(pro):
 volume-purchasing-subscriptions
 """
 
+
+@responses.activate
+def test_get_volume_purchasing_subscriptions(pro):
+    """
+    Ensures that get_volume_purchasing_subscriptions returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/volume-purchasing-subscriptions"))
+    )
+    assert pro.get_volume_purchasing_subscriptions() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_volume_purchasing_subscriptions_optional_params(pro):
+    """
+    Ensures that get_volume_purchasing_subscriptions returns JSON when used
+    with all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/volume-purchasing-subscriptions"))
+    )
+    assert (
+        pro.get_volume_purchasing_subscriptions(0, 100, ["id:desc", "name:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_volume_purchasing_subscription(pro):
+    """
+    Ensures that get_volume_purchasing_subscription returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/volume-purchasing-subscriptions/1001"))
+    )
+    assert pro.get_volume_purchasing_subscription(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_volume_purchasing_subscription(pro):
+    """
+    Ensures that create_volume_purchasing_subscription returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/volume-purchasing-subscriptions"))
+    )
+    assert pro.create_volume_purchasing_subscription(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_volume_purchasing_subscription(pro):
+    """
+    Ensures that update_volume_purchasing_subscription returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/volume-purchasing-subscriptions/1001"))
+    )
+    assert (
+        pro.update_volume_purchasing_subscription(EXPECTED_JSON, 1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_volume_purchasing_subsescription(pro):
+    """
+    Ensures that delete_volume_purchasing_subscription returns a success
+    message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/volume-purchasing-subscriptions/1001")
+        )
+    )
+    assert (
+        pro.delete_volume_purchasing_subscription(1001)
+        == "Volume purchasing subscription 1001 successfully deleted."
+    )
+
+
 """
 vpp-admin-accounts-preview
 """
 
+# All endpoints deprecated
+
 """
 vpp-subscriptions-preview
 """
+
+# All endpoints deprecated

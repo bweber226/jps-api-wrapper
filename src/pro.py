@@ -6536,8 +6536,8 @@ class Pro(RequestBuilder):
         self, id: Union[int, str]
     ) -> str:
         """
-        Revokes licenses for a Volume Purchasing Location by ID. The licenses 
-        must be revokable - any asset whose licenses are irrevocable will not 
+        Revokes licenses for a Volume Purchasing Location by ID. The licenses
+        must be revokable - any asset whose licenses are irrevocable will not
         be revoked.
 
         :param id: Volume purchasing location ID
@@ -6581,10 +6581,84 @@ class Pro(RequestBuilder):
     volume-purchasing-subscriptions
     """
 
+    def get_volume_purchasing_subscriptions(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"]
+    ) -> dict:
+        """
+        Returns sorted and paged volume purchasing subscriptions
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma. Allowable properties are id, name, and enabled.
+
+            Example: ["id:desc", "name:asc"]
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort}
+        )
+        endpoint = "/api/v1/volume-purchasing-subscriptions"
+
+        return self._get(endpoint, params=params)
+
+    def get_volume_purchasing_subscription(self, id: Union[int, str]) -> dict:
+        """
+        Returns a volume purchasing subcscription by ID
+
+        :param id: Volume purchasing subscription ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}"
+
+        return self._get(endpoint)
+
+    def create_volume_purchasing_subscription(self, data: dict) -> dict:
+        """
+        Creates a volume purchasing subscription with JSON
+
+        :param data: JSON data to create volume purchasing subscription with
+        """
+        endpoint = "/api/v1/volume-purchasing-subscriptions"
+
+        return self._post(endpoint, data)
+
+    def update_volume_purchasing_subscription(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates a volume purchasing subscription by ID with JSON
+
+        :param data: JSON data to update volume purchasing subscription with
+        :param id: Volume purchasing subscription ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_volume_purchasing_subscription(self, id: Union[int, str]) -> str:
+        """
+        Deletes a volume purchasing subscription by ID
+
+        :param id: Volume purchasing subscription ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Volume purchasing subscription {id} successfully deleted."
+            ),
+        )
+
     """
     vpp-admin-accounts-preview
     """
 
+    # All endpoints deprecated
+
     """
     vpp-subscriptions-preview
     """
+
+    # All endpoints deprecated
