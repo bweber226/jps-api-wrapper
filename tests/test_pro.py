@@ -6109,6 +6109,215 @@ def test_delete_venafi_pki_proxy_server_public_key(pro):
 volume-purchasing-locations
 """
 
+
+@responses.activate
+def test_get_volume_purchasing_locations(pro):
+    """
+    Ensures that get_volume_purchasing_locations returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/volume-purchasing-locations"))
+    )
+    assert pro.get_volume_purchasing_locations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_volume_purchasing_locations_optional_params(pro):
+    """
+    Ensures that get_volume_purchasing_locations returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/volume-purchasing-locations"))
+    )
+    assert (
+        pro.get_volume_purchasing_locations(
+            0,
+            100,
+            ["id:desc", "name:asc"],
+            'name=="example.jamfcloud.com" and countryCode=="US"',
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_volume_purchasing_location(pro):
+    """
+    Ensures that get_volume_purchasing_location returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/volume-purchasing-locations/1001"))
+    )
+    assert pro.get_volume_purchasing_location(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_volume_purchasing_location_history(pro):
+    """
+    Ensures that get_volume_purchasing_location_history returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/volume-purchasing-locations/1001/history")
+        )
+    )
+    assert pro.get_volume_purchasing_location_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_volume_purchasing_location_history_optional_params(pro):
+    """
+    Ensures that get_volume_purchasing_location_history returns JSON when used
+    with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/volume-purchasing-locations/1001/history")
+        )
+    )
+    assert (
+        pro.get_volume_purchasing_location_history(
+            1001,
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_volume_purchasing_location_content(pro):
+    """
+    Ensures that get_volume_purchasing_location_content returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/volume-purchasing-locations/1001/content")
+        )
+    )
+    assert pro.get_volume_purchasing_location_content(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_volume_purchasing_location_content_optional_params(pro):
+    """
+    Ensures that get_volume_purchasing_location_content returns JSON when used
+    with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/volume-purchasing-locations/1001/content")
+        )
+    )
+    assert (
+        pro.get_volume_purchasing_location_content(
+            1001,
+            0,
+            100,
+            ["id:desc", "name:asc"],
+            'name=="example" and licenseCountInUse==1',
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_volume_purchasing_location(pro):
+    """
+    Ensures that create_volume_purchasing_location returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/volume-purchasing-locations"))
+    )
+    assert pro.create_volume_purchasing_location(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_volume_purchasing_location_history_note(pro):
+    """
+    Ensures that create_volume_purchasing_history_note returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/volume-purchasing-locations/1001/history")
+        )
+    )
+    assert (
+        pro.create_volume_purchasing_location_history_note(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_volume_purchasing_location_reclaim(pro):
+    """
+    Ensures that create_volume_purchasing_location_reclaim returns a success
+    message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/volume-purchasing-locations/1001/reclaim")
+        )
+    )
+    assert (
+        pro.create_volume_purchasing_location_reclaim(1001)
+        == "Volume purchasing location 1001 reclaim requested."
+    )
+
+
+@responses.activate
+def test_create_volume_purchasing_location_revoke_licenses(pro):
+    """
+    Ensures that create_volume_purchasing_location_revoke_licenses returns a
+    success message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/volume-purchasing-locations/1001/revoke-licenses")
+        )
+    )
+    assert (
+        pro.create_volume_purchasing_location_revoke_licenses(1001)
+        == "Volume purchasing location 1001 licenses successfully revoked."
+    )
+
+
+@responses.activate
+def test_update_volume_purchasing_location(pro):
+    """
+    Ensures that update_volume_purchasing_location returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/volume-purchasing-locations/1001"))
+    )
+    assert pro.update_volume_purchasing_location(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_volume_purchasing_location(pro):
+    """
+    Ensures that delete_volume_purchasing_location returns a success message
+    str when used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v1/volume-purchasing-locations/1001"))
+    )
+    assert (
+        pro.delete_volume_purchasing_location(1001)
+        == "Volume purchasing location 1001 successfully deleted."
+    )
+
+
 """
 volume-purchasing-subscriptions
 """

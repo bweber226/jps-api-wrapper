@@ -5,7 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.161.0] -- 2022-12-23
+### Added 
+- Pro.get_volume_purchasing_locations which returns sorted and paged volume purchasing locations
+- Pro.get_volume_purchasing_location which returns a volume purchasing location by ID 
+- Pro.get_volume_purchasing_location_history which returns sorted and paginated volume purchasing location history by ID
+- Pro.get_volume_purchasing_location_content which returns the volume purchasing content for the volume purchasing location by ID
+- Pro.create_volume_purchasing_location which creates a volume purchasing location with JSON
+- Pro.create_volume_purchasing_location_history_note which creates a volume purchasing location history note by ID with JSON
+- Pro.create_volume_purchasing_location_reclaim which reclaims a volume purchasing location by ID
+- Pro.create_volume_purchasing_location_revoke_licenses which revokes licenses for a Volume Purchasing Location by ID
+- Pro.update_volume_purchasing_location which updates a volume purchasing location by ID with JSON
+- Pro.delete_volume_purchasing_location which deletes a volume purchasing location by ID
+
+
 ## [0.160.0] -- 2022-12-23
+### Added
 - Pro.get_branding_image which downloads a Self Service branding image to the current user's Downloads folder by ID
 
 ## [0.159.0] -- 2022-12-23

@@ -6355,6 +6355,228 @@ class Pro(RequestBuilder):
     volume-purchasing-locations
     """
 
+    def get_volume_purchasing_locations(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted and paged volume purchasing locations
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Volume Purchasing
+            Location collection. Default filter is empty query - returning all
+            results for the requested page. Fields allowed in the query: id,
+            name, appleId, organizationName, tokenExpiration, countryCode,
+            locationName, automaticallyPopulatePurchasedContent, and
+            sendNotificationWhenNoLongerAssigned. This param can be combined
+            with paging and sorting.
+
+            Example: name=="example.jamfcloud.com" and countryCode=="US"
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/volume-purchasing-locations"
+
+        return self._get(endpoint, params=params)
+
+    def get_volume_purchasing_location(self, id: Union[int, str]) -> dict:
+        """
+        Returns a volume purchasing location by ID
+
+        :param id: Volume purchasing location ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}"
+
+        return self._get(endpoint)
+
+    def get_volume_purchasing_location_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted and paginated volume purchasing location history by ID
+
+        :param id: Volume purchasing location ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and details==disabled and date<2019-12-15
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_volume_purchasing_location_content(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
+
+        Returns the volume purchasing content for the volume purchasing
+        location by ID
+
+        :param id: Volume purchasing location ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return Default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Exmaple: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Volume Purchasing
+            Content collection. Default filter is empty query - returning all
+            results for the requested page. Fields allowed in the query: name,
+            licenseCountTotal, licenseCountInUse, licenseCountReported,
+            contentType, and pricingParam. This param can be combined with
+            paging and sorting.
+
+            Example: name=="example" and licenseCountInUse==1
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}/content"
+
+        return self._get(endpoint, params=params)
+
+    def create_volume_purchasing_location(self, data: dict) -> dict:
+        """
+        Creates a volume purchasing location with JSON
+
+        :param data: JSON data to create volume purchasing location with
+        """
+        endpoint = "/api/v1/volume-purchasing-locations"
+
+        return self._post(endpoint, data)
+
+    def create_volume_purchasing_location_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a volume purchasing location history note by ID with JSON
+
+        :param data:
+            JSON data to create volume purchasing location history note with
+        :param id: Volume purchasing location ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def create_volume_purchasing_location_reclaim(self, id: Union[int, str]) -> str:
+        """
+        Reclaims a volume purchasing location by ID
+
+        :param id: Volume purchasing location ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}/reclaim"
+
+        return self._post(
+            endpoint,
+            success_message=f"Volume purchasing location {id} reclaim requested.",
+        )
+
+    def create_volume_purchasing_location_revoke_licenses(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        Revokes licenses for a Volume Purchasing Location by ID. The licenses 
+        must be revokable - any asset whose licenses are irrevocable will not 
+        be revoked.
+
+        :param id: Volume purchasing location ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}/revoke-licenses"
+
+        return self._post(
+            endpoint,
+            success_message=(
+                f"Volume purchasing location {id} licenses successfully revoked."
+            ),
+        )
+
+    def update_volume_purchasing_location(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates a volume purchasing location by ID with JSON
+
+        :param data: JSON data to update volume purchasing location with
+        :param id: Volume purchasing location ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_volume_purchasing_location(self, id: Union[int, str]) -> str:
+        """
+        Deletes a volume purchasing location by ID
+
+        :param id: Volume purchasing location ID
+        """
+        endpoint = f"/api/v1/volume-purchasing-locations/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Volume purchasing location {id} successfully deleted.",
+        )
+
     """
     volume-purchasing-subscriptions
     """
