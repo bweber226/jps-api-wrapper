@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.163.0] -- 2023-1-18
+### Added
+- Sphinx source files for Read the Docs documentation
+- All method docstrings were updated to include return documentation
+- Any methods that relied on data detailed in Jamf's documentation were given a link in the docstring to direct users there
+
+### Changed
+- Classic.file_upload changed to create_file_upload to better match the rest of the projects syntax
+- Classic.log_flush changed to create_log_flush to better match the rest of the projects syntax
+- Classic.log_flush_interval to create_log_flush_interval to better match the rest of the projects syntax
+- Classic.command_flush to create_command_flush to better matcht he rest of the projects syntax
+
 ## [0.162.0] -- 2022-12-23
 ### Added
 - Pro.get_volume_purchasing_subscriptions which returns sorted and paged volume purchasing subscriptions

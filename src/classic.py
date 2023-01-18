@@ -28,99 +28,25 @@ class Classic(RequestBuilder):
         Returns all accounts and account groups.
 
         :param data_type: json or xml
+
+        :returns: All accounts in either JSON or XML
         """
         endpoint = "/JSSResource/accounts"
 
         return self._get(endpoint, data_type)
 
-    def get_account_group(
-        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
-    ) -> Union[dict, str]:
-        """
-        Returns an account group by either ID or name in json or xml. Need to
-        supply at least one identifier.
-
-        :param id: Account group ID
-        :param name: Account group name
-        :param data_type: json or xml
-        """
-        identification_options = {
-            "id": id,
-            "name": name,
-        }
-        identification = identification_type(identification_options)
-        endpoint = (
-            f"/JSSResource/accounts/group{identification}/"
-            f"{identification_options[identification]}"
-        )
-
-        return self._get(endpoint, data_type)
-
-    def create_account_group(self, data: str, id: Union[int, str] = 0) -> str:
-        """
-        Creates an account group with the given XML data. Use ID 0 to use the
-        next available ID.
-
-        :param data: XML data to create the account group with
-        :param id: ID of the new account group, set to 0 for next available ID
-        """
-        endpoint = f"/JSSResource/accounts/groupid/{id}"
-
-        return self._post(endpoint, data, data_type="xml")
-
-    def update_account_group(
-        self, data: str, id: Union[int, str] = None, name: str = None
-    ) -> str:
-        """
-        Updates an account group with the given XML data by either ID or name.
-        Need to supply at least one identifier.
-
-        :param data: XML data to update the account group with
-        :param id: Account group ID
-        :param name: Account group name
-        """
-        identification_options = {
-            "id": id,
-            "name": name,
-        }
-        identification = identification_type(identification_options)
-        endpoint = (
-            f"/JSSResource/accounts/group{identification}/"
-            f"{identification_options[identification]}"
-        )
-
-        return self._put(endpoint, data, data_type="xml")
-
-    def delete_account_group(self, id: Union[int, str] = None, name: str = None) -> str:
-        """
-        Deletes an account group by ID or name. Need to supply at leas one
-        identifier.
-
-        :param id: Account group ID
-        :param name: Account group name
-        """
-        identification_options = {
-            "id": id,
-            "name": name,
-        }
-        identification = identification_type(identification_options)
-        endpoint = (
-            f"/JSSResource/accounts/group{identification}/"
-            f"{identification_options[identification]}"
-        )
-
-        return self._delete(endpoint, data_type="xml")
-
     def get_account(
         self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
-        Returns an account by either ID or name in json or xml. Need to
-        supply at least one identifier.
+        Returns an account by either ID or name in JSON or XML. Need to supply
+        at least one identifier.
 
         :param id: Account ID
         :param name: Account name
         :param data_type: json or xml
+
+        :returns: Account information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -129,6 +55,31 @@ class Classic(RequestBuilder):
         identification = identification_type(identification_options)
         endpoint = (
             f"/JSSResource/accounts/user{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._get(endpoint, data_type)
+
+    def get_account_group(
+        self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
+    ) -> Union[dict, str]:
+        """
+        Returns an account group by either ID or name in JSON or XML. Need to
+        supply at least one identifier.
+
+        :param id: Account group ID
+        :param name: Account group name
+        :param data_type: json or xml
+
+        :returns: Account group information in JSON or XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/accounts/group{identification}/"
             f"{identification_options[identification]}"
         )
 
@@ -139,10 +90,32 @@ class Classic(RequestBuilder):
         Creates an account with the given XML data. Use ID 0 to use the
         next available ID.
 
-        :param data: XML data to create the account with
+        :param data:
+            XML data to create the account with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createaccountbyid>`__
         :param id: ID of the new account, use 0 for next available ID
+
+        :returns: New account information in XML
         """
         endpoint = f"/JSSResource/accounts/userid/{id}"
+
+        return self._post(endpoint, data, data_type="xml")
+
+    def create_account_group(self, data: str, id: Union[int, str] = 0) -> str:
+        """
+        Creates an account group with the given XML data. Use ID 0 to use the
+        next available ID.
+
+        :param data:
+            XML data to create the account group with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/creategroupbyid>`__
+        :param id: ID of the new account group, set to 0 for next available ID
+
+        :returns: New account group information in XML
+        """
+        endpoint = f"/JSSResource/accounts/groupid/{id}"
 
         return self._post(endpoint, data, data_type="xml")
 
@@ -153,9 +126,14 @@ class Classic(RequestBuilder):
         Updates an account with the given XML data by either ID or name.
         Need to supply at least one identifier.
 
-        :param data: XML data to update the account with
+        :param data:
+            XML data to update the account with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateaccountbyid>`__
         :param id: Account ID
         :param name: Account name
+
+        :returns: Updated account information in XML
         """
         identification_options = {
             "id": id,
@@ -164,6 +142,34 @@ class Classic(RequestBuilder):
         identification = identification_type(identification_options)
         endpoint = (
             f"/JSSResource/accounts/user{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._put(endpoint, data, data_type="xml")
+
+    def update_account_group(
+        self, data: str, id: Union[int, str] = None, name: str = None
+    ) -> str:
+        """
+        Updates an account group with the given XML data by either ID or name.
+        Need to supply at least one identifier.
+
+        :param data:
+            XML data to update the account group with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updategroupbyid>`__
+        :param id: Account group ID
+        :param name: Account group name
+
+        :returns: Updated account group information in XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/accounts/group{identification}/"
             f"{identification_options[identification]}"
         )
 
@@ -176,6 +182,8 @@ class Classic(RequestBuilder):
 
         :param id: Account ID
         :param name: Account name
+
+        :returns: Deleted account information in XML
         """
         identification_options = {
             "id": id,
@@ -189,15 +197,39 @@ class Classic(RequestBuilder):
 
         return self._delete(endpoint, data_type="xml")
 
+    def delete_account_group(self, id: Union[int, str] = None, name: str = None) -> str:
+        """
+        Deletes an account group by ID or name. Need to supply at leas one
+        identifier.
+
+        :param id: Account group ID
+        :param name: Account group name
+
+        :returns: Deleted account group information in XML
+        """
+        identification_options = {
+            "id": id,
+            "name": name,
+        }
+        identification = identification_type(identification_options)
+        endpoint = (
+            f"/JSSResource/accounts/group{identification}/"
+            f"{identification_options[identification]}"
+        )
+
+        return self._delete(endpoint, data_type="xml")
+
     """
     /activationcode
     """
 
     def get_activation_code(self, data_type: str = "json") -> str:
         """
-        Get's the activation code of the JPS server.
+        Returns the activation code of the JPS server.
 
         :param data_type: json or xml
+
+        :returns: Activation code information in JSON or XML
         """
         endpoint = "/JSSResource/activationcode"
 
@@ -207,7 +239,12 @@ class Classic(RequestBuilder):
         """
         Updates the activation code of the JPS server.
 
-        :param data: XML data to update the activation code with
+        :param data:
+            XML data to update the activation code with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateactivationcode>`__
+
+        :returns: Updated activation code information in XML
         """
         endpoint = "/JSSResource/activationcode"
 
@@ -224,6 +261,8 @@ class Classic(RequestBuilder):
         Returns all advanced computer searches in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All advanced computer searches in JSON or XML
         """
         endpoint = "/JSSResource/advancedcomputersearches"
 
@@ -239,6 +278,8 @@ class Classic(RequestBuilder):
         :param id: Advanced computer search ID
         :param name: Advanced computer search name
         :param data_type: json or xml
+
+        :returns: Advanced computer search information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -259,9 +300,14 @@ class Classic(RequestBuilder):
         Creates an advanced computer search with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the advanced computer search with
+        :param data:
+            XML data to create the advanced computer search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createadvancedcomputersearchgbyid>`__
         :param id:
             ID of the new advanced computer search, use 0 for next available ID
+
+        :returns: New advanced computer search information in XML
         """
         endpoint = f"/JSSResource/advancedcomputersearches/id/{id}"
 
@@ -274,9 +320,14 @@ class Classic(RequestBuilder):
         Updates and advanced computer search with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the advanced computer search with
+        :param data:
+            XML data to update the advanced computer search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateadvancedcomputersearchbyid>`__
         :param id: Advanced computer search ID
         :param name: Advanced computer search name
+
+        :returns: Updated advanced computer search information in XML
         """
         identification_options = {
             "id": id,
@@ -299,6 +350,9 @@ class Classic(RequestBuilder):
 
         :param id: Advanced computer search ID
         :param name: Advanced computer search name
+
+        :returns:
+            Deleted advanced computer search information in XML
         """
         identification_options = {
             "id": id,
@@ -323,6 +377,8 @@ class Classic(RequestBuilder):
         Returns all advanced mobile device searches in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All advanced mobile device searches in JSON or XML
         """
         endpoint = "/JSSResource/advancedmobiledevicesearches"
 
@@ -338,6 +394,8 @@ class Classic(RequestBuilder):
         :param id: Advanced mobile device search ID
         :param name: Advanced mobile device search name
         :param data_type: json or xml
+
+        :returns: Advanced mobile device search information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -358,10 +416,15 @@ class Classic(RequestBuilder):
         Creates an advanced mobile device search with the given XML data. Use
         ID 0 to use the next available ID.
 
-        :param data: XML data to create the advanced mobile device search with
+        :param data:
+            XML data to create the advanced mobile device search with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createadvancedmobiledevicesearchbyid>`__
         :param id:
             ID of the new advanced mobile device search, use 0 for next
             available ID
+
+        :returns: New advanced mobile device search information in XML
         """
         endpoint = f"/JSSResource/advancedmobiledevicesearches/id/{id}"
 
@@ -374,9 +437,14 @@ class Classic(RequestBuilder):
         Updates and advanced mobile device search with the given XML data. Need
         to supply at least one identifier.
 
-        :param data: XML data to update the advanced mobile device search with
+        :param data:
+            XML data to update the advanced mobile device search with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateadvancedmobiledevicesearchbyid>`__
         :param id: Advanced mobile device search ID
         :param name: Advanced mobile device search name
+
+        :returns: Updated advanced mobile device search information in XML
         """
         identification_options = {
             "id": id,
@@ -399,6 +467,9 @@ class Classic(RequestBuilder):
 
         :param id: Advanced mobile device search ID
         :param name: Advanced mobile device search name
+
+        :returns:
+            Deleted advanced mobile device search information in XML
         """
         identification_options = {
             "id": id,
@@ -421,6 +492,8 @@ class Classic(RequestBuilder):
         Returns all advanced user searches in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All advanced user searches in JSON or XML
         """
         endpoint = "/JSSResource/advancedusersearches"
 
@@ -436,6 +509,8 @@ class Classic(RequestBuilder):
         :param id: Advanced user search ID
         :param name: Advanced user search name
         :param data_type: json or xml
+
+        :returns: Advanced user search information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -454,9 +529,14 @@ class Classic(RequestBuilder):
         Creates an advanced user search with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the advanced user search with
+        :param data:
+            XML data to create the advanced user search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createadvancedusersearchgbyid>`__
         :param id:
             ID of the new advanced user search, use 0 for next available ID
+
+        :returns: New advanced user search information in XML
         """
         endpoint = f"/JSSResource/advancedusersearches/id/{id}"
 
@@ -469,9 +549,14 @@ class Classic(RequestBuilder):
         Updates and advanced user search with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the advanced user search with
+        :param data:
+            XML data to update the advanced user search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateadvancedusersearchbyid>`__
         :param id: Advanced user search ID
         :param name: Advanced user search name
+
+        :returns: Updated advanced user search information in XML
         """
         identification_options = {
             "id": id,
@@ -494,6 +579,9 @@ class Classic(RequestBuilder):
 
         :param id: Advanced user search ID
         :param name: Advanced user search name
+
+        :returns:
+            Deleted advanced used search information in XML
         """
         identification_options = {
             "id": id,
@@ -516,6 +604,8 @@ class Classic(RequestBuilder):
         Returns all allowed file extensions in either JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All allowed file extensions in JSON or XML
         """
         endpoint = "/JSSResource/allowedfileextensions"
 
@@ -531,6 +621,8 @@ class Classic(RequestBuilder):
         :param id: Allowed file extension ID
         :param name: Allowed file extension name
         :param data_type: json or xml
+
+        :returns: Allowed file extension information in JSON or XML
         """
         identification_options = {"id": id, "name": name}
         identification = identification_type(identification_options)
@@ -546,8 +638,13 @@ class Classic(RequestBuilder):
         Creates an allowed file extension with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the allowed file extension
+        :param data:
+            XML data to create the allowed file extension. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createallowedfileextensionbyid>`__
         :param id: Allowed file extension id
+
+        :returns: New allowed file extension information in XML
         """
         endpoint = f"/JSSResource/allowedfileextensions/id/{id}"
 
@@ -558,6 +655,9 @@ class Classic(RequestBuilder):
         Deletes an allowed file extension with the given ID.
 
         :param id: Allowed file extension ID
+
+        :returns:
+            Deleted allowed file extension information in XML
         """
         endpoint = f"/JSSResource/allowedfileextensions/id/{id}"
 
@@ -572,6 +672,8 @@ class Classic(RequestBuilder):
         Returns all buildings in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All buildings in JSON or XML
         """
         endpoint = "/JSSResource/buildings"
 
@@ -587,6 +689,8 @@ class Classic(RequestBuilder):
         :param id: building ID
         :param name: building name
         :param data_type: json or xml
+
+        :returns: Building information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -605,9 +709,14 @@ class Classic(RequestBuilder):
         Creates a building with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the building with
+        :param data:
+            XML data to create the building with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createbuildingbyid>`__
         :param id:
             ID of the new building, use 0 for next available ID
+
+        :returns: New building information in XML
         """
         endpoint = f"/JSSResource/buildings/id/{id}"
 
@@ -620,9 +729,14 @@ class Classic(RequestBuilder):
         Updates a building with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the building with
+        :param data:
+            XML data to update the building with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatebuildingbyid>`__
         :param id: building ID
         :param name: building name
+
+        :returns: Updated building information in XML
         """
         identification_options = {
             "id": id,
@@ -643,6 +757,8 @@ class Classic(RequestBuilder):
 
         :param id: building ID
         :param name: building name
+
+        :returns: Deleted building information in XML
         """
         identification_options = {
             "id": id,
@@ -662,9 +778,11 @@ class Classic(RequestBuilder):
 
     def get_byo_profiles(self, data_type: str = "json") -> Union[dict, str]:
         """
-        Returns all byo profiles in either JSON or XML.
+        Returns all BYO profiles in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All BYO profiles in JSON or XML
         """
         endpoint = "/JSSResource/byoprofiles"
 
@@ -674,12 +792,14 @@ class Classic(RequestBuilder):
         self, id: Union[int, str] = None, name: str = None, data_type: str = "json"
     ) -> Union[dict, str]:
         """
-        Returns data on a specific byo profile by either ID or
+        Returns data on a specific BYO profile by either ID or
         name.
 
-        :param id: byo profile ID
-        :param name: byo profile name
+        :param id: BYO profile ID
+        :param name: BYO profile name
         :param data_type: json or xml
+
+        :returns: BYO profile information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -695,12 +815,17 @@ class Classic(RequestBuilder):
 
     def create_byo_profile(self, data: str, id: Union[int, str] = 0) -> str:
         """
-        Creates a byo profile with the given XML data. Use ID 0
+        Creates a BYO profile with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the byo profile with
+        :param data:
+            XML data to create the byo profile with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createbyoprofilesbyid>`__
         :param id:
-            ID of the new byo profile, use 0 for next available ID
+            ID of the new BYO profile, use 0 for next available ID
+
+        :returns: New BYO profile information in XML
         """
         endpoint = f"/JSSResource/byoprofiles/id/{id}"
 
@@ -710,12 +835,17 @@ class Classic(RequestBuilder):
         self, data: str, id: Union[int, str] = None, name: str = None
     ) -> str:
         """
-        Updates a byo profile with the given XML data. Need to
+        Updates a BYO profile with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the byo profile with
-        :param id: byo profile ID
-        :param name: byo profile name
+        :param data:
+            XML data to update the BYO profile with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatebyoprofilesbyid>`__
+        :param id: BYO profile ID
+        :param name: BYO profile name
+
+        :returns: Updated BYO profile information in XML
         """
         identification_options = {
             "id": id,
@@ -736,6 +866,8 @@ class Classic(RequestBuilder):
 
         :param id: byo profile ID
         :param name: byo profile name
+
+        :returns: Deleted BYO profile information in XML
         """
         identification_options = {
             "id": id,
@@ -758,6 +890,8 @@ class Classic(RequestBuilder):
         Returns all categories in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All categories in JSON or XML
         """
         endpoint = "/JSSResource/categories"
 
@@ -773,6 +907,8 @@ class Classic(RequestBuilder):
         :param id: category ID
         :param name: category name
         :param data_type: json or xml
+
+        :returns: Category information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -791,9 +927,14 @@ class Classic(RequestBuilder):
         Creates a category with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the category with
+        :param data:
+            XML data to create the category with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createcategorybyid>`__
         :param id:
             ID of the new category, use 0 for next available ID
+
+        :returns: New category information in XML
         """
         endpoint = f"/JSSResource/categories/id/{id}"
 
@@ -806,9 +947,14 @@ class Classic(RequestBuilder):
         Updates a category with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the category with
+        :param data:
+            XML data to update the category with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatecategorybyid>`__
         :param id: category ID
         :param name: category name
+
+        :returns: Updated category information in XML
         """
         identification_options = {
             "id": id,
@@ -829,6 +975,8 @@ class Classic(RequestBuilder):
 
         :param id: category ID
         :param name: category name
+
+        :returns: Deleted category information in XML
         """
         identification_options = {
             "id": id,
@@ -851,6 +999,8 @@ class Classic(RequestBuilder):
         Returns all classes in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All classes in JSON or XML
         """
         endpoint = "/JSSResource/classes"
 
@@ -866,6 +1016,8 @@ class Classic(RequestBuilder):
         :param id: class ID
         :param name: class name
         :param data_type: json or xml
+
+        :returns: Class information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -884,9 +1036,14 @@ class Classic(RequestBuilder):
         Creates a class with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the class with
+        :param data:
+            XML data to create the class with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createclassbyid>`__
         :param id:
             ID of the new class, use 0 for next available ID
+
+        :returns: New class information in XML
         """
         endpoint = f"/JSSResource/classes/id/{id}"
 
@@ -899,9 +1056,14 @@ class Classic(RequestBuilder):
         Updates a class with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the class with
+        :param data:
+            XML data to update the class with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateclassbyid>`__
         :param id: class ID
         :param name: class name
+
+        :returns: Updated class information in XML
         """
         identification_options = {
             "id": id,
@@ -922,6 +1084,8 @@ class Classic(RequestBuilder):
 
         :param id: class ID
         :param name: class name
+
+        :returns: Deleted class information in XML
         """
         identification_options = {
             "id": id,
@@ -939,7 +1103,7 @@ class Classic(RequestBuilder):
     /commandflush
     """
 
-    def command_flush(
+    def create_command_flush(
         self,
         idtype: str = None,
         id: Union[int, str] = None,
@@ -967,7 +1131,12 @@ class Classic(RequestBuilder):
         - Failed
         - Pending+Failed
 
-        :param data: XML data to define command flushing
+        :param data:
+            XML data to define command flushing. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/commandflush-1>`__
+
+        :returns: Command flush results in XML
         """
         params = {"idtype": idtype, "id": id, "status": status}
         param_type = param_or_data(params, data)
@@ -1009,6 +1178,8 @@ class Classic(RequestBuilder):
         :param inventory:
             Display fields seperated by commas without spaces
             e.g. Platform,Bar Code,HostName
+
+        :returns: Computer application information in JSON or XML
         """
         if not version and not inventory:
             endpoint = f"/JSSResource/computerapplications/application/{application}"
@@ -1057,6 +1228,8 @@ class Classic(RequestBuilder):
         :param serialnumber: Computer serial number
         :param macaddress: Computer MAC address,
         :param data_type: json or xml
+
+        :returns: Computer application usage information in JSON or XML
         """
         validate_date(start_date)
         validate_date(end_date)
@@ -1085,6 +1258,8 @@ class Classic(RequestBuilder):
         Returns all computer check in information
 
         :param data_type: json or xml
+
+        :returns: All computer check in information in JSON or XML
         """
         endpoint = "/JSSResource/computercheckin"
 
@@ -1094,7 +1269,12 @@ class Classic(RequestBuilder):
         """
         Updates computer check in information based on XML data
 
-        :param data: XML data
+        :param data:
+            XML data to update computer check in with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatecomputercheckin>`__
+
+        :returns: Updated computer check in information in XML
         """
         endpoint = "/JSSResource/computercheckin"
 
@@ -1112,6 +1292,8 @@ class Classic(RequestBuilder):
 
         :param name: Computer command name
         :param data_type: json or xml
+
+        :returns: All computer commands in JSON or XML
         """
         if name:
             endpoint = endpoint = f"/JSSResource/computercommands/name/{name}"
@@ -1128,6 +1310,8 @@ class Classic(RequestBuilder):
 
         :param uuid: Computer command UUID
         :param data_type: json or xml
+
+        :returns: Computer command in JSON or XML
         """
         endpoint = f"/JSSResource/computercommands/uuid/{uuid}"
 
@@ -1141,6 +1325,8 @@ class Classic(RequestBuilder):
 
         :param uuid: Computer command UUID
         :param data_type: json or xml
+
+        :returns: Computer command status in JSON or XML
         """
         endpoint = f"/JSSResource/computercommands/status/{uuid}"
 
@@ -1184,7 +1370,12 @@ class Classic(RequestBuilder):
         :param passcode:
             Passcode to apply to device, must be 6 characters. Required for
             DeviceLock and EraseDevice commands.
-        :param data: XML data for creating computer command
+        :param data:
+            XML data for creating computer command. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createcomputercommandbycommandandid>`__
+
+        :returns: New computer command information in XML
         """
         command_options = [
             "BlankPush",
@@ -1242,6 +1433,8 @@ class Classic(RequestBuilder):
         Returns all computer extension attributes in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All computer extension attributes in JSON or XML
         """
         endpoint = "/JSSResource/computerextensionattributes"
 
@@ -1257,6 +1450,8 @@ class Classic(RequestBuilder):
         :param id: computer extension attribute ID
         :param name: computer extension attribute name
         :param data_type: json or xml
+
+        :returns: Computer extension attribute information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -1277,10 +1472,15 @@ class Classic(RequestBuilder):
         Creates a computer extension attribute with the given XML data. Use
         ID 0 to use the next available ID.
 
-        :param data: XML data to create the computer extension attribute with
+        :param data:
+            XML data to create the computer extension attribute with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createcomputerextensionattributebyid>`__
         :param id:
             ID of the new computer extension attribute, use 0 for next
             available ID
+
+        :returns: New computer extension attribute information in XML
         """
         endpoint = f"/JSSResource/computerextensionattributes/id/{id}"
 
@@ -1293,9 +1493,14 @@ class Classic(RequestBuilder):
         Updates a computer extension attribute with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the computer extension attribute with
+        :param data:
+            XML data to update the computer extension attribute with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatecomputerextensionattributebyid>`__
         :param id: computer extension attribute ID
         :param name: computer extension attribute name
+
+        :returns: Updated computer extension attribute information in XML
         """
         identification_options = {
             "id": id,
@@ -1318,6 +1523,9 @@ class Classic(RequestBuilder):
 
         :param id: computer extension attribute ID
         :param name: computer extension attribute name
+
+        :returns:
+            Deleted computer extension attribute information in XML
         """
         identification_options = {
             "id": id,
@@ -1340,6 +1548,8 @@ class Classic(RequestBuilder):
         Returns all computer groups in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All computer groups in JSON or XML
         """
         endpoint = "/JSSResource/computergroups"
 
@@ -1355,6 +1565,8 @@ class Classic(RequestBuilder):
         :param id: computer group ID
         :param name: computer group name
         :param data_type: json or xml
+
+        :returns: Computer group information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -1373,10 +1585,15 @@ class Classic(RequestBuilder):
         Creates a computer group with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the computer group with
+        :param data:
+            XML data to create the computer group with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createcomputergroupbyid>`__
         :param id:
             ID of the new computer group, use 0 for next
             available ID
+
+        :returns: New computer group information in XML
         """
         endpoint = f"/JSSResource/computergroups/id/{id}"
 
@@ -1389,9 +1606,14 @@ class Classic(RequestBuilder):
         Updates a computer group with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the computer group with
+        :param data:
+            XML data to update the computer group with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatecomputergroupbyid>`__
         :param id: computer group ID
         :param name: computer group name
+
+        :returns: Updated computer group information in XML
         """
         identification_options = {
             "id": id,
@@ -1414,6 +1636,8 @@ class Classic(RequestBuilder):
 
         :param id: computer group ID
         :param name: computer group name
+
+        :returns: Deleted computer group information in XML
         """
         identification_options = {
             "id": id,
@@ -1466,6 +1690,9 @@ class Classic(RequestBuilder):
             - Plugins
 
         :param data_type: json or xml
+
+        :returns:
+            Computer hardware and software reports information in JSON or XML
         """
         validate_date(start_date)
         validate_date(end_date)
@@ -1531,6 +1758,8 @@ class Classic(RequestBuilder):
             - MacAppStoreApplications
 
         :param data_type: json or xml
+
+        :returns: Computer history information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -1576,6 +1805,8 @@ class Classic(RequestBuilder):
         either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: Computer inventory collection in JSON or XML
         """
         endpoint = "/JSSResource/computerinventorycollection"
 
@@ -1586,7 +1817,12 @@ class Classic(RequestBuilder):
         Updates computer inventory collection settings on the JPS server with
         the given XML data. Need to supply at least one identifier.
 
-        :param data: XML data to update the computer inventory collection
+        :param data:
+            XML data to update the computer inventory collection. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatecomputerinventorycollection>`__
+
+        :returns: Updated computer inventory collection information in XML
         """
         endpoint = "/JSSResource/computerinventorycollection"
 
@@ -1601,6 +1837,8 @@ class Classic(RequestBuilder):
         Returns all computer invitation data in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All computer invitations in JSON or XML
         """
         endpoint = "/JSSResource/computerinvitations"
 
@@ -1621,6 +1859,8 @@ class Classic(RequestBuilder):
             Computer invitation invitation identifier (name)
             Typically a long int
         :param data_type: json or xml
+
+        :returns: Computer invitation information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -1641,10 +1881,15 @@ class Classic(RequestBuilder):
         Creates a computer invitation defined by the XML data and either ID
         or invitation.
 
-        :param data: XML data
+        :param data:
+            XML data to create computer invitation with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createcomputerinvitationsbyid>`__
         :param id: Computer invitation ID, use 0 for next available
         :param invitation:
             Computer invitation invitation identifier, use 0 for next available
+
+        :returns: New computer invitation information in XML
         """
         identification_options = {
             "id": id,
@@ -1669,6 +1914,8 @@ class Classic(RequestBuilder):
         :param invitation:
             Computer invitation invitation identifier (name)
             Typically a long int
+
+        :returns: Deleted computer invitation information in XML
         """
         identification_options = {
             "id": id,
@@ -1722,7 +1969,9 @@ class Classic(RequestBuilder):
             - StaticGroups
             - PatchReportingSoftwareTitles
 
-        :param data_type: JSON or XML
+        :param data_type: json or xml
+
+        :returns: Computer management information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -1780,6 +2029,8 @@ class Classic(RequestBuilder):
         Returns all computer reports in a JPS server
 
         :param data_type: json or xml
+
+        :returns: All computer reports in JSON or XML
         """
         endpoint = "/JSSResource/computerreports"
 
@@ -1795,6 +2046,8 @@ class Classic(RequestBuilder):
         :param id: Computer report ID
         :param name: Computer report name
         :param data_type: json or xml
+
+        :returns: Computer report information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -1825,6 +2078,8 @@ class Classic(RequestBuilder):
             used to match computer names that begin with admin
         :param basic: Only return basic info
         :param data_type: json or xml
+
+        :returns: All computers in JSON or XML
         """
         check_conflicting_params({"match": match, "basic": basic})
         if match:
@@ -1874,6 +2129,8 @@ class Classic(RequestBuilder):
             - ConfigurationProfiles
 
         :param data_type: json or xml
+
+        :returns: Computer information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -1917,8 +2174,12 @@ class Classic(RequestBuilder):
         XML data.
 
         :param data:
-            XML data to update/create the computer.
+            XML data to create computer record with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createcomputerbyid>`__
         :param id: Computer ID, set to 0 for next available ID
+
+        :returns: New computer information in XML
         """
         endpoint = f"/JSSResource/computers/id/{id}"
 
@@ -1937,12 +2198,17 @@ class Classic(RequestBuilder):
         Updates information on a computer with given identifier. Need to
         supply at least one identifier.
 
-        :param data: XML string to update the computer with
+        :param data:
+            XML string to update the computer with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatecomputerbyid>`__
         :param id: Computer ID
         :param name: Computer name
         :param udid: Computer UDID
         :param serialnumber: Computer serial number
         :param macaddress: Computer MAC address
+
+        :returns: Updated computer information in XML
         """
         identification_options = {
             "id": id,
@@ -1977,6 +2243,8 @@ class Classic(RequestBuilder):
         :param udid: computer UDID
         :param serialnumber: computer serial number
         :param macaddress: computer MAC address
+
+        :returns:
         """
         identification_options = {
             "id": id,
@@ -1999,6 +2267,8 @@ class Classic(RequestBuilder):
         Deletes data collected by an extension attribute by ID
 
         :param id: ID of the computer extension attribute data to be deleted
+
+        :returns: Deleted computers extension attribute data information in XML
         """
         endpoint = f"/JSSResource/computers/extensionattributedataflush/id/{id}"
 
@@ -2013,6 +2283,8 @@ class Classic(RequestBuilder):
         Returns all departments in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All departments in JSON or XML
         """
         endpoint = "/JSSResource/departments"
 
@@ -2028,6 +2300,8 @@ class Classic(RequestBuilder):
         :param id: Department ID
         :param name: Department name
         :param data_type: json or xml
+
+        :returns: Department information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -2046,10 +2320,15 @@ class Classic(RequestBuilder):
         Creates a department with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the department with
+        :param data:
+            XML data to create the department with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createdepartmentbyid>`__
         :param id:
             ID of the new department, use 0 for next
             available ID
+
+        :returns: New department information in XML
         """
         endpoint = f"/JSSResource/departments/id/{id}"
 
@@ -2062,9 +2341,14 @@ class Classic(RequestBuilder):
         Updates a department with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the department with
+        :param data:
+            XML data to update the department with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatedepartmentbyid>`__
         :param id: Department ID
         :param name: Department name
+
+        :returns: Updated department information in XML
         """
         identification_options = {
             "id": id,
@@ -2085,6 +2369,8 @@ class Classic(RequestBuilder):
 
         :param id: Department ID
         :param name: Department name
+
+        :returns: Deleted department information in XML
         """
         identification_options = {
             "id": id,
@@ -2107,6 +2393,8 @@ class Classic(RequestBuilder):
         Returns all directory bindings in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All directory bindings in JSON or XML
         """
         endpoint = "/JSSResource/directorybindings"
 
@@ -2122,6 +2410,8 @@ class Classic(RequestBuilder):
         :param id: Directory binding ID
         :param name: Directory binding name
         :param data_type: json or xml
+
+        :returns: Directory binding information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -2140,10 +2430,15 @@ class Classic(RequestBuilder):
         Creates a directory binding with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the directory binding with
+        :param data:
+            XML data to create the directory binding with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createdirectorybindingbyid>`__
         :param id:
             ID of the new directory binding, use 0 for next
             available ID
+
+        :returns: New directory binding information in XML
         """
         endpoint = f"/JSSResource/directorybindings/id/{id}"
 
@@ -2156,9 +2451,14 @@ class Classic(RequestBuilder):
         Updates a directory binding with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the directory binding with
+        :param data:
+            XML data to update the directory binding with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatedirectorybindingbyid>`__
         :param id: Directory binding ID
         :param name: Directory binding name
+
+        :returns: Updated directory binding information in XML
         """
         identification_options = {
             "id": id,
@@ -2181,6 +2481,8 @@ class Classic(RequestBuilder):
 
         :param id: Directory binding ID
         :param name: Directory binding name
+
+        :returns: Deleted directory binding information in XML
         """
         identification_options = {
             "id": id,
@@ -2205,6 +2507,8 @@ class Classic(RequestBuilder):
         Returns all disk encryption configurations in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All disk encryption configuration information in JSON or XML
         """
         endpoint = "/JSSResource/diskencryptionconfigurations"
 
@@ -2220,6 +2524,8 @@ class Classic(RequestBuilder):
         :param id: disk encryption configuration ID
         :param name: disk encryption configuration name
         :param data_type: json or xml
+
+        :returns: Disk encryption cnofiguration information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -2240,10 +2546,15 @@ class Classic(RequestBuilder):
         Creates a disk encryption configuration with the given XML data. Use
         ID 0 to use the next available ID.
 
-        :param data: XML data to create the disk encryption configuration with
+        :param data:
+            XML data to create the disk encryption configuration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/creatediskencryptionconfigurationbyid>`__
         :param id:
             ID of the new disk encryption configuration, use 0 for next
             available ID
+
+        :returns: New disk encryption configuration information in XML
         """
         endpoint = f"/JSSResource/diskencryptionconfigurations/id/{id}"
 
@@ -2256,9 +2567,14 @@ class Classic(RequestBuilder):
         Updates a disk encryption configuration with the given XML data. Need
         to supply at least one identifier.
 
-        :param data: XML data to update the disk encryption configuration with
+        :param data:
+            XML data to update the disk encryption configuration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatediskencryptionconfigurationbyid>`__
         :param id: disk encryption configuration ID
         :param name: disk encryption configuration name
+
+        :returns: Updated disk encryption configuration information in XML
         """
         identification_options = {
             "id": id,
@@ -2281,6 +2597,8 @@ class Classic(RequestBuilder):
 
         :param id: disk encryption configuration ID
         :param name: disk encryption configuration name
+
+        :returns: Deleted disk encryption configuration information in XML
         """
         identification_options = {
             "id": id,
@@ -2303,6 +2621,8 @@ class Classic(RequestBuilder):
         Returns all distribution points in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All disribution points in JSON or XML
         """
         endpoint = "/JSSResource/distributionpoints"
 
@@ -2318,6 +2638,8 @@ class Classic(RequestBuilder):
         :param id: Distribution point ID
         :param name: Distribution point name
         :param data_type: json or xml
+
+        :returns: Distribution point information in XML
         """
         identification_options = {
             "id": id,
@@ -2336,10 +2658,15 @@ class Classic(RequestBuilder):
         Creates a distribution point with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the distribution point with
+        :param data:
+            XML data to create the distribution point with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createdistributionpointbyid>`__
         :param id:
             ID of the new distribution point, use 0 for next
             available ID
+
+        :returns: New distribution point information in XML
         """
         endpoint = f"/JSSResource/distributionpoints/id/{id}"
 
@@ -2352,9 +2679,14 @@ class Classic(RequestBuilder):
         Updates a distribution point with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the distribution point with
+        :param data:
+            XML data to update the distribution point with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatedistributionpointbyid>`__
         :param id: Distribution point ID
         :param name: Distribution point name
+
+        :returns: Updated distribution point information in XML
         """
         identification_options = {
             "id": id,
@@ -2377,6 +2709,8 @@ class Classic(RequestBuilder):
 
         :param id: Distribution point ID
         :param name: Distribution point name
+
+        :returns: Deleted distribution point information in XML
         """
         identification_options = {
             "id": id,
@@ -2399,6 +2733,8 @@ class Classic(RequestBuilder):
         Returns all dock items in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All dock items in JSON or XML
         """
         endpoint = "/JSSResource/dockitems"
 
@@ -2413,6 +2749,8 @@ class Classic(RequestBuilder):
         :param id: Dock item ID
         :param name: Dock item name
         :param data_type: json or xml
+
+        :returns: Dock item information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -2431,10 +2769,15 @@ class Classic(RequestBuilder):
         Creates a dock item with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the dock item with
+        :param data:
+            XML data to create the dock item with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createdockitembyid>`__
         :param id:
             ID of the new dock item, use 0 for next
             available ID
+
+        :returns: New dock item information in XML
         """
         endpoint = f"/JSSResource/dockitems/id/{id}"
 
@@ -2447,9 +2790,14 @@ class Classic(RequestBuilder):
         Updates a dock item with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the dock item with
+        :param data:
+            XML data to update the dock item with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatedockitembyid>`__
         :param id: Dock item ID
         :param name: Dock item name
+
+        :returns: Updated dock item information in XML
         """
         identification_options = {
             "id": id,
@@ -2470,6 +2818,8 @@ class Classic(RequestBuilder):
 
         :param id: Dock item ID
         :param name: Dock item name
+
+        :returns: Deleted dock item information in XML
         """
         identification_options = {
             "id": id,
@@ -2492,6 +2842,8 @@ class Classic(RequestBuilder):
         Returns all ebooks in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All ebooks in JSON or XML
         """
         endpoint = "/JSSResource/ebooks"
 
@@ -2518,6 +2870,8 @@ class Classic(RequestBuilder):
             - SelfService
 
         :param data_type: json or xml
+
+        :returns: Ebook information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -2548,10 +2902,15 @@ class Classic(RequestBuilder):
         Creates an ebook with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the ebook with
+        :param data:
+            XML data to create the ebook with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createebookbyid>`__
         :param id:
             ID of the new ebook, use 0 for next
             available ID
+
+        :returns: New ebook information in XML
         """
         endpoint = f"/JSSResource/ebooks/id/{id}"
 
@@ -2564,9 +2923,14 @@ class Classic(RequestBuilder):
         Updates an ebook with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the ebook with
+        :param data:
+            XML data to update the ebook with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateebookbyid>`__
         :param id: eBook ID
         :param name: eBook name
+
+        :returns: Updated ebook information in XML
         """
         identification_options = {
             "id": id,
@@ -2587,6 +2951,8 @@ class Classic(RequestBuilder):
 
         :param id: eBook ID
         :param name: eBook name
+
+        :returns: Deleted ebook information in XML
         """
         identification_options = {
             "id": id,
@@ -2607,7 +2973,7 @@ class Classic(RequestBuilder):
     # enrollmentprofiles and printers resources do not work
     # peripherals work but are no longer supported by Jamf so I didn't add them
 
-    def file_upload(
+    def create_file_upload(
         self,
         resource: str,
         filepath: str,
@@ -2625,16 +2991,12 @@ class Classic(RequestBuilder):
         one identifier.
 
         :param resource:
-        Resource to attach the file to
+            Resource to attach the file to
 
-        Options:
-        - computers
-        - mobiledevices
-        - policies
-        - ebooks
-        - mobiledeviceapplicationsicon
-        - mobiledeviceapplicationsipa
-        - diskencryptionconfigurations
+            Options:
+            computers, mobiledevices, policies, ebooks,
+            mobiledeviceapplicationsicon, mobiledeviceapplicationsipa,
+            diskencryptionconfigurations
 
         :param filepath: Filepath to file to upload
         :param id: Resource ID
@@ -2643,6 +3005,8 @@ class Classic(RequestBuilder):
         :param force_ipa_upload:
             True of False, enforces ipa file type. Only usable with
             mobiledeviceapplicationsipa resource
+
+        :returns: Success message stating that the file was uploaded
 
         :raises FileNotFoundError:
             Could not find file at file path
@@ -2728,6 +3092,8 @@ class Classic(RequestBuilder):
         Returns the Jamf Pro GSX connection information in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: GSX connection information in JSON or XML
         """
         endpoint = "/JSSResource/gsxconnection"
 
@@ -2737,7 +3103,12 @@ class Classic(RequestBuilder):
         """
         Updates the Jamf Pro GSX connection information with XML data.
 
-        :param data: XML data to update with
+        :param data:
+            XML data to update with. For syntax information view `Jamf's
+            documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updategsxconnection>`__
+
+        :returns: Updated GSX connection information in XML
         """
         endpoint = "/JSSResource/gsxconnection"
 
@@ -2752,6 +3123,8 @@ class Classic(RequestBuilder):
         Returns all healthcare listeners in JSON or XML
 
         :param data_type: json or dict
+
+        :returns: All healthcare listeners in JSON or XML
         """
         endpoint = "/JSSResource/healthcarelistener"
 
@@ -2765,6 +3138,8 @@ class Classic(RequestBuilder):
 
         :param id: Healthcare listener ID
         :param data_type: json or xml
+
+        :returns: Healthcare listener information in JSON or XML
         """
         endpoint = f"/JSSResource/healthcarelistener/id/{id}"
 
@@ -2774,8 +3149,13 @@ class Classic(RequestBuilder):
         """
         Updates an existing healthcare listener by ID with XML data
 
-        :param data: XML data to update healthcare listener with
+        :param data:
+            XML data to update healthcare listener with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatehealthcarelistenerbyid>`__
         :param id: Healthcare listener ID
+
+        :returns: Updated healthcare listener information in XML
         """
         endpoint = f"/JSSResource/healthcarelistener/id/{id}"
 
@@ -2792,6 +3172,8 @@ class Classic(RequestBuilder):
         Returns all healthcare listener rules in JSON or XML
 
         :param data_type: json or dict
+
+        :returns: All healthcare listener rules in JSON or XML
         """
         endpoint = "/JSSResource/healthcarelistenerrule"
 
@@ -2805,6 +3187,8 @@ class Classic(RequestBuilder):
 
         :param id: healthcare listener rule ID
         :param data_type: json or xml
+
+        :returns: Healthcare listener rule information in JSON or XML
         """
         endpoint = f"/JSSResource/healthcarelistenerrule/id/{id}"
 
@@ -2816,8 +3200,13 @@ class Classic(RequestBuilder):
         """
         Creates a healthcare listener rule by ID with XML data
 
-        :param data: XML data to update healthcare listener rule with
+        :param data:
+            XML data to update healthcare listener rule with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createhealthcarelistenerrulebyid>`__
         :param id: Healthcare listener rule ID, use 0 for next available ID
+
+        :returns: New healthcare listener rule information in XML
         """
         endpoint = f"/JSSResource/healthcarelistenerrule/id/{id}"
 
@@ -2827,8 +3216,13 @@ class Classic(RequestBuilder):
         """
         Updates an existing healthcare listener rule by ID with XML data
 
-        :param data: XML data to update healthcare listener rule with
+        :param data:
+            XML data to update healthcare listener rule with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatehealthcarelistenerrulebyid>`__
         :param id: healthcare listener rule ID
+
+        :returns: Updated healthcare listener rule information in XML
         """
         endpoint = f"/JSSResource/healthcarelistenerrule/id/{id}"
 
@@ -2843,6 +3237,8 @@ class Classic(RequestBuilder):
         Returns all iBeacon regions in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All iBeacon regions in JSON or XML
         """
         endpoint = "/JSSResource/ibeacons"
 
@@ -2857,6 +3253,8 @@ class Classic(RequestBuilder):
         :param id: iBeacon region ID
         :param name: iBeacon region name
         :param data_type: json or xml
+
+        :returns: iBeacon region information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -2875,10 +3273,15 @@ class Classic(RequestBuilder):
         Creates a iBeacon region with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the iBeacon region with
+        :param data:
+            XML data to create the iBeacon region with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createibeaconbyid>`__
         :param id:
             ID of the new iBeacon region, use 0 for next
             available ID
+
+        :returns: New iBeacon region information in XML
         """
         endpoint = f"/JSSResource/ibeacons/id/{id}"
 
@@ -2891,9 +3294,14 @@ class Classic(RequestBuilder):
         Updates a iBeacon region with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the iBeacon region with
+        :param data:
+            XML data to update the iBeacon region with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateibeaconbyid>`__
         :param id: iBeacon region ID
         :param name: iBeacon region name
+
+        :returns: Updated iBeacon region information in XML
         """
         identification_options = {
             "id": id,
@@ -2916,6 +3324,8 @@ class Classic(RequestBuilder):
 
         :param id: iBeacon region ID
         :param name: iBeacon region name
+
+        :returns: Deleted iBeacon region information in XML
         """
         identification_options = {
             "id": id,
@@ -2938,6 +3348,8 @@ class Classic(RequestBuilder):
         Returns all infrastructure managers in JSON or XML
 
         :param data_type: json or dict
+
+        :returns: All infrastructure managers in JSON or XML
         """
         endpoint = "/JSSResource/infrastructuremanager"
 
@@ -2951,6 +3363,8 @@ class Classic(RequestBuilder):
 
         :param id: Infrastructure manager ID
         :param data_type: json or xml
+
+        :returns: Infrastructure manager information in JSON or XML
         """
         endpoint = f"/JSSResource/infrastructuremanager/id/{id}"
 
@@ -2960,8 +3374,13 @@ class Classic(RequestBuilder):
         """
         Updates an existing infrastructure manager by ID with XML data
 
-        :param data: XML data to update infrastructure manager with
+        :param data:
+            XML data to update infrastructure manager with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateinfrastructuremanagerbyid>`__
         :param id: Infrastructure manager ID
+
+        :returns: Updated infrastructure manager information in XML
         """
         endpoint = f"/JSSResource/infrastructuremanager/id/{id}"
 
@@ -2984,6 +3403,8 @@ class Classic(RequestBuilder):
         Returns all JSON web token configurations in JSON or XML
 
         :param data_type: json or dict
+
+        :returns: All JSON web token configurations in JSON or XML
         """
         endpoint = "/JSSResource/jsonwebtokenconfigurations"
 
@@ -2997,6 +3418,8 @@ class Classic(RequestBuilder):
 
         :param id: JSON web token configuration ID
         :param data_type: json or xml
+
+        :returns: JSON web token configuration in JSON or XML
         """
         endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
 
@@ -3008,8 +3431,13 @@ class Classic(RequestBuilder):
         """
         Creates a JSON web token configuration by ID with XML data
 
-        :param data: XML data to update JSON web token configuration with
+        :param data:
+            XML data to update JSON web token configuration with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createjsonwebtokenconfigurationbyid>`__
         :param id: JSON web token configuration ID, use 0 for next available ID
+
+        :returns: New JSON web token configuration information in XML
         """
         endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
 
@@ -3021,8 +3449,13 @@ class Classic(RequestBuilder):
         """
         Updates an existing JSON web token configuration by ID with XML data
 
-        :param data: XML data to update JSON web token configuration with
+        :param data:
+            XML data to update JSON web token configuration with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatejsonwebtokenconfigurationbyid>`__
         :param id: JSON web token configuration ID
+
+        :returns: Updated JSON web token configuration information in XML
         """
         endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
 
@@ -3033,6 +3466,8 @@ class Classic(RequestBuilder):
         Deletes a JSON web token configuration by ID with XML data
 
         :param id: Json web token configuration ID
+
+        :returns: Deleted JSON web token configuration information in XML
         """
         endpoint = f"/JSSResource/jsonwebtokenconfigurations/id/{id}"
 
@@ -3047,6 +3482,8 @@ class Classic(RequestBuilder):
         Returns all LDAP servers in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All LDAP servers in JSON or XML
         """
         endpoint = "/JSSResource/ldapservers"
 
@@ -3060,6 +3497,8 @@ class Classic(RequestBuilder):
 
         :param id: LDAP server ID
         :param name: LDAP server name
+
+        :returns: LDAP server information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3081,13 +3520,15 @@ class Classic(RequestBuilder):
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
-        Display information for matching users for an LDAP server by ID or name
+        Returns information for matching users for an LDAP server by ID or name
         in JSON or XML
 
         :param user: LDAP server user
         :param id: LDAP server ID
         :param name: LDAP server name
         :param data_type: json or xml
+
+        :returns: LDAP server user information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3109,13 +3550,15 @@ class Classic(RequestBuilder):
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
-        Display information for matching groups for an LDAP server by ID or
+        Returns information for matching groups for an LDAP server by ID or
         name in JSON or XML
 
         :param group: LDAP server group
         :param id: LDAP server ID
         :param name: LDAP server name
         :param data_type: json or xml
+
+        :returns: LDAP server group information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3138,7 +3581,7 @@ class Classic(RequestBuilder):
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
-        Display information about user membership in a group for an LDAP server
+        Returns information about user membership in a group for an LDAP server
         by ID or name in JSON or XML
 
         :param group: LDAP server group
@@ -3148,6 +3591,8 @@ class Classic(RequestBuilder):
         :param id: LDAP server ID
         :param name: LDAP server name
         :param data_type: json or xml
+
+        :returns: LDAP server group user information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3166,8 +3611,13 @@ class Classic(RequestBuilder):
         """
         Creates a new LDAP server by ID or name with XML data
 
-        :param data: XML data to create LDAP server with
+        :param data:
+            XML data to create LDAP server with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createldapserverbyid>`__
         :param id: LDAP server ID, set to 0 for next available ID
+
+        :returns: New LDAP server information in XML
         """
         endpoint = f"/JSSResource/ldapservers/id/{id}"
 
@@ -3179,9 +3629,14 @@ class Classic(RequestBuilder):
         """
         Updates an existing LDAP server by ID or name with XML data
 
-        :param data: XML data to update LDAP server with
+        :param data:
+            XML data to update LDAP server with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateldapserverbyid>`__
         :param id: LDAP server ID
         :param name: LDAP server name
+
+        :returns: Updated LDAP server information in XML
         """
         identification_options = {
             "id": id,
@@ -3201,6 +3656,8 @@ class Classic(RequestBuilder):
 
         :param id: LDAP server ID
         :param name: LDAP server name
+
+        :returns: Deleted LDAP server information in XML
         """
         identification_options = {
             "id": id,
@@ -3223,6 +3680,8 @@ class Classic(RequestBuilder):
         Returns all licensed software in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All licensed software in JSON or XML
         """
         endpoint = "/JSSResource/licensedsoftware"
 
@@ -3238,6 +3697,8 @@ class Classic(RequestBuilder):
         :param id: Licensed software ID
         :param name: Licensed software name
         :param data_type: json or xml
+
+        :returns: Licensed software information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3256,10 +3717,15 @@ class Classic(RequestBuilder):
         Creates a licensed software with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the licensed software with
+        :param data:
+            XML data to create the licensed software with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createlicensedsoftwarebyid>`__
         :param id:
             ID of the new licensed software, use 0 for next
             available ID
+
+        :returns: New licensed software information in XML
         """
         endpoint = f"/JSSResource/licensedsoftware/id/{id}"
 
@@ -3272,9 +3738,14 @@ class Classic(RequestBuilder):
         Updates a licensed software with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the licensed software with
+        :param data:
+            XML data to update the licensed software with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatelicensedsoftwarebyid>`__
         :param id: Licensed software ID
         :param name: Licensed software name
+
+        :returns: Updated licensed software information in XML
         """
         identification_options = {
             "id": id,
@@ -3297,6 +3768,8 @@ class Classic(RequestBuilder):
 
         :param id: Licensed software ID
         :param name: Licensed software name
+
+        :returns: Deleted licensed software information in XML
         """
         identification_options = {
             "id": id,
@@ -3313,19 +3786,25 @@ class Classic(RequestBuilder):
     """
     /logflush
     """
-    # TODO COME BACK TO THIS, NOT WORKING AS EXPECTED
     # The commands complete but nothing changes in the JPS instance
-    def log_flush(self, data: str) -> str:
+    def create_log_flush(self, data: str) -> str:
         """
         Deletes policy or computer logs based on XML data
 
-        :param data: XML data that defines which logs to flush
+        :param data:
+            XML data that defines which logs to flush. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/logflush-1>`__
+
+        :returns: Flushed log information in XML
         """
         endpoint = "/JSSResource/logflush"
 
         return self._delete(endpoint, data, data_type="xml")
 
-    def log_flush_interval(self, interval: str, id: Union[int, str] = None) -> str:
+    def create_log_flush_interval(
+        self, interval: str, id: Union[int, str] = None
+    ) -> str:
         """
         Deletes policy logs based on an interval and optionally only a single
         log defined by ID.
@@ -3335,6 +3814,8 @@ class Classic(RequestBuilder):
             and [Days, Weeks, Months, Years]. The values must be joined with
             a "+", e.g. One+Weeks or Six+Months.
         :param id: Policy ID
+
+        :returns: Flushed log information in XML
 
         :raises ValueError: No + in interval string
         """
@@ -3358,6 +3839,8 @@ class Classic(RequestBuilder):
         Returns all Mac applications in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All Mac applications in JSON or XML
         """
         endpoint = "/JSSResource/macapplications"
 
@@ -3386,6 +3869,8 @@ class Classic(RequestBuilder):
             - VPP
 
         :param data_type: json or xml
+
+        :returns: Mac application information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3418,10 +3903,15 @@ class Classic(RequestBuilder):
         Creates a Mac application with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the Mac application with
+        :param data:
+            XML data to create the Mac application with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmacappbyid>`__
         :param id:
             ID of the new Mac application, use 0 for next
             available ID
+
+        :returns: New Mac application information in XML
         """
         endpoint = f"/JSSResource/macapplications/id/{id}"
 
@@ -3434,9 +3924,14 @@ class Classic(RequestBuilder):
         Updates a Mac application with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the Mac application with
+        :param data:
+            XML data to update the Mac application with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemacappbyid>`__
         :param id: Mac application ID
         :param name: Mac application name
+
+        :returns: Updated Mac application information in XML
         """
         identification_options = {
             "id": id,
@@ -3459,6 +3954,8 @@ class Classic(RequestBuilder):
 
         :param id: Mac application ID
         :param name: Mac application name
+
+        :returns: Deleted Mac application information in XML
         """
         identification_options = {
             "id": id,
@@ -3489,6 +3986,8 @@ class Classic(RequestBuilder):
         Returns all managed preference profiles in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All managed preference profiles in JSON or XML
         """
         endpoint = "/JSSResource/managedpreferenceprofiles"
 
@@ -3517,6 +4016,8 @@ class Classic(RequestBuilder):
             - Settings
 
         :param data_type: json or xml
+
+        :returns: Managed preference profile information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3549,9 +4050,14 @@ class Classic(RequestBuilder):
         Updates a managed preference profile with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the managed preference profile with
+        :param data:
+            XML data to update the managed preference profile with. For syntax
+            information view `Jamf's documentation.
+            https://developer.jamf.com/jamf-pro/reference/updatemanagedpreferenceprofilesbyid>`__
         :param id: Managed preference profile ID
         :param name: Managed preference profile name
+
+        :returns: Updated managed preference profile information in XML
         """
         identification_options = {
             "id": id,
@@ -3574,6 +4080,8 @@ class Classic(RequestBuilder):
 
         :param id: Managed preference profile ID
         :param name: Managed preference profile name
+
+        :returns: Deleted managed preference profile information in XML
         """
         identification_options = {
             "id": id,
@@ -3598,6 +4106,8 @@ class Classic(RequestBuilder):
         Returns all mobile device applications in either JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All mobile device applications in JSON or XML
         """
         endpoint = "/JSSResource/mobiledeviceapplications"
 
@@ -3635,6 +4145,8 @@ class Classic(RequestBuilder):
             - AppConfiguration
 
         :param data_type: json or xml
+
+        :returns: Mobile device application information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -3684,8 +4196,13 @@ class Classic(RequestBuilder):
         """
         Creates a mobile device application with XML data.
 
-        :param data: XML data to create mobile device application with
+        :param data:
+            XML data to create mobile device application with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledeviceapplicationbyid>`__
         :param id: Mobile device ID, set to 0 for next available ID
+
+        :returns: New mobile device application information in XML
         """
         endpoint = f"/JSSResource/mobiledeviceapplications/id/{id}"
 
@@ -3704,11 +4221,16 @@ class Classic(RequestBuilder):
         Bundleid can additionaly be defined by version. Need to supply at
         least one identifier.
 
-        :param data: XML data to update mobile device application with
+        :param data:
+            XML data to update mobile device application with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemobiledeviceapplicationbyid>`__
         :param id: Mobile device ID
         :param name: Mobile device name
         :param bundleid: Mobile device bundle ID
         :param version: Mobile device version
+
+        :returns: Updated mobile device application information in XML
         """
         identification_options = {"id": id, "name": name, "bundleid": bundleid}
         identification = identification_type(identification_options)
@@ -3746,6 +4268,8 @@ class Classic(RequestBuilder):
         :param name: Mobile device name
         :param bundleid: Mobile device bundle ID
         :param version: Mobile device version
+
+        :returns: Deleted mobile device application information in XML
         """
         identification_options = {"id": id, "name": name, "bundleid": bundleid}
         identification = identification_type(identification_options)
@@ -3781,6 +4305,8 @@ class Classic(RequestBuilder):
 
         :param name: Mobile device command name e.g. UpdateInventory
         :param data_type: json or xml
+
+        :returns: All mobile device commands in JSON or XML
         """
         if name:
             endpoint = f"/JSSResource/mobiledevicecommands/name/{name}"
@@ -3797,6 +4323,8 @@ class Classic(RequestBuilder):
 
         :param uuid: Mobile device command UUID
         :param data_type: json or xml
+
+        :returns: Mobile device command information in JSON or XML
         """
         endpoint = f"/JSSResource/mobiledevicecommands/uuid/{uuid}"
 
@@ -3822,37 +4350,29 @@ class Classic(RequestBuilder):
             - BlankPush
             - ClearPasscode
             - ClearRestrictionsPassword
-            - DeviceLocation
-                - Supervised and in lost mode
+            - DeviceLocation  Supervised and in lost mode
             - DeviceLock
             - DeviceName
             - DisableLostMode
-            - EnableLostMode
-                - Supervised device
+            - EnableLostMode  Supervised device
             - EraseDevice
-            - PasscodeLockGracePeriod
-                - Shared iPad
-            - PlayLostMostSound
-                - Supervised and in lost mode
-            - RestartDevice
-                - Supervised device
+            - PasscodeLockGracePeriod  Shared iPad
+            - PlayLostMostSound  Supervised and in lost mode
+            - RestartDevice  Supervised device
             - ScheduleOSUpdate
             - Settings
             - SettingsDisableAppAnalytics
-            - SettingsDisableBluetooth
-                - iOS 11.3+ and Supervised
+            - SettingsDisableBluetooth  iOS 11.3+ and Supervised
             - SettingsEnablePersonalHotspot
             - SettingsDisablePersonalHotspot
             - SettingsDisableDataRoaming
             - SettingsDisableDiagnosticSubmission
             - SettingsEnableAppAnalytics
-            - SettingsEnableBluetooth
-                - iOS 11.3+ and Supervised
+            - SettingsEnableBluetooth  iOS 11.3+ and Supervised
             - SettingsEnableDataRoaming
             - SettingsEnableDiagnosticSubmission
             - SettingsEnableVoiceRoaming
-            - ShutDownDevice
-                - Supervised device
+            - ShutDownDevice  Supervised device
             - UnmanageDevice
             - UpdateInventory
 
@@ -3865,19 +4385,26 @@ class Classic(RequestBuilder):
             Specify the behavior of the install.
 
             Possible integer values are:
-            - 1 (Download the update for users to install)
-            - 2 (Download and install the update, and restart devices after
+            1. (Download the update for users to install)
+            2. (Download and install the update, and restart devices after
             installation)
+
         :param product_version:
             Specify the OS version of the update. Updating to a specific iOS
             version requires devices with iOS 11.3 or later. Updating to a
             specific tvOS version requires devices with tvOS 12.2 or later.
             install_action required by the ScheduleOSUpdate command if
             product_version is specified.
-        :param data: XML data to create a mobile device command with
+        :param data:
+            XML data to create a mobile device command with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledevicecommand>`__
+
+        :returns: New mobile device command information in XML
 
         :raises InvalidParameterOptions:
             Raised if a parameter is set to an unrecognized value
+
         """
         params = {"command": command, "ids": ids}
         param_type = param_or_data(params, data)
@@ -3967,6 +4494,8 @@ class Classic(RequestBuilder):
         Returns all mobile device configuration profiles in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All mobile device configuration profiles in JSON or XML
         """
         endpoint = "/JSSResource/mobiledeviceconfigurationprofiles"
 
@@ -3995,6 +4524,9 @@ class Classic(RequestBuilder):
             - SelfService
 
         :param data_type: json or xml
+
+        :returns:
+            Mobile device configuration profile information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4027,13 +4559,17 @@ class Classic(RequestBuilder):
         Creates a mobile device configuration profile with the given XML data.
         Use ID 0 to use the next available ID. Payload of XML must be encoded
         to differentiate between the uploaded XML and the XML of the request
-        body
+        body.
 
         :param data:
-            XML data to create the mobile device configuration profile with
+            XML data to create the mobile device configuration profile with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledeviceconfigurationprofilebyid>`__
         :param id:
             ID of the new mobile device configuration profile, use 0 for next
             available ID
+
+        :returns: New mobile device configuration profile information in XML
         """
         endpoint = f"/JSSResource/mobiledeviceconfigurationprofiles/id/{id}"
 
@@ -4046,12 +4582,17 @@ class Classic(RequestBuilder):
         Updates a mobile device configuration profile with the given XML data.
         Need to supply at least one identifier. Payload of XML data must be
         encoded to differentiate between the uploaded XML and the XML of the
-        request body
+        request body.
 
         :param data:
-            XML data to update the mobile device configuration profile with
+            XML data to update the mobile device configuration profile with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemobiledeviceconfigurationprofilebyid>`__
         :param id: Mobile device configuration profile ID
         :param name: Mobile device configuration profile name
+
+        :returns:
+            Updated mobile device configuration profile information in XML
         """
         identification_options = {
             "id": id,
@@ -4074,6 +4615,9 @@ class Classic(RequestBuilder):
 
         :param id: Mobile device configuration profile ID
         :param name: Mobile device configuration profile name
+
+        :returns:
+            Deleted mobile device configuration profile information in XML
         """
         identification_options = {
             "id": id,
@@ -4098,6 +4642,8 @@ class Classic(RequestBuilder):
         Returns all mobile device enrollment profiles in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All mobile device enrollment profiles in JSON or XML
         """
         endpoint = "/JSSResource/mobiledeviceenrollmentprofiles"
 
@@ -4129,6 +4675,8 @@ class Classic(RequestBuilder):
             - Attachments
 
         :param data_type: json or xml
+
+        :returns: Mobile device enrollment profile information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4164,10 +4712,14 @@ class Classic(RequestBuilder):
         Use ID 0 to use the next available ID.
 
         :param data:
-            XML data to create the mobile device enrollment profile with
+            XML data to create the mobile device enrollment profile with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledeviceenrollmentprofilesbyid>`__
         :param id:
             ID of the new mobile device enrollment profile, use 0 for next
             available ID
+
+        :returns: New mobile device enrollment profile information in XML
         """
         endpoint = f"/JSSResource/mobiledeviceenrollmentprofiles/id/{id}"
 
@@ -4185,10 +4737,14 @@ class Classic(RequestBuilder):
         Need to supply at least one identifier.
 
         :param data:
-            XML data to update the mobile device enrollment profile with
+            XML data to update the mobile device enrollment profile with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemobiledeviceenrollmentprofilebyid>`__
         :param id: Mobile device enrollment profile ID
         :param name: Mobile device enrollment profile name
         :param invitation: Mobile device enrollment profile invitation
+
+        :returns: Updated mobile device enrollment profile information in XML
         """
         identification_options = {
             "id": id,
@@ -4216,6 +4772,8 @@ class Classic(RequestBuilder):
         :param id: Mobile device enrollment profile ID
         :param name: Mobile device enrollment profile name
         :param invitation: Mobile device enrollment profile invitation
+
+        :returns: Deleted mobile device enrollment profile information in XML
         """
         identification_options = {
             "id": id,
@@ -4241,6 +4799,8 @@ class Classic(RequestBuilder):
         Returns all mobile device extension attributes in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All mobile device extension attributes in JSON or XML
         """
         endpoint = "/JSSResource/mobiledeviceextensionattributes"
 
@@ -4256,6 +4816,8 @@ class Classic(RequestBuilder):
         :param id: Mobile device extension attribute ID
         :param name: Mobile device extension attribute name
         :param data_type: json or xml
+
+        :returns: Mobile device extension attribute information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4277,10 +4839,14 @@ class Classic(RequestBuilder):
         Use ID 0 to use the next available ID.
 
         :param data:
-            XML data to create the mobile device extension attribute with
+            XML data to create the mobile device extension attribute with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledeviceextensionattributebyid>`__
         :param id:
             ID of the new mobile device extension attribute, use 0 for next
             available ID
+
+        :returns: New mobile device extension attribute information in XML
         """
         endpoint = f"/JSSResource/mobiledeviceextensionattributes/id/{id}"
 
@@ -4294,9 +4860,13 @@ class Classic(RequestBuilder):
         Need to supply at least one identifier.
 
         :param data:
-            XML data to update the mobile device extension attribute with
+            XML data to update the mobile device extension attribute with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemobiledeviceextensionattributebyid>`__
         :param id: Mobile device extension attribute ID
         :param name: Mobile device extension attribute name
+
+        :returns: Updated mobile device extension attribute information in XML
         """
         identification_options = {
             "id": id,
@@ -4319,6 +4889,8 @@ class Classic(RequestBuilder):
 
         :param id: Mobile device extension attribute ID
         :param name: Mobile device extension attribute name
+
+        :returns: Deleted mobile device extension attribute information in XML
         """
         identification_options = {
             "id": id,
@@ -4341,6 +4913,8 @@ class Classic(RequestBuilder):
         Returns all mobile device groups in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All mobile device groups in JSON or XML
         """
         endpoint = "/JSSResource/mobiledevicegroups"
 
@@ -4356,6 +4930,8 @@ class Classic(RequestBuilder):
         :param id: Mobile device group ID
         :param name: Mobile device group name
         :param data_type: json or xml
+
+        :returns: Mobile device group information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4374,10 +4950,15 @@ class Classic(RequestBuilder):
         Creates a mobile device group with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the mobile device group with
+        :param data:
+            XML data to create the mobile device group with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledevicegroupbyid>`__
         :param id:
             ID of the new mobile device group, use 0 for next
             available ID
+
+        :returns: New mobile device group information in XML
         """
         endpoint = f"/JSSResource/mobiledevicegroups/id/{id}"
 
@@ -4390,9 +4971,14 @@ class Classic(RequestBuilder):
         Updates a mobile device group with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the mobile device group with
+        :param data:
+            XML data to update the mobile device group with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemobiledevicegroupbyid>`__
         :param id: Mobile device group ID
         :param name: Mobile device group name
+
+        :returns: Updated mobile device group information in XML
         """
         identification_options = {
             "id": id,
@@ -4415,6 +5001,8 @@ class Classic(RequestBuilder):
 
         :param id: Mobile device group ID
         :param name: Mobile device group name
+
+        :returns: Deleted mobile device group information in XML
         """
         identification_options = {
             "id": id,
@@ -4464,6 +5052,8 @@ class Classic(RequestBuilder):
             - Ebooks
 
         :param data_type: json or xml
+
+        :returns: Mobile device history information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4506,6 +5096,8 @@ class Classic(RequestBuilder):
         Returns all mobile device invitation data in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All mobile device invitations in JSON or XML
         """
         endpoint = "/JSSResource/mobiledeviceinvitations"
 
@@ -4526,6 +5118,8 @@ class Classic(RequestBuilder):
             Mobile device invitation invitation identifier (name)
             Typically a long int
         :param data_type: json or xml
+
+        :returns: Mobile device invitation information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4547,10 +5141,15 @@ class Classic(RequestBuilder):
         ID or invitation.
 
         :param data: XML data
-        :param id: Mobile device invitation ID, use 0 for next available
+        :param id:
+            Mobile device invitation ID, use 0 for next available. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledeviceinvitationsbyid>`__
         :param invitation:
             Mobile device invitation invitation identifier, use 0 for next
             available
+
+        :returns: New mobile device invitation information in XML
         """
         identification_options = {
             "id": id,
@@ -4575,6 +5174,8 @@ class Classic(RequestBuilder):
         :param invitation:
             Mobile device invitation invitation identifier (name)
             Typically a long int
+
+        :returns: Deleted mobile device invitation information in XML
         """
         identification_options = {
             "id": id,
@@ -4599,6 +5200,8 @@ class Classic(RequestBuilder):
         Returns all mobile device provisioning profiles in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All mobile device provisioning profiles in JSON or XML
         """
         endpoint = "/JSSResource/mobiledeviceprovisioningprofiles"
 
@@ -4619,6 +5222,8 @@ class Classic(RequestBuilder):
         :param name: Mobile device provisioning profile name
         :param uuid: Mobile device provisioning profile UUID
         :param data_type: json or xml
+
+        :returns: Mobile device provisioning profile information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4641,11 +5246,15 @@ class Classic(RequestBuilder):
         name, or UUID. Need to supply at least one identifier.
 
         :param data:
-            XML data configuration for mobile device provisioning profile
+            XML data configuration for mobile device provisioning profile. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledeviceprovisioningprofilesbyid>`__
         :param id:
             Mobile device provisioning profile ID, set to 0 for next available
         :param name: Mobile device provisioning profile name
         :param uuid: Mobile device provisioning profile UUID
+
+        :returns: New mobile deivce provisioning profile information in XML
         """
         identification_options = {
             "id": id,
@@ -4668,11 +5277,15 @@ class Classic(RequestBuilder):
         name, or UUID. Need to supply at least one identifier.
 
         :param data:
-            XML data configuration for mobile device provisioning profile
+            XML data configuration for mobile device provisioning profile. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemobiledeviceprovisioningprofilesbyid>`__
         :param id:
             Mobile device provisioning profile ID, set to 0 for next available
         :param name: Mobile device provisioning profile name
         :param uuid: Mobile device provisioning profile UUID
+
+        :returns: Updated mobile device provisioning profile information in XML
         """
         identification_options = {
             "id": id,
@@ -4701,6 +5314,8 @@ class Classic(RequestBuilder):
         :param name: Mobile device provisioning profile name
         :param uuid: Mobile device provisioning profile UUID
         :param data_type: json or xml
+
+        :returns: Deleted mobile device provisioning profile information in XML
         """
         identification_options = {
             "id": id,
@@ -4729,6 +5344,8 @@ class Classic(RequestBuilder):
 
         :param match: String to search mobile devices
         :param data_type: json or xml
+
+        :returns: All mobile devices in JSON or XML
         """
 
         if match:
@@ -4776,6 +5393,8 @@ class Classic(RequestBuilder):
             - ExtensionAttributes
 
         :param data_type: json or xml
+
+        :returns: Mobile device information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4818,8 +5437,13 @@ class Classic(RequestBuilder):
         Creates a mobile device with the given ID and information defined in
         XML data.
 
-        :param data: XML data to create the mobile device
+        :param data:
+            XML data to create the mobile device. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createmobiledevicebyid>`__
         :param id: Mobile device ID, set to 0 for next available ID
+
+        :returns: New mobile device information in XML
         """
         endpoint = f"/JSSResource/mobiledevices/id/{id}"
 
@@ -4838,12 +5462,17 @@ class Classic(RequestBuilder):
         Updates information on a mobile device with given identifier. Need to
         supply at least one identifier.
 
-        :param data: XML string to update the Mobile device with
+        :param data:
+            XML string to update the Mobile device with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatemobiledevicebyid>`__
         :param id: Mobile device ID
         :param name: Mobile device name
         :param udid: Mobile device UDID
         :param serialnumber: Mobile device serial number
         :param macaddress: Mobile device MAC address
+
+        :returns: Updated mobile device information in XML
         """
         identification_options = {
             "id": id,
@@ -4878,6 +5507,8 @@ class Classic(RequestBuilder):
         :param udid: Mobile device UDID
         :param serialnumber: Mobile device serial number
         :param macaddress: Mobile device MAC address
+
+        :returns: Deleted mobile device information in XML
         """
         identification_options = {
             "id": id,
@@ -4904,6 +5535,8 @@ class Classic(RequestBuilder):
         Returns all network segments in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All network segments in JSON or XML
         """
         endpoint = "/JSSResource/networksegments"
 
@@ -4919,6 +5552,8 @@ class Classic(RequestBuilder):
         :param id: network segment ID
         :param name: network segment name
         :param data_type: json or xml
+
+        :returns: Network segment information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -4937,10 +5572,15 @@ class Classic(RequestBuilder):
         Creates a network segment with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the network segment with
+        :param data:
+            XML data to create the network segment with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createnetworksegmentbyid>`__
         :param id:
             ID of the new network segment, use 0 for next
             available ID
+
+        :returns: New network segment information in XML
         """
         endpoint = f"/JSSResource/networksegments/id/{id}"
 
@@ -4953,9 +5593,14 @@ class Classic(RequestBuilder):
         Updates a network segment with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the network segment with
+        :param data:
+            XML data to update the network segment with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatenetworksegmentbyid>`__
         :param id: network segment ID
         :param name: network segment name
+
+        :returns: Updated network segment information in XML
         """
         identification_options = {
             "id": id,
@@ -4978,6 +5623,8 @@ class Classic(RequestBuilder):
 
         :param id: network segment ID
         :param name: network segment name
+
+        :returns: Deleted network segment information in XML
         """
         identification_options = {
             "id": id,
@@ -5002,6 +5649,8 @@ class Classic(RequestBuilder):
         Returns all OSX configuration profiles in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All OSX configuratiion profiles in JSON or XML
         """
         endpoint = "/JSSResource/osxconfigurationprofiles"
 
@@ -5030,6 +5679,8 @@ class Classic(RequestBuilder):
             - SelfService
 
         :param data_type: json or xml
+
+        :returns: OSX configuration profile information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -5065,10 +5716,14 @@ class Classic(RequestBuilder):
         body
 
         :param data:
-            XML data to create the OSX configuration profile with
+            XML data to create the OSX configuration profile with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createosxconfigurationprofilebyid>`__
         :param id:
             ID of the new OSX configuration profile, use 0 for next
             available ID
+
+        :returns: New OSX configuration profile in XML
         """
         endpoint = f"/JSSResource/osxconfigurationprofiles/id/{id}"
 
@@ -5084,9 +5739,13 @@ class Classic(RequestBuilder):
         request body
 
         :param data:
-            XML data to update the OSX configuration profile with
+            XML data to update the OSX configuration profile with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateosxconfigurationprofilebyid>`__
         :param id: OSX configuration profile ID
         :param name: OSX configuration profile name
+
+        :returns: Updated OSX configuration profile in XML
         """
         identification_options = {
             "id": id,
@@ -5109,6 +5768,8 @@ class Classic(RequestBuilder):
 
         :param id: OSX configuration profile ID
         :param name: OSX configuration profile name
+
+        :returns: Deleted OSX configuration profile in XML
         """
         identification_options = {
             "id": id,
@@ -5131,6 +5792,8 @@ class Classic(RequestBuilder):
         Returns all packages in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All packages in JSON or XML
         """
         endpoint = "/JSSResource/packages"
 
@@ -5146,6 +5809,8 @@ class Classic(RequestBuilder):
         :param id: Package ID
         :param name: Package name
         :param data_type: json or xml
+
+        :returns: Package information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -5164,10 +5829,15 @@ class Classic(RequestBuilder):
         Creates a package with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the package with
+        :param data:
+            XML data to create the package with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createpackagebyid>`__
         :param id:
             ID of the new package, use 0 for next
             available ID
+
+        :returns: New package information in XML
         """
         endpoint = f"/JSSResource/packages/id/{id}"
 
@@ -5180,9 +5850,14 @@ class Classic(RequestBuilder):
         Updates a package with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the package with
+        :param data:
+            XML data to update the package with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatepackagebyid>`__
         :param id: Package ID
         :param name: Package name
+
+        :returns: Updated package information in XML
         """
         identification_options = {
             "id": id,
@@ -5203,6 +5878,8 @@ class Classic(RequestBuilder):
 
         :param id: Package ID
         :param name: Package name
+
+        :returns: Deleted package information in XML
         """
         identification_options = {
             "id": id,
@@ -5228,6 +5905,8 @@ class Classic(RequestBuilder):
 
         :param id: External or internal patch source ID
         :param data_type: json or xml
+
+        :returns: All available patch titles in JSON or XML
         """
         endpoint = f"/JSSResource/patchavailabletitles/sourceid/{id}"
 
@@ -5248,6 +5927,8 @@ class Classic(RequestBuilder):
         Returns all external patch sources in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All external patch sources in JSON or XML
         """
         endpoint = "/JSSResource/patchexternalsources"
 
@@ -5263,6 +5944,8 @@ class Classic(RequestBuilder):
         :param id: External patch source ID
         :param name: External patch source name
         :param data_type: json or xml
+
+        :returns: External patch source information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -5283,11 +5966,16 @@ class Classic(RequestBuilder):
         Creates an external patch source with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the external patch source with
+        :param data:
+            XML data to create the external patch source with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createpatchexternalsourcesbyid>`__
         :param id:
             ID of the new external patch source, use 0 for next
             available ID
         :param name: External patch source name
+
+        :returns: New external patch source information in XML
         """
         identification_options = {
             "id": id,
@@ -5308,9 +5996,14 @@ class Classic(RequestBuilder):
         Updates a external patch source with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the external patch source with
+        :param data:
+            XML data to update the external patch source with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatepatchexternalsourcesbyid>`__
         :param id: External patch source ID
         :param name: External patch source name
+
+        :returns: Updated external patch source information in XML
         """
         identification_options = {
             "id": id,
@@ -5329,6 +6022,8 @@ class Classic(RequestBuilder):
         Deletes an external patch source by ID.
 
         :param id: External patch source ID
+
+        :returns: Deleted external patch sourcen information in XML
         """
         endpoint = f"/JSSResource/patchexternalsources/id/{id}"
 
@@ -5343,6 +6038,8 @@ class Classic(RequestBuilder):
         Returns all internal patch sources in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All internal patch sources in JSON or XML
         """
         endpoint = "/JSSResource/patchinternalsources"
 
@@ -5358,6 +6055,8 @@ class Classic(RequestBuilder):
         :param id: Internal patch source ID
         :param name: Internal patch source name
         :param data_type: json or xml
+
+        :returns: Internal patch source information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -5380,6 +6079,8 @@ class Classic(RequestBuilder):
         Returns all patch policies in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All patch policies in JSON or XML
         """
         endpoint = "/JSSResource/patchpolicies"
 
@@ -5403,7 +6104,10 @@ class Classic(RequestBuilder):
             - General
             - Scope
             - UserInteraction
+
         :param data_type: json or xml
+
+        :returns: Patch policy information in JSON or XML
         """
         subset_options = [
             "General",
@@ -5424,8 +6128,13 @@ class Classic(RequestBuilder):
         """
         Creates a patch policy by ID with XML data
 
-        :param data: XML data to create patch policy with
+        :param data:
+            XML data to create patch policy with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createpatchpolicybysoftwaretitleconfigid>`__
         :param id: Patch policy ID, set to 0 for next available
+
+        :returns: New patch policy information in XML
         """
         endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
 
@@ -5435,8 +6144,13 @@ class Classic(RequestBuilder):
         """
         Updates a patch policy by ID with XML data
 
-        :param data: XML data to update patch policy with
+        :param data:
+            XML data to update patch policy with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatepatchpolicybyid>`__
         :param id: Patch policy ID, set to 0 for next available
+
+        :returns: Updated patch policy information in XML
         """
         endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
 
@@ -5447,6 +6161,8 @@ class Classic(RequestBuilder):
         Deletes a patch policy by ID.
 
         :param id: Patch policy ID
+
+        :returns: Deleted patch policy information in XML
         """
         endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
 
@@ -5466,6 +6182,8 @@ class Classic(RequestBuilder):
         :param id: Patch software title ID to filter by
         :param version: Version number to filter by
         :param data_type: json or xml
+
+        :returns: Patch report information in JSON or XML
         """
         if version:
             endpoint = (
@@ -5485,6 +6203,8 @@ class Classic(RequestBuilder):
         Returns all patch software titles in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All patch software titles in JSON or XML
         """
         endpoint = "/JSSResource/patchsoftwaretitles"
 
@@ -5498,6 +6218,8 @@ class Classic(RequestBuilder):
 
         :param id: Patch software title ID
         :param data_type: json or xml
+
+        :returns: Patch software title information in JSON or XML
         """
         endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
 
@@ -5507,8 +6229,13 @@ class Classic(RequestBuilder):
         """
         Creates a patch software title by ID with XML data
 
-        :param data: XML data to create the patch software title with
+        :param data:
+            XML data to create the patch software title with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patchsoftwaretitlesidbyidpost>`__
         :param id: Patch software title ID, set to 0 for next available ID
+
+        :returns: New patch software title information in XML
         """
         endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
 
@@ -5518,8 +6245,13 @@ class Classic(RequestBuilder):
         """
         Updates a patch software title by ID with XML data
 
-        :param data: XML data to udpate the patch software title with
+        :param data:
+            XML data to udpate the patch software title with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patchsoftwaretitlesidbyidput>`__
         :param id: Patch software title ID
+
+        :returns: Updated patch software title information in XML
         """
         endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
 
@@ -5530,6 +6262,8 @@ class Classic(RequestBuilder):
         Deletes a patch software title by ID
 
         :param id: Patch software title ID
+
+        :returns: Deleted patch software title information in XML
         """
         endpoint = f"/JSSResource/patchsoftwaretitles/id/{id}"
 
@@ -5538,15 +6272,20 @@ class Classic(RequestBuilder):
     """
     /peripherals
     """
-    # Peripherals were deprecated by Jamf so I've omitted the creation
-    # endpoint, you can still get, update, and delete are still available
-    # so that you can change or delete them
+
+    """
+    Peripherals were deprecated by Jamf so I've omitted the creation
+    endpoint, you can still get, update, and delete so that you can change or
+    delete them.
+    """
 
     def get_peripherals(self, data_type: str = "json") -> Union[dict, str]:
         """
         Returns all peripherals in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All peripherals in JSON or XML
         """
         endpoint = "/JSSResource/peripherals"
 
@@ -5571,6 +6310,8 @@ class Classic(RequestBuilder):
             - Purchasing
             - Attachments
         :param data_type: json or xml
+
+        :returns: Peripheral information in JSON or XML
         """
         subset_options = [
             "General",
@@ -5591,8 +6332,13 @@ class Classic(RequestBuilder):
         """
         Updates a peripheral by ID with XML data
 
-        :param data: XML data to update peripheral with
+        :param data:
+            XML data to update peripheral with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateperipheralbyid>`__
         :param id: Peripheral ID, set to 0 for next available
+
+        :returns: Updated peripheral information in XML
         """
         endpoint = f"/JSSResource/peripherals/id/{id}"
 
@@ -5603,6 +6349,8 @@ class Classic(RequestBuilder):
         Deletes a peripheral by ID.
 
         :param id: Peripheral ID
+
+        :returns: Deleted peripheral information in XML
         """
         endpoint = f"/JSSResource/peripherals/id/{id}"
 
@@ -5611,15 +6359,20 @@ class Classic(RequestBuilder):
     """
     /peripheraltypes
     """
-    # Peripherals were deprecated by Jamf so I've omitted the creation
-    # endpoint, you can still get, update, and delete are still available
-    # so that you can change or delete them
+
+    """
+    Peripherals were deprecated by Jamf so I've omitted the creation
+    endpoint, you can still get, update, and delete are still available
+    so that you can change or delete them.
+    """
 
     def get_peripheral_types(self, data_type: str = "json") -> Union[dict, str]:
         """
         Returns all peripheral types in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All peripheral types in JSON or XML
         """
         endpoint = "/JSSResource/peripheraltypes"
 
@@ -5636,6 +6389,8 @@ class Classic(RequestBuilder):
 
         :param id: Peripheral type ID
         :param data_type: json or xml
+
+        :returns: Peripheral type information in JSON or XML
         """
         endpoint = f"/JSSResource/peripheraltypes/id/{id}"
 
@@ -5645,8 +6400,13 @@ class Classic(RequestBuilder):
         """
         Updates a peripheral type by ID with XML data
 
-        :param data: XML data to update peripheral type with
+        :param data:
+            XML data to update peripheral type with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateperipheraltypebyid>`__
         :param id: Peripheral type ID, set to 0 for next available
+
+        :returns: Updated peripheral type information in XML
         """
         endpoint = f"/JSSResource/peripheraltypes/id/{id}"
 
@@ -5657,6 +6417,8 @@ class Classic(RequestBuilder):
         Deletes a peripheral type by ID.
 
         :param id: Peripheral type ID
+
+        :returns: Deleted peripheral type information in XML
         """
         endpoint = f"/JSSResource/peripheraltypes/id/{id}"
 
@@ -5679,6 +6441,8 @@ class Classic(RequestBuilder):
             The value 'casper' refers to Casper Remote. The value 'jss'
             refers to policies created in the GUI or via the API.
         :param data_type: json or xml
+
+        :returns: All policies in JSON or XML
         """
         if createdby and createdby not in ["jss", "casper"]:
             raise ValueError("createdby only supports the values jss and casper")
@@ -5722,6 +6486,8 @@ class Classic(RequestBuilder):
             - DiskEncryption
 
         :param data_type: json or xml
+
+        :returns: Policy information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -5763,10 +6529,14 @@ class Classic(RequestBuilder):
         available ID.
 
         :param data:
-            XML data to create the policy with
+            XML data to create the policy with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createpolicybyid>`__
         :param id:
             ID of the new policy, use 0 for next
             available ID
+
+        :returns: New policy information in XML
         """
         endpoint = f"/JSSResource/policies/id/{id}"
 
@@ -5780,9 +6550,13 @@ class Classic(RequestBuilder):
         identifier.
 
         :param data:
-            XML data to update the policy with
+            XML data to update the policy with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatepolicybyid>`__
         :param id: Policy ID
         :param name: Policy name
+
+        :returns: Updated policy information in XML
         """
         identification_options = {
             "id": id,
@@ -5803,6 +6577,8 @@ class Classic(RequestBuilder):
 
         :param id: Policy ID
         :param name: Policy name
+
+        :returns: Deleted policy information in XML
         """
         identification_options = {
             "id": id,
@@ -5825,6 +6601,8 @@ class Classic(RequestBuilder):
         Returns all printers in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All printers in JSON or XML
         """
         endpoint = "/JSSResource/printers"
 
@@ -5840,6 +6618,8 @@ class Classic(RequestBuilder):
         :param id: Printer ID
         :param name: Printer name
         :param data_type: json or xml
+
+        :returns: Printer information information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -5858,10 +6638,15 @@ class Classic(RequestBuilder):
         Creates a printer with the given XML data. Use ID 0 to use the next
         available ID.
 
-        :param data: XML data to create the printer with
+        :param data:
+            XML data to create the printer with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createprinterbyid>`__
         :param id:
             ID of the new printer, use 0 for next
             available ID
+
+        :returns: New printer information in XML
         """
         endpoint = f"/JSSResource/printers/id/{id}"
 
@@ -5874,9 +6659,14 @@ class Classic(RequestBuilder):
         Updates a printer with the given XML data. Need to supply at least
         one identifier.
 
-        :param data: XML data to update the printer with
+        :param data:
+            XML data to update the printer with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateprinterbyid>`__
         :param id: Printer ID
         :param name: Printer name
+
+        :returns: Updated printer information in XML
         """
         identification_options = {
             "id": id,
@@ -5897,6 +6687,8 @@ class Classic(RequestBuilder):
 
         :param id: Printer ID
         :param name: Printer name
+
+        :returns: Deleted printer information in XML
         """
         identification_options = {
             "id": id,
@@ -5919,6 +6711,8 @@ class Classic(RequestBuilder):
         Returns all removable MAC addresses in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All removable MAC addresses in JSON or XML
         """
         endpoint = "/JSSResource/removablemacaddresses"
 
@@ -5934,6 +6728,8 @@ class Classic(RequestBuilder):
         :param id: removable MAC address ID
         :param name: removable MAC address name
         :param data_type: json or xml
+
+        :returns: Removable MAC address information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -5952,10 +6748,15 @@ class Classic(RequestBuilder):
         Creates a removable MAC address with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the removable MAC address with
+        :param data:
+            XML data to create the removable MAC address with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createremovablemacaddressbyid>`__
         :param id:
             ID of the new removable MAC address, use 0 for next
             available ID
+
+        :returns: New removable MAC address information in XML
         """
         endpoint = f"/JSSResource/removablemacaddresses/id/{id}"
 
@@ -5968,9 +6769,14 @@ class Classic(RequestBuilder):
         Updates a removable MAC address with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the removable MAC address with
+        :param data:
+            XML data to update the removable MAC address with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateremovablemacaddressbyid>`__
         :param id: removable MAC address ID
         :param name: removable MAC address name
+
+        :returns: Updated removable MAC address information in XML
         """
         identification_options = {
             "id": id,
@@ -5993,6 +6799,8 @@ class Classic(RequestBuilder):
 
         :param id: removable MAC address ID
         :param name: removable MAC address name
+
+        :returns: Deleted removable MAC address in XML
         """
         identification_options = {
             "id": id,
@@ -6015,6 +6823,8 @@ class Classic(RequestBuilder):
         Returns all restricted software in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All restricted software in JSON or XML
         """
         endpoint = "/JSSResource/restrictedsoftware"
 
@@ -6030,6 +6840,8 @@ class Classic(RequestBuilder):
         :param id: Restricted software ID
         :param name: Restricted software name
         :param data_type: json or xml
+
+        :returns: Restricted software information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6048,10 +6860,15 @@ class Classic(RequestBuilder):
         Creates a restricted software with the given XML data. Use ID 0 to
         use the next available ID.
 
-        :param data: XML data to create the restricted software with
+        :param data:
+            XML data to create the restricted software with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createrestrictedsoftwarebyid>`__
         :param id:
             ID of the new restricted software, use 0 for next
             available ID
+
+        :returns: New restricted software information in XML
         """
         endpoint = f"/JSSResource/restrictedsoftware/id/{id}"
 
@@ -6064,9 +6881,14 @@ class Classic(RequestBuilder):
         Updates a restricted software with the given XML data. Need to supply
         at least one identifier.
 
-        :param data: XML data to update the restricted software with
+        :param data:
+            XML data to update the restricted software with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updaterestrictedsoftwarebyid>`__
         :param id: Restricted software ID
         :param name: Restricted software name
+
+        :returns: Updated restricted software information in XML
         """
         identification_options = {
             "id": id,
@@ -6089,6 +6911,8 @@ class Classic(RequestBuilder):
 
         :param id: Restricted software ID
         :param name: Restricted software name
+
+        :returns: Deleted restricted software information in XML
         """
         identification_options = {
             "id": id,
@@ -6106,8 +6930,10 @@ class Classic(RequestBuilder):
     /savedsearches
     """
 
-    # Deprecated - use advancedcomputersearches advancedmobiledevicesearches
-    # and advancedusersearches
+    """
+    Deprecated - use advancedcomputersearches, advancedmobiledevicesearches,
+    and advancedusersearches instead.
+    """
 
     """
     /scripts
@@ -6118,6 +6944,8 @@ class Classic(RequestBuilder):
         Returns all scripts in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All scripts in JSON or XML
         """
         endpoint = "/JSSResource/scripts"
 
@@ -6132,6 +6960,8 @@ class Classic(RequestBuilder):
         :param id: Script ID
         :param name: Script name
         :param data_type: json or xml
+
+        :returns: Script information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6150,10 +6980,15 @@ class Classic(RequestBuilder):
         Creates a script with the given XML data. Use ID 0 to use the next
         available ID.
 
-        :param data: XML data to create the script with
+        :param data:
+            XML data to create the script with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createscriptbyid>`__
         :param id:
             ID of the new script, use 0 for next
             available ID
+
+        :returns: New script information in XML
         """
         endpoint = f"/JSSResource/scripts/id/{id}"
 
@@ -6166,9 +7001,14 @@ class Classic(RequestBuilder):
         Updates a script with the given XML data. Need to supply at least one
         identifier.
 
-        :param data: XML data to update the script with
+        :param data:
+            XML data to update the script with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatescriptbyid>`__
         :param id: Script ID
         :param name: Script name
+
+        :returns: Updated script information in XML
         """
         identification_options = {
             "id": id,
@@ -6189,6 +7029,8 @@ class Classic(RequestBuilder):
 
         :param id: Script ID
         :param name: Script name
+
+        :returns: Deleted script information in XML
         """
         identification_options = {
             "id": id,
@@ -6211,6 +7053,8 @@ class Classic(RequestBuilder):
         Returns all sites in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All sites in JSON or XML
         """
         endpoint = "/JSSResource/sites"
 
@@ -6225,6 +7069,8 @@ class Classic(RequestBuilder):
         :param id: Site ID
         :param name: Site name
         :param data_type: json or xml
+
+        :returns: Site information information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6243,10 +7089,15 @@ class Classic(RequestBuilder):
         Creates a site with the given XML data. Use ID 0 to use the next
         available ID.
 
-        :param data: XML data to create the site with
+        :param data:
+            XML data to create the site with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createsitebyid>`__
         :param id:
             ID of the new site, use 0 for next
             available ID
+
+        :returns: New site information in XML
         """
         endpoint = f"/JSSResource/sites/id/{id}"
 
@@ -6259,9 +7110,14 @@ class Classic(RequestBuilder):
         Updates a site with the given XML data. Need to supply at least one
         identifier.
 
-        :param data: XML data to update the site with
+        :param data:
+            XML data to update the site with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatesitebyid>`__
         :param id: Site ID
         :param name: Site name
+
+        :returns: Updated site information in XML
         """
         identification_options = {
             "id": id,
@@ -6282,6 +7138,8 @@ class Classic(RequestBuilder):
 
         :param id: Site ID
         :param name: Site name
+
+        :returns: Deleted site information in XML
         """
         identification_options = {
             "id": id,
@@ -6302,6 +7160,10 @@ class Classic(RequestBuilder):
     def get_smtp_server(self, data_type: str = "json") -> Union[dict, str]:
         """
         Returns information on the SMTP server for the JPS server
+
+        :param data_type: json or xml
+
+        :returns: SMTP server information in JSON or XML
         """
         endpoint = "/JSSResource/smtpserver"
 
@@ -6310,6 +7172,13 @@ class Classic(RequestBuilder):
     def update_smtp_server(self, data: str) -> str:
         """
         Updates the SMTP server info on the JPS server with XML data.
+
+        :param data:
+            XML data to update the smtp server with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatesmtpserver>`__
+
+        :returns: Updated SMTP server information in XML
         """
         endpoint = "/JSSResource/smtpserver"
 
@@ -6324,6 +7193,8 @@ class Classic(RequestBuilder):
         Returns all software update servers in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All software update server in JSON or XML
         """
         endpoint = "/JSSResource/softwareupdateservers"
 
@@ -6339,6 +7210,8 @@ class Classic(RequestBuilder):
         :param id: Software update server ID
         :param name: Software update server name
         :param data_type: json or xml
+
+        :returns: Software update server information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6357,10 +7230,15 @@ class Classic(RequestBuilder):
         Creates a software update server with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the software update server with
+        :param data:
+            XML data to create the software update server with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createsoftwareupdateserverbyid>`__
         :param id:
             ID of the new software update server, use 0 for next
             available ID
+
+        :returns: New software update server information in XML
         """
         endpoint = f"/JSSResource/softwareupdateservers/id/{id}"
 
@@ -6373,9 +7251,14 @@ class Classic(RequestBuilder):
         Updates a software update server with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the software update server with
+        :param data:
+            XML data to update the software update server with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatesoftwareupdateserverbyid>`__
         :param id: Software update server ID
         :param name: Software update server name
+
+        :returns: Updated software update server information in XML
         """
         identification_options = {
             "id": id,
@@ -6398,6 +7281,8 @@ class Classic(RequestBuilder):
 
         :param id: Software update server ID
         :param name: Software update server name
+
+        :returns: Deleted software update server information in XML
         """
         identification_options = {
             "id": id,
@@ -6422,6 +7307,8 @@ class Classic(RequestBuilder):
         Returns all user extension attributes in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All user extension attributes in JSON or XML
         """
         endpoint = "/JSSResource/userextensionattributes"
 
@@ -6437,6 +7324,8 @@ class Classic(RequestBuilder):
         :param id: User extension attribute ID
         :param name: User extension attribute name
         :param data_type: json or xml
+
+        :returns: User extension attribute information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6457,10 +7346,15 @@ class Classic(RequestBuilder):
         Creates a user extension attribute with the given XML data. Use ID 0
         to use the next available ID.
 
-        :param data: XML data to create the user extension attribute with
+        :param data:
+            XML data to create the user extension attribute with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createuserextensionattributebyid>`__
         :param id:
             ID of the new user extension attribute, use 0 for next
             available ID
+
+        :returns: New user extension attribute information in XML
         """
         endpoint = f"/JSSResource/userextensionattributes/id/{id}"
 
@@ -6473,9 +7367,14 @@ class Classic(RequestBuilder):
         Updates a user extension attribute with the given XML data. Need to
         supply at least one identifier.
 
-        :param data: XML data to update the user extension attribute with
+        :param data:
+            XML data to update the user extension attribute with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateuserextensionattributebyid>`__
         :param id: User extension attribute ID
         :param name: User extension attribute name
+
+        :returns: Updated user extension attribute information in XML
         """
         identification_options = {
             "id": id,
@@ -6498,6 +7397,8 @@ class Classic(RequestBuilder):
 
         :param id: User extension attribute ID
         :param name: User extension attribute name
+
+        :returns: Deleted user extension attribute information in XML
         """
         identification_options = {
             "id": id,
@@ -6520,6 +7421,8 @@ class Classic(RequestBuilder):
         Returns all user groups in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All user groups in JSON or XML
         """
         endpoint = "/JSSResource/usergroups"
 
@@ -6535,6 +7438,8 @@ class Classic(RequestBuilder):
         :param id: User group ID
         :param name: User group name
         :param data_type: json or xml
+
+        :returns: User group information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6553,10 +7458,15 @@ class Classic(RequestBuilder):
         Creates a user group with the given XML data. Use ID 0 to use the next
         available ID.
 
-        :param data: XML data to create the user group with
+        :param data:
+            XML data to create the user group with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createusergroupsbyid>`__
         :param id:
             ID of the new user group, use 0 for next
             available ID
+
+        :returns: New user group information in XML
         """
         endpoint = f"/JSSResource/usergroups/id/{id}"
 
@@ -6569,9 +7479,14 @@ class Classic(RequestBuilder):
         Updates a user group with the given XML data. Need to supply at least
         one identifier.
 
-        :param data: XML data to update the user group with
+        :param data:
+            XML data to update the user group with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateusergroupsbyid>`__
         :param id: User group ID
         :param name: User group name
+
+        :returns: Update user group information in XML
         """
         identification_options = {
             "id": id,
@@ -6592,6 +7507,8 @@ class Classic(RequestBuilder):
 
         :param id: User group ID
         :param name: User group name
+
+        :returns: Deleted user group information in XML
         """
         identification_options = {
             "id": id,
@@ -6614,6 +7531,8 @@ class Classic(RequestBuilder):
         Returns all users in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All users in JSON or XML
         """
         endpoint = "/JSSResource/users"
 
@@ -6633,6 +7552,8 @@ class Classic(RequestBuilder):
         :param name: User name
         :param email: User email
         :param data_type: json or xml
+
+        :returns: User information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6652,10 +7573,15 @@ class Classic(RequestBuilder):
         Creates a user with the given XML data. Use ID 0 to use the next
         available ID.
 
-        :param data: XML data to create the user with
+        :param data:
+            XML data to create the user with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createuserbyid>`__
         :param id:
             ID of the new user, use 0 for next
             available ID
+
+        :returns: New user information in XML
         """
         endpoint = f"/JSSResource/users/id/{id}"
 
@@ -6668,10 +7594,15 @@ class Classic(RequestBuilder):
         Updates a user with the given XML data. Need to supply at least
         one identifier.
 
-        :param data: XML data to update the user with
+        :param data:
+            XML data to update the user with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateuserbyid>`__
         :param id: User ID
         :param name: User name
         :param email: User email
+
+        :returns: Updated user information in XML
         """
         identification_options = {
             "id": id,
@@ -6696,6 +7627,8 @@ class Classic(RequestBuilder):
         :param id: User ID
         :param name: User name
         :param email: User email
+
+        :returns: Deleted user information in XML
         """
         identification_options = {
             "id": id,
@@ -6719,6 +7652,8 @@ class Classic(RequestBuilder):
         Returns all VPP accounts in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All VPP accounts in JSON or XML
         """
         endpoint = "/JSSResource/vppaccounts"
 
@@ -6732,6 +7667,8 @@ class Classic(RequestBuilder):
 
         :param id: VPP account ID
         :param data_type: json or xml
+
+        :returns: VPP account information in JSON or XML
         """
         endpoint = f"/JSSResource/vppaccounts/id/{id}"
 
@@ -6741,8 +7678,13 @@ class Classic(RequestBuilder):
         """
         Creates a VPP account by ID with XML data
 
-        :param data: XML data to create the VPP account with
+        :param data:
+            XML data to create the VPP account with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createvppadminaccountbyid>`__
         :param id: VPP account ID, set to 0 for next available ID
+
+        :returns: New VPP account information in XML
         """
         endpoint = f"/JSSResource/vppaccounts/id/{id}"
 
@@ -6752,8 +7694,13 @@ class Classic(RequestBuilder):
         """
         Updates a VPP account by ID with XML data
 
-        :param data: XML data to udpate the VPP account with
+        :param data:
+            XML data to udpate the VPP account with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatevppadminaccountbyid>`__
         :param id: VPP account ID
+
+        :returns: Updated VPP account information in XML
         """
         endpoint = f"/JSSResource/vppaccounts/id/{id}"
 
@@ -6764,6 +7711,8 @@ class Classic(RequestBuilder):
         Deletes a VPP account by ID
 
         :param id: VPP account ID
+
+        :returns: Deleted VPP account information in XML
         """
         endpoint = f"/JSSResource/vppaccounts/id/{id}"
 
@@ -6778,6 +7727,8 @@ class Classic(RequestBuilder):
         Returns all VPP assignments in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All VPP assignments in JSON or XML
         """
         endpoint = "/JSSResource/vppassignments"
 
@@ -6791,6 +7742,8 @@ class Classic(RequestBuilder):
 
         :param id: VPP assignment ID
         :param data_type: json or xml
+
+        :returns: VPP assignment information in JSON or XML
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
 
@@ -6800,8 +7753,13 @@ class Classic(RequestBuilder):
         """
         Creates a VPP assignment by ID with XML data
 
-        :param data: XML data to create the VPP assignment with
+        :param data:
+            XML data to create the VPP assignment with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createassignmentbyid>`__
         :param id: VPP assignment ID, set to 0 for next available ID
+
+        :returns: New VPP assignment in XML
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
 
@@ -6811,8 +7769,13 @@ class Classic(RequestBuilder):
         """
         Updates a VPP assignment by ID with XML data
 
-        :param data: XML data to udpate the VPP assignment with
+        :param data:
+            XML data to udpate the VPP assignment with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateassignmentbyid>`__
         :param id: VPP assignment ID
+
+        :returns: Updated VPP assignment information in XML
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
 
@@ -6823,6 +7786,8 @@ class Classic(RequestBuilder):
         Deletes a VPP assignment by ID
 
         :param id: VPP assignment ID
+
+        :returns: Deleted VPP assignment information in XML
         """
         endpoint = f"/JSSResource/vppassignments/id/{id}"
 
@@ -6837,6 +7802,8 @@ class Classic(RequestBuilder):
         Returns all VPP invitations in JSON or XML
 
         :param data_type: json or xml
+
+        :returns: All VPP invitations in JSON or XML
         """
         endpoint = "/JSSResource/vppinvitations"
 
@@ -6858,6 +7825,8 @@ class Classic(RequestBuilder):
             - InvitationUsages
 
         :param data_type: json or xml
+
+        :returns: VPP invitation information in JSON or XML
         """
         subset_options = ["General", "Scope", "InvitationUsages"]
         if valid_subsets(subsets, subset_options):
@@ -6871,8 +7840,13 @@ class Classic(RequestBuilder):
         """
         Creates a VPP invitation by ID with XML data
 
-        :param data: XML data to create the VPP invitation with
+        :param data:
+            XML data to create the VPP invitation with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createinvitationbyid>`__
         :param id: VPP invitation ID, set to 0 for next available ID
+
+        :returns: New VPP invitation information in XML
         """
         endpoint = f"/JSSResource/vppinvitations/id/{id}"
 
@@ -6882,8 +7856,13 @@ class Classic(RequestBuilder):
         """
         Updates a VPP invitation by ID with XML data
 
-        :param data: XML data to udpate the VPP invitation with
+        :param data:
+            XML data to udpate the VPP invitation with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updateinvitationbyid>`__
         :param id: VPP invitation ID
+
+        :returns: Updated VPP invitation information in XML
         """
         endpoint = f"/JSSResource/vppinvitations/id/{id}"
 
@@ -6894,6 +7873,8 @@ class Classic(RequestBuilder):
         Deletes a VPP invitation by ID
 
         :param id: VPP invitation ID
+
+        :returns: Deleted VPP invitation information in XML
         """
         endpoint = f"/JSSResource/vppinvitations/id/{id}"
 
@@ -6908,6 +7889,8 @@ class Classic(RequestBuilder):
         Returns all webhooks in either JSON or XML.
 
         :param data_type: json or xml
+
+        :returns: All webhooks in JSON or XML
         """
         endpoint = "/JSSResource/webhooks"
 
@@ -6923,6 +7906,8 @@ class Classic(RequestBuilder):
         :param id: Webhook ID
         :param name: Webhook name
         :param data_type: json or xml
+
+        :returns: Webhook information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -6941,10 +7926,13 @@ class Classic(RequestBuilder):
         Creates a webhook with the given XML data. Use ID 0 to use the next
         available ID.
 
-        :param data: XML data to create the webhook with
-        :param id:
-            ID of the new webhook, use 0 for next
-            available ID
+        :param data:
+            XML data to create the webhook with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/createwebhookbyid>`__
+        :param id: ID of the new webhook, use 0 for next available ID.
+
+        :returns: New webhook information in XML
         """
         endpoint = f"/JSSResource/webhooks/id/{id}"
 
@@ -6957,9 +7945,14 @@ class Classic(RequestBuilder):
         Updates a webhook with the given XML data. Need to supply at least
         one identifier.
 
-        :param data: XML data to update the webhook with
+        :param data:
+            XML data to update the webhook with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/updatewebhookbyid>`__
         :param id: Webhook ID
         :param name: Webhook name
+
+        :returns: Updated information in XML
         """
         identification_options = {
             "id": id,
@@ -6980,6 +7973,8 @@ class Classic(RequestBuilder):
 
         :param id: Webhook ID
         :param name: Webhook name
+
+        :returns: Deleted webhook information in XML
         """
         identification_options = {
             "id": id,

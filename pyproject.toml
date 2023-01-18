@@ -2,3 +2,7 @@
 pythonpath = [
   "src"
 ]
+
+[project]
+name = "JPS API Wrapper"
+authors = [{name = "Bryan Weber", email = "bweber226@gmail.com"}]

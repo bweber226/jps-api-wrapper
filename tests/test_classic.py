@@ -1424,7 +1424,7 @@ def test_delete_class_name(classic):
 
 
 @responses.activate
-def test_command_flush_params(classic):
+def test_create_command_flush_params(classic):
     """
     Ensures that command flush completes successfully when used with parameters
     and not data.
@@ -1436,11 +1436,11 @@ def test_command_flush_params(classic):
             data_type="xml",
         )
     )
-    assert classic.command_flush("computers", 1001, "Pending") == EXPECTED_XML
+    assert classic.create_command_flush("computers", 1001, "Pending") == EXPECTED_XML
 
 
 @responses.activate
-def test_command_flush_data(classic):
+def test_create_command_flush_data(classic):
     """
     Ensures that command flush completes successfully when used with data and
     not parameters.
@@ -1450,11 +1450,11 @@ def test_command_flush_data(classic):
             "DELETE", jps_url("/JSSResource/commandflush"), data_type="xml"
         )
     )
-    assert classic.command_flush(data=EXPECTED_XML) == EXPECTED_XML
+    assert classic.create_command_flush(data=EXPECTED_XML) == EXPECTED_XML
 
 
 @responses.activate
-def test_command_flush_no_parameters_or_data(classic):
+def test_create_command_flush_no_parameters_or_data(classic):
     """
     Ensures that command_flush raises NoParametersOrData when neither
     parameter or data options are passed.
@@ -1465,11 +1465,11 @@ def test_command_flush_no_parameters_or_data(classic):
         )
     )
     with pytest.raises(NoParametersOrData):
-        classic.command_flush()
+        classic.create_command_flush()
 
 
 @responses.activate
-def test_command_flush_parameters_and_data(classic):
+def test_create_command_flush_parameters_and_data(classic):
     """
     Ensures that command_flush raises ParametersAndData when both parameter
     and data options are passed.
@@ -1482,11 +1482,11 @@ def test_command_flush_parameters_and_data(classic):
         )
     )
     with pytest.raises(ParametersAndData):
-        classic.command_flush("computers", 1001, "Pending", EXPECTED_XML)
+        classic.create_command_flush("computers", 1001, "Pending", EXPECTED_XML)
 
 
 @responses.activate
-def test_command_flush_missing_parameters(classic):
+def test_create_command_flush_missing_parameters(classic):
     """
     Ensures that command_flush raises MissingParameters when parameters are
     used but not all necessary ones are supplied.
@@ -1499,11 +1499,11 @@ def test_command_flush_missing_parameters(classic):
         )
     )
     with pytest.raises(MissingParameters):
-        classic.command_flush(idtype="computers", status="Pending")
+        classic.create_command_flush(idtype="computers", status="Pending")
 
 
 @responses.activate
-def test_command_flush_invalid_parameter_options(classic):
+def test_create_command_flush_invalid_parameter_options(classic):
     """
     Ensures that command_flush raises InvalidParameterOptions when using an
     invalid option for a parameter value.
@@ -1516,7 +1516,7 @@ def test_command_flush_invalid_parameter_options(classic):
         )
     )
     with pytest.raises(InvalidParameterOptions):
-        classic.command_flush("commuters", 1001, "Pending")
+        classic.create_command_flush("commuters", 1001, "Pending")
 
 
 """
@@ -3828,35 +3828,39 @@ def test_delete_ebook_name(classic):
 
 
 @responses.activate
-def test_file_upload_computers_txt(classic):
+def test_create_file_upload_computers_txt(classic):
     """
-    Ensures that file_upload runs successfully when uploading a txt file as
-    a computer attachment
+    Ensures that create_file_upload runs successfully when uploading a txt file
+    as a computer attachment
     """
     read_data = "Test document content"
     mock_open = mock.mock_open(read_data=read_data)
     with mock.patch("builtins.open", mock_open):
         responses.add("POST", jps_url("/JSSResource/fileuploads/computers/id/1001"))
         assert (
-            classic.file_upload("computers", filepath="/file.txt", id=1001)
+            classic.create_file_upload("computers", filepath="/file.txt", id=1001)
             == "File uploaded successfully."
         )
 
 
-def test_file_upload_file_not_found(classic):
+def test_create_file_upload_file_not_found(classic):
     """
-    Ensures that file_upload raises FileNotFoundError when trying to open a
-    file that does not exist or you don't have permissions for.
+    Ensures that create_file_upload raises FileNotFoundError when trying to
+    open a file that does not exist or you don't have permissions for.
     """
     with pytest.raises(FileNotFoundError):
-        classic.file_upload("computers", filepath="/This/does/not/exist", id=1001)
+        classic.create_file_upload(
+            "computers", filepath="/This/does/not/exist", id=1001
+        )
 
 
 @responses.activate
-def test_file_upload_mobiledeviceapplicationsipa_force_ipa_wrong_file_type(classic):
+def test_create_file_upload_mobiledeviceapplicationsipa_force_ipa_wrong_file_type(
+    classic,
+):
     """
-    Ensures that file_upload param force_ipa_upload enforces ipa file type
-    when used with the mobiledeviceapplicationsipa resource
+    Ensures that create_file_upload param force_ipa_upload enforces ipa file
+    type when used with the mobiledeviceapplicationsipa resource
     """
     read_data = "Test document content"
     mock_open = mock.mock_open(read_data=read_data)
@@ -3870,7 +3874,7 @@ def test_file_upload_mobiledeviceapplicationsipa_force_ipa_wrong_file_type(class
             status=409,
         )
         with pytest.raises(RequestConflict):
-            classic.file_upload(
+            classic.create_file_upload(
                 "mobiledeviceapplicationsipa",
                 filepath="/test.txt",
                 id=1001,
@@ -3878,20 +3882,20 @@ def test_file_upload_mobiledeviceapplicationsipa_force_ipa_wrong_file_type(class
             )
 
 
-def test_file_upload_peripherals_name(classic):
+def test_create_file_upload_peripherals_name(classic):
     """
-    Ensures that file_upload raises ValueError when trying to use the name
-    identifier and peripherals resource
+    Ensures that create_file_upload raises ValueError when trying to use the
+    name identifier and peripherals resource
     """
     with pytest.raises(ValueError):
-        classic.file_upload("peripherals", filepath="/test.txt", name="testname")
+        classic.create_file_upload("peripherals", filepath="/test.txt", name="testname")
 
 
 @responses.activate
-def test_file_upload_name_mobiledeviceapplicationsipa_force_ipa_upload(classic):
+def test_create_file_upload_name_mobiledeviceapplicationsipa_force_ipa_upload(classic):
     """
-    Ensures that force_ipa_upload enforces ipa file type when used with the
-    mobiledeviceapplicationsipa resource
+    Ensures that create_force_ipa_upload enforces ipa file type when used with
+    the mobiledeviceapplicationsipa resource
     """
     read_data = "Test document content"
     mock_open = mock.mock_open(read_data=read_data)
@@ -3904,7 +3908,7 @@ def test_file_upload_name_mobiledeviceapplicationsipa_force_ipa_upload(classic):
             ),
         )
         assert (
-            classic.file_upload(
+            classic.create_file_upload(
                 "mobiledeviceapplicationsipa",
                 filepath="/test.ipa",
                 name="?test?name",
@@ -3914,52 +3918,52 @@ def test_file_upload_name_mobiledeviceapplicationsipa_force_ipa_upload(classic):
         )
 
 
-def test_file_upload_computers_force_ipa_upload(classic):
+def test_create_file_upload_computers_force_ipa_upload(classic):
     """
-    Ensures that file_upload raises ValueError when using force_ipa_upload
-    and a resource that is not mobiledeviceapplicationsipa
+    Ensures that create_file_upload raises ValueError when using
+    force_ipa_upload and a resource that is not mobiledeviceapplicationsipa
     """
     with pytest.raises(ValueError):
-        classic.file_upload(
+        classic.create_file_upload(
             "computers", filepath="/test.txt", id=1001, force_ipa_upload=True
         )
 
 
-def test_file_upload_unrecognized_mime_type(classic):
+def test_create_file_upload_unrecognized_mime_type(classic):
     """
-    Ensures that file_upload raises ValueError when guess_type is not able
-    to get the MIME type of the file.
+    Ensures that create_file_upload raises ValueError when guess_type is not
+    able to get the MIME type of the file.
     """
     read_data = "Test document content"
     mock_open = mock.mock_open(read_data=read_data)
     with mock.patch("builtins.open", mock_open):
         with pytest.raises(ValueError):
-            classic.file_upload("computers", filepath="/file", id=1001)
+            classic.create_file_upload("computers", filepath="/file", id=1001)
 
 
-def test_file_upload_ebooks_invalid_file_type(classic):
+def test_create_file_upload_ebooks_invalid_file_type(classic):
     """
-    Ensures that file_upload raises ValueError when the ebooks resource and
-    a non image file or unrecognized image file is used.
+    Ensures that create_file_upload raises ValueError when the ebooks resource
+    and a non image file or unrecognized image file is used.
     """
     with pytest.raises(ValueError):
-        classic.file_upload("ebooks", "/file.text", id=1001)
+        classic.create_file_upload("ebooks", "/file.text", id=1001)
 
 
-def test_file_upload_diskencryptionconfigurations_invalid_file_type(classic):
+def test_create_file_upload_diskencryptionconfigurations_invalid_file_type(classic):
     """
-    Ensures that file_upload raises ValueError when the
+    Ensures that create_file_upload raises ValueError when the
     diskencryptionconfigurations resource is used with an unrecognized file
     type
     """
     with pytest.raises(ValueError):
-        classic.file_upload("diskencryptionconfigurations", "/file.txt", id=1001)
+        classic.create_file_upload("diskencryptionconfigurations", "/file.txt", id=1001)
 
 
 @responses.activate
-def test_file_upload_diskencryptionconfigurations_pem(classic):
+def test_create_file_upload_diskencryptionconfigurations_pem(classic):
     """
-    Ensures that file_upload completes successfully when used with the
+    Ensures that create_file_upload completes successfully when used with the
     diskencryptionconfigurations resource and filepath as a pem file
     """
     read_data = "Test document content"
@@ -3974,7 +3978,9 @@ def test_file_upload_diskencryptionconfigurations_pem(classic):
             )
         )
         assert (
-            classic.file_upload("diskencryptionconfigurations", "file.pem", id=1001)
+            classic.create_file_upload(
+                "diskencryptionconfigurations", "file.pem", id=1001
+            )
             == "File uploaded successfully."
         )
 
@@ -4865,21 +4871,22 @@ def test_delete_licensed_software_name(classic):
 
 
 @responses.activate
-def test_log_flush(classic):
+def test_create_log_flush(classic):
     """
-    Ensures that log_flush completes successfully when run with required params
+    Ensures that create_log_flush completes successfully when run with required
+    params
     """
     responses.add(
         response_builder("DELETE", jps_url("/JSSResource/logflush"), data_type="xml")
     )
-    assert classic.log_flush(EXPECTED_XML) == EXPECTED_XML
+    assert classic.create_log_flush(EXPECTED_XML) == EXPECTED_XML
 
 
 @responses.activate
 def test_log_flush_interval(classic):
     """
-    Ensures that log_flush_interval completes successfully when run without
-    using ID
+    Ensures that create_log_flush_interval completes successfully when run
+    without using ID
     """
     responses.add(
         response_builder(
@@ -4888,13 +4895,14 @@ def test_log_flush_interval(classic):
             data_type="xml",
         )
     )
-    assert classic.log_flush_interval("One+Weeks") == EXPECTED_XML
+    assert classic.create_log_flush_interval("One+Weeks") == EXPECTED_XML
 
 
 @responses.activate
-def test_log_flush_interval_id(classic):
+def test_create_log_flush_interval_id(classic):
     """
-    Ensures that log_flush_interval completes succesfully when run with ID
+    Ensures that create_log_flush_interval completes succesfully when run with
+    ID
     """
     responses.add(
         response_builder(
@@ -4903,16 +4911,16 @@ def test_log_flush_interval_id(classic):
             data_type="xml",
         )
     )
-    assert classic.log_flush_interval("Six+Months", 1001) == EXPECTED_XML
+    assert classic.create_log_flush_interval("Six+Months", 1001) == EXPECTED_XML
 
 
-def test_log_flush_interval_value_error(classic):
+def test_create_log_flush_interval_value_error(classic):
     """
-    Ensures that log_flush raises ValueError when an interval is passed without
-    a "+" in the string
+    Ensures that create_log_flush raises ValueError when an interval is passed
+    without a "+" in the string
     """
     with pytest.raises(ValueError):
-        classic.log_flush_interval("One Week", id=1001)
+        classic.create_log_flush_interval("One Week", id=1001)
 
 
 """

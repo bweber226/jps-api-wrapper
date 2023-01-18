@@ -22,6 +22,8 @@ class Pro(RequestBuilder):
     def get_advanced_mobile_device_searches(self) -> dict:
         """
         Returns all advanced mobile device searches in JSON
+
+        :returns: All advanced mobile device searches in JSON
         """
         endpoint = "/api/v1/advanced-mobile-device-searches"
 
@@ -38,7 +40,10 @@ class Pro(RequestBuilder):
             valid choices can be found by navigating to the Criteria page of
             the Advanced Mobile Device Search creation process.
         :param site: JPS server site, use -1 for none
-        :param contains:
+        :param contains: Optionally filter by the criteria content
+
+        :returns:
+            Advanced mobile device search criteria choice information in JSON
         """
         endpoint = "/api/v1/advanced-mobile-device-searches/choices"
         params = remove_empty_params(
@@ -52,6 +57,8 @@ class Pro(RequestBuilder):
         Returns data on one advanced mobile device search criteria by ID
 
         :param id: Advanced mobile device search ID
+
+        :returns: Advanced mobile device search information in JSON
         """
         endpoint = f"/api/v1/advanced-mobile-device-searches/{id}"
 
@@ -61,7 +68,12 @@ class Pro(RequestBuilder):
         """
         Creates an advanced mobile device search with JSON data
 
-        :param data: JSON data to create advanced mobile device search with
+        :param data:
+            JSON data to create advanced mobile device search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-advanced-mobile-device-searches>`__
+
+        :returns: New advanced mobile device search information in JSON
         """
         endpoint = "/api/v1/advanced-mobile-device-searches"
 
@@ -73,8 +85,13 @@ class Pro(RequestBuilder):
         """
         Updates an advanced mobile device search with JSON data by ID
 
-        :param data: JSON data to update advanced mobile device search with
+        :param data:
+            JSON data to update advanced mobile device search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-advanced-mobile-device-searches-id>`__
         :param id: Advanced mobile device search ID
+
+        :returns: Updated advanced mobile device search information in JSON
         """
         endpoint = f"/api/v1/advanced-mobile-device-searches/{id}"
 
@@ -89,6 +106,10 @@ class Pro(RequestBuilder):
 
         :param id: Advanced mobile device search ID
         :param ids: List of advanced mobile device search IDs
+
+        :returns:
+            Success message stating that the advanced mobile device search was
+            deleted
         """
         identifier_options = {"id": id, "ids": ids}
         identification_type(identifier_options)
@@ -122,6 +143,8 @@ class Pro(RequestBuilder):
     def get_advanced_user_content_searches(self) -> dict:
         """
         Returns all advanced user content searches in JSON
+
+        :returns: All advanced user content searches in JSON
         """
         endpoint = "/api/v1/advanced-user-content-searches"
 
@@ -132,6 +155,8 @@ class Pro(RequestBuilder):
         Returns data on one advanced user content search in JSON
 
         :param id: Advanced user content search ID
+
+        :returns: Advanced user content search information in JSON
         """
         endpoint = f"/api/v1/advanced-user-content-searches/{id}"
 
@@ -141,7 +166,12 @@ class Pro(RequestBuilder):
         """
         Creates an advanced user content search with JSON data
 
-        :param data: JSON data to create advanced user content search with
+        :param data:
+            JSON data to create advanced user content search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-advanced-user-content-searches>`__
+
+        :returns: New advanced user content search information in JSON
         """
         endpoint = "/api/v1/advanced-user-content-searches"
 
@@ -153,8 +183,13 @@ class Pro(RequestBuilder):
         """
         Updates an advanced user content search with JSON data by ID
 
-        :param data: JSON data to update advanced user content search with
+        :param data:
+            JSON data to update advanced user content search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-advanced-user-content-searches-id>`__
         :param id: Advanced user content search ID
+
+        :returns: Updated advanced user content search information in JSON
         """
         endpoint = f"/api/v1/advanced-user-content-searches/{id}"
 
@@ -165,6 +200,10 @@ class Pro(RequestBuilder):
         Deletes an advances user content search by ID
 
         :param id: Advanced user content search ID
+
+        :returns:
+            Success message stating that the advanced user content search was
+            deleted
         """
         endpoint = f"/api/v1/advanced-user-content-searches/{id}"
 
@@ -176,13 +215,18 @@ class Pro(RequestBuilder):
     """
     api-authentication
     """
-    # Only the get method is available here because the other endpoints will
-    # cause the current session to fail and break the api wrapper
+
+    """
+    Only the get method is available here because the other endpoints will
+    cause the current session to fail and break the API wrapper.
+    """
 
     def get_api_authentication(self) -> dict:
         """
         Returns all the authorization details associated with the current API
         token
+
+        :returns: API authentication information in JSON
         """
         endpoint = "/api/v1/auth"
 
@@ -195,6 +239,8 @@ class Pro(RequestBuilder):
     def get_app_dynamics_configuration(self) -> dict:
         """
         Returns AppDynamicsConfig object
+
+        :returns: App dynamics configuration information in JSON
         """
         endpoint = "/api/v1/app-dynamics/script-configuration"
 
@@ -207,6 +253,8 @@ class Pro(RequestBuilder):
     def get_app_request_settings(self) -> dict:
         """
         Returns the app request settings in JSON
+
+        :returns: App request settings information in JSON
         """
         endpoint = "/api/v1/app-request/settings"
 
@@ -215,6 +263,8 @@ class Pro(RequestBuilder):
     def get_app_request_form_input_fields(self) -> dict:
         """
         Returns the app request form input fields in JSON
+
+        :returns: All app request form input fields in JSON
         """
         endpoint = "/api/v1/app-request/form-input-fields"
 
@@ -225,6 +275,8 @@ class Pro(RequestBuilder):
         Returns specified app request form input field object by ID
 
         :param id: App request form input field ID
+
+        :returns: App request form input field information in JSON
         """
         endpoint = f"/api/v1/app-request/form-input-fields/{id}"
 
@@ -234,7 +286,12 @@ class Pro(RequestBuilder):
         """
         Creates a app request form input field record with JSON data
 
-        :param data: JSON data to create the app request form input field with
+        :param data:
+            JSON data to create the app request form input field with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-app-request-form-input-fields>`__
+
+        :returns: New app request form input field information in JSON
         """
         endpoint = "/api/v1/app-request/form-input-fields"
 
@@ -244,7 +301,12 @@ class Pro(RequestBuilder):
         """
         Updates the app request settings with JSON data
 
-        :param data: JSON data to update the app request settings with
+        :param data:
+            JSON data to update the app request settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-app-request-settings>`__
+
+        :returns: Updated app request settings in JSON
         """
         endpoint = "/api/v1/app-request/settings"
 
@@ -258,7 +320,12 @@ class Pro(RequestBuilder):
         JSON data
 
         :param id: App request form input field ID
-        :param data: JSON data to update the app request form input field with
+        :param data:
+            JSON data to update the app request form input field with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-app-request-form-input-fields-id>`__
+
+        :returns: Updated app request form input field information in JSON
         """
         endpoint = f"/api/v1/app-request/form-input-fields/{id}"
 
@@ -270,7 +337,10 @@ class Pro(RequestBuilder):
 
         :param data:
             List of JSON dicts to replace all app request form input
-            fields with
+            fields with. For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-app-request-form-input-fields>`__
+
+        :returns: Replaced app request form input fields in JSON
         """
         endpoint = "/api/v1/app-request/form-input-fields"
 
@@ -281,6 +351,10 @@ class Pro(RequestBuilder):
         Deletes a specified app request form input field by ID
 
         :param id: App request form input field ID
+
+        :returns:
+            Success message stating that the app request form input field was
+            deleted
         """
         endpoint = f"/api/v1/app-request/form-input-fields/{id}"
 
@@ -299,6 +373,8 @@ class Pro(RequestBuilder):
         """
         Returns a list of countries and the associated codes that can be use
         for the App Store locale
+
+        :returns: All app store country codes in JSON
         """
         endpoint = "/api/v1/app-store-country-codes"
 
@@ -316,6 +392,9 @@ class Pro(RequestBuilder):
         folder by ID
 
         :param id: Self Service branding image ID
+
+        :returns:
+            Success message stating that the branding image was downloaded
         """
         endpoint = f"/api/v1/branding-images/download/{id}"
 
@@ -352,6 +431,8 @@ class Pro(RequestBuilder):
             param can be combined with paging and sorting.
 
             Example: city=="Chicago" and name=="build"
+
+        :returns: All buildings in JSON
         """
         endpoint = "/api/v1/buildings"
         params = remove_empty_params(
@@ -365,6 +446,8 @@ class Pro(RequestBuilder):
         Returns specified building object by ID in JSON
 
         :param id: Building ID
+
+        :returns: Building information in JSON
         """
         endpoint = f"/api/v1/buildings/{id}"
 
@@ -399,6 +482,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Building history in JSON
         """
         endpoint = f"/api/v1/buildings/{id}/history"
         params = remove_empty_params(
@@ -455,6 +540,7 @@ class Pro(RequestBuilder):
 
             Example: name=="buildings"
 
+        :returns: CSV export of the defined building collection
         """
         endpoint = "/api/v1/buildings/export"
         headers = {"Content-type": "application/json", "Accept": "text/csv"}
@@ -519,6 +605,8 @@ class Pro(RequestBuilder):
             This param can be combined with paging and sorting.
 
             Example: username=="exampleuser"
+
+        :returns: CSV export of the defined building history collection
         """
         endpoint = f"/api/v1/buildings/{id}/history/export"
         headers = {"Content-type": "application/json", "Accept": "text/csv"}
@@ -539,7 +627,12 @@ class Pro(RequestBuilder):
         """
         Creates a building record with JSON data
 
-        :param data: JSON data to create the building record with
+        :param data:
+            JSON data to create the building record with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-buildings>`__
+
+        :returns: New building information in JSON
         """
         endpoint = "/api/v1/buildings"
 
@@ -549,8 +642,13 @@ class Pro(RequestBuilder):
         """
         Creates specified building history notes with JSON data by ID
 
-        :param data: JSON data to create building note with
+        :param data:
+            JSON data to create building note with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-buildings-id-history>`__
         :param id: Building ID
+
+        :returns: New building history note information in JSON
         """
         endpoint = f"/api/v1/buildings/{id}/history"
 
@@ -560,8 +658,13 @@ class Pro(RequestBuilder):
         """
         Updates a specified building with JSON data by ID
 
-        :param data: JSON data to create building record with
+        :param data:
+            JSON data to create building record with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-buildings-id>`__
         :param id: Building ID
+
+        :returns: Updated building information in JSON
         """
         endpoint = f"/api/v1/buildings/{id}"
 
@@ -576,6 +679,8 @@ class Pro(RequestBuilder):
 
         :param id: Building ID
         :param ids: List of building IDs
+
+        :returns: Success message stating that the building was deleted
         """
         identifier_options = {"id": id, "ids": ids}
         identification_type(identifier_options)
@@ -606,6 +711,8 @@ class Pro(RequestBuilder):
     def get_cache_settings(self):
         """
         Returns cache settings of the JPS server in JSON
+
+        :returns: Cache settings information in JSON
         """
         endpoint = "/api/v1/cache-settings"
 
@@ -615,7 +722,12 @@ class Pro(RequestBuilder):
         """
         Updates cache settings of the JPS server in JSON
 
-        :param data: JSON data to update cache settings with
+        :param data:
+            JSON data to update cache settings with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-cache-settings>`__
+
+        :returns: Updated cache settings information in JSON
         """
         endpoint = "/api/v1/cache-settings"
 
@@ -651,6 +763,8 @@ class Pro(RequestBuilder):
             priority. This param can be combined with paging and sorting.
 
             Example: name=="Apps*" and priority>=5
+
+        :returns: All categories in JSON
         """
         endpoint = "/api/v1/categories"
         params = remove_empty_params(
@@ -669,6 +783,8 @@ class Pro(RequestBuilder):
         Returns specified category object by ID in JSON
 
         :param id: Category ID
+
+        :returns: Category information in JSON
         """
         endpoint = f"/api/v1/categories/{id}"
 
@@ -703,6 +819,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Category history information in JSON
         """
         endpoint = f"/api/v1/categories/{id}/history"
         params = remove_empty_params(
@@ -720,7 +838,12 @@ class Pro(RequestBuilder):
         """
         Creates a category record with JSON data
 
-        :param data: JSON data to create the category with
+        :param data:
+            JSON data to create the category with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-categories>`__
+
+        :returns: New category information in JSON
         """
         endpoint = "/api/v1/categories"
 
@@ -730,8 +853,13 @@ class Pro(RequestBuilder):
         """
         Creates a category history object note by ID with JSON data
 
-        :param data: JSON data to create the category history note with
+        :param data:
+            JSON data to create the category history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-categories-id-history>`__
         :param id: Category ID
+
+        :returns: New category history note information in JSON
         """
         endpoint = f"/api/v1/categories/{id}/history"
 
@@ -741,8 +869,13 @@ class Pro(RequestBuilder):
         """
         Updates a category by with by ID with JSON data
 
-        :param data: JSON data to update the category with
+        :param data:
+            JSON data to update the category with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-categories-id>`__
         :param id: Category ID
+
+        :returns: Updated category information in JSON
         """
         endpoint = f"/api/v1/categories/{id}"
 
@@ -757,6 +890,8 @@ class Pro(RequestBuilder):
 
         :param id: Category ID
         :param ids: List of categories IDs
+
+        :returns: Success message stating that the category was deleted
         """
         identifier_options = {"id": id, "ids": ids}
         identification_type(identifier_options)
@@ -793,6 +928,8 @@ class Pro(RequestBuilder):
 
         :param der: Set to True to return the certificate info in der format
         :param pem: Set to True to return the certificate info in pem format
+
+        :returns: Active certificate authority information in JSON
         """
         check_conflicting_params({"der": der, "pem": pem})
         if der:
@@ -820,6 +957,8 @@ class Pro(RequestBuilder):
         :param uuid: Certificate ID
         :param der: Set to True to return the certificate info in der format
         :param pem: Set to True to return the certificate info in pem format
+
+        :returns: Certificate authority information in JSON
         """
         check_conflicting_params({"der": der, "pem": pem})
         if der:
@@ -846,6 +985,8 @@ class Pro(RequestBuilder):
         Returns mappings for OnPrem LDAP configuration with given id
 
         :param id: Classic LDAP ID
+
+        :returns: Classic LDAP information in JSON
         """
         endpoint = f"/api/v1/classic-ldap/{id}"
 
@@ -858,6 +999,8 @@ class Pro(RequestBuilder):
     def get_client_check_in(self) -> dict:
         """
         Returns client check-in settings in JSON
+
+        :returns: Client check-in settings information in JSON
         """
         endpoint = "/api/v3/check-in"
 
@@ -890,6 +1033,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Client check-in history information in JSON
         """
         params = remove_empty_params(
             {
@@ -907,7 +1052,12 @@ class Pro(RequestBuilder):
         """
         Creates a client check-in history note with JSON data
 
-        :param data: JSON data to create client check-in history note with
+        :param data:
+            JSON data to create client check-in history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v3-check-in-history>`__
+
+        :returns: New client check-in history note information in JSON
         """
         endpoint = "/api/v3/check-in/history"
 
@@ -917,7 +1067,12 @@ class Pro(RequestBuilder):
         """
         Updates client check-in settings with JSON data
 
-        :param data: JSON data to updatae client check-in settings with
+        :param data:
+            JSON data to updatae client check-in settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v3-check-in>`__
+
+        :returns: Updated client check-in information in JSON
         """
         endpoint = "/api/v3/check-in"
 
@@ -932,6 +1087,8 @@ class Pro(RequestBuilder):
         Returns the default set of server attributes that allows you to return
         the data you need from Azure AD. Some fields may be empty and may be
         edited when creating a new configuration.
+
+        :returns: Cloud azure default server configuration information in JSON
         """
         endpoint = "/api/v1/cloud-azure/defaults/server-configuration"
 
@@ -942,6 +1099,8 @@ class Pro(RequestBuilder):
         Returns the default set of mapping attributes that allows you to return
         the data you need from Azure AD. Some fields may be empty and may be
         edited when creating a new configuration.
+
+        :returns: Cloud azure default mappings information in JSON
         """
         endpoint = "/api/v1/cloud-azure/defaults/mappings"
 
@@ -953,6 +1112,9 @@ class Pro(RequestBuilder):
         """
         Returns Azure cloud identity provider configuration with given ID
         in JSON
+
+        :returns:
+            Cloud azure identity provider configuration information in JSON
         """
         endpoint = f"/api/v1/cloud-azure/{id}"
 
@@ -963,6 +1125,8 @@ class Pro(RequestBuilder):
         Returns excel file of generated cloud azure report
 
         :param id: Existing report ID
+
+        :returns: Cloud azure report excel file
         """
         headers = {
             "accept": "application/vnd.openxmlformats-officedocument"
@@ -978,6 +1142,8 @@ class Pro(RequestBuilder):
         Returns status of Azure AD migration report
 
         :param id: Existing report ID
+
+        :returns: Cloud azure report status information in JSON
         """
         endpoint = f"/api/v1/azure-ad-migration/reports/{id}"
 
@@ -986,6 +1152,8 @@ class Pro(RequestBuilder):
     def get_cloud_azure_pending_report(self):
         """
         Returns info about pending report
+
+        :returns: Cloud azure pending report information in JSON
         """
         endpoint = "/api/v1/azure-ad-migration/reports/pending"
 
@@ -996,7 +1164,12 @@ class Pro(RequestBuilder):
         Starts a new process in background that will generate Excel report
         with JSON data
 
-        :param data: JSON data to create the report with
+        :param data:
+            JSON data to create the report with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-azure-ad-migration-reports>`__
+
+        :returns: New cloud azure report information in JSON
         """
         endpoint = "/api/v1/azure-ad-migration/reports"
 
@@ -1009,7 +1182,11 @@ class Pro(RequestBuilder):
 
         :param data:
             JSON data to create the azure vloud identity provider configuration
-            with
+            with. For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-azure>`__
+
+        :returns:
+            New cloud azure identity provider configuration information in JSON
         """
         endpoint = "/api/v1/cloud-azure"
 
@@ -1021,6 +1198,10 @@ class Pro(RequestBuilder):
         """
         Updates an Azure Cloud Identity Provider configuration. Cannot be used
         for partial updates, all content body parameters must be sent.
+
+        :returns:
+            Updated azure cloud identity provider configuration information in
+            JSON
         """
         endpoint = f"/api/v1/cloud-azure/{id}"
 
@@ -1033,6 +1214,10 @@ class Pro(RequestBuilder):
         Deletes a Cloud Identity Provider configuration by ID
 
         :param id: Cloud identity provider ID
+
+        :returns:
+            Success message stating that the azure identity provider
+            configuration was deleted
         """
         endpoint = f"/api/v1/cloud-azure/{id}"
 
@@ -1060,6 +1245,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["date:desc", "name:asc"]
+
+        :returns: All cloud IDPs in JSON
         """
         params = remove_empty_params(
             {
@@ -1077,6 +1264,8 @@ class Pro(RequestBuilder):
         Returns cloud identity provider configuration by ID
 
         :param id: Cloud identity provider ID
+
+        :returns: Cloud IDP information in JSON
         """
         endpoint = f"/api/v1/cloud-idp/{id}"
 
@@ -1111,6 +1300,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Cloud IDP history information in JSON
         """
         params = remove_empty_params(
             {
@@ -1168,6 +1359,8 @@ class Pro(RequestBuilder):
             This param can be combined with paging and sorting.
 
             Example: name=="department"
+
+        :returns: CSV export of cloud IDP collection
         """
         params = remove_empty_params(
             {
@@ -1188,8 +1381,13 @@ class Pro(RequestBuilder):
         """
         Creates specified cloud identity provider history note by ID
 
-        :param data: JSON data to create cloud identity provider history with
+        :param data:
+            JSON data to create cloud identity provider history with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-idp-id-history>`__
         :param id: Cloud identity provider ID
+
+        :returns: New cloud IDP history note information in JSON
         """
         endpoint = f"/api/v1/cloud-idp/{id}/history"
 
@@ -1202,8 +1400,13 @@ class Pro(RequestBuilder):
         Creates a cloud identify provider group test search and returns the
         result
 
-        :param data: JSON data to run group test search with
+        :param data:
+            JSON data to run group test search with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-idp-id-test-group>`__
         :param id: Cloud identity provider ID
+
+        :returns: New cloud IDP group test search results in JSON
         """
         endpoint = f"/api/v1/cloud-idp/{id}/test-group"
 
@@ -1215,8 +1418,13 @@ class Pro(RequestBuilder):
         """
         Creates a cloud identify provider user test search and returns result
 
-        :param data: JSON data to run user test search with
+        :param data:
+            JSON data to run user test search with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-idp-id-test-user>`__
         :param id: Cloud identity provider ID
+
+        :returns: New cloud IDP user test search results in JSON
         """
         endpoint = f"/api/v1/cloud-idp/{id}/test-user"
 
@@ -1229,8 +1437,13 @@ class Pro(RequestBuilder):
         Creates a cloud identify provider user membership test search and
         returns the result
 
-        :param data: JSON data to run user membership test search with
+        :param data:
+            JSON data to run user membership test search with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-idp-id-test-user-membership>`__
         :param id: Cloud identity provider ID
+
+        :returns: Cloud IDP user membership test search results
         """
         endpoint = f"/api/v1/cloud-idp/{id}/test-user-membership"
 
@@ -1246,6 +1459,8 @@ class Pro(RequestBuilder):
         provider name
 
         :param provider: Cloud identity provider name
+
+        :returns: Cloud LDAP default server configuration information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/defaults/{provider}/server-configuration"
 
@@ -1257,6 +1472,8 @@ class Pro(RequestBuilder):
         by provider name
 
         :param provider: Cloud identity provider name
+
+        :returns: Cloud LDAP default mappings information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/defaults/{provider}/mappings"
 
@@ -1267,6 +1484,8 @@ class Pro(RequestBuilder):
         Returns the cloud identity provider configuration by ID
 
         :param id: Cloud identity provider ID
+
+        :returns: Cloud LDAP configuration information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}"
 
@@ -1277,6 +1496,8 @@ class Pro(RequestBuilder):
         Returns the cloud identity provider mappings configuratiion by ID
 
         :param id: Cloud identity provider ID
+
+        :returns: Cloud LDAP mappings information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}/mappings"
 
@@ -1287,6 +1508,8 @@ class Pro(RequestBuilder):
         Returns the cloud identity provider connection status
 
         :param id: Cloud identity provider ID
+
+        :returns: Cloud LDAP connection status information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}/connection/status"
 
@@ -1297,6 +1520,8 @@ class Pro(RequestBuilder):
         Returns the cloud identity provider bind connection pool statistics
 
         :param id: Cloud identity provider ID
+
+        :returns: Cloud LDAP bind connection pool information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}/connection/bind"
 
@@ -1307,6 +1532,8 @@ class Pro(RequestBuilder):
         Returns the cloud identity provider search connection pool statistics
 
         :param id: Cloud identity provider ID
+
+        :returns: Cloud LDAP search connection pool information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}/connection/search"
 
@@ -1318,7 +1545,12 @@ class Pro(RequestBuilder):
         name. If mappings not provided, then defaults will be generated
         instead.
 
-        :param data: JSON data to create the cloud LDAP configuration with
+        :param data:
+            JSON data to create the cloud LDAP configuration with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-cloud-ldaps>`__
+
+        :returns: New cloud LDAP configuration information in JSON
         """
         endpoint = "/api/v2/cloud-ldaps"
 
@@ -1328,7 +1560,12 @@ class Pro(RequestBuilder):
         """
         Validates keystore for Cloud Identity Provider secure connection
 
-        :param data: JSON data to create validation of keystore with
+        :param data:
+            JSON data to create validation of keystore with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-ldap-keystore-verify>`__
+
+        :returns: Cloud LDAP keystore validation results in JSON
         """
         endpoint = "/api/v1/ldap-keystore/verify"
 
@@ -1339,8 +1576,13 @@ class Pro(RequestBuilder):
         Updates Cloud Identity Provider configuration. Cannot be used for
         partial updates, all content body params must be sent.
 
-        :param data: JSON data to update the cloud LDAP configuration with
+        :param data:
+            JSON data to update the cloud LDAP configuration with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-cloud-ldaps-id>`__
         :param id: Cloud identity provider ID
+
+        :returns: Updated cloud LDAP configuration information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}"
 
@@ -1354,8 +1596,12 @@ class Pro(RequestBuilder):
         for partial updates, all content body params must be sent.
 
         :param data:
-            JSON data to update the cloud LDAP mappings coniguration with
+            JSON data to update the cloud LDAP mappings coniguration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-cloud-ldaps-id-mappings>`__
         :param id: Cloud identity provider ID
+
+        :returns: Updated cloud LDAP mappings configuration information in JSON
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}/mappings"
 
@@ -1366,6 +1612,10 @@ class Pro(RequestBuilder):
         Deletes Cloud Identity Provider configuration.
 
         :param id: Cloud identity provider ID
+
+        :returns:
+            Success message stating that the cloud LDAP configuration was
+            deleted
         """
         endpoint = f"/api/v2/cloud-ldaps/{id}"
 
@@ -1381,6 +1631,8 @@ class Pro(RequestBuilder):
     def get_computer_groups(self) -> dict:
         """
         Returns all computer groups in JSON
+
+        :returns: All computer group in JSON
         """
         endpoint = "/api/v1/computer-groups"
 
@@ -1400,6 +1652,7 @@ class Pro(RequestBuilder):
     ) -> dict:
         """
         Returns paginated list of computer inventory records
+
         :param section:
             Section of computer details, if not specified, General section
             data is returned. Multiple section parameters are supported,
@@ -1468,6 +1721,8 @@ class Pro(RequestBuilder):
             purchasing.vendor, purchasing.warrantyDate
 
             Example: general.name=="Orchard"
+
+        :returns: All computer inventories in JSON
         """
         if section == ["ALL"]:
             section = [
@@ -1514,6 +1769,8 @@ class Pro(RequestBuilder):
         Returns general section of a computer by ID
 
         :param id: Computer ID
+
+        :returns: Computer inventory information in JSON
         """
         endpoint = f"/api/v1/computers-inventory/{id}"
 
@@ -1524,6 +1781,8 @@ class Pro(RequestBuilder):
         Returns all sections of a computer by ID
 
         :param id: Computer ID
+
+        :returns: Computer inventory details in JSON
         """
         endpoint = f"/api/v1/computers-inventory-detail/{id}"
 
@@ -1539,6 +1798,8 @@ class Pro(RequestBuilder):
 
         :param page: Page to return, default page is 0.
         :param page_size: Page size to return Default page-size is 100.
+
+        :returns: FileVault information for all computers in JSON
         """
         params = remove_empty_params(
             {
@@ -1557,6 +1818,8 @@ class Pro(RequestBuilder):
         Returns FileVault information for a specific computer
 
         :param id: Computer ID
+
+        :returns: Computer FileVault information in JSON
         """
         endpoint = f"/api/v1/computers-inventory/{id}/filevault"
 
@@ -1569,6 +1832,8 @@ class Pro(RequestBuilder):
         Returns a computers recovery lock password by ID in JSON
 
         :param id: Computer ID
+
+        :returns: Recovery lock password in JSON
         """
         endpoint = f"/api/v1/computers-inventory/{id}/view-recovery-lock-password"
 
@@ -1583,6 +1848,10 @@ class Pro(RequestBuilder):
 
         :param id: Computer ID
         :param attachmentID: Attachment ID
+
+        :returns:
+            Success message stating that the computer inventory attachment was
+            downloaded
         """
         endpoint = f"/api/v1/computers-inventory/{id}/attachments/{attachmentId}"
 
@@ -1596,6 +1865,8 @@ class Pro(RequestBuilder):
 
         :param filepath: Filepath to the file to upload
         :param id: Computer ID
+
+        :returns: New computer inventory attachment information in JSON
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -1613,8 +1884,13 @@ class Pro(RequestBuilder):
         Updates specific fields on a computer by ID, then returns the updated
         computer object in JSON
 
-        :param data: JSON data to update the computer with
+        :param data:
+            JSON data to update the computer with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_v1-computers-inventory-detail-id>`__
         :param id: Computer ID
+
+        :returns: Updated computer inventory information in JSON
         """
         endpoint = f"/api/v1/computers-inventory-detail/{id}"
 
@@ -1625,6 +1901,9 @@ class Pro(RequestBuilder):
         Deletes specified computer record by ID
 
         :param id: Computer ID
+
+        :returns:
+            Success message stating the computer inventory record was deleted
         """
         endpoint = f"/api/v1/computers-inventory/{id}"
 
@@ -1641,6 +1920,10 @@ class Pro(RequestBuilder):
 
         :param id: Computer ID
         :param attachmnetId: Computer attachment ID
+
+        :returns:
+            Success message stating that the computer inventory attachment was
+            deleted
         """
         endpoint = f"/api/v1/computers-inventory/{id}/attachments/{attachmentId}"
 
@@ -1658,6 +1941,8 @@ class Pro(RequestBuilder):
     def get_computer_inventory_collection_settings(self) -> dict:
         """
         Returns computer inventory collection settings in JSON
+
+        :returns: Computer inventory collection settings information in JSON
         """
         endpoint = "/api/v1/computer-inventory-collection-settings"
 
@@ -1672,7 +1957,12 @@ class Pro(RequestBuilder):
 
         :param data:
             JSON data to create computer inventory collection settings  custom
-            path with
+            path with. For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-computer-inventory-collection-settings-custom-path>`__
+
+        :returns:
+            New computer inventory collection settings custom path information
+            in JSON
         """
         endpoint = "/api/v1/computer-inventory-collection-settings/custom-path"
 
@@ -1683,7 +1973,12 @@ class Pro(RequestBuilder):
         Updates computer inventory settings
 
         :param data:
-            JSON data to update computer inventory collection settings with
+            JSON data to update computer inventory collection settings with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_v1-computer-inventory-collection-settings>`__
+
+        :returns:
+            Updated computer inventory collection settings information in JSON
         """
         endpoint = "/api/v1/computer-inventory-collection-settings"
 
@@ -1696,6 +1991,10 @@ class Pro(RequestBuilder):
         Deletes Custom Path from Computer Inventory Collection Settings
 
         :param id: Custom path ID
+
+        :returns:
+            Success message stating that the computer inventory collection
+            settings custom path was deleted
         """
         endpoint = f"/api/v1/computer-inventory-collection-settings/custom-path/{id}"
 
@@ -1725,6 +2024,8 @@ class Pro(RequestBuilder):
             be separated with a comma.
 
             Example: ["id:desc", "enrollmentCustomizationId:asc"]
+
+        :returns: All computer prestages in JSON
         """
         params = remove_empty_params(
             {
@@ -1740,6 +2041,8 @@ class Pro(RequestBuilder):
     def get_computer_prestage_scopes(self) -> dict:
         """
         Returns all device scopes for all computer prestages
+
+        :returns: All computer prestage scopes in JSON
         """
         endpoint = "/api/v2/computer-prestages/scope"
 
@@ -1750,6 +2053,8 @@ class Pro(RequestBuilder):
         Returns a computer prestage with the supplied ID
 
         :param id: Computer prestage ID
+
+        :returns: Computer prestage information in JSON
         """
         endpoint = f"/api/v2/computer-prestages/{id}"
 
@@ -1760,6 +2065,8 @@ class Pro(RequestBuilder):
         Returns device scope for a specified computer prestage by ID
 
         :param id: Computer prestage ID
+
+        :returns: Computer prestage scope information in JSON
         """
         endpoint = f"/api/v2/computer-prestages/{id}/scope"
 
@@ -1769,7 +2076,12 @@ class Pro(RequestBuilder):
         """
         Creates a computer prestage with supplied JSON data
 
-        :param data: JSON data to create computer prestage with
+        :param data:
+            JSON data to create computer prestage with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-computer-prestages>`__
+
+        :returns: New computer prestage information in JSON
         """
         endpoint = "/api/v2/computer-prestages"
 
@@ -1779,8 +2091,13 @@ class Pro(RequestBuilder):
         """
         Adds device(s) to a specific computer prestage's scope by ID
 
-        :param data: JSON data to create the new computer prestage scope with
-        :param id: Computer prestage scope
+        :param data:
+            JSON data to create the new computer prestage scope with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-computer-prestages-id-scope>`__
+        :param id: Computer prestage scope ID
+
+        :returns: New computer prestage scope information in JSON
         """
         endpoint = f"/api/v2/computer-prestages/{id}/scope"
 
@@ -1790,8 +2107,13 @@ class Pro(RequestBuilder):
         """
         Updates a computer prestage by ID with JSON data
 
-        :param data: JSON data to update the computer prestage with
+        :param data:
+            JSON data to update the computer prestage with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-computer-prestages-id>`__
         :param id: Computer prestage ID
+
+        :returns: Updated computer prestage information in JSON
         """
         endpoint = f"/api/v2/computer-prestages/{id}"
 
@@ -1801,8 +2123,13 @@ class Pro(RequestBuilder):
         """
         Replaces device scope for a specified computer prestage
 
-        :param data: JSON data to place the computer prestage scope with
+        :param data:
+            JSON data to place the computer prestage scope with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-computer-prestages-id-scope>`__
         :param id: Computer prestage ID
+
+        :returns: Replaced computer prestage scope information in JSON
         """
         endpoint = f"/api/v2/computer-prestages/{id}/scope"
 
@@ -1813,6 +2140,9 @@ class Pro(RequestBuilder):
         Deletes a computer prestage with the supplied ID
 
         :param id: Computer prestage ID
+
+        :returns:
+            Success message stating that the computer prestage was deleted
         """
         endpoint = f"/api/v2/computer-prestages/{id}"
 
@@ -1824,8 +2154,15 @@ class Pro(RequestBuilder):
         """
         Removes device scope for a specified computer prestage by ID
 
-        :param data: JSON data to remove the computer prestage scope with
+        :param data:
+            JSON data to remove the computer prestage scope with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-computer-prestages-id-scope-delete-multiple>`__
         :param id: Computer prestage ID
+
+        :returns:
+            Computer prestage scope information in JSON after removing defined
+            computers
         """
         endpoint = f"/api/v2/computer-prestages/{id}/scope/delete-multiple"
 
@@ -1852,6 +2189,8 @@ class Pro(RequestBuilder):
             separated with a comma.
 
             Example: ["id:desc", "name:asc"]
+
+        :returns: All computers in JSON
         """
         endpoint = "/api/preview/computers"
 
@@ -1866,6 +2205,8 @@ class Pro(RequestBuilder):
         Returns basic compliance information for the given computer by ID
 
         :param id: Computer ID
+
+        :returns: Basic compliance information for the defined computer in JSON
         """
         endpoint = (
             f"/api/v1/conditional-access/device-compliance-information/computer/{id}"
@@ -1878,6 +2219,9 @@ class Pro(RequestBuilder):
         Returns basic compliance information for the given mobile device by ID
 
         :param id: Mobile device ID
+
+        :returns:
+            Basic compliance information for the defined mobile device in JSON
         """
         endpoint = (
             f"/api/v1/conditional-access/device-compliance-information/mobile/{id}"
@@ -1892,6 +2236,8 @@ class Pro(RequestBuilder):
     def get_csa(self) -> dict:
         """
         Returns details regarding the CSA token exchange
+
+        :returns: CSA token exchange information in JSON
         """
         endpoint = "/api/v1/csa/token"
 
@@ -1902,7 +2248,12 @@ class Pro(RequestBuilder):
         Initializes the CSA token exchange - This will allow Jamf Pro to
         authenticate with cloud-hosted services
 
-        :param data: JSON data to initialize the CSA token exchange with
+        :param data:
+            JSON data to initialize the CSA token exchange with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-csa-token>`__
+
+        :returns: New CSA token exchange information in JSON
         """
         endpoint = "/api/v1/csa/token"
 
@@ -1912,7 +2263,12 @@ class Pro(RequestBuilder):
         """
         Re-initializes the CSA token exchange with new credentials
 
-        :param data: JSON data to re-initialize the CSA token exchange with
+        :param data:
+            JSON data to re-initialize the CSA token exchange with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-csa-token>`__
+
+        :returns: Updated CSA token exchange information in JSON
         """
         endpoint = "/api/v1/csa/token"
 
@@ -1922,6 +2278,8 @@ class Pro(RequestBuilder):
         """
         Deletes the CSA token exchange - This will disable Jamf Pro's ability
         to authenticate with cloud-hosted services
+
+        :returns: Success message stating the CSA token exchange was deleted
         """
         endpoint = "/api/v1/csa/token"
 
@@ -1958,6 +2316,8 @@ class Pro(RequestBuilder):
             requested page. Fields allowed in the query: id, name.
 
             Example: name=="department"
+
+        :returns: All departments in JSON
         """
         params = remove_empty_params(
             {
@@ -1976,6 +2336,8 @@ class Pro(RequestBuilder):
         Returns specified department
 
         :param id: Department ID
+
+        :returns: Department information in JSON
         """
         endpoint = f"/api/v1/departments/{id}"
 
@@ -2010,6 +2372,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Department history information in JSON
         """
         params = remove_empty_params(
             {
@@ -2027,7 +2391,12 @@ class Pro(RequestBuilder):
         """
         Creates department record with JSON data
 
-        :param data: JSON data to create the department with
+        :param data:
+            JSON data to create the department with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-departments>`__
+
+        :returns: New department information in JSON
         """
         endpoint = "/api/v1/departments"
 
@@ -2037,8 +2406,13 @@ class Pro(RequestBuilder):
         """
         Creates note in specifed department history with JSON data
 
-        :param data: JSON data to create department history note with
+        :param data:
+            JSON data to create department history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-departments-id-history>`__
         :param id: Department ID
+
+        :returns: New department history note information in JSON
         """
         endpoint = f"/api/v1/departments/{id}/history"
 
@@ -2048,8 +2422,13 @@ class Pro(RequestBuilder):
         """
         Updates specified department by ID with JSON data
 
-        :param data: JSON data to update department with
+        :param data:
+            JSON data to update department with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-departments-id>`__
         :param id: Department ID
+
+        :returns: Updated department information in JSON
         """
         endpoint = f"/api/v1/departments/{id}"
 
@@ -2064,6 +2443,8 @@ class Pro(RequestBuilder):
 
         :param id: Department ID
         :param ids: List of department IDs
+
+        :returns: Success message stating the department was deleted
         """
         identifier_options = {"id": id, "ids": ids}
         identification_type(identifier_options)
@@ -2095,6 +2476,8 @@ class Pro(RequestBuilder):
         """
         Returns all device communication settings, including automatic renewal
         of the MDM profile.
+
+        :returns: All device communication settings in JSON
         """
         endpoint = "/api/v1/device-communication-settings"
 
@@ -2127,6 +2510,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Device communication settings history information in JSON
         """
         params = remove_empty_params(
             {
@@ -2146,7 +2531,9 @@ class Pro(RequestBuilder):
         data
 
         :param data:
-            JSON data to create the device communication settings history note
+            JSON data to create the device communication settings history note.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-device-communication-settings-history>`__
         """
         endpoint = "/api/v1/device-communication-settings/history"
 
@@ -2156,7 +2543,12 @@ class Pro(RequestBuilder):
         """
         Updates device communication settings with JSON
 
-        :param data: JSON data to update device communication settings with
+        :param data:
+            JSON data to update device communication settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-device-communication-settings>`__
+
+        :returns: Updated device communication settings information in JSON
         """
         endpoint = "/api/v1/device-communication-settings"
 
@@ -2180,6 +2572,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["id:desc", "name:asc"]
+
+        :returns: All device enrollments in JSON
         """
         params = remove_empty_params(
             {
@@ -2197,6 +2591,8 @@ class Pro(RequestBuilder):
         Returns a device enrollment instance with the supplied ID
 
         :param id: Device enrollment instance ID
+
+        :returns: Device enrollment information in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}"
 
@@ -2230,6 +2626,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Device enrollment history information in JSON
         """
         params = remove_empty_params(
             {
@@ -2246,6 +2644,8 @@ class Pro(RequestBuilder):
     def get_device_enrollments_public_key(self) -> str:
         """
         Returns the Jamf Pro device enrollment public key in a string
+
+        :returns: Device enrollment public key in JSON
         """
         endpoint = "/api/v1/device-enrollments/public-key"
 
@@ -2254,6 +2654,8 @@ class Pro(RequestBuilder):
     def get_device_enrollments_instance_sync_states(self) -> dict:
         """
         Returns all device enrollments instance sync states
+
+        :returns: All device enrollments instance sync states in JSON
         """
         endpoint = "/api/v1/device-enrollments/syncs"
 
@@ -2264,6 +2666,8 @@ class Pro(RequestBuilder):
         Returns all instance sync states for a single instance by ID
 
         :param id: Device enrollment ID
+
+        :returns: Device enrollment instance sync states in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}/syncs"
 
@@ -2276,6 +2680,8 @@ class Pro(RequestBuilder):
         Returns the latest sync state for a single device enrollment
 
         :param id: Device enrollment ID
+
+        :returns: Latest device enrollment instance sync state in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}/syncs/latest"
 
@@ -2285,7 +2691,12 @@ class Pro(RequestBuilder):
         """
         Creates a device enrollment instance with JSON data
 
-        :param data: JSON data to create the device enrollment instance with
+        :param data:
+            JSON data to create the device enrollment instance with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-device-enrollments-upload-token>`__
+
+        :returns: New device enrollment instance information in JSON
         """
         endpoint = "/api/v1/device-enrollments/upload-token"
 
@@ -2298,8 +2709,12 @@ class Pro(RequestBuilder):
         Creates a device enrollment history note by ID with JSON data
 
         :param data:
-            JSON data to create the device enrollment history note with
+            JSON data to create the device enrollment history note with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-device-enrollments-id-history>`__
         :param id: Device enrollment ID
+
+        :returns: New device enrollment history note information in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}/history"
 
@@ -2309,8 +2724,13 @@ class Pro(RequestBuilder):
         """
         Updates a Device Enrollment Instance by ID with JSON data
 
-        :param data: JSON data to update device enrollment instance with
+        :param data:
+            JSON data to update device enrollment instance with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-device-enrollments-id>`__
         :param id: Device enrollment ID
+
+        :returns: Updated device enrollment instance information in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}"
 
@@ -2321,8 +2741,13 @@ class Pro(RequestBuilder):
         Updates a device enrollment instance with the supplied token by ID with
         JSON
 
-        :param data: JSON data to update device enrollment instance with
+        :param data:
+            JSON data to update device enrollment instance with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-device-enrollments-id-upload-token>`__
         :param id: Device enrollment ID
+
+        :returns: Updated device enrollment token information in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}/upload-token"
 
@@ -2333,6 +2758,9 @@ class Pro(RequestBuilder):
         Deletes a device enrollment instance by ID
 
         :param id: Device enrollment ID
+
+        :returns:
+            Success message stating the device enrollment instance was deleted
         """
         endpoint = f"/api/v1/device-enrollments/{id}"
 
@@ -2346,8 +2774,13 @@ class Pro(RequestBuilder):
         Disowns devices from the given device enrollment instance by ID with
         JSON
 
-        :param data: JSON data to disown device enrollment devices with
+        :param data:
+            JSON data to disown device enrollment devices with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-device-enrollments-id-disown>`__
         :param id: Device Enrollment ID
+
+        :returns: Device enrollment informaiton in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}/disown"
 
@@ -2362,6 +2795,8 @@ class Pro(RequestBuilder):
         Returns all devices assigned to the device enrollment instance by ID
 
         :param id: Device enrollment instance ID
+
+        :returns: All devices assigned to the device enrollment in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}/devices"
 
@@ -2385,6 +2820,8 @@ class Pro(RequestBuilder):
             separated with a comma.
 
             Example: ["id:desc", "name:asc"]
+
+        :returns: All eBooks in JSON
         """
         params = remove_empty_params(
             {
@@ -2402,6 +2839,8 @@ class Pro(RequestBuilder):
         Returns the specified eBook by ID
 
         :param id: eBook ID
+
+        :returns: eBook information in JSON
         """
         endpoint = f"/api/v1/ebooks/{id}"
 
@@ -2412,6 +2851,8 @@ class Pro(RequestBuilder):
         Returns the scope of the specified eBook by ID
 
         :param id: eBook ID
+
+        :returns: eBook scope information in JSON
         """
         endpoint = f"/api/v1/ebooks/{id}/scope"
 
@@ -2424,6 +2865,8 @@ class Pro(RequestBuilder):
     def get_engage_settings(self) -> dict:
         """
         Returns Engage settings
+
+        :returns: Engage settings information in JSON
         """
         endpoint = "/api/v1/engage"
 
@@ -2455,6 +2898,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Engage settings history information in JSON
         """
         params = remove_empty_params(
             {
@@ -2472,7 +2917,12 @@ class Pro(RequestBuilder):
         """
         Creates Engage settings history notes with JSON
 
-        :param data: JSON data to create Engage settings history notes with
+        :param data:
+            JSON data to create Engage settings history notes with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-engage-history>`__
+
+        :returns: New Engage settings history note information in JSON
         """
         endpoint = "/api/v1/engage/history"
 
@@ -2482,7 +2932,12 @@ class Pro(RequestBuilder):
         """
         Updates Engage settings with JSON
 
-        :param data: JSON data to update the engage settings with
+        :param data:
+            JSON data to update the engage settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-engage>`__
+
+        :returns: Updated Engage settings information in JSON
         """
         endpoint = "/api/v1/engage"
 
@@ -2495,6 +2950,8 @@ class Pro(RequestBuilder):
     def get_enrollment_settings(self) -> dict:
         """
         Returns Enrollment object and re-enrollment settings
+
+        :returns: Enrollment settings information in JSON
         """
         endpoint = "/api/v2/enrollment"
 
@@ -2514,6 +2971,8 @@ class Pro(RequestBuilder):
             separated with a comma.
 
             Example: ["date:desc", "note:asc"]
+
+        :returns: Enrollment history information in JSON
         """
         params = remove_empty_params(
             {
@@ -2534,7 +2993,7 @@ class Pro(RequestBuilder):
         page_size: int = None,
         sort: List[str] = ["id:asc"],
         filter: str = None,
-    ) -> dict:
+    ) -> str:
         """
         Returns CSV export of enrollment history collection
 
@@ -2569,6 +3028,8 @@ class Pro(RequestBuilder):
             This param can be combined with paging and sorting.
 
             Example: username!="admin"
+
+        :returns: CSV export of enrollment history
         """
         params = remove_empty_params(
             {
@@ -2588,6 +3049,8 @@ class Pro(RequestBuilder):
     def get_enrollment_adue_session_token_settings(self):
         """
         Returns the Account Driven User Enrollment Session Token Settings
+
+        :returns: ADUE enrollment session token settings information in JSON
         """
         endpoint = "/api/v1/adue-session-token-settings"
 
@@ -2618,6 +3081,8 @@ class Pro(RequestBuilder):
             present in the current page
 
             Options: True or False
+
+        :returns: All LDAP groups configured for ADUE in JSON
         """
         params = remove_empty_params(
             {
@@ -2635,6 +3100,8 @@ class Pro(RequestBuilder):
         """
         Returns the configured LDAP group configured for User-Initiated
         Enrollment by ID
+
+        :returns: LDAP group configured for ADUE in JSON
         """
         endpoint = f"/api/v3/enrollment/access-groups/{id}"
 
@@ -2655,6 +3122,8 @@ class Pro(RequestBuilder):
             separated with a comma.
 
             Example: ["languageCode:asc"]
+
+        :returns: All enrollment languages messaging information in JSON
         """
         params = remove_empty_params(
             {
@@ -2675,6 +3144,8 @@ class Pro(RequestBuilder):
             Two letter ISO 639-1 Language Code
 
             Example: en
+
+        :returns: Enrollment language messaging iformation in JSON
         """
         endpoint = f"/api/v3/enrollment/languages/{languageId}"
 
@@ -2683,6 +3154,8 @@ class Pro(RequestBuilder):
     def get_enrollment_language_codes(self) -> dict:
         """
         Returns all languages and corresponding ISO 639-1 codes
+
+        :returns: All language codes in JSON
         """
         endpoint = "/api/v3/enrollment/language-codes"
 
@@ -2692,6 +3165,8 @@ class Pro(RequestBuilder):
         """
         Returns languages and corresponding ISO 639-1 Codes, but only those not
         already added to enrollment
+
+        :returns: Unused language codes information in JSON
         """
         endpoint = "/api/v3/enrollment/filtered-language-codes"
 
@@ -2701,7 +3176,12 @@ class Pro(RequestBuilder):
         """
         Creates enrollment history object note with JSON data
 
-        :param date: JSON data to create the enrollment history note with
+        :param data:
+            JSON data to create the enrollment history note with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-enrollment-history>`__
+
+        :returns: New enrollment history note information in JSON
         """
         endpoint = "/api/v2/enrollment/history"
 
@@ -2712,7 +3192,12 @@ class Pro(RequestBuilder):
         Creates the configured LDAP group for user-initiated enrollment with
         JSON data
 
-        :param data: JSON data to create the enrollment LDAP group with
+        :param data:
+            JSON data to create the enrollment LDAP group with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v3-enrollment-access-groups>`__
+
+        :returns: New enrollment LDAP group in JSON
         """
         endpoint = "/api/v3/enrollment/access-groups"
 
@@ -2722,7 +3207,12 @@ class Pro(RequestBuilder):
         """
         Updates enrollment settings with JSON data
 
-        :param data: JSON data to update the enrollment settings with
+        :param data:
+            JSON data to update the enrollment settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-enrollment>`__
+
+        :returns: Updated enrollment settings in JSON
         """
         endpoint = "/api/v2/enrollment"
 
@@ -2733,7 +3223,11 @@ class Pro(RequestBuilder):
         Updates the account driven user enrollment session token settings
 
         :param data:
-            JSON data to update the enrollment ADUE session token settings with
+            JSON data to update the enrollment ADUE session token settings
+            with. For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-adue-session-token-settings>`__
+
+        :returns: Updated ADUE session token settings in JSON
         """
         endpoint = "/api/v1/adue-session-token-settings"
 
@@ -2744,8 +3238,13 @@ class Pro(RequestBuilder):
         Updates the configured LDAP groups configured for user-initiated
         enrollment by ID with JSON data
 
-        :param data: JSON data to update the enrollment LDAP group with
+        :param data:
+            JSON data to update the enrollment LDAP group with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v3-enrollment-access-groups-id>`__
         :param id: Enrollment LDAP group ID
+
+        :returns: Updated enrollment LDAP group information in JSON
         """
         endpoint = f"/api/v3/enrollment/access-groups/{id}"
 
@@ -2756,6 +3255,8 @@ class Pro(RequestBuilder):
         Updates enrollment messaging for a specified language by languageId
 
         :param languageId: Two letter ISO 639-1 Language Code
+
+        :returns: Updated enrollment language messaging in JSON
         """
         endpoint = f"/api/v3/enrollment/languages/{languageId}"
 
@@ -2768,6 +3269,9 @@ class Pro(RequestBuilder):
         User-Initiated Enrollment.
 
         :param id: Enrollment LDAP group ID
+
+        :returns:
+            Success message stating that the enrollment LDAP group was deleted
         """
         endpoint = f"/api/v3/enrollment/access-groups/{id}"
 
@@ -2786,6 +3290,10 @@ class Pro(RequestBuilder):
         :param id: Enrollment language ID, two letter ISO 639-1 Language Code
         :param ids:
             List of enrollment language IDs, two letter ISO 639-1 Language Code
+
+        :returns:
+            Success message stating that the enrollment language messaging was
+            deleted
         """
         identifier_options = {"id": languageId, "ids": languageIds}
         identification_type(identifier_options)
@@ -2830,6 +3338,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["id:desc", "displayName:asc"]
+
+        :returns: All enrollment customizations in JSON
         """
         params = remove_empty_params(
             {
@@ -2847,6 +3357,8 @@ class Pro(RequestBuilder):
         Returns an enrollment customization by ID
 
         :param id: Enrollment customization ID
+
+        :returns: Enrollment customization information in JSON
         """
         endpoint = f"/api/v2/enrollment-customizations/{id}"
 
@@ -2871,6 +3383,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["date:desc", "note:asc"]
+
+        :returns: Enrollment customization history information in JSON
         """
         params = remove_empty_params(
             {
@@ -2888,6 +3402,8 @@ class Pro(RequestBuilder):
         Returns prestages using the specified enrollment customization by ID
 
         :param id: Enrollment customization ID
+
+        :returns: Enrollment customization prestages information in JSON
         """
         endpoint = f"/api/v2/enrollment-customizations/{id}/prestages"
 
@@ -2901,6 +3417,10 @@ class Pro(RequestBuilder):
         users Downloads folder
 
         :param id: Enrollment customization image ID
+
+        :returns:
+            Success message stating that the enrollment customization image was
+            downloaded
         """
         endpoint = f"/api/v2/enrollment-customizations/images/{id}"
 
@@ -2910,7 +3430,12 @@ class Pro(RequestBuilder):
         """
         Creates an enrollment customization with JSON data
 
-        :param data: JSON data to create the enrollment customization with
+        :param data:
+            JSON data to create the enrollment customization with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-enrollment-customizations>`__
+
+        :returns: New enrollment customization information in JSON
         """
         endpoint = "/api/v2/enrollment-customizations"
 
@@ -2923,8 +3448,12 @@ class Pro(RequestBuilder):
         Creates enrollment customization history note with JSON data by ID
 
         :param data:
-            JSON data to create the enrollment customization history note with
+            JSON data to create the enrollment customization history note with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-enrollment-customizations-id-history>`__
         :param id: Enrollment customization ID
+
+        :returns: New enrollment customization history note information in JSON
         """
         endpoint = f"/api/v2/enrollment-customizations/{id}/history"
 
@@ -2935,6 +3464,8 @@ class Pro(RequestBuilder):
         Uploads an enrollment customization image
 
         :param filepath: Filepath to the file to upload
+
+        :returns: New enrollment customization image information in JSON
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -2948,8 +3479,13 @@ class Pro(RequestBuilder):
         """
         Updates an enrollment customization by ID with JSON data
 
-        :param data: JSON data to update enrollment customization with
+        :param data:
+            JSON data to update enrollment customization with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-enrollment-customizations-id>`__
         :param id: Enrollment customization ID
+
+        :returns: Updated enrollment customization information in JSON
         """
         endpoint = f"/api/v2/enrollment-customizations/{id}"
 
@@ -2960,6 +3496,10 @@ class Pro(RequestBuilder):
         Deletes an enrollment customization by ID
 
         :param id: Enrollment customization ID
+
+        :returns:
+            Success message stating that the enrollment customization was
+            deleted
         """
         endpoint = f"/api/v2/enrollment-customizations/{id}"
 
@@ -2977,6 +3517,8 @@ class Pro(RequestBuilder):
         Returns all panels for a single enrollment customization by ID
 
         :param id: Enrollment customization ID
+
+        :returns: All enrollment customization panels in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/all"
 
@@ -2990,6 +3532,8 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: Panel ID
+
+        :returns: Enrollment customization panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/all/{panel_id}"
 
@@ -3003,6 +3547,8 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: LDAP panel ID
+
+        :returns: Enrollment customization LDAP panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/ldap/{panel_id}"
 
@@ -3016,6 +3562,8 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: SSO panel ID
+
+        :returns: Enrollment customization SSO panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/sso/{panel_id}"
 
@@ -3029,6 +3577,8 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: Text panel ID
+
+        :returns: Enrollment customization text panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}"
 
@@ -3043,6 +3593,9 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: SSO panel ID
+
+        :returns:
+            Enrollment customization text panel markdown information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}/markdown"
 
@@ -3052,7 +3605,12 @@ class Pro(RequestBuilder):
         """
         Returns HTML based on provided markdown string in JSON data
 
-        :param data: JSON data with markdown to parse into HTML
+        :param data:
+            JSON data with markdown to parse into HTML. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-enrollment-customization-parse-markdown>`__
+
+        :returns: HTML based on the provided markdown in JSON
         """
         endpoint = "/api/v1/enrollment-customization/parse-markdown"
 
@@ -3067,8 +3625,12 @@ class Pro(RequestBuilder):
         id, only one will be saved.
 
         :param data:
-            JSON data to create enrollment customization LDAP panel with
+            JSON data to create enrollment customization LDAP panel with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-enrollment-customization-id-ldap>`__
         :param id: Enrollment customization ID
+
+        :returns: New enrollment customization LDAP panel in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/ldap"
 
@@ -3082,8 +3644,12 @@ class Pro(RequestBuilder):
         JSON data
 
         :param data:
-            JSON data to create enrollment customization SSO panel with
+            JSON data to create enrollment customization SSO panel with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-enrollment-customization-id-sso>`__
         :param id: Enrollment customization ID
+
+        :returns: New enrollment customization SSO panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/sso"
 
@@ -3097,8 +3663,12 @@ class Pro(RequestBuilder):
         JSON data
 
         :param data:
-            JSON data to create enrollment customization text panel with
+            JSON data to create enrollment customization text panel with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-enrollment-customization-id-text>`__
         :param id: Enrollment customization ID
+
+        :returns: New enrollment customization text panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/text"
 
@@ -3113,9 +3683,14 @@ class Pro(RequestBuilder):
         name and id, only one will be saved.
 
         :param data:
-            JSON data to update enrollment customization LDAP panel with
+            JSON data to update enrollment customization LDAP panel with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-enrollment-customization-id-ldap-panel-id>`__
         :param id: Enrollment customization ID
         :param panel_id: LDAP panel ID
+
+        :returns:
+            Updated enrollment customization LDAP panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/ldap/{panel_id}"
 
@@ -3129,9 +3704,14 @@ class Pro(RequestBuilder):
         with JSON
 
         :param data:
-            JSON data to update enrollment customization SSO panel with
+            JSON data to update enrollment customization SSO panel with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-enrollment-customization-id-sso-panel-id>`__
         :param id: Enrollment customization ID
         :param panel_id: LDAP panel ID
+
+        :returns:
+            Updated enrollment customization SSO panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/sso/{panel_id}"
 
@@ -3145,9 +3725,14 @@ class Pro(RequestBuilder):
         with JSON
 
         :param data:
-            JSON data to update enrollment customization text panel with
+            JSON data to update enrollment customization text panel with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-enrollment-customization-id-text-panel-id>`__
         :param id: Enrollment customization ID
         :param panel_id: Text panel ID
+
+        :returns:
+            Updated enrollment customization text panel information in JSON
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}"
 
@@ -3161,6 +3746,10 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: Panel ID
+
+        :returns:
+            Succcess message stating the enrollment customization panel was
+            deleted
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/all/{panel_id}"
 
@@ -3180,6 +3769,10 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: LDAP panel ID
+
+        :returns:
+            Success message stating the enrollment customization LDAP panel was
+            deleted
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/ldap/{panel_id}"
 
@@ -3199,6 +3792,10 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: SSO panel ID
+
+        :returns:
+            Success message stating the enrollment customization SSO panel was
+            deleted
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/sso/{panel_id}"
 
@@ -3218,6 +3815,10 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param panel_id: Text panel ID
+
+        :returns:
+            Success message stating the enrollment customization text panel was
+            deleted
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/text/{panel_id}"
 
@@ -3238,6 +3839,8 @@ class Pro(RequestBuilder):
         Returns information on on a specified icon by ID
 
         :param id: Icon ID
+
+        :returns: Icon information in JSON
         """
         endpoint = f"/api/v1/icon/{id}"
 
@@ -3259,6 +3862,10 @@ class Pro(RequestBuilder):
         :param scale:
             Request a scale; 0 results in original image, non-0 results in
             scaled to 300
+
+        :returns:
+            Success message stating the icon image was downloaded to the user's
+            Downloads folder
         """
         params = remove_empty_params(
             {
@@ -3275,6 +3882,8 @@ class Pro(RequestBuilder):
         Uploads an icon with the specified local filepath
 
         :param filepath:
+
+        :returns: Uploaded icon image information in JSON
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -3291,6 +3900,8 @@ class Pro(RequestBuilder):
         """
         Returns statistics about managed/unmanaged devices and computers in the
         inventory
+
+        :returns: Inventory information in JSON
         """
         endpoint = "/api/v1/inventory-information"
 
@@ -3330,6 +3941,8 @@ class Pro(RequestBuilder):
             format, allowing ==, !=, >, <, and =in=.
 
             Example: username=="admin"
+
+        :returns: All inventory preloads in JSON
         """
         params = remove_empty_params(
             {
@@ -3348,6 +3961,8 @@ class Pro(RequestBuilder):
         Returns an inventory preload record by ID
 
         :param id: Inventory preload ID
+
+        :returns: Inventory preload information in JSON
         """
         endpoint = f"/api/v2/inventory-preload/records/{id}"
 
@@ -3379,6 +3994,8 @@ class Pro(RequestBuilder):
             format, allowing ==, !=, >, <, and =in=.
 
             Example: username=="admin"
+
+        :returns: Inventory preloads history information in JSON
         """
         params = remove_empty_params(
             {
@@ -3396,6 +4013,8 @@ class Pro(RequestBuilder):
         """
         Returns extension attribute columns currently associated with inventory
         preload records
+
+        :returns: All inventory preloads extension attibutes in JSON
         """
         endpoint = "/api/v2/inventory-preload/ea-columns"
 
@@ -3404,6 +4023,8 @@ class Pro(RequestBuilder):
     def get_inventory_preloads_csv_template(self) -> str:
         """
         Returns the inventory preload CSV file template
+
+        :returns: CSV file template for the iventory preloads
         """
         endpoint = "/api/v2/inventory-preload/csv-template"
 
@@ -3412,6 +4033,8 @@ class Pro(RequestBuilder):
     def get_inventory_preloads_csv(self) -> str:
         """
         Returns the inventory preload records as CSV data
+
+        :returns: CSV data of the inventory preload records
         """
         endpoint = "/api/v2/inventory-preload/csv"
 
@@ -3462,6 +4085,8 @@ class Pro(RequestBuilder):
             format, allowing ==, !=, >, <, and =in=.
 
             Example: username=="admin"
+
+        :returns: CSV export of the inventory preloads
         """
         params = remove_empty_params(
             {
@@ -3482,7 +4107,12 @@ class Pro(RequestBuilder):
         """
         Creates an inventory preload record with JSON
 
-        :param data: JSON data to create inventory preload record with
+        :param data:
+            JSON data to create inventory preload record with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-inventory-preload-records>`__
+
+        :returns: New inventory preload information in JSON
         """
         endpoint = "/api/v2/inventory-preload/records"
 
@@ -3492,7 +4122,12 @@ class Pro(RequestBuilder):
         """
         Creates inventory preload history note
 
-        :param data: JSON data to create inventory preload history note with
+        :param data:
+            JSON data to create inventory preload history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-inventory-preload-history>`__
+
+        :returns: New inventory preloads history note information in JSON
         """
         endpoint = "/api/v2/inventory-preload/history"
 
@@ -3505,6 +4140,8 @@ class Pro(RequestBuilder):
         Pro.get_inventory_preloads_csv_template
 
         :param filepath: Path to CSV file to be validated
+
+        :returns: Whether or not the CSV file was valid in JSON
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -3526,10 +4163,12 @@ class Pro(RequestBuilder):
         are updated in Jamf Pro. Full Name, Email Address, Phone Number,
         Position. This endpoint does not do full validation of each record in
         the CSV data. To do full validation, use the
-        Pro.create_inventory_preloads_csv_validation module first.
+        Pro.create_inventory_preloads_csv_validation method first.
 
         :param filepath:
             Path to the CSV file use for inventory preload creation
+
+        :returns: New inventory preload record information in JSON
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -3542,8 +4181,13 @@ class Pro(RequestBuilder):
         """
         Updates an inventory preload record by ID with JSON
 
-        :param data: JSON data to update inventory preload with
+        :param data:
+            JSON data to update inventory preload with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-inventory-preload-records-id>`__
         :param id: Inventory preload ID
+
+        :returns: Updated inventory preload information in JSON
         """
         endpoint = f"/api/v2/inventory-preload/records/{id}"
 
@@ -3554,6 +4198,9 @@ class Pro(RequestBuilder):
         Deletes an inventory preload record by ID
 
         :param id: Inventory preload ID
+
+        :returns:
+            Success message stating the inventory preload record was deleted
         """
         endpoint = f"/api/v2/inventory-preload/records/{id}"
 
@@ -3564,6 +4211,9 @@ class Pro(RequestBuilder):
     def delete_inventory_preloads_all(self) -> str:
         """
         Deletes all inventory preload records
+
+        :returns:
+            Success message stating all inventory preload records were deleted
         """
         endpoint = "/api/v2/inventory-preload/records/delete-all"
 
@@ -3578,6 +4228,8 @@ class Pro(RequestBuilder):
     def get_jamf_connect_settings(self) -> dict:
         """
         Returns the Jamf Connect settings that you have access to see
+
+        :returns: Jamf connect settings information in JSON
         """
         endpoint = "/api/v1/jamf-connect"
 
@@ -3611,6 +4263,8 @@ class Pro(RequestBuilder):
             param can be combined with paging and sorting.
 
             Example: profileId==1001 and version==""
+
+        :returns: All config profiles linked to Jamf Connect in JSON
         """
         params = remove_empty_params(
             {
@@ -3653,6 +4307,10 @@ class Pro(RequestBuilder):
             param can be combined with paging and sorting.
 
             Example: version==""
+
+        :returns:
+            All deployment tasks for a specific config profile linked to Jamf
+            Connect in JSON
         """
         params = remove_empty_params(
             {
@@ -3693,6 +4351,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Jamf Connect history information in JSON
         """
         endpoint = "/api/v1/jamf-connect/history"
         params = remove_empty_params(
@@ -3708,8 +4368,15 @@ class Pro(RequestBuilder):
         Requests a retry of deployment task(s) of specified Jamf Connect config
         profile by UUID with JSON
 
-        :param data: JSON data to of deployment task ID(s) to retry
+        :param data:
+            JSON data to of deployment task ID(s) to retry. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-jamf-connect-deployments-id-tasks-retry>`__
         :param uuid: Jamf Connect configuration profile UUID
+
+        :returns:
+            Success message stating that the Jamf Connect config profile was
+            asked to retry
         """
         endpoint = f"/api/v1/jamf-connect/deployments/{uuid}/tasks/retry"
 
@@ -3725,7 +4392,12 @@ class Pro(RequestBuilder):
         """
         Creates Jamf Connect history note with JSON
 
-        :param data: JSON data to create Jamf Connect history note with
+        :param data:
+            JSON data to create Jamf Connect history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-jamf-connect-history>`__
+
+        :returns: New Jamf Connect history note information in JSON
         """
         endpoint = "/api/v1/jamf-connect/history"
 
@@ -3736,8 +4408,13 @@ class Pro(RequestBuilder):
         Updates the way the Jamf Connect app gets updated on computers with the
         scope of the specified configuration profile by UUID with JSON
 
-        :param data: JSON data to update Jamf Connect app update method with
+        :param data:
+            JSON data to update Jamf Connect app update method with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-jamf-connect-config-profiles-id>`__
         :param uuid: Jamf Connect config profile UUID
+
+        :returns: Updated Jamf Connect app update method information in JSON
         """
         endpoint = f"/api/v1/jamf-connect/config-profiles/{uuid}"
 
@@ -3752,6 +4429,8 @@ class Pro(RequestBuilder):
         Redeploys the Jamf Management Framework for enrolled computer by ID
 
         :param id: Computer ID
+
+        :returns: Information on the Jamf Management Framework redeploy in JSON
         """
         endpoint = f"/api/v1/jamf-management-framework/redeploy/{id}"
 
@@ -3768,6 +4447,8 @@ class Pro(RequestBuilder):
         :param application:
             The Jamf Application key. The only supported values are protect
             and connect.
+
+        :returns: Jamf package information in JSON
         """
         if application not in ["protect", "connect"]:
             raise ValueError(
@@ -3785,6 +4466,8 @@ class Pro(RequestBuilder):
     def get_jamf_pro_information(self) -> dict:
         """
         Returns basic information about the Jamf Pro Server
+
+        :returns: Jamf Pro information in JSON
         """
         endpoint = "/api/v2/jamf-pro-information"
 
@@ -3798,7 +4481,12 @@ class Pro(RequestBuilder):
         """
         Set up a freshly installed Jamf Pro Server
 
-        :param data: JSON data t set up Jamf Pro Server with
+        :param data:
+            JSON data to set up Jamf Pro Server with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-system-initialize>`__
+
+        :returns: New Jamf Pro Server information in JSON
         """
         endpoint = "/api/v1/system/initialize"
 
@@ -3810,7 +4498,12 @@ class Pro(RequestBuilder):
         database password was not configured and Jamf Pro server has not been
         initialized yet.
 
-        :param data: JSON data to provide the database password with
+        :param data:
+            JSON data to provide the database password with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-system-initialize-database-connection>`__
+
+        :returns: New Jamf Pro Server password information in JSON
         """
         endpoint = "/api/v1/system/initialize-database-connection"
 
@@ -3829,6 +4522,8 @@ class Pro(RequestBuilder):
     def get_jamf_pro_notifications(self) -> dict:
         """
         Returns notifications for user and site
+
+        :returns: All Jamf Pro notifications in JSON
         """
         endpoint = "/api/v1/notifications"
 
@@ -3840,6 +4535,9 @@ class Pro(RequestBuilder):
 
         :param type: Type of the notification
         :param id: Instance ID of the notification
+
+        :returns:
+            Success message stating the Jamf Pro notifications were deleted
         """
         endpoint = f"/api/v1/notifications/{type}/{id}"
 
@@ -3860,7 +4558,9 @@ class Pro(RequestBuilder):
 
     def get_jamf_pro_server_url_settings(self) -> dict:
         """
-        Returns Jamf Pro URL settings
+        Returns Jamf Pro Server URL settings
+
+        :returns: Jamf Pro Server URL settings information in JSON
         """
         endpoint = "/api/v1/jamf-pro-server-url"
 
@@ -3880,6 +4580,8 @@ class Pro(RequestBuilder):
             separated with a comma.
 
             Example: ["date:desc", "note:asc"]
+
+        :returns: Jamf Pro Server URL settings history information in JSON
         """
         params = remove_empty_params(
             {
@@ -3898,7 +4600,12 @@ class Pro(RequestBuilder):
         usable on non-hosted JPS environments.
 
         :param data:
-            JSON data to create Jamf Pro Server URL settings history note with
+            JSON data to create Jamf Pro Server URL settings history note with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-jamf-pro-server-url-history>`__
+
+        :returns:
+            New Jamf Pro Server URL settings history note information in JSON
         """
         endpoint = "/api/v1/jamf-pro-server-url/history"
 
@@ -3909,7 +4616,12 @@ class Pro(RequestBuilder):
         Updates Jamf Pro Server URL settings with JSON. Only usable on
         non-hosted JPS environments.
 
-        :param data: JSON data to update the Jamf Pro Server URL settings with
+        :param data:
+            JSON data to update the Jamf Pro Server URL settings with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-jamf-pro-server-url>`__
+
+        :returns: Updated Jamf Pro Server URL settings information in JSON
         """
         endpoint = "/api/v1/jamf-pro-server-url"
 
@@ -3924,6 +4636,8 @@ class Pro(RequestBuilder):
         Returns the user setting for the authennticated user and key by key ID
 
         :param keyId: User setting to be retrieved
+
+        :returns: Jamf Pro user account settings information in JSON
         """
         endpoint = f"/api/v1/user/preferences/{keyId}"
 
@@ -3933,8 +4647,13 @@ class Pro(RequestBuilder):
         """
         Updates the user setting with JSON by key ID
 
-        :param data: JSON data to update user setting with
+        :param data:
+            JSON data to update user setting with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-user-preferences-keyid>`__
         :param keyId: Unique key of user setting to be updated
+
+        :returns: Updated Jamf Pro user account settings information in JSON
         """
         endpoint = f"/api/v1/user/preferences/{keyId}"
 
@@ -3945,6 +4664,10 @@ class Pro(RequestBuilder):
         Deletes specified setting for the authenticated user by key ID
 
         :param keyID: Unique key of user setting to be deleted
+
+        :returns:
+            Success message stating that the Jamf Pro user account setting was
+            deleted
         """
         endpoint = f"/api/v1/user/preferences/{keyId}"
 
@@ -3967,6 +4690,8 @@ class Pro(RequestBuilder):
         """
         Returns information about the Jamf Pro Server including the current
         version
+
+        :returns: Jamf Pro version information in JSON
         """
         endpoint = "/api/v1/jamf-pro-version"
 
@@ -3979,6 +4704,8 @@ class Pro(RequestBuilder):
     def get_jamf_protect_integration_settings(self) -> dict:
         """
         Returns Jamf Protect integration settings for the Jamf Pro server
+
+        :returns: Jamf protect integration settings information in JSON
         """
         endpoint = "/api/v1/jamf-protect"
 
@@ -4012,6 +4739,9 @@ class Pro(RequestBuilder):
             param can be combined with paging and sorting.
 
             Example: name=="Test"
+
+        :returns:
+            Jamf Protect config profile deployment tasks information in JSON
         """
         params = remove_empty_params(
             {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
@@ -4047,6 +4777,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Jamf Protect history information in JSON
         """
         params = remove_empty_params(
             {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
@@ -4083,6 +4815,8 @@ class Pro(RequestBuilder):
             and sorting.
 
             Example: id==1001
+
+        :returns: All Jamf Protect plans in JSON
         """
         params = remove_empty_params(
             {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
@@ -4097,8 +4831,15 @@ class Pro(RequestBuilder):
         """
         Requests a retry of Jamf Protect install tasks with JSON by UUID
 
-        :param data: JSON data containing the IDs of the tasks to retry
+        :param data:
+            JSON data containing the IDs of the tasks to retry. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-jamf-protect-deployments-id-tasks-retry>`__
         :param uuid: Jamf Protect config profile UUID
+
+        :returns:
+            Jamf Protect config profile deployment tasks retry information in
+            JSON
         """
         endpoint = f"/api/v1/jamf-protect/deployments/{uuid}/tasks/retry"
 
@@ -4108,7 +4849,12 @@ class Pro(RequestBuilder):
         """
         Creates a Jamf Protect history note with JSON
 
-        :param data: JSON data to create the Jamf Protect history note
+        :param data:
+            JSON data to create the Jamf Protect history note. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-jamf-protect-history>`__
+
+        :returns: New Jamf Protect history note information in JSON
         """
         endpoint = "/api/v1/jamf-protect/history"
 
@@ -4118,6 +4864,8 @@ class Pro(RequestBuilder):
         """
         Syncs plans with Jamf Protect. Configuration profiles associated with
         new plans will be imported to Jamf Pro.
+
+        :returns: Jamf Protect plans sync information in JSON
         """
         endpoint = "/api/v1/jamf-protect/plans/sync"
 
@@ -4130,7 +4878,11 @@ class Pro(RequestBuilder):
         Registers a Jamf Protect API configuration with Jamf Pro with JSON
 
         :param data:
-            JSON data to register the Jamf Protect API configuration with
+            JSON data to register the Jamf Protect API configuration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-jamf-protect-register>`__
+
+        :returns: New Jamf Protect API configuration information in JSON
         """
         endpoint = "/api/v1/jamf-protect/register"
 
@@ -4141,7 +4893,11 @@ class Pro(RequestBuilder):
         Updates the Jamf Protect integration settings with JSON
 
         :param data:
-            JSON data to update the Jamf Protect integration settings with
+            JSON data to update the Jamf Protect integration settings with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-jamf-protect>`__
+
+        :returns: Updated Jamf Protect integration settings information in JSON
         """
         endpoint = "/api/v1/jamf-protect"
 
@@ -4151,6 +4907,10 @@ class Pro(RequestBuilder):
         """
         Deletes an existing Jamf Protect API registration if present. Jamf
         Protect API integration will be disabled.
+
+        :returns:
+            Success message stating the Jamf Protect API registration was
+            deleted
         """
         endpoint = "/api/v1/jamf-protect"
 
@@ -4166,6 +4926,8 @@ class Pro(RequestBuilder):
     def get_ldap_servers(self) -> dict:
         """
         Returns all active servers including LDAP and cloud identity providers
+
+        :returns: All active LDAP servers in JSON
         """
         endpoint = "/api/v1/ldap/servers"
 
@@ -4174,6 +4936,8 @@ class Pro(RequestBuilder):
     def get_ldap_local_servers(self) -> dict:
         """
         Returns all not migrated, LDAP servers
+
+        :returns: All local LDAP servers in JSON
         """
         endpoint = "/api/v1/ldap/ldap-servers"
 
@@ -4181,8 +4945,10 @@ class Pro(RequestBuilder):
 
     def get_ldap_group_search(self, search: str) -> dict:
         """
-        Returns the configured acess groups that containt the text in the
+        Returns the configured access groups that contain the text in the
         search param
+
+        :returns: LDAP group search information in JSON
         """
         params = {"q": search}
         endpoint = "/api/v1/ldap/groups"
@@ -4196,6 +4962,8 @@ class Pro(RequestBuilder):
     def get_locales(self) -> dict:
         """
         Returns locales that can be used in other features
+
+        :returns: All locales in JSON
         """
         endpoint = "/api/v1/locales"
 
@@ -4207,7 +4975,9 @@ class Pro(RequestBuilder):
 
     def get_macos_managed_software_updates(self) -> dict:
         """
-        Returns available macOS manages software updates
+        Returns available macOS managed software updates
+
+        :returns: All available macOS managed software updates in JSON
         """
         endpoint = "/api/v1/macos-managed-software-updates/available-updates"
 
@@ -4215,9 +4985,14 @@ class Pro(RequestBuilder):
 
     def create_macos_managed_software_updates(self, data: dict) -> dict:
         """
-        Sends macOS manged software updates
+        Sends macOS managed software updates
 
-        :param data: JSON data to send MacO
+        :param data:
+            JSON data to send macOS managed software updates with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-macos-managed-software-updates-send-updates>`__
+
+        :returns: Sent macOS managed software updates information in JSON
         """
         endpoint = "/api/v1/macos-managed-software-updates/send-updates"
 
@@ -4227,7 +5002,6 @@ class Pro(RequestBuilder):
     mdm
     """
 
-    # Filter needs to be set to something otherwise it will return a 400 error
     def get_mdm_commands(
         self,
         page: int = None,
@@ -4236,7 +5010,8 @@ class Pro(RequestBuilder):
         filter: str = "dateSent>=1970-01-01T00:00:00Z",
     ) -> dict:
         """
-        Returns information about MDM commands made by Jamf Pro
+        Returns information about MDM commands made by Jamf Pro. The filter
+        needs to be set to something otherwise it will return a 400 error.
 
         :param page: Page to return, default page is 0.
         :param page_size: Page size to return Default page-size is 100.
@@ -4250,9 +5025,12 @@ class Pro(RequestBuilder):
             commands. All url must contain minimum one filter field. Fields
             allowed in the query: uuid, clientManagementId, command, status,
             clientType, dateSent, validAfter, dateCompleted, profileIdentifier,
-            and active. This param can be combined with paging.
+            and active. This param can be combined with paging. Filter needs to
+            be set to something otherwise it will return a 400 error.
 
             Example: status==Pending
+
+        :returns: All MDM commands in JSON
         """
         params = remove_empty_params(
             {
@@ -4273,7 +5051,12 @@ class Pro(RequestBuilder):
 
         Create and queue an MDM command with given JSON data
 
-        :param data: JSON data to create the MDM command with
+        :param data:
+            JSON data to create the MDM command with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_preview-mdm-commands>`__
+
+        :returns: New MDM command information in JSON
         """
         endpoint = "/api/preview/mdm/commands"
 
@@ -4284,7 +5067,12 @@ class Pro(RequestBuilder):
         Renews the device's MDM Profile, including the device identity
         certificate within the MDM Profile with JSON data.
 
-        :param data: JSON data to define which profiles to renew
+        :param data:
+            JSON data to define which profiles to renew. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-mdm-renew-profile>`__
+
+        :returns: Renewed MDM profile information in JSON
         """
         endpoint = "/api/v1/mdm/renew-profile"
 
@@ -4295,10 +5083,15 @@ class Pro(RequestBuilder):
         Deploys packages to macOS devices using the
         InstallEnterpriseApplication MDM command.
 
-        :param data: JSON data to deploy package with
+        :param data:
+            JSON data to deploy package with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-deploy-package>`__
         :param verbose:
             Deploys packages to macOS devices using the
             InstallEnterpriseApplication MDM command.
+
+        :returns: Deployed package information in JSON
         """
         params = {"verbose": verbose}
         endpoint = "/api/v1/deploy-package"
@@ -4315,6 +5108,8 @@ class Pro(RequestBuilder):
         folder by ID
 
         :param id: MDM enrollment profile ID
+
+        :returns: Mobile device enrollment profile information in JSON
         """
         endpoint = f"/api/v1/mobile-device-enrollment-profile/{id}/download-profile"
 
@@ -4327,11 +5122,13 @@ class Pro(RequestBuilder):
     def get_mobile_device_extension_attributes(self, select: str = "name") -> dict:
         """
         Returns mobile device extension attribute values placed in select
-        parameter. The only supported select value curently is name.
+        parameter. The only supported select value currently is name.
 
         :param select:
             Extension attribute value to return, the only supported value
             currently is name. Default value is name.
+
+        :returns: Mobile device extension attribute information in JSON
         """
         params = {"select": select}
         endpoint = "/api/devices/extensionAttributes"
@@ -4345,6 +5142,8 @@ class Pro(RequestBuilder):
     def get_mobile_device_groups(self) -> dict:
         """
         Returns all mobile device groups
+
+        :returns: All mobile device groups in JSON
         """
         endpoint = "/api/v1/mobile-device-groups"
 
@@ -4368,6 +5167,8 @@ class Pro(RequestBuilder):
             sort is id:desc.
 
             Example: ["id:asc", "defaultPrestage:desc"]
+
+        :returns: All mobile device prestages in JSON
         """
         params = remove_empty_params(
             {
@@ -4383,6 +5184,8 @@ class Pro(RequestBuilder):
     def get_mobile_device_prestages_scopes(self) -> dict:
         """
         Returns all device scopes for all mobile device prestages
+
+        :returns: All prestage scopes for all mobile devices in JSON
         """
         endpoint = "/api/v2/mobile-device-prestages/scope"
 
@@ -4391,6 +5194,8 @@ class Pro(RequestBuilder):
     def get_mobile_device_prestages_sync_states(self) -> dict:
         """
         Returns all prestage sync states for all prestages
+
+        :returns: All prestage sync states for all prestages in JSON
         """
         endpoint = "/api/v2/mobile-device-prestages/syncs"
 
@@ -4401,6 +5206,8 @@ class Pro(RequestBuilder):
         Returns a mobile device prestage by ID
 
         :param id: Mobile device prestage ID
+
+        :returns: Mobile device prestage information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}"
 
@@ -4411,6 +5218,8 @@ class Pro(RequestBuilder):
         Returns attachments for a mobile device prestage by ID
 
         :param id: Mobile device prestage ID
+
+        :returns: Mobile device prestage attachments information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/attachments"
 
@@ -4435,6 +5244,8 @@ class Pro(RequestBuilder):
             separated with a comma.
 
             Example: ["date:desc", "note:asc"]
+
+        :returns: Mobile deice prestage history information in JSON
         """
         params = remove_empty_params(
             {"page": page, "page-size": page_size, "sort": sort}
@@ -4448,6 +5259,8 @@ class Pro(RequestBuilder):
         Returns device scope for a specific mobile device prestage by ID
 
         :param id: Mobile device prestage ID
+
+        :returns: Mobile device prestage scope infomration in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/scope"
 
@@ -4458,6 +5271,8 @@ class Pro(RequestBuilder):
         Returns all prestage sync states for a single prestage by ID
 
         :param id: Mobile device prestage ID
+
+        :returns: All prestage sync states for the prestage in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/syncs"
 
@@ -4468,6 +5283,8 @@ class Pro(RequestBuilder):
         Returns the latest sync state for a single prestage by ID
 
         :param id: Mobile device prestage ID
+
+        :returns: Latest sync state for the prestage in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/syncs/latest"
 
@@ -4477,7 +5294,12 @@ class Pro(RequestBuilder):
         """
         Creates a mobile device prestage with JSON data
 
-        :param data: JSON data to create mobile device prestage with
+        :param data:
+            JSON data to create mobile device prestage with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-mobile-device-prestages>`__
+
+        :returns: New mobile device prestage information in JSON
         """
         endpoint = "/api/v2/mobile-device-prestages"
 
@@ -4491,6 +5313,9 @@ class Pro(RequestBuilder):
 
         :param filepath: Literal path to file to upload
         :param id: Mobile device prestage ID
+
+        :returns:
+            Uploaded mobile device prestage attachment information in JSON
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -4506,8 +5331,12 @@ class Pro(RequestBuilder):
         Creates a mobile device prestage history note by ID with JSON
 
         :param data:
-            JSON data to create mobile device prestage history note with
+            JSON data to create mobile device prestage history note with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-mobile-device-prestages-id-history>`__
         :param id: Mobile device prestage ID
+
+        :returns: New mobile deivce prestage history note information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/history"
 
@@ -4519,8 +5348,13 @@ class Pro(RequestBuilder):
         """
         Adds device scope for a specific mobile device prestage by ID
 
-        :param data: JSON data to add device scope with
+        :param data:
+            JSON data to add device scope with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-mobile-device-prestages-id-scope>`__
         :param id: Mobile device prestage ID
+
+        :returns: New mobile device prestage scope information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/scope"
 
@@ -4530,8 +5364,13 @@ class Pro(RequestBuilder):
         """
         Updates a mobile device prestage by ID with JSON
 
-        :param data: JSON data to update mobile device prestage with
+        :param data:
+            JSON data to update mobile device prestage with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-mobile-device-prestages-id>`__
         :param id: Mobile device prestage ID
+
+        :returns: Updated mobile device prestage information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}"
 
@@ -4544,8 +5383,13 @@ class Pro(RequestBuilder):
         Replaces device scope for a specific mobiule device prestage by ID with
         JSON
 
-        :param data: JSON data to replace device scope with
+        :param data:
+            JSON data to replace device scope with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-mobile-device-prestages-id-scope>`__
         :param id: Mobile device prestage ID
+
+        :returns: Replaced mobile device prestage scope information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/scope"
 
@@ -4556,6 +5400,9 @@ class Pro(RequestBuilder):
         Deletes a mobile device prestage by ID
 
         :param id: Mobile device prestage ID
+
+        :returns:
+            Success message stating the mobile device prestage was deleted
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}"
 
@@ -4571,8 +5418,14 @@ class Pro(RequestBuilder):
         Deletes mobile device prestage attachment(s) by ID with JSON
 
         :param data:
-            JSON data to delete mobile device prestage attachments with
+            JSON data to delete mobile device prestage attachments with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-mobile-device-prestages-id-attachments-delete-multiple>`__
         :param id: Mobile device prestage ID
+
+        :returns:
+            Success message stating the mobile device prestage attachment was
+            deleted
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/attachments/delete-multiple"
 
@@ -4592,8 +5445,13 @@ class Pro(RequestBuilder):
         Removes device scope for a specific mobile device prestage by ID with
         JSON
 
-        :param data: JSON data to remove device scope with
+        :param data:
+            JSON data to remove device scope with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-mobile-device-prestages-id-scope-delete-multiple>`__
         :param id: Mobile device prestage ID
+
+        :returns: Mobile device prestage scope information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/scope/delete-multiple"
 
@@ -4617,6 +5475,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["id:desc", "name:asc"]
+
+        :returns: All mobile devices in JSON
         """
         params = remove_empty_params(
             {
@@ -4634,6 +5494,8 @@ class Pro(RequestBuilder):
         Returns mobile device with limited details by ID
 
         :param id: Mobile device ID
+
+        :returns: Mobile device information in JSON
         """
         endpoint = f"/api/v2/mobile-devices/{id}"
 
@@ -4644,6 +5506,8 @@ class Pro(RequestBuilder):
         Returns mobile device with all info by ID
 
         :param id: Mobile device ID
+
+        :returns: Detailed mobile device information in JSON
         """
         endpoint = f"/api/v2/mobile-devices/{id}/detail"
 
@@ -4653,8 +5517,13 @@ class Pro(RequestBuilder):
         """
         Updates mobile device by ID with JSON
 
-        :param data: JSON data to update mobile device with
+        :param data:
+            JSON data to update mobile device with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_v2-mobile-devices-id>`__
         :param id: Mobile device ID
+
+        :returns: Updated mobile device information in JSON
         """
         endpoint = f"/api/v2/mobile-devices/{id}"
 
@@ -4667,6 +5536,8 @@ class Pro(RequestBuilder):
     def get_parent_app_settings(self) -> dict:
         """
         Returns the current Jamf Parent app settings
+
+        :returns: Jamf Parent app settings information in JSON
         """
         endpoint = "/api/v1/parent-app"
 
@@ -4680,7 +5551,7 @@ class Pro(RequestBuilder):
         filter: str = None,
     ) -> dict:
         """
-        Returns Jamf Paret app settings history
+        Returns Jamf Parent app settings history
 
         :param page: Page to return, default page is 0.
         :param page_size: Page size to return Default page-size is 100.
@@ -4699,6 +5570,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Jamf Parent app settings history information in JSON
         """
         params = remove_empty_params(
             {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
@@ -4712,7 +5585,11 @@ class Pro(RequestBuilder):
         Creates a Jamf Parent app settings history note with JSON
 
         :param data:
-            JSON data to create the jamf parent app settings history note with
+            JSON data to create the jamf parent app settings history note with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-parent-app-history>`__
+
+        :returns: New Jamf Parent app settings history note information in JSON
         """
         endpoint = "/api/v1/parent-app/history"
 
@@ -4722,7 +5599,12 @@ class Pro(RequestBuilder):
         """
         Updates Jamf Parent app settings with JSON
 
-        :param data: JSON data to udpate Jamf Parent app settings with
+        :param data:
+            JSON data to udpate Jamf Parent app settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-parent-app>`__
+
+        :returns: Updated Jamf Parent app settings information in JSON
         """
         endpoint = "/api/v1/parent-app"
 
@@ -4738,6 +5620,9 @@ class Pro(RequestBuilder):
         by ID
 
         :param id: Patch policy ID
+
+        :returns:
+            Whether or no the request patch policy is on the dashboard in JSON
         """
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
@@ -4748,6 +5633,8 @@ class Pro(RequestBuilder):
         Adds a patch policy to the dashboard by ID
 
         :param id: Patch policy ID
+
+        :returns: New patch policy on the dashboard information in JSON
         """
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
@@ -4758,6 +5645,10 @@ class Pro(RequestBuilder):
         Removes a patch policy from the dashboard by ID
 
         :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the patch policy was removed from the
+            dashboard
         """
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
@@ -4784,6 +5675,8 @@ class Pro(RequestBuilder):
     def get_patch_dashboards(self) -> dict:
         """
         Returns list of patch IDs on dashboard
+
+        :returns: All patch IDs on the dashboard in JSON
         """
         endpoint = "/api/patch/onDashboard"
 
@@ -4794,6 +5687,8 @@ class Pro(RequestBuilder):
         Returns patch policy summary by ID
 
         :param id: Patch policy ID
+
+        :returns: Patch policy summary in JSON
         """
         endpoint = f"/api/patch/objs/policy/{id}"
 
@@ -4805,6 +5700,8 @@ class Pro(RequestBuilder):
         ID
 
         :param id: Software title ID
+
+        :returns: Patch policies summaries for the software title in JSON
         """
         endpoint = f"/api/patch/obj/softwareTitle/{id}/policies"
 
@@ -4816,6 +5713,8 @@ class Pro(RequestBuilder):
         by ID
 
         :param ID: Policy ID
+
+        :returns: Software title configuration for the patch policy in JSON
         """
         endpoint = f"/api/patch/obj/policy/{id}/softwareTitleConfigurationId"
 
@@ -4824,6 +5723,9 @@ class Pro(RequestBuilder):
     def create_patch_disclaimer_accept(self) -> str:
         """
         Accepts patch reporting disclaimer
+
+        :returns:
+            Success message stating the patch reporting disclaimer was accepted
         """
         endpoint = "/api/patch/disclaimerAgree"
 
@@ -4835,8 +5737,13 @@ class Pro(RequestBuilder):
         """
         Updates patch report by ID with JSON
 
-        :param data: JSON data to update patch report with
+        :param data:
+            JSON data to update patch report with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_patch-obj-id>`__
         :param id: Patch ID
+
+        :returns: Updated patch report information in JSON
         """
         endpoint = f"/api/patch/obj/{id}"
 
@@ -4849,6 +5756,8 @@ class Pro(RequestBuilder):
     def get_policy_properties(self) -> dict:
         """
         Returns policy properties
+
+        :returns: All policy properties in JSON
         """
         endpoint = "/api/v1/policy-properties"
 
@@ -4858,7 +5767,12 @@ class Pro(RequestBuilder):
         """
         Updates policy properties with JSON
 
-        :param data: JSON data to update policy properties with
+        :param data:
+            JSON data to update policy properties with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-policy-properties>`__
+
+        :returns: Updated policy properties information in JSON
         """
         endpoint = "/api/v1/policy-properties"
 
@@ -4871,6 +5785,8 @@ class Pro(RequestBuilder):
     def get_reenrollment_settings(self) -> dict:
         """
         Returns re-enrollment settings
+
+        :returns: Re-enrollment settings information in JSON
         """
         endpoint = "/api/v1/reenrollment"
 
@@ -4890,6 +5806,8 @@ class Pro(RequestBuilder):
             separated with a comma.
 
             Example: ["date:desc", "note:asc"]
+
+        :returns: Re-enrollment history information in JSON
         """
         params = remove_empty_params(
             {
@@ -4948,6 +5866,8 @@ class Pro(RequestBuilder):
             This param can be combined with paging and sorting.
 
             Example: username=="exampleuser"
+
+        :returns: CSV export of re-enrollment history information
         """
         params = remove_empty_params(
             {
@@ -4968,7 +5888,12 @@ class Pro(RequestBuilder):
         """
         Adds specified re-enrollment history note with JSON
 
-        :param data: JSON data to create re-enrollment history note with
+        :param data:
+            JSON data to create re-enrollment history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-reenrollment-history>`__
+
+        :returns: New re-enrollment history note information in JSON
         """
         endpoint = "/api/v1/reenrollment/history"
 
@@ -4978,7 +5903,12 @@ class Pro(RequestBuilder):
         """
         Updates the re-enrollment settings
 
-        :param data: JSON data to update re-enrollment settings with
+        :param data:
+            JSON data to update re-enrollment settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-reenrollment>`__
+
+        :returns: Updated re-enrollment settings information in JSON
         """
         endpoint = "/api/v1/reenrollment"
 
@@ -4999,6 +5929,8 @@ class Pro(RequestBuilder):
 
         :param page: Page to return, default page is 0.
         :param page_size: Page size to return Default page-size is 100.
+
+        :returns: All remote administration configurations in JSON
         """
         params = remove_empty_params(
             {
@@ -5044,6 +5976,8 @@ class Pro(RequestBuilder):
             paging and sorting.
 
             Example: categoryName=="Category" and name=="script name"
+
+        :returns: All scripts in JSON
         """
         params = remove_empty_params(
             {
@@ -5062,6 +5996,8 @@ class Pro(RequestBuilder):
         Returns script by ID
 
         :param id: Script ID
+
+        :returns: Script information in JSON
         """
         endpoint = f"/api/v1/scripts/{id}"
 
@@ -5096,6 +6032,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Script history information in JSON
         """
         params = remove_empty_params(
             {
@@ -5116,6 +6054,10 @@ class Pro(RequestBuilder):
         Downloads a text file of the script contents by ID
 
         :param id: Script ID
+
+        :returns:
+            Success message stating that the script file was successfully
+            downloaded to the user's Downloads folder
         """
         endpoint = f"/api/v1/scripts/{id}/download"
 
@@ -5125,7 +6067,12 @@ class Pro(RequestBuilder):
         """
         Creates a script with JSON
 
-        :param data: JSON data to create script with
+        :param data:
+            JSON data to create script with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-scripts>`__
+
+        :returns: New script information in JSON
         """
         endpoint = "/api/v1/scripts"
 
@@ -5135,8 +6082,13 @@ class Pro(RequestBuilder):
         """
         Creates specified script history note by ID with JSON
 
-        :param data: JSON data to create the script history note with
+        :param data:
+            JSON data to create the script history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-scripts-id-history>`__
         :param id: Script ID
+
+        :returns: New script history note information in JSON
         """
         endpoint = f"/api/v1/scripts/{id}/history"
 
@@ -5146,8 +6098,13 @@ class Pro(RequestBuilder):
         """
         Updates the script with ID by JSON
 
-        :param data: JSON data to update script with
+        :param data:
+            JSON data to update script with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-scripts-id>`__
         :param id: Script ID
+
+        :returns: Updated script information in JSON
         """
         endpoint = f"/api/v1/scripts/{id}"
 
@@ -5158,6 +6115,8 @@ class Pro(RequestBuilder):
         Deletes a script by ID
 
         :param id: Script ID
+
+        :returns: Success message stating the script was deleted
         """
         endpoint = f"/api/v1/scripts/{id}"
 
@@ -5171,7 +6130,9 @@ class Pro(RequestBuilder):
 
     def get_self_service_settings(self) -> dict:
         """
-        Returns the self service settings of the Jamf Pro server
+        Returns the Self Service settings of the Jamf Pro server
+
+        :returns: Self Service settings information in JSON
         """
         endpoint = "/api/v1/self-service/settings"
 
@@ -5179,9 +6140,14 @@ class Pro(RequestBuilder):
 
     def update_self_service_settings(self, data: dict) -> dict:
         """
-        Updates the self service settings with JSON
+        Updates the Self Service settings with JSON
 
-        :param data: JSON data to update self service settings with
+        :param data:
+            JSON data to update Self Service settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-self-service-settings>`__
+
+        :returns: Updated Self Service settings information in JSON
         """
         endpoint = "/api/v1/self-service/settings"
 
@@ -5195,7 +6161,7 @@ class Pro(RequestBuilder):
         self, page: int = None, page_size: int = None, sort: List[str] = ["id:asc"]
     ) -> dict:
         """
-        Returns paged and sorted Self Service branding configuration for iOS
+        Returns paged and sorted Self Service branding configurations for iOS
 
         :param page: Page to return, default page is 0.
         :param page_size: Page size to return Default page-size is 100.
@@ -5205,6 +6171,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["id:desc", "brandingName:asc"]
+
+        :returns: All Self Service branding configurations for iOS in JSON
         """
         params = remove_empty_params(
             {
@@ -5222,6 +6190,8 @@ class Pro(RequestBuilder):
         Returns iOS Self Service branding configuration by ID
 
         :param id: iOS Self Service branding configuration ID
+
+        :returns: Self Service branding configuration for iOS in JSON
         """
         endpoint = f"/api/v1/self-service/branding/ios/{id}"
 
@@ -5232,7 +6202,11 @@ class Pro(RequestBuilder):
         Creates iOS Self Service branding configuration with JSON
 
         :param data:
-            JSON data to create iOS Self Service branding configuration with
+            JSON data to create iOS Self Service branding configuration with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-self-service-branding-ios>`__
+
+        :returns: New Self Service branding configuration for iOS in JSON
         """
         endpoint = "/api/v1/self-service/branding/ios"
 
@@ -5245,8 +6219,12 @@ class Pro(RequestBuilder):
         Updates iOS Self Service branding configuration with JSON by ID
 
         :param data:
-            JSON data to update iOS Self Service branding configuration with
+            JSON data to update iOS Self Service branding configuration with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-self-service-branding-ios-id>`__
         :param id: iOS Self Service branding configuration ID
+
+        :returns: Updated Self Service branding configuration for iOS in JSON
         """
         endpoint = f"/api/v1/self-service/branding/ios/{id}"
 
@@ -5259,6 +6237,10 @@ class Pro(RequestBuilder):
         Deletes iOS Self Service branding configuration by ID
 
         :param id: iOS Self Service branding configuration by ID
+
+        :returns:
+            Success message stating the Self Service branding configuration for
+            iOS was deleted
         """
         endpoint = f"/api/v1/self-service/branding/ios/{id}"
 
@@ -5287,6 +6269,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["id:desc", "brandingName:asc"]
+
+        :returns: All Self Service branding configurations for macOS in JSON
         """
         params = remove_empty_params(
             {
@@ -5306,6 +6290,8 @@ class Pro(RequestBuilder):
         Returns macOS Self Service branding configuration by ID
 
         :param id: macOS Self Service branding configuration ID
+
+        :returns: Self Service branding configuration for macOS in JSON
         """
         endpoint = f"/api/v1/self-service/branding/macos/{id}"
 
@@ -5316,7 +6302,11 @@ class Pro(RequestBuilder):
         Creates macOS Self Service branding configuration with JSON
 
         :param data:
-            JSON data to create macOS Self Service branding configuration with
+            JSON data to create macOS Self Service branding configuration with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-self-service-branding-macos>`__
+
+        :returns: New Self Service branding configuration for macOS in JSON
         """
         endpoint = "/api/v1/self-service/branding/macos"
 
@@ -5329,8 +6319,12 @@ class Pro(RequestBuilder):
         Updates macOS Self Service branding configuration with JSON by ID
 
         :param data:
-            JSON data to update macOS Self Service branding configuration with
+            JSON data to update macOS Self Service branding configuration with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-self-service-branding-macos-id>`__
         :param id: macOS Self Service branding configuration ID
+
+        :returns: Updated Self Service branding configuration for macOS in JSON
         """
         endpoint = f"/api/v1/self-service/branding/macos/{id}"
 
@@ -5343,6 +6337,10 @@ class Pro(RequestBuilder):
         Deletes macOS Self Service branding configuration by ID
 
         :param id: macOS Self Service branding configuration by ID
+
+        :returns:
+            Success emssage stating the Self Service branding configuration for
+            macOS was deleted
         """
         endpoint = f"/api/v1/self-service/branding/macos/{id}"
 
@@ -5363,6 +6361,8 @@ class Pro(RequestBuilder):
 
         :param filepath: Literal path to file to upload
         :param id: Self Service branding ID
+
+        :returns: Uploaded Self Service branding image information in JSON
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -5378,6 +6378,8 @@ class Pro(RequestBuilder):
     def get_sites(self) -> dict:
         """
         Returns all sites
+
+        :returns: All sites in JSON
         """
         endpoint = "/api/v1/sites"
 
@@ -5401,6 +6403,8 @@ class Pro(RequestBuilder):
         count of smart groups the computer falls into by ID
 
         :param id: Computer ID
+
+        :returns: Count of smart groups the computer falls into in JSON
         """
         endpoint = f"/api/v1/computers/{id}/recalculate-smart-groups"
 
@@ -5414,6 +6418,8 @@ class Pro(RequestBuilder):
         count of the computers in the smart group
 
         :param id: Smart computer group ID
+
+        :returns: Count fo the computer in the smart group in JSON
         """
         endpoint = f"/api/v1/smart-computer-groups/{id}/recalculate"
 
@@ -5431,6 +6437,8 @@ class Pro(RequestBuilder):
         the count of smart groups the device falls into by ID
 
         :param id: Mobile device ID
+
+        :returns: Count of smart groups the device falls into in JSON
         """
         endpoint = f"/api/v1/mobile-devices/{id}/recalculate-smart-groups"
 
@@ -5444,6 +6452,8 @@ class Pro(RequestBuilder):
         count of the mobile devices in the smart group
 
         :param id: Smart mobile device group ID
+
+        :returns: Count of the mobile devices in the smart group in JSON
         """
         endpoint = f"/api/v1/smart-mobile-device-groups/{id}/recalculate"
 
@@ -5459,6 +6469,8 @@ class Pro(RequestBuilder):
         of smart groups the user falls into by ID
 
         :param id: User ID
+
+        :returns: Count fo the smart groups the user falls into in JSON
         """
         endpoint = f"/api/v1/users/{id}/recalculate-smart-groups"
 
@@ -5470,6 +6482,8 @@ class Pro(RequestBuilder):
         count of the users in the smart group
 
         :param id: Smart user group ID
+
+        :returns: Count of the users in the smart group in JSON
         """
         endpoint = f"/api/v1/smart-user-groups/{id}/recalculate"
 
@@ -5482,6 +6496,8 @@ class Pro(RequestBuilder):
     def get_sso_certificate(self) -> dict:
         """
         Returns the certificate currently configured for use with SSO
+
+        :returns: SSO certificate information in JSON
         """
         endpoint = "/api/v2/sso/cert"
 
@@ -5491,6 +6507,10 @@ class Pro(RequestBuilder):
         """
         Downloads the certificate currently configured for use with Jamf Pro's
         SSO configuration
+
+        :returns:
+            Success message stating the SSO certificate file was downloaded to
+            the user's Downloads folder
         """
         endpoint = "/api/v2/sso/cert/download"
 
@@ -5500,6 +6520,8 @@ class Pro(RequestBuilder):
         """
         Generates a new certificate and use it to sign SSO requests to the
         identity provider
+
+        :returns: New SSO certificate information in JSON
         """
         endpoint = "/api/v2/sso/cert"
 
@@ -5510,7 +6532,12 @@ class Pro(RequestBuilder):
         Parses the certificate to get details about certificate type and keys
         needed to upload certificate file with JSON
 
-        :param data: JSON data to parse certificate with
+        :param data:
+            JSON data to parse certificate with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-sso-cert-parse>`__
+
+        :returns: Results of the parsing of the SSO certificate in JSON
         """
         endpoint = "/api/v2/sso/cert/parse"
 
@@ -5521,7 +6548,12 @@ class Pro(RequestBuilder):
         Updates the certificate used by Jamf Pro to sign SSO requests to the
         identify provider with JSON
 
-        :param data: JSON data to update SSO certificate with
+        :param data:
+            JSON data to update SSO certificate with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-sso-cert>`__
+
+        :returns: Updated SSO certificate information in JSON
         """
         endpoint = "/api/v2/sso/cert"
 
@@ -5530,6 +6562,10 @@ class Pro(RequestBuilder):
     def delete_sso_certificate(self) -> str:
         """
         Deletes the currently configured certificate used by SSO
+
+        :returns:
+            Success message stating the SSO certificate was successfully
+            deleted
         """
         endpoint = "/api/v2/sso/cert"
 
@@ -5550,6 +6586,8 @@ class Pro(RequestBuilder):
     def get_sso_settings(self) -> dict:
         """
         Returns the current SSO configuration settings
+
+        :returns: SSO settings in JSON
         """
         endpoint = "/api/v1/sso"
 
@@ -5558,6 +6596,8 @@ class Pro(RequestBuilder):
     def get_sso_settings_enrollment_customizations(self) -> dict:
         """
         Returns the list of enrollment customizations using SSO
+
+        :returns: Enrollment customization using SSO in JSON
         """
         endpoint = "/api/v1/sso/dependencies"
 
@@ -5590,6 +6630,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: SSO settings history information in JSON
         """
         params = remove_empty_params(
             {
@@ -5605,8 +6647,12 @@ class Pro(RequestBuilder):
 
     def get_sso_settings_saml_metadata_file(self) -> str:
         """
-        Downloads the Jamf Pro SAML metadata file to the current users
-        downloads folder
+        Downloads the Jamf Pro SAML metadata file to the current user's
+        Downloads folder
+
+        :returns:
+            Success message stating the SAML metadata file was downloaded to
+            the user's Downloads folder
         """
         endpoint = "/api/v1/sso/metadata/download"
 
@@ -5615,6 +6661,8 @@ class Pro(RequestBuilder):
     def create_sso_settings_disable(self) -> str:
         """
         Disables SSO for the Jamf Pro Server
+
+        :returns: Disabled SSO information in JSON
         """
         endpoint = "/api/v1/sso/disable"
 
@@ -5624,7 +6672,12 @@ class Pro(RequestBuilder):
         """
         Creates SSO history note with JSON
 
-        :param data: JSON data to create SSO history note with
+        :param data:
+            JSON data to create SSO history note with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-sso-history>`__
+
+        :returns: New SSO settings history note information in JSON
         """
         endpoint = "/api/v1/sso/history"
 
@@ -5632,9 +6685,14 @@ class Pro(RequestBuilder):
 
     def create_sso_settings_validate_saml_metadata_url(self, data: dict) -> str:
         """
-        Validates content available udner provided metadata URL with JSON
+        Validates content available under provided metadata URL with JSON
 
-        :param data: JSON data to validate
+        :param data:
+            JSON data to validate. For syntax information view `Jamf's
+            documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-sso-validate>`__
+
+        :returns: Success message stating the metadata URL is valid
         """
         endpoint = "/api/v1/sso/validate"
 
@@ -5644,7 +6702,12 @@ class Pro(RequestBuilder):
         """
         Updates the current SSSO configuration settings
 
-        :param data: JSON data to update the SSO settings with
+        :param data:
+            JSON data to update the SSO settings with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-sso>`__
+
+        :returns: Updated SSO settings information in JSON
         """
         endpoint = "/api/v1/sso"
 
@@ -5659,6 +6722,8 @@ class Pro(RequestBuilder):
         Returns information about application startup. Current startup
         operation taking place (if any) and overall startup completion
         percentage.
+
+        :returns: Startup status information in JSON
         """
         endpoint = "/api/startup-status"
 
@@ -5671,6 +6736,8 @@ class Pro(RequestBuilder):
     def get_static_user_groups(self) -> List:
         """
         Returns all static user groups
+
+        :returns: All static user groups in JSON
         """
         endpoint = "/api/v1/static-user-groups"
 
@@ -5681,6 +6748,8 @@ class Pro(RequestBuilder):
         Returns a static user group by ID
 
         :param id: Static user group ID
+
+        :returns: Static user group information in JSON
         """
         endpoint = f"/api/v1/static-user-groups/{id}"
 
@@ -5704,6 +6773,8 @@ class Pro(RequestBuilder):
             with a comma.
 
             Example: ["id:desc", "commonName:asc"]
+
+        :returns: All supervision identities in JSON
         """
         params = remove_empty_params(
             {
@@ -5721,6 +6792,8 @@ class Pro(RequestBuilder):
         Returns a supervision identity by ID
 
         :param id: Supervision identity ID
+
+        :returns: Supervision identity information in JSON
         """
         endpoint = f"/api/v1/supervision-identities/{id}"
 
@@ -5731,6 +6804,10 @@ class Pro(RequestBuilder):
         Downloads the supervision identity .p12 file by ID
 
         :param id: Supervision identity ID
+
+        :returns:
+            Success message stating the supervision identity p12 file was
+            downloaded to the user's Downloads folder
         """
         endpoint = f"/api/v1/supervision-identities/{id}/download"
 
@@ -5740,7 +6817,12 @@ class Pro(RequestBuilder):
         """
         Creates a supervision identity with JSON
 
-        :param data: JSON data to create supervision identity with
+        :param data:
+            JSON data to create supervision identity with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-supervision-identities>`__
+
+        :returns: New supervision identity information in JSON
         """
         endpoint = "/api/v1/supervision-identities"
 
@@ -5750,7 +6832,12 @@ class Pro(RequestBuilder):
         """
         Creates the superivision identity .p12 file with JSON
 
-        :param data: JSON data to create supervision identity p12 file with
+        :param data:
+            JSON data to create supervision identity p12 file with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-supervision-identities-upload>`__
+
+        :returns: New supervision identity file information in JSON
         """
         endpoint = "/api/v1/supervision-identities/upload"
 
@@ -5760,8 +6847,13 @@ class Pro(RequestBuilder):
         """
         Updates a supervision identity by ID with JSON
 
-        :param data: JSON data to update supervision identity with
+        :param data:
+            JSON data to update supervision identity with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-supervision-identities-id>`__
         :param id: Supervision identity ID
+
+        :returns: Updated supervision identity information in JSON
         """
         endpoint = f"/api/v1/supervision-identities/{id}"
 
@@ -5772,6 +6864,9 @@ class Pro(RequestBuilder):
         Deletes a supervision identity by ID
 
         :param id: Supervision identity ID
+
+        :returns:
+            Success message stating that the supervision identity was deleted
         """
         endpoint = f"/api/v1/supervision-identities/{id}"
 
@@ -5786,6 +6881,8 @@ class Pro(RequestBuilder):
     def get_teacher_app_settings(self):
         """
         Returns the Jamf Teacher settings that the user has access to see
+
+        :returns: Teacher app settings information in JSON
         """
         endpoint = "/api/v1/teacher-app"
 
@@ -5818,6 +6915,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Teacher app history information in JSON
         """
         params = remove_empty_params(
             {
@@ -5836,7 +6935,11 @@ class Pro(RequestBuilder):
         Creates a Jamf Teacher app settings history note with JSON
 
         :param data:
-            JSON data to create Jamf Teacher app settings history note with
+            JSON data to create Jamf Teacher app settings history note with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-teacher-app-history>`__
+
+        :returns: New teacher app history note information in JSON
         """
         endpoint = "/api/v1/teacher-app/history"
 
@@ -5846,7 +6949,12 @@ class Pro(RequestBuilder):
         """
         Updates Jamf Teacher app settings with JSON
 
-        :param data: JSON data to update Jamf Teacher app settings with
+        :param data:
+            JSON data to update Jamf Teacher app settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-teacher-app>`__
+
+        :returns: Updated teacher app settings information in JSON
         """
         endpoint = "/api/v1/teacher-app"
 
@@ -5867,6 +6975,10 @@ class Pro(RequestBuilder):
         ID
 
         :param id: Team Viewer connection configuration ID
+
+        :returns:
+            Team Viewer remote administration connection configuration
+            information in JSON
         """
         endpoint = f"/api/preview/remote-administration-configurations/team-viewer/{id}"
 
@@ -5896,6 +7008,8 @@ class Pro(RequestBuilder):
             Fields allowed in the query: deviceId, deviceType, state
 
             Example: deviceId==1 and deviceType=="COMPUTER" and state=="OPEN"
+
+        :returns: Team Viewer remote administration sessions in JSON
         """
         params = remove_empty_params(
             {
@@ -5918,10 +7032,12 @@ class Pro(RequestBuilder):
         PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
         ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
 
-        Returns session details if found by ID
+        Returns session details by session ID
 
         :param configuration_id: Team Viewer connection configuration ID
         :param session_id: Team Viewer session ID
+
+        :returns: Team Viewer remote administration session information in JSON
         """
         endpoint = (
             "/api/preview/remote-administration-configurations/team-viewer/"
@@ -5941,6 +7057,10 @@ class Pro(RequestBuilder):
 
         :param configuration_id: Team Viewer connection configuration ID
         :param session_id: Team Viewer session ID
+
+        :returns:
+            Team Viewer remote administration session status information in
+            JSON
         """
         endpoint = (
             "/api/preview/remote-administration-configurations/team-viewer/"
@@ -5959,6 +7079,10 @@ class Pro(RequestBuilder):
         Returns Team Viewer remote administration connection status by ID
 
         :param id: Team Viewer connection configuration ID
+
+        :returns:
+            Team Viewer remote administration connection status information in
+            JSON
         """
         endpoint = (
             f"/api/preview/remote-administration-configurations/team-viewer/{id}/status"
@@ -5977,7 +7101,13 @@ class Pro(RequestBuilder):
         JSON
 
         :param data:
-            JSON data to create Team Viewer connection configuration with
+            JSON data to create Team Viewer connection configuration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_preview-remote-administration-configurations-team-viewer>`__
+
+        :returns:
+            New Team Viewer remote administration connection configuration
+            information in JSON
         """
         endpoint = "/api/preview/remote-administration-configurations/team-viewer"
 
@@ -5993,8 +7123,14 @@ class Pro(RequestBuilder):
         Creates a new Team Viewer session to be used to establish a remote
         connection
 
-        :param data: JSON data to create Team Viewer session with
+        :param data:
+            JSON data to create Team Viewer session with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_preview-remote-administration-configurations-team-viewer-configurationid-sessions>`__
         :param configuration_id: Team Viewer connection configuration ID
+
+        :returns:
+            New Team Viewer remote administration session information in JSON
         """
         endpoint = (
             "/api/preview/remote-administration-configurations/team-viewer/"
@@ -6015,6 +7151,10 @@ class Pro(RequestBuilder):
 
         :param configuration_id: Team Viewer connection configuration ID
         :param session_id: Team Viewer session ID
+
+        :returns:
+            Resent Team Viewer remote administration session notification
+            information in JSON
         """
         endpoint = (
             "/api/preview/remote-administration-configurations/team-viewer/"
@@ -6042,8 +7182,14 @@ class Pro(RequestBuilder):
         ID with JSON
 
         :param data:
-            JSON data to update Team Viewer connection configuration with
+            JSON data to update Team Viewer connection configuration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_preview-remote-administration-configurations-team-viewer-id>`__
         :param id: Team Viewer connection configuration ID
+
+        :returns:
+            Updated Team Viewer remote administration connection configuration
+            information in JSON
         """
         endpoint = f"/api/preview/remote-administration-configurations/team-viewer/{id}"
 
@@ -6060,6 +7206,10 @@ class Pro(RequestBuilder):
         ID
 
         :param id: Team Viewer connection configuration ID
+
+        :returns:
+            Success message stating that the Team Viewer remote administration
+            connection configuration in JSON
         """
         endpoint = f"/api/preview/remote-administration-configurations/team-viewer/{id}"
 
@@ -6081,6 +7231,10 @@ class Pro(RequestBuilder):
 
         :param configuration_id: Team Viewer connection configuration ID
         :param session_id: Team Viewer session ID
+
+        :returns:
+            Success message stating the Team Viewer remote administration
+            session was closed
         """
         endpoint = (
             "/api/preview/remote-administration-configurations/team-viewer/"
@@ -6104,6 +7258,8 @@ class Pro(RequestBuilder):
     def get_time_zones(self) -> dict:
         """
         Returns information about the currently supported time zones
+
+        :returns: All time zones in JSON
         """
         endpoint = "/api/v1/time-zones"
 
@@ -6116,6 +7272,8 @@ class Pro(RequestBuilder):
     def create_tomcat_settings_ssl_certificate(self) -> str:
         """
         Generates a SSL certificate using Jamf Certificate Authority
+
+        :returns: Success message stating that the SSL certificate was created
         """
         endpoint = "/api/settings/issueTomcatSslCertificate"
 
@@ -6130,6 +7288,8 @@ class Pro(RequestBuilder):
     def get_user_session_accounts(self) -> dict:
         """
         Returns all Jamf Pro user accounts
+
+        :returns: All Jamf Pro user accounts in JSON
         """
         endpoint = "/api/user"
 
@@ -6139,7 +7299,12 @@ class Pro(RequestBuilder):
         """
         Updates values in the user's current session with JSON
 
-        :param data: JSON data to udpate user's current session values with
+        :param data:
+            JSON data to udpate user's current session values with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_user-updatesession>`__
+
+        :returns: Updated user session information in JSON
         """
         endpoint = "/api/user/updateSession"
 
@@ -6154,6 +7319,8 @@ class Pro(RequestBuilder):
         Returns a Venafi PKI configuration from Jamf Pro by ID
 
         :param id: Venafi configuration ID
+
+        :returns: Venafi configuration information in JSON
         """
         endpoint = f"/api/v1/pki/venafi/{id}"
 
@@ -6165,6 +7332,8 @@ class Pro(RequestBuilder):
         by ID
 
         :param id : Venafi configuration ID
+
+        :returns: Results of the Venafi connection status test in JSON
         """
         endpoint = f"/api/v1/pki/venafi/{id}/connection-status"
 
@@ -6175,6 +7344,8 @@ class Pro(RequestBuilder):
         Returns configuration profile data connected with the Venafi CA by ID
 
         :param id: Venafi configuration ID
+
+        :returns: Venafi dependant configuration profiles information in JSON
         """
         endpoint = f"/api/v1/pki/venafi/{id}/dependent-profiles"
 
@@ -6209,6 +7380,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Venafi configuration history information in JSON
         """
         params = remove_empty_params(
             {
@@ -6229,6 +7402,10 @@ class Pro(RequestBuilder):
         Proxy Server to the current user's Downloads folder by ID
 
         :param id: Venafi configuration ID
+
+        :returns:
+            Success message stating that the public key was downloaded to the
+            user's Downloads folder
         """
         endpoint = f"/api/v1/pki/venafi/{id}/jamf-public-key"
 
@@ -6241,6 +7418,10 @@ class Pro(RequestBuilder):
         to the current user's Downloads folder by ID
 
         :param id: Venafi configuration iD
+
+        :returns:
+            Success message stating that the public key was downloaded to the
+            user's Downloads folder
         """
         endpoint = f"/api/v1/pki/venafi/{id}/proxy-trust-store"
 
@@ -6250,7 +7431,12 @@ class Pro(RequestBuilder):
         """
         Creates a Venafi PKI configuration in Jamf Pro with JSON
 
-        :param data: JSON data to create Venafi configuration with
+        :param data:
+            JSON data to create Venafi configuration with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-pki-venafi>`__
+
+        :returns: New Venafi PKI configuration information in JSON
         """
         endpoint = "/api/v1/pki/venafi"
 
@@ -6262,8 +7448,13 @@ class Pro(RequestBuilder):
         """
         Creates Venafi configuration history note by ID with JSON
 
-        :param data: JSON data to create Venafi configuration history note with
+        :param data:
+            JSON data to create Venafi configuration history note with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-pki-venafi-id-history>`__
         :param id: Venafi configuration ID
+
+        :returns: New Venafi configuration history note information in JSON
         """
         endpoint = f"/api/v1/pki/venafi/{id}/history"
 
@@ -6276,6 +7467,8 @@ class Pro(RequestBuilder):
         Proxy Server by ID
 
         :param id: Venafi configuration ID
+
+        :returns: Success message stating that the public key was regenerated
         """
         endpoint = f"/api/v1/pki/venafi/{id}/jamf-public-key/regenerate"
 
@@ -6296,6 +7489,10 @@ class Pro(RequestBuilder):
 
         :param filepath: Literal path to file to upload
         :param id: Venafi configuration ID
+
+        :returns:
+            Success message stating that the Venafi PKI proxy server public key
+            was uploaded
         """
         filename = basename(filepath)
         content_type = guess_type(filename.lower())[0]
@@ -6316,8 +7513,13 @@ class Pro(RequestBuilder):
         """
         Updates a Venafi PKI configuration in Jamf Pro by ID with JSON
 
-        :param data: JSON data to update Venafi configuration with
+        :param data:
+            JSON data to update Venafi configuration with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_v1-pki-venafi-id>`__
         :param id: Venafi configuration ID
+
+        :returns: Updated Venafi configuration information in JSON
         """
         endpoint = f"/api/v1/pki/venafi/{id}"
 
@@ -6328,6 +7530,9 @@ class Pro(RequestBuilder):
         Deletes a Venafi configuration from Jamf Pro by ID
 
         :param id: Venafi configuration ID
+
+        :returns:
+            Success message stating that the Venafi configuration was deleted
         """
         endpoint = f"/api/v1/pki/venafi/{id}"
 
@@ -6340,6 +7545,10 @@ class Pro(RequestBuilder):
         Deletes the uploaded PKI Proxy Server public key by ID
 
         :param id: Venafi configuration ID
+
+        :returns:
+            Success message stating the Venafi proxy server public key was
+            deleted
         """
         endpoint = f"/api/v1/pki/venafi/{id}/proxy-trust-store"
 
@@ -6384,6 +7593,8 @@ class Pro(RequestBuilder):
             with paging and sorting.
 
             Example: name=="example.jamfcloud.com" and countryCode=="US"
+
+        :returns: All volume purchasing locations in JSON
         """
         params = remove_empty_params(
             {
@@ -6402,6 +7613,8 @@ class Pro(RequestBuilder):
         Returns a volume purchasing location by ID
 
         :param id: Volume purchasing location ID
+
+        :returns: Volume purchasing location information in JSON
         """
         endpoint = f"/api/v1/volume-purchasing-locations/{id}"
 
@@ -6436,6 +7649,8 @@ class Pro(RequestBuilder):
             sorting.
 
             Example: username!=admin and details==disabled and date<2019-12-15
+
+        :returns: Volume purchasing location history information in JSON
         """
         params = remove_empty_params(
             {
@@ -6482,6 +7697,10 @@ class Pro(RequestBuilder):
             paging and sorting.
 
             Example: name=="example" and licenseCountInUse==1
+
+        :returns:
+            Volume purchasing content for the volume purchasing location in
+            JSON
         """
         params = remove_empty_params(
             {
@@ -6499,7 +7718,12 @@ class Pro(RequestBuilder):
         """
         Creates a volume purchasing location with JSON
 
-        :param data: JSON data to create volume purchasing location with
+        :param data:
+            JSON data to create volume purchasing location with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-volume-purchasing-locations>`__
+
+        :returns: New volume purchasing location information in JSON
         """
         endpoint = "/api/v1/volume-purchasing-locations"
 
@@ -6512,8 +7736,13 @@ class Pro(RequestBuilder):
         Creates a volume purchasing location history note by ID with JSON
 
         :param data:
-            JSON data to create volume purchasing location history note with
+            JSON data to create volume purchasing location history note with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-volume-purchasing-locations-id-history>`__
         :param id: Volume purchasing location ID
+
+        :returns:
+            New volume purchasing location history note information in JSON
         """
         endpoint = f"/api/v1/volume-purchasing-locations/{id}/history"
 
@@ -6524,6 +7753,8 @@ class Pro(RequestBuilder):
         Reclaims a volume purchasing location by ID
 
         :param id: Volume purchasing location ID
+
+        :returns: Success message stating the reclaim was requested
         """
         endpoint = f"/api/v1/volume-purchasing-locations/{id}/reclaim"
 
@@ -6541,6 +7772,8 @@ class Pro(RequestBuilder):
         be revoked.
 
         :param id: Volume purchasing location ID
+
+        :returns: Success message stating the licenses were revoked
         """
         endpoint = f"/api/v1/volume-purchasing-locations/{id}/revoke-licenses"
 
@@ -6557,8 +7790,13 @@ class Pro(RequestBuilder):
         """
         Updates a volume purchasing location by ID with JSON
 
-        :param data: JSON data to update volume purchasing location with
+        :param data:
+            JSON data to update volume purchasing location with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_v1-volume-purchasing-locations-id>`__
         :param id: Volume purchasing location ID
+
+        :returns: Updated volume purchasing location information in JSON
         """
         endpoint = f"/api/v1/volume-purchasing-locations/{id}"
 
@@ -6569,6 +7807,9 @@ class Pro(RequestBuilder):
         Deletes a volume purchasing location by ID
 
         :param id: Volume purchasing location ID
+
+        :returns:
+            Success message stating the volume purchasing location was deleted
         """
         endpoint = f"/api/v1/volume-purchasing-locations/{id}"
 
@@ -6595,6 +7836,8 @@ class Pro(RequestBuilder):
             with a comma. Allowable properties are id, name, and enabled.
 
             Example: ["id:desc", "name:asc"]
+
+        :returns: All volume purchasing subscriptions in JSON
         """
         params = remove_empty_params(
             {"page": page, "page-size": page_size, "sort": sort}
@@ -6608,6 +7851,8 @@ class Pro(RequestBuilder):
         Returns a volume purchasing subcscription by ID
 
         :param id: Volume purchasing subscription ID
+
+        :returns: Volume purchasing subscription information in JSON
         """
         endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}"
 
@@ -6617,7 +7862,12 @@ class Pro(RequestBuilder):
         """
         Creates a volume purchasing subscription with JSON
 
-        :param data: JSON data to create volume purchasing subscription with
+        :param data:
+            JSON data to create volume purchasing subscription with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-volume-purchasing-subscriptions>`__
+
+        :returns: New volume purchasing subscription information in JSON
         """
         endpoint = "/api/v1/volume-purchasing-subscriptions"
 
@@ -6629,8 +7879,13 @@ class Pro(RequestBuilder):
         """
         Updates a volume purchasing subscription by ID with JSON
 
-        :param data: JSON data to update volume purchasing subscription with
+        :param data:
+            JSON data to update volume purchasing subscription with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-volume-purchasing-subscriptions-id>`__
         :param id: Volume purchasing subscription ID
+
+        :returns: Updated volume purchasing subscription information in JSON
         """
         endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}"
 
@@ -6641,6 +7896,10 @@ class Pro(RequestBuilder):
         Deletes a volume purchasing subscription by ID
 
         :param id: Volume purchasing subscription ID
+
+        :returns:
+            Success message stating the volume purchasing subscription was
+            deleted
         """
         endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}"
 

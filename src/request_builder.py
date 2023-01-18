@@ -29,6 +29,13 @@ class RequestBuilder:
         self.session = requests.Session()
         self.session.auth = JamfAuth(self.base_url, username, password)
 
+    def __enter__(self):
+        self.session.auth.refresh_auth_if_needed()
+        return self
+
+    def __exit__(self, exception_type, exception_value, traceback):
+        self.session.auth.invalidate()
+
     @classmethod
     def _raise_recognized_errors(self, r: requests.Response):
         if r.status_code == 400:
