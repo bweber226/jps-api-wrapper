@@ -1,6 +1,7 @@
 Classic and Pro Methods
 =======================
 
+.. automethod:: src.classic.Classic.get_allowed_file_extensions
 
 Classic Module
 ------------------

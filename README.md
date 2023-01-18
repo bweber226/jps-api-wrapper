@@ -1,6 +1,6 @@
 # JPS API Wrapper
 
-[![license](LINK TO GITHUB AFTER THIS IS UP)](LICENSE)
+[![license](https://gitlab.com/cvtc/appleatcvtc/jps-api-wrapper/-/blob/main/LICENSE)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use.
@@ -52,11 +52,9 @@ with Pro(JPS_URL, USERNAME, PASSWORD) as pro:
 
 Any methods that require the data param will have a link to Jamf's documentation in the docstring for the syntax of the data that the request expects.
 
-Note: The `license` badge image link at the top of this file should be updated with the correct `:user` and `:repo`.
-
 ## Method Documentation
 
-View the [ReadTheDocs](INSERT LINK LATER)
+View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/latest/)
 
 ## Other Notes
 
