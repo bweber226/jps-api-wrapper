@@ -29,6 +29,9 @@ release = "1.0.0"
 
 # -- General configuration ---------------------------------------------------
 
+# Changes master doc from contents to index
+master_doc = 'index'
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
@@ -66,7 +69,3 @@ html_static_path = ["_static"]
 add_module_names = False
 autodoc_member_order = "bysource"
 
-# Optionally declare the Python requirements required to build your docs
-python:
-   install:
-   - requirements: docs/requirements.txt
