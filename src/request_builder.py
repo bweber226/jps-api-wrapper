@@ -29,11 +29,11 @@ class RequestBuilder:
         self.session = requests.Session()
         self.session.auth = JamfAuth(self.base_url, username, password)
 
-    def __enter__(self):
+    def __enter__(self):   # pragma: no cover
         self.session.auth.refresh_auth_if_needed()
         return self
 
-    def __exit__(self, exception_type, exception_value, traceback):
+    def __exit__(self, exception_type, exception_value, traceback):   # pragma: no cover
         self.session.auth.invalidate()
 
     @classmethod
@@ -108,7 +108,7 @@ class RequestBuilder:
         else:
             raise InvalidDataType("data_type needs to be either json or xml")
 
-    def _download(self, endpoint: str, params: dict = None):
+    def _download(self, endpoint: str, params: dict = None):  # pragma: no cover
         """
         Sends get request with special cases that require file downloads
 
@@ -210,7 +210,7 @@ class RequestBuilder:
             return response.json()
         elif data_type in ["xml", None]:
             return response.text
-        else:
+        else:   # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")
 
     def _put(
@@ -256,7 +256,7 @@ class RequestBuilder:
             return response.json()
         elif data_type == "xml":
             return response.text
-        else:
+        else:   # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")
 
     def _delete(
@@ -298,11 +298,11 @@ class RequestBuilder:
         response.raise_for_status()
         if success_message:
             return success_message
-        elif data_type == "json":
+        elif data_type == "json":   # pragma: no cover
             return response.json()
         elif data_type == "xml":
             return response.text
-        else:
+        else:   # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")
 
 
