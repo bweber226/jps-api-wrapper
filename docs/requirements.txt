@@ -1,4 +1,4 @@
 sphinx==5.3.0
 sphinx_autodoc_typehints==1.20.1
-sphinx-toolbox==3.2.0
+sphinx-toolbox.collapse==3.2.0
 sphinx_mdinclude==0.5.3

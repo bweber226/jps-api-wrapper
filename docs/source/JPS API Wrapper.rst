@@ -1,4 +1,4 @@
-JPS API Wrapper Methods
+Classic and Pro Methods
 =======================
 
 
