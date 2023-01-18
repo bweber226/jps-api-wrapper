@@ -65,3 +65,8 @@ html_static_path = ["_static"]
 # unit titles (such as .. function::).
 add_module_names = False
 autodoc_member_order = "bysource"
+
+# Optionally declare the Python requirements required to build your docs
+python:
+   install:
+   - requirements: docs/requirements.txt
