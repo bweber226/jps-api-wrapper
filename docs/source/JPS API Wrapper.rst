@@ -1,9 +1,7 @@
 Classic and Pro Methods
 =======================
 
-.. automethod:: src.classic.Classic.get_allowed_file_extensions
-
-Classic Module
+Classic
 ------------------
 
 .. collapse:: accounts
@@ -1632,7 +1630,7 @@ Classic Module
 
 |
 
-Pro Module
+Pro
 ------------------
 
 .. collapse:: advanced-mobile-device-searches
