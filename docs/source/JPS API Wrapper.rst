@@ -8,7 +8,7 @@ Classic
 
    |
 
-   .. automethod:: j.classic.Classic.get_accounts
+   .. automethod:: jps_api_wrapper.classic.Classic.get_accounts
 
    |
 
