@@ -166,3 +166,4 @@ cython_debug/
 src/test.py
 standard_api_setup.template
 10_get_api_setup.template
+.vscode

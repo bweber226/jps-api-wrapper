@@ -1,4 +1,4 @@
-# JPS API Wrapper
+# JPS (Jamf Pro Server) API Wrapper
 
 [![license](https://gitlab.com/cvtc/appleatcvtc/jps-api-wrapper/-/blob/main/LICENSE)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
@@ -7,7 +7,7 @@ The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in th
 
 ## Table of Contents
 
-- [JPS API Wrapper](#jps-api-wrapper)
+- [JPS (Jamf Pro Server) API Wrapper](#jps-jamf-pro-server-api-wrapper)
   - [Table of Contents](#table-of-contents)
   - [Background](#background)
   - [Install](#install)
@@ -50,7 +50,7 @@ with Pro(JPS_URL, USERNAME, PASSWORD) as pro:
     print(pro.get_mobile_devices())
 ```
 
-Any methods that require the data param will have a link to Jamf's documentation in the docstring for the syntax of the data that the request expects.
+Any methods that require the data param will have a link to Jamf's documentation in the docstring and the method documentation for the syntax of the data that the request expects.
 
 ## Method Documentation
 

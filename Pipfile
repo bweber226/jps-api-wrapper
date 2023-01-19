@@ -17,5 +17,3 @@ pytest = "*"
 responses = "*"
 pytest-cov = "*"
 flake8 = "*"
-classic = {editable = true, path = "./src"}
-pro = {editable = true, path = "./src"}
