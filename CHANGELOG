@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.164.4] -- 2022-1-19
+### Changed
+- Moved the main repo from GitLab to GitHub
+- gitignore ignores vscode and my test file
+
 ## [0.164.3] -- 2022-1-18
 ### Changed
 - Structure of package was updated to work with standard setup.cfg
