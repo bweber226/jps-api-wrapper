@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.3] -- 2022-1-19
 ### Changed
 - Updated setup.cfg now that jamf_auth is published to PYPI
+- sphinx requirements now correctly uses jamf-api-auth
 
 ## [1.0.2] -- 2022-1-19
 ### Changed
