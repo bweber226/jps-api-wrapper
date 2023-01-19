@@ -1,0 +1,8 @@
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"

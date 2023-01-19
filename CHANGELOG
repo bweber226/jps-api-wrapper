@@ -1,0 +1,1293 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.164.3] -- 2022-1-18
+### Changed
+- Structure of package was updated to work with standard setup.cfg
+
+## [0.164.2] -- 2023-1-18
+### Changed
+- Changes to make coverage 100% so that I can add coverage tests in the CI/CD
+
+## [0.164.1] -- 2023-1-18
+### Changed
+- Updated Sphinx conf.py to make index the master doc for ReadTheDocs
+
+## [0.164.0] -- 2023-1-18
+### Added
+- ReadTheDocs configuration files
+
+## [0.163.0] -- 2023-1-18
+### Added
+- Sphinx source files for Read the Docs documentation
+- All method docstrings were updated to include return documentation
+- Any methods that relied on data detailed in Jamf's documentation were given a link in the docstring to direct users there
+
+### Changed
+- Classic.file_upload changed to create_file_upload to better match the rest of the projects syntax
+- Classic.log_flush changed to create_log_flush to better match the rest of the projects syntax
+- Classic.log_flush_interval to create_log_flush_interval to better match the rest of the projects syntax
+- Classic.command_flush to create_command_flush to better matcht he rest of the projects syntax
+
+## [0.162.0] -- 2022-12-23
+### Added
+- Pro.get_volume_purchasing_subscriptions which returns sorted and paged volume purchasing subscriptions
+- Pro.get_volume_purchasing_subscription which returns a volume purchasing subcscription by ID
+- Pro.create_volume_purchasing_subscription which creates a volume purchasing subscription with JSON
+- Pro.update_volume_purchasing_subscription which updates a volume purchasing subscription by ID with JSON
+- Pro.delete_volume_purchasing_subscription which deletes a volume purchasing subscription by ID
+
+## [0.161.0] -- 2022-12-23
+### Added 
+- Pro.get_volume_purchasing_locations which returns sorted and paged volume purchasing locations
+- Pro.get_volume_purchasing_location which returns a volume purchasing location by ID 
+- Pro.get_volume_purchasing_location_history which returns sorted and paginated volume purchasing location history by ID
+- Pro.get_volume_purchasing_location_content which returns the volume purchasing content for the volume purchasing location by ID
+- Pro.create_volume_purchasing_location which creates a volume purchasing location with JSON
+- Pro.create_volume_purchasing_location_history_note which creates a volume purchasing location history note by ID with JSON
+- Pro.create_volume_purchasing_location_reclaim which reclaims a volume purchasing location by ID
+- Pro.create_volume_purchasing_location_revoke_licenses which revokes licenses for a Volume Purchasing Location by ID
+- Pro.update_volume_purchasing_location which updates a volume purchasing location by ID with JSON
+- Pro.delete_volume_purchasing_location which deletes a volume purchasing location by ID
+
+
+## [0.160.0] -- 2022-12-23
+### Added
+- Pro.get_branding_image which downloads a Self Service branding image to the current user's Downloads folder by ID
+
+## [0.159.0] -- 2022-12-23
+### Added
+- Pro.get_venafi_configuration which returns a Venafi PKI configuration from Jamf Pro by ID
+- Pro.get_venafi_connection_status which tests the communication between Jamf Pro and Jamf Pro PKI proxy server by ID
+- Pro.get_venafi_dependant_configuration_profiles which returns configuration profile data connected with the Venafi CA by ID
+- Pro.get_venafi_configuration_history which returns Venafi CA configuration history by ID
+- Pro.get_venafi_jamf_public_key which downloads a certificate for an existing Venafi configuration that can be used to secure communication between Jamf Pro and a Jamf Pro PKI Proxy Server to the current user's Downloads folder by ID
+- Pro.get_venafi_pki_proxy_server_public_key which downloads the uploaded PKI Proxy Server public key to do basic TLS certificate validation between Jamf Pro and a Jamf Pro PKI Proxy Server to the current user's Downloads folder by ID
+- Pro.create_venafi_configuration which creates a Venafi PKI configuration in Jamf Pro with JSON
+- Pro.create_venafi_configuration_history_note which creates Venafi configuration history note by ID with JSON
+- Pro.create_venafi_jamf_public_key which regenerates a certificate for an existing Venafi configuration that can be used to secure communication between Jamf Pro and a Jamf Pro PKI Proxy Server by ID
+- Pro.create_venafi_pki_proxy_server_public_key which uploads the PKI Proxy Server public key to do basic TLS certificate validation between Jamf Pro and a Jamf Pro PKI Proxy Server by ID
+- Pro.update_venafi_configuration which updates a Venafi PKI configuration in Jamf Pro by ID with JSON
+- Pro.delete_venafi_configuration which deletes a Venafi configuration from Jamf Pro by ID
+- Pro.delete_venafi_pki_proxy_server_public_key which deletes the uploaded PKI Proxy Server public key by ID
+
+## [0.158.0] -- 2022-12-23
+### Added
+- Pro.get_user_session_accounts which returns all Jamf Pro user accounts
+- Pro.update_user_session which updates values in the user's current session with JSON
+
+## [0.157.0] -- 2022-12-23
+### Added
+- Pro.create_tomcat_settings_ssl_certificate which generates a SSL certificate using Jamf Certificate Authority
+
+## [0.156.0] -- 2022-12-23
+### Added
+- Pro.get_time_zones which returns information about the currently supported time zones
+
+## [0.155.0] -- 2022-12-23
+### Added
+- Pro.get_team_viewer_remote_administration_connection_configuration which returns Team Viewer remote administration connection configuration by ID
+- Pro.get_team_viewer_remote_administration_sessions which returns a paginated list of sessions by configuration ID
+- Pro.get_team_viewer_remote_administration_session which returns session details if found by ID
+- Pro.get_team_viewer_remote_administration_session_status which returns session status by ID
+- Pro.get_team_viewer_remote_administration_connection_status which returns Team Viewer remote administration connection status by ID
+- Pro.create_team_viewer_remote_administration_connection_configuration which creates Team Viewer remote administration connection configuration with JSON
+- Pro.create_team_viewer_remote_administration_session which creates a new Team Viewer session to be used to establish a remote connection
+- Pro.create_team_viewer_remote_administration_session_notification which resends configured notifications (e.g. Self Service push notifications) for Team Viewer session by ID
+- Pro.update_team_viewer_remote_administration_connection_configuration which updates Team Viewer remote administration connection configuration by ID with JSON
+- Pro.delete_team_viewer_remote_administration_connection_configuration which deletes Team Viewer remote administration connection configuration by ID
+- Pro.delete_team_viewer_remote_administration_session which closes a Team Viewer remote session by ID
+
+## [0.154.0] -- 2022-12-21
+### Added
+- Pro.get_teacher_app_settings which returns the Jamf Teacher settings that the user has access to see
+- Pro.get_teacher_app_history which returns Jamf Teacher settings history
+- Pro.create_teacher_app_history_note which creates a Jamf Teacher app settings history note with JSON
+- Pro.update_teacher_app_settings which updates Jamf Teacher app settings with JSON
+
+## [0.153.0] -- 2022-12-21
+### Added
+- Pro.get_supervision_identities which returns sorted and paged supervision identities
+- Pro.get_supervision_identity which returns a supervision identity by ID
+- Pro.get_supervision_identity_file which downloads the supervision identity .p12 file by ID
+- Pro.create_supervision_identity which creates a supervision identity with JSON
+- Pro.create_supervision_identity_file which creates the superivision identity .p12 file with JSON
+- Pro.update_supervision_identity which updates a supervision identity by ID with JSON
+- Pro.delete_supervision_identity which deletes a supervision identity by ID
+
+## [0.152.0] -- 2022-12-21
+### Added
+- Pro.get_static_user_groups which returns all static user groups
+- Pro.get_static_user_group which returns a static user group by ID
+
+## [0.151.0] -- 2022-12-21
+### Added
+- Pro.get_startup_status which returns information about application startup
+
+## [0.150.0] -- 2022-12-21
+### Added
+- Pro.get_sso_settings which returns the current SSO configuration settings
+- Pro.get_sso_settings_enrollment_customizations which returns the list of enrollment customizations using SSO
+- Pro.get_sso_settings_history which returns paged and sorted SSO settings history
+- Pro.get_sso_settings_saml_metadata_file which downloads the Jamf Pro SAML metadata file to the current users downloads folder
+- Pro.create_sso_settings_disable which disables SSO for the Jamf Pro Server
+- Pro.create_sso_settings_history_note which creates SSO history note with JSON
+- Pro.create_sso_settings_validate_saml_metadata_url which validates content available udner provided metadata URL with JSON
+- Pro.update_sso_settings which updates the current SSSO configuration settings
+
+### [0.149.0] -- 2022-12-21
+### Added
+- Pro.get_sso_certificate which returns the certificate currently configured for use with SSO
+- Pro.get_sso_certificate_file which downloads the certificate currently configured for use with Jamf Pro's SSO configuration
+- Pro.create_sso_certificate which generates a new certificate and use it to sign SSO requests to the identity provider
+- Pro.create_sso_certificate_parse which parses the certificate to get details about certificate type and keys needed to upload certificate file with JSON
+- Pro.update_sso_certificate which updates the certificate used by Jamf Pro to sign SSO requests to the identify provider with JSON
+- Pro.delete_sso_certificate which deletes the currently configured certificate used by SSO
+
+## [0.148.0] -- 2022-12-20
+### Added
+- Pro.create_smart_user_group_recalculate_user which recalculates smart groups of the specified user then returns the count of smart groups the user falls into by ID
+- Pro.create_smart_user_group_recalculate_group which recalculates the smart group for the given ID and then returns the count of the users in the smart group
+
+## [0.147.0] -- 2022-12-20
+### Added
+- Pro.create_smart_mobile_device_group_recalculate_device which recalculates smart groups of the specified mobile device then returns the count of smart groups the device falls into by ID
+- Pro.create_smart_mobile_device_group_recalculate_group which recalculates the smart group for the given ID and then returns the IDS of the mobile devices in the smart group
+
+## [0.146.0] -- 2022-12-20
+### Added
+- Pro.create_smart_computer_group_recalculate_computer which recalculates a smart groups of the specified computer then returns the count of smart groups the computer falls into by ID
+- Pro.create_smart_computer_group_recalculate_group which recalculates the smart group for the given ID and then returns the IDS of the computers in the smart group
+
+## [0.145.0] -- 2022-12-20
+### Added
+- Pro.get_sites which returns all sites
+
+## [0.144.0] -- 2022-12-20
+### Added
+- Pro.create_self_service_branding which uploads a self service branding image by ID and filepath
+
+## [0.143.0] -- 2022-12-19
+### Added
+- Pro.get_self_service_branding_macos_configurations which returns paged and sorted Self Service branding configuration for macOS
+- Pro.get_self_service_branding_macos_configuration which returns macOS Self Service branding configuration by ID
+- Pro.create_self_service_branding_macos_configuration which creates macOS Self Service branding configuration with JSON
+- Pro.update_self_service_branding_macos_configuration which updates macOS Self Service branding configuration with JSON by ID
+- Pro.delete_self_service_branding_macos_configuration which deletes macOS Self Service branding configuration by ID
+
+## [0.142.0] -- 2022-12-19
+### Added
+- Pro.get_self_service_branding_ios_configurations which returns paged and sorted Self Service branding configuration for iOS
+- Pro.get_self_service_branding_ios_configuration which returns iOS Self Service branding configuration by ID
+- Pro.create_self_service_branding_ios_configuration which creates iOS Self Service branding configuration with JSON
+- Pro.update_self_service_branding_ios_configuration which updates iOS Self Service branding configuration with JSON by ID
+- Pro.delete_self_service_branding_ios_configuration which deletes iOS Self Service branding configuration by ID
+
+## [0.141.0] -- 2022-12-17
+### Added
+- Pro.get_self_service_settings which returns the self service settings of the Jamf Pro server
+- Pro.update_self_service_settings which updates the self service settings with JSON
+
+## [0.140.0] -- 2022-12-14
+### Added
+- Pro.get_scripts which returns sorted and paged scripts
+- Pro.get_script which returns script by ID
+- Pro.get_script_history which returns sorted and paged script history by ID
+- Pro.get_script_file which downloads a text file of the script contents by ID
+- Pro.create_script which creates a script with JSON
+- Pro.create_script_history_note which creates specified script history note by ID with JSON
+- Pro.update_script which updates the script with ID by JSON
+- Pro.delete_script which deletes a script by ID
+
+## [0.139.0] -- 2022-12-13
+### Added
+- Pro.get_remote_administration_configurations which returns remote administration configurations
+
+## [0.138.0] -- 2022-12-13
+### Added
+- Pro.get_reenrollment_settings which returns re-enrollment settings
+- Pro.get_reenrollment_history which returns paginated and sorted re-enrollment history
+- Pro.get_reenrollment_history_export which exports reenrollment history collection in CSV format
+- Pro.create_reenrollment_history_note which adds specified re-enrollment history note with JSON
+- Pro.update_reenrollment_settings which updates the re-enrollment settings
+
+## [0.137.0] -- 2022-12-13
+### Added
+- Pro.get_policy_properties which returns policy properties
+- Pro.update_policy_properties which updates policy properties with JSON
+
+## [0.136.0] -- 2022-12-13
+### Added 
+- Pro.get_patch_dashboards which returns list of patch IDs on dashboard
+- Pro.get_patch_summary which returns patch policy summary by ID
+- Pro.get_patch_software_summary which returns the summaries of the patch policies for the software title by ID
+- Pro.get_patch_software_title_configuration_id which returns the software title configuration ID for the given patch policy by ID
+- Pro.create_patch_disclaimer_accept which accepts patch reporting disclaimer
+- Pro.update_patch_report which updates patch report by ID with JSON
+
+## [0.135.0] -- 2022-12-12
+### Added
+- Pro.get_patch_policy_dashboard which returns whether or not the requested patch policy is on the dashboard by ID
+- Pro.create_patch_policy_dashboard which adds a patch policy to the dashboard by ID
+- Pro.delete_patch_policy_dashboard which removes a patch policy from the dashboard by ID
+
+## [0.134.0] -- 2022-12-9
+### Added
+- Pro.get_parent_app_settings which returns the current Jamf Parent app settings
+- Pro.get_parent_app_settings_history which returns Jamf Paret app settings history
+- Pro.create_parent_app_settings_history_note which creates a Jamf Parent app settings history note with JSON
+- Pro.update_parent_app_settings which updates Jamf Parent app settings with JSON
+
+## [0.133.0] -- 2022-12-9
+### Added
+- Pro.get_mobile_devices which returns sorted and paginated mobile devices
+- Pro.get_mobile_device which returns mobile device with limited details by ID
+- Pro.get_mobile_device_detail which returns mobile device with all info by ID
+- Pro.update_mobile_device which updates mobile device by ID with JSON
+
+## [0.132.0] -- 2022-12-8
+### Added
+- Pro.get_mobile_device_prestages which returns sorted and paged mobile device prestages
+- Pro.get_mobile_device_prestages_scopes which returns all device scopes for all mobile device prestages
+- Pro.get_mobile_device_prestages_sync_states which returns all prestage sync states for all prestages
+- Pro.get_mobile_device_prestage which returns a mobile device prestage by ID
+- Pro.get_mobile_device_prestage_attachments which returns attachments for a mobile device prestage by ID
+- Pro.get_mobile_device_prestage_history which returns sorted and paged mobile device prestage history by ID
+- Pro.get_mobile_device_prestage_scope which returns device scope for a specific mobile device prestage by ID
+- Pro.get_mobile_device_prestage_sync_states which returns all prestage sync states for a single prestage by ID
+- Pro.get_mobile_device_prestage_latest_sync_state which returns the latest sync state for a single prestage by ID
+- Pro.create_mobile_device_prestage which creates a mobile device prestage with JSON data
+- Pro.create_mobile_device_prestage_attachment which uploads a mobile device prestage attachment by ID and filepath
+- Pro.create_mobile_device_prestage_history_note which creates a mobile device prestage history note by ID with JSON
+- Pro.create_mobile_device_prestage_scope which adds device scope for a specific mobile device prestage by ID
+- Pro.update_mobile_device_prestage which updates a mobile device prestage by ID with JSON
+- Pro.replace_mobile_device_prestage_scope which replaces device scope for a specific mobiule device prestage by ID with JSON
+- Pro.delete_mobile_device_prestage which deletes a mobile device prestage by ID
+- Pro.delete_mobile_device_prestage_attachment which deletes mobile device prestage attachment(s) by ID with JSON
+- Pro.delete_mobile_device_prestage_scope which removes device scope for a specific mobile device prestage by ID with JSON
+
+## [0.131.0] -- 2022-12-8
+### Added
+- Pro.get_mobile_device_groups which returns all mobile device groups
+
+## [0.130.0] -- 2022-12-8
+### Added
+- Pro.get_mobile_device_extension_attributes which returns mobile device extension attribute values placed in select parameter
+
+## [0.129.0] -- 2022-12-7
+### Added
+- Pro.get_mobile_device_enrollment_profile which downloads the MDM enrollment profile to the current users Downloads folder by ID
+
+## [0.128.0] -- 2022-12-7
+### Added
+- Pro.get_mdm_commands which returns information about MDM commands made by Jamf Pro
+- Pro.create_mdm_command which is a preview endpoint which reate and queue an MDM command with given JSON data
+- Pro.create_mdm_profile_renew which renews the device's MDM Profile, including the device identity certificate within the MDM Profile with JSON data
+- Pro.create_mdm_deploy_package which deploys packages to macOS devices using the InstallEnterpriseApplication MDM command.
+
+## [0.127.0] -- 2022-12-6
+### Added
+- Pro.get_macos_managed_software_updates which returns available macOS manages software updates
+- Pro.create_macos_managed_software_udpates which sends macOS manged software updates
+
+## [0.126.0] -- 2022-12-6
+### Added
+- Pro.get_locales which returns locales that can be used in other features
+
+## [0.125.0] -- 2022-12-6
+### Added
+- Pro.get_ldap_servers which returns all active servers including LDAP and cloud identity providers
+- Pro.get_ldap_local_servers which returns all not migrated, LDAP servers
+- Pro.get_ldap_group_search which returns the configured acess groups that containt the text in the search param
+
+## [0.124.0] -- 2022-12-5
+### Added
+- Pro.get_jamf_protect_integration_settings which returns Jamf Protect integration settings for the Jamf Pro server
+- Pro.get_jamf_protect_config_profile_deployment_tasks which returns deployment tasks linked to Jamf Protect config profiles by UUID
+- Pro.get_jamf_protect_history which returns sorted, paginated Jamf Protect history
+- Pro.get_jamf_protect_plans which returns all of the previously synced Jamf Portect Plans with information about their associated configuration profile
+- Pro.create_jamf_protect_config_profile_deployment_tasks_retry which requests a retry of Jamf Protect install tasks with JSON by UUID
+- Pro.create_jamf_protect_history_note which creates a Jamf Protect history note with JSON
+- Pro.create_jamf_protect_plans_sync which syncs plans with Jamf Protect
+- Pro.create_jamf_protect_api_configuration which registers a Jamf Protect API configuration with Jamf Pro with JSON
+- Pro.update_jamf_protect_integration_settings which updates the Jamf Protect integration settings with JSON
+- Pro.delete_jamf_protect_api_registration which deletes an existing Jamf Protect API registration if present
+
+## [0.123.0] -- 2022-12-5
+### Added 
+- Pro.get_jamf_pro_version which returns information about the Jamf Pro Server including the current version
+
+## [0.122.0] -- 2022-12-2
+### Added
+- Pro.get_jamf_pro_user_account_setting which returns the user setting for the authennticated user and key by key ID
+- Pro.update_jamf_pro_user_account_setting which updates the user setting with JSON by key ID
+- Pro.delete_jamf_pro_user_account_setting which deletes specified setting for the authenticated user by key ID
+
+## [0.121.0] -- 2022-12-1
+### Added
+- Pro.get_jamf_pro_server_url_settings which returns Jamf Pro URL settings
+- Pro.get_jamf_pro_server_url_settings_history which returns sorted, paginated Jamf Pro Server URL settings history
+- Pro.create_jamf_pro_server_url_settings_history_note which creates Jamf Pro Server URL settings history note with JSON
+- Pro.update_jamf_pro_server_url_settings which updates Jamf Pro Server URL settings with JSON
+
+## [0.120.0] -- 2022-12-1
+### Added
+- Pro.get_jamf_pro_notifications which returns notifictions for user and site
+- Pro.delete_jamf_pro_notifications which deletes notifications with give type and ID
+
+## [0.119.0] -- 2022-12-1
+### Added
+- Pro.create_jamf_pro_initialization which sets up a freshly installed Jamf Pro Server
+- Pro.create_jamf_pro_initialization_password which provides database password during setup
+
+## [0.118.0] -- 2022-11-29
+### Added
+- Pro.get_jamf_pro_information which returns basic information about the Jamf Pro Server
+
+## [0.117.0] -- 2022-11-28
+### Added
+- Pro.get_jamf_package which returns the packages for a given Jamf application by application key
+
+## [0.116.0] -- 2022-11-28
+### Added
+- Pro.create_jamf_management_framework_redeploy which redeploys the Jamf Management Framework for enrolled computer by ID
+
+## [0.115.0] -- 2022-11-28
+### Added
+- Pro.get_jamf_connect_settings which returns the Jamf Connect settings that you have access to see
+- Pro.get_jamf_connect_config_profiles which returns sorted, paginated config profiles linked to Jamf Connect
+- Pro.get_jamf_connect_config_profile_deployment_tasks which returns deployment tasks for specified config profile linked to Jamf Connect by ID
+- Pro.get_jamf_connect_history which returns sorted, paginated Jamf Connect history
+- Pro.create_jamf_connect_config_profile_deployment_task_retry which requests a retry of deployment task(s) of specified Jamf Connect config profile by UUID with JSON
+- Pro.create_jamf_connect_history_note which creates Jamf Connect history note with JSON
+- Pro.update_jamf_connect_app_update_method which updates the way the Jamf Connect app gets updated on computers with the scope of the specified configuration profile by UUID with JSON
+### Changed
+- RequestBuilder._get now had a success_message param for requests that return no content
+
+## [0.114.0] -- 2022-11-27
+### Added
+- Pro.get_inventory_preloads which returns paged and sorted inventory preload records
+- Pro.get_inventory_preload which returns an inventory preload record by ID
+- Pro.get_inventory_preloads_history which returns inventory preload history entries
+- Pro.get_inventory_preloads_extension_attributes which returns extension attribute columns currently associated with inventory preload records
+- Pro.get_inventory_preloads_csv_template which returns the inventory preload CSV file template
+- Pro.get_inventory_preloads_csv which returns the inventory preload records as CSV data
+- Pro.get_inventory_preloads_export which exports a collection of inventory preload records in CSV format
+- Pro.create_inventory_preload which creates an inventory preload record with JSON
+- Pro.create_inventory_preloads_history_note which creates inventory preload history note
+- Pro.create_inventory_preloads_csv_validation which validates a given CSV file
+- Pro.create_inventory_preloads_csv which creates one or more new Inventory Preload records using CSV
+- Pro.update_inventory_preload which updates an inventory preload record by ID with JSON
+- Pro.delete_inventory_preload which deletes an inventory preload record by ID
+- Pro.delete_inventory_preloads_all which deletes all inventory preload records
+
+## [0.113.0] -- 2022-11-27
+### Added
+- Pro.get_inventory_information which returns statistics about managed/unmanaged devices and computers in the inventory
+
+## [0.112.0] -- 2022-11-27
+### Added
+- Pro.get_icon which returns information on on a specified icon by ID
+- Pro.get_icon_image which is a beta module which downloads a self service icon by ID along with resolution and scale options
+- Pro.create_icon which uploads an icon with the specified local filepath
+### Changed
+-RequestBuilder._download now handles params in the request
+
+## [0.111.0] -- 2022-11-26
+### Added
+- Pro.get_enrollment_customization_panels which returns all panels for a single enrollment customization by ID
+- Pro.get_enrollment_customization_panel which returns a single panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_ldap_panel which returns a single LDAP panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_sso_panel which returns a single SSO panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_text_panel which returns a single text panel for a single enrollment customization by ID
+- Pro.get_enrollment_customization_text_panel_markdown which returns a single text panel markdown for a single enrollment customization by ID
+- Pro.get_enrollment_customization_parsed_markdown which returns HTML based on provided markdown string in JSON data
+- Pro.create_enrollment_customization_ldap_panel which creates a LDAP panel for a single enrollment customization by ID with JSON
+- Pro.create_enrollment_customization_sso_panel which creates a SSO panel for a single enrollment customization by ID with JSON data
+- Pro.create_enrollment_customization_text_panel which creates a text panel for a single enrollment customization by ID with JSON data
+- Pro.update_enrollment_customization_ldap_panel which updates a single LDAP panel for a single enrollment customization by ID with JSON
+- Pro.update_enrollment_customization_sso_panel which updates a single SSO panel for a single enrollment customization by ID with JSON
+- Pro.update_enrollment_customization_text_panel which updates a single text panel for a single enrollment customization by ID with JSON
+- Pro.delete_enrollment_customization_panel which deletes a single panel from an enrollment customization by ID
+- Pro.delete_enrollment_customization_ldap_panel which deletes a single LDAP panel from an enrollment customization by ID
+- Pro.delete_enrollment_customization_sso_panel which deletes a single SSO panel from an enrollment customization by ID
+- Pro.delete_enrollment_customization_text_panel which deletes a single text panel from an enrollment customization by ID
+
+## [0.110.0] -- 2022-11-26
+### Added
+- Pro.get_enrollment_customizations which returns sorted and paged enrollment customizations
+- Pro.get_enrollment_customization which returns an enrollment customization by ID
+- Pro.get_enrollment_customization_history which returns sorted and paged enrollment customization history by ID
+- Pro.get_enrollment_customization_prestages which returns prestages using the specified enrollment customization by ID
+- Pro.get_enrollment_customization_image which is a beta module which downloads the specified enrollment customization image to the current users Downloads folder
+- Pro.create_enrollment_customization which creates an enrollment customization with JSON data
+- Pro.create_enrollment_customization_history_note which creates enrollment customization history note with JSON data by ID
+- Pro.create_enrollment_customization_image which uploads an enrollment customization image
+- Pro.update_enrollment_customization which updates an enrollment customization by ID with JSON data
+- Pro.delete_enrollment_customization which deletes an enrollment customization by ID
+### Changed
+- Pro.create_computer_inventory_attachment returns JSON data wth the created attachment ID rather than a success message
+- RequestBuilder._post now allows data_type and file params to account for Pro endpoints returning JSON on file uploads
+
+## [0.109.0] -- 2022-11-25
+### Added
+- Pro.get_enrollment_settings which returns Enrollment object and re-enrollment settings
+- Pro.get_enrollment_history which returns sorted and paged enrollment history
+- Pro.get_enrollment_history_export which returns CSV export of enrollment history collection
+- Pro.get_enrollment_adue_session_token_settings which returns the Account Driven User Enrollment Session Token Settings
+- Pro.get_enrollment_ldap_groups which returns the configured LDAP groups configured for user-initiated enrollment
+- Pro.get_enrollment_ldap_group which returns the configured LDAP group configured for User-Initiated Enrollment by ID
+- Pro.get_enrollment_languages_messaging which returns the language codes that have enrollment messaging currently configured
+- Pro.get_enrollment_language_messaging which returns the enrollment messaging for a language
+- Pro.get_enrollment_language_codes which returns all languages and corresponding ISO 639-1 codes
+- Pro.get_enrollment_unused_language_codes which returns languages and corresponding ISO 639-1 Codes, but only those not already added to enrollment
+- Pro.create_enrollment_history_note which creates enrollment history object note with JSON data
+- Pro.create_enrollment_ldap_group which creates the configured LDAP group for user-initiated enrollment with JSON data
+- Pro.update_enrollment_settings which updates enrollment settings with JSON data
+- Pro.update_enrollment_adue_session_token_settings which updates the account driven user enrollment session token settings
+- Pro.update_enrollment_ldap_group which updates the configured LDAP groups configured for user-initiated enrollment by ID with JSON data
+- Pro.update_enrollment_language_messaging which updates enrollment messaging for a specified language by languageId
+- Pro.delete_enrollment_ldap_group which deletes an LDAP group's access to user initiated enrollment
+- Pro.delete_enrollment_language_messaging which deletes a enrollment language messaging search by language ID or IDS
+
+## [0.108.0] -- 2022-11-24
+### Added
+- Pro.get_engage_settings which returns Engage settings
+- Pro.get_engage_settings_history which returns Engage settings history
+- Pro.create_engage_settings_history_note which creates Engage settings history notes with JSON
+- Pro.update_engage_settings which updates Engage settings with JSON
+
+## [0.107.0] -- 2022-11-24
+### Added
+- Pro.get_ebooks which returns sorted, paginated list of all eBooks
+- Pro.get_ebook which returns the specified eBook by ID
+- Pro.get_ebook_scope which returns the scope of the specified eBook by ID
+
+## [0.106.0] -- 2022-11-24
+### Added
+- Pro.get_device_enrollments_devices which returns all devices assigned to the device enrollment instance by ID
+
+## [0.105.0] -- 2022-11-24
+### Added
+- Pro.get_device_enrollments which returns sorted and paged device enrollment instances
+- Pro.get_device_enrollment which returns a device enrollment instance with the supplied ID
+- Pro.get_device_enrollment_history which returns sorted and paged device enrollment history by ID in JSON
+- Pro.get_device_enrollments_public_key which returns the Jamf Pro device enrollment public key in a string
+- Pro.get_device_enrollments_instance_sync_states which returns all device enrollments instance sync states
+- Pro.get_device_enrollment_instance_sync_states which returns all instance sync states for a single instance by ID
+- Pro.get_device_enrollment_instance_sync_state_latest which returns the latest sync state for a single device enrollment
+- Pro.create_device_enrollment which creates a device enrollment instance with JSON data
+- Pro.create_device_enrollment_history_note which creates a device enrollment history note by ID with JSON data
+- Pro.update_device_enrollment which updates a Device Enrollment Instance by ID with JSON data
+- Pro.update_device_enrollment_token which updates a device enrollment instance with the supplied token by ID with JSON
+- Pro.delete_device_enrollment which deletes a device enrollment instance by ID
+- Pro.delete_device_enrollment_device which disowns devices from the given device enrollment instance by ID with JSON
+
+## [0.104.0] -- 2022-11-23
+### Added
+- Pro.get_device_communication_settings which returns all device communication settings, including automatic renewal of the MDM profile.
+- Pro.get_device_communication_settings_history which returns paginated device communication settings history
+- Pro.create_device_communication_settings_history_note which creates a note on the device communication settings history by JSON data
+- Pro.update_device_communication_settings which updates device communication settings with JSON
+
+## [0.103.0] -- 2022-11-23
+### Added
+- Pro.get_departments which returns a paginated list of departments
+- Pro.get_department which returns specified department
+- Pro.get_department_history which returns specified, paginated department history
+- Pro.create_department which creates department record with JSON data
+- Pro.create_department_history_note which creates note in specifed department history with JSON data
+- Pro.update_department which updates specified department by ID with JSON data
+- Pro.delete_department which deletes a department search by ID or IDS, use id for a single device and ids to delete multiple.
+
+## [0.102.0] -- 2022-11-22
+### Added
+- Pro.get_csa which returns details regarding the CSA token exchange
+- Pro.create_csa which initializes the CSA token exchange
+- Pro.update_csa which re-initializes the CSA token exchange with new credentials
+- Pro.delete_csa which which deletes the CSA token exchange
+
+## [0.101.0] -- 2022-11-22
+### Added
+- Pro.get_conditional_access_computer which returns basic compliance information for the given computer by ID
+- Pro.get_conditional_access_mobile_device which returns basic compliance information for the given mobile device by ID
+
+## [0.100.0] -- 2022-11-22
+### Added
+- Preview endpoint Pro.get_computers which returns a paginated list of computers
+
+##[0.99.0] -- 2022-11-22
+### Added
+- Pro.get_computer_prestages which returns sorted and paged computer prestages
+- Pro.get_computer_prestage_scopes which returns all device scopes for all computer prestages
+- Pro.get_computer_prestage which returns a computer prestage with the supplied ID
+- Pro.get_computer_prestage_scope which returns device scope for a specified computer prestage by ID
+- Pro.create_computer_prestage which creates a computer prestage with supplied JSON data
+- Pro.create_computer_prestage_scope which adds device(s) to a specific computer prestage's scope by ID
+- Pro.update_computer_prestage updates a computer prestage by ID with JSON data
+- Pro.replace_computer_prestage_scope which replaces device scope for a specified computer prestag
+- Pro.delete_computer_prestage which deletes a computer prestage with the supplied ID
+- Pro.delete_computer_prestage_scope which removes device scope for a specified computer prestage by ID
+
+## [0.98.0] -- 2022-11-22
+### Added
+- Pro.get_computer_inventory_collection_settings which returns computer inventory collection settings in JSON
+- Pro.create_computer_inventory_collection_settings_custom_path which creates a custom search path to use when collecting applications, fonts, and plug-ins
+- Pro.update_computer_inventory_collection_settings which updates computer inventory settings
+- Pro.delete_computer_inventory_collection_settings_custom_path which deletes Custom Path from Computer Inventory Collection Settings
+
+## [0.97.0] -- 2022-11-21
+### Added
+- Pro.get_computer_inventories which returns paginated list of computer inventory records
+- Pro.get_computer_inventory which returns general section of a computer by ID
+- Pro.get_computer_inventory_detail which returns all sections of a computer by ID
+- Pro.get_computer_inventory_filevaults which is a beta module which returns paginated FileVault information for all computers
+- Pro.get_computer_inventory_filevault which is a beta module which returns FileVault information for a specific computer
+- Pro.get_computer_inventory_recovery_lock_password which returns a computers recovery lock password by ID in JSON
+- Pro.get_computer_inventory_attachment which downloads specified attachment file by the ID of the computer and ID of the attachment
+- Pro.create_computer_inventory_attachment which uploads attachment to a specified computer by ID
+- Pro.update_computer_inventory which updates specific fields on a computer by ID, then returns the updated computer object in JSON
+- Pro.delete_computer_inventory which deletes specified computer record by ID
+- Pro.delete_computer_inventory_attachment which deletes specified computer attachment by computer ID and computer attachment ID
+- RequestBuilder._download which sends get requests with special cases that require file downloads
+
+## [0.96.0] -- 2022-11-20
+### Added
+- Pro.get_computer_groups which returns all computer groups
+
+## [0.95.0] -- 2022-11-20
+### Added
+- Pro.get_cloud_ldap_default_server_configuration which returns default server configuration for cloud identity provider by provider name
+- Pro.get_cloud_ldap_default_mappings which returns default mapping configuration for cloud identity provider by provider name
+- Pro.get_cloud_ldap_configuration which returns the cloud identity provider configuration by ID
+- Pro.get_cloud_ldap_mappings which returns the cloud identity provider mappings configuratiion by ID
+- Pro.get_cloud_ldap_connection_status which returns the cloud identity provider connection status
+- Pro.get_cloud_ldap_bind_connection_pool which returns the cloud identity provider bind connection pool statistics
+- Pro.get_cloud_ldap_search_connection_pool which returns the cloud identity provider search connection pool statistics
+- Pro.create_cloud_ldap_configuration which creates new Cloud Identity Provider configuration with unique display name
+- Pro.create_cloud_ldap_keystore_validation which validates keystore for Cloud Identity Provider secure connection
+- Pro.update_cloud_ldap_configuration which updates Cloud Identity Provider configuration
+- Pro.update_cloud_ldap_mappings_configuration which updates Cloud Identity Provider mappings configuration
+- Pro.delete_cloud_ldap_configuration which deletes Cloud Identity Provider configuration
+
+## [0.94.0] -- 2022-11-18
+### Added
+- Pro.get_cloud_idps which returns basic informations about all configured Cloud Identitym Providers
+- Pro.get_cloud_idp which returns cloud identity provider configuration by ID
+- Pro.get_cloud_idp_history which returns specified cloud identity provider history by ID
+- Pro.get_cloud_idp_export which returns CSV export of cloud identity providers collection
+- Pro.create_cloud_idp_history_note which creates specified cloud identity provider history note by ID
+- Pro.create_cloud_idp_group_test_search which creates a cloud identify provider group test search and returns the result
+- Pro.create_cloud_idp_user_test_search which creates a cloud identify provider user test search and returns the result
+- Pro.create_cloud_idp_user_membership_test_search which creates a cloud identify provider user membership test search and returns the result
+
+## [0.93.0] -- 2022-11-18
+### Added
+- Pro.get_cloud_azure_default_server_configuration which returns the default set of server attributes that allows you to return the data you need from Azure AD
+- Pro.get_cloud_azure_default_mappings which returns the default set of mapping attributes that allows you to return the data you need from Azure AD
+- Pro.get_cloud_azure_identity_provider_configuration which returns Azure cloud identity provider configuration with given ID in JSON
+- Pro.get_cloud_azure_report which returns excel file of generated cloud azure report
+- Pro.get_cloud_azure_report_status which returns status of Azure AD migration report
+- Pro.get_cloud_azure_pending_report which returns info about pending report
+- Pro.create_cloud_azure_report which starts a new process in background that will generate Excel report with JSON data
+- Pro.create_cloud_azure_identity_provider_configuration which create new Azure Cloud Identity Provider configuration with unique display name
+- Pro.update_cloud_azure_identity_provider_configuration which updates an Azure Cloud Identity Provider configuration
+- Pro.delete_cloud_azire_identity_provider_configuration which deletes a cloud identity provider configuration by ID
+
+## [0.92.0] -- 2022-11-17
+### Added
+- Pro.get_client_check_in which returns client check-in settings in JSON
+- Pro.get_client_check_in_history which returns client check-in settings history in JSON
+- Pro.create_client_check_in_history_note which creates a client check-in history note with JSON data
+- Pro.update_client_check_in which updates client check-in settings with JSON data
+
+## [0.91.0] -- 2022-11-17
+### Added
+- Pro.get_classic_ldap which returns mappings for OnPrem LDAP configuration with given id
+
+## [0.90.0] -- 2022-11-17
+### Added
+- Pro.get_certificate_authority_active which returns X.509 details of the active certificate authority in JSON, der, or pem format
+- Pro.get_certificate_authority which returns X.509 details of certificate authority by ID in JSON, der, or pem format
+### Changed
+- RequestBuilder._get now handles custom headers outside of JSON and XML
+
+## [0.89.0] -- 2022-11-16
+### Added
+- Pro.get_categories which returns all category objects in JSON
+- Pro.get_category which returns specified category object by ID in JSON
+- Pro.get_category_history which returns specified category history object by ID in JSON
+- Pro.create_category which creates a category record with JSON data
+- Pro.create_category_history_note which creates a category history object note by ID with JSON data
+- Pro.udpate_category which updates a category by ID with JSON data
+- Pro.delete_category which deletes a category by ID or IDS, use id for a single category and ids to delete multiple
+
+## [0.88.0] -- 2022-11-16
+### Added
+- Pro.get_cache_settings which returns cache settings of the JPS server in JSON
+- Pro.update_cache_settings updates cache settings of the JPS server in JSON
+
+## [0.87.0] -- 2022-11-16
+### Added
+- Pro.get_buildings which returns all buildings or search for sorted and paged buildings
+- Pro.get_building which returns specified building object by ID in JSON
+- Pro.get_building_history which returns specified building history object by ID in JSON
+- Pro.get_building_export which exports buildings collection in CSV
+- Pro.get_building_history_export which exports building history in specified format by ID
+- Pro.create_building which creates a building record with JSON data
+- Pro.create_building_history_note which creates specified building history notes with JSON data by ID
+- Pro.update_building which updates a specified building with JSON data by ID
+- Pro.delete_building which deletes an building by ID or IDS, use id for a single building and ids to delete multiple
+- utils.remove_empty_params which removes all key, value pairs where the value is None
+- utils.enforce_type which makes sure that a value is the specified type, used when a different type of data may cause issues
+### Changed
+- RequestBuilder._get now handles params
+- RequestBuilder._post now handles params
+- RequestBuilder._put now handles params
+- RequestBuilder._delete now handles params
+- Classic.file_uploads now uses params and success_message
+
+## [0.86.0] -- 2022-11-15
+### Added
+- Pro.get_app_store_country_codes which returns a list of countries and the associated codes that can be use for the App Store locale
+
+## [0.85.0] -- 2022-11-15
+### Added
+- Pro.get_app_request_settings which reutrns the app request settings in JSON
+- Pro.get_app_request_form_input_fields which returns the app request form input fields in JSON
+- Pro.get_app_request_form_input_field which returns specified app request form input field object by ID
+- Pro.create_app_request_form_input_field which creates a app request form input field record with JSON data
+- Pro.update_app_request_settings which updates the app request settings with JSON data
+- Pro.update_app_request_form_input_field which updates the specified app request form input field object by ID with JSON data
+- Pro.replace_app_request_form_input_fields which replaces all app request form input fields with JSON data
+- Pro.delete_app_request_form_input_field which deletes a specified app request form input field by ID
+
+## [0.84.0] -- 2022-11-15
+### Added
+- Pro.get_app_dynamics_configuration which returns the AppDynamicsConfig object from the JPS server
+
+## [0.83.0] -- 2022-11-15
+### Added
+- Pro.get_api_authentication which returns all the authorization details associated with the current API token in JSON
+
+## [0.82.0] -- 2022-11-14
+### Added
+- Pro.get_advanced_user_content_searches which returns all advanced user content search in JSON
+- Pro.get_advanced_user_content_search which returns data on one advanced user content search in JSON
+- Pro.create_advanced_user_content_search which creates an advanced user content search
+- Pro.update_advanced_user_content_search which updates an existing advanced user content search by ID
+- Pro.delete_advanced_user_content_search which deletes an existing advanced user content search by ID
+### Changed
+- RequestBuilder._post updated to handle JSON data body
+- RequestBuilder._put updated to handle JSON data body 
+
+## [0.81.0] -- 2022-11-14
+### Added
+- Pro.get_advanced_mobile_device_searches which returns all advanced mobile device searches in JSON
+- Pro.get_advanced_mobile_device_search_criteria_options which returns all choices for a given advanced mobile device search criteria
+- Pro.get_advanced_mobile_device_search returns data on one advanced mobile device search in JSON
+- Pro.create_advanced_mobile_device_search which creates an advanced mobile device search with JSON data
+- Pro.update_advanced_mobile_device_search which updates an existing advanced mobile device search by ID with JSON
+- Pro.delete_advanced_mobile_device_search which deletes either one or multiple advanced mobile device searches by ID
+### Changed
+- RequestBuilder._post updated to return a optional success message instead of returning the request response
+- RequestBuilder._delete updated to return a optional success message instead of returning the request response
+
+## [0.80.0] -- 2022-11-14
+### Added
+- Classic.get_webhooks which returns all webhooks
+- Classic.get_webhook which returns data on one webhook by ID or name
+- Classic.create_webhook which creates a webhook 
+- Classic.update_webhook which updates an existing webhook by ID or name
+- Classic.delete_webhook which deletes an existing webhook by ID or name
+
+## [0.79.0] -- 2022-11-14
+### Added
+- Classic.get_vpp_invitations which returns all VPP invitations
+- Classic.get_vpp_invitation which returns data on one VPP invitation by ID and optionally filter by subsets
+- Classic.create_vpp_invitation which creates a VPP invitation by ID
+- Classic.update_vpp_invitation which updates an existing VPP invitation by ID
+- Classic.delete_vpp_invitation which deletes an existing VPP invitation by ID
+
+## [0.78.0] -- 2022-11-13
+### Added
+- Classic.get_vpp_assignments which returns all VPP assignments
+- Classic.get_vpp_assignment which returns data on one VPP assignment by ID
+- Classic.create_vpp_assignment which creates a VPP assignment by ID
+- Classic.update_vpp_assignment which updates an existing VPP assignment by ID
+- Classic.delete_vpp_assignment which deletes an existing VPP assignment by ID
+
+## [0.77.0] -- 2022-11-13
+### Added
+- Classic.get_vpp_accounts which returns all VPP accounts
+- Classic.get_vpp_account which returns data on one VPP account by ID
+- Classic.create_vpp_account which creates a VPP account by ID
+- Classic.update_vpp_account which updates an existing VPP account by ID
+- Classic.delete_vpp_account which deletes an existing VPP account by ID
+
+## [0.76.0] -- 2022-11-13
+### Added
+- Classic.get_users which returns all users
+- Classic.get_user which returns data on one user by ID or name
+- Classic.create_user which creates a user 
+- Classic.update_user which updates an existing user by ID or name
+- Classic.delete_user which deletes an existing user by ID or name
+
+## [0.75.0] -- 2022-11-13
+### Added
+- Classic.get_user_groups which returns all user groups
+- Classic.get_user_group which returns data on one user group by ID or name
+- Classic.create_user_group which creates a user group 
+- Classic.update_user_group which updates an existing user group by ID or name
+- Classic.delete_user_group which deletes an existing user group by ID or name
+
+## [0.74.0] -- 2022-11-13
+### Added
+- Classic.get_user_extension_attributes which returns all user extension attributes
+- Classic.get_user_extension_attribute which returns data on one user extension attribute by ID or name
+- Classic.create_user_extension_attribute which creates a user extension attribute 
+- Classic.update_user_extension_attribute which updates an existing user extension attribute by ID or name
+- Classic.delete_user_extension_attribute which deletes an existing user extension attribute by ID or name
+
+## [0.73.0] -- 2022-11-13
+### Added
+- Classic.get_software_update_servers which returns all software update servers
+- Classic.get_software_update_server which returns data on one software update server by ID or name
+- Classic.create_software_update_server which creates a software update server 
+- Classic.update_software_update_server which updates an existing software update server by ID or name
+- Classic.delete_software_update_server which deletes an existing software update server by ID or name
+
+## [0.72.0] -- 2022-11-12
+### Added
+- Classic.get_smtp_server which returns info on the SMTP server of the JPS server
+- Classic.update_smtp_server which updates the SMTP server of the JPS server
+
+## [0.71.0] -- 2022-11-12
+### Added
+- Classic.get_sites which returns all sites
+- Classic.get_site which returns data on one site by ID or name
+- Classic.create_site which creates a site 
+- Classic.update_site which updates an existing site by ID or name
+- Classic.delete_site which deletes an existing site by ID or name
+
+## [0.70.0] -- 2022-11-12
+### Added
+- Classic.get_scripts which returns all scripts
+- Classic.get_script which returns data on one script by ID or name
+- Classic.create_script which creates a script 
+- Classic.update_script which updates an existing script by ID or name
+- Classic.delete_script which deletes an existing script by ID or name
+
+## [0.69.0] -- 2022-11-12
+### Added
+- Classic.get_restricted_software_all which returns all restricted software
+- Classic.get_restricted_software which returns data on one restricted software by ID or name
+- Classic.create_restricted_software which creates a restricted software 
+- Classic.update_restricted_software which updates an existing restricted software by ID or name
+- Classic.delete_restricted_software which deletes an existing restricted software by ID or name
+
+## [0.68.0] -- 2022-11-12
+### Added
+- Classic.get_removable_mac_addresses which returns all removable MAC addresses
+- Classic.get_removable_mac_address which returns data on one removable MAC address by ID or name
+- Classic.create_removable_mac_address which creates a removable MAC address 
+- Classic.update_removable_mac_address which updates an existing removable MAC address by ID or name
+- Classic.delete_removable_mac_address which deletes an existing removable MAC address by ID or name
+
+## [0.67.0] -- 2022-11-12
+### Added
+- Classic.get_printers which returns all printer
+- Classic.get_printer which returns data on one printer by ID or name
+- Classic.create_printer which creates a printer 
+- Classic.update_printer which updates an existing printer by ID or name
+- Classic.delete_printer which deletes an existing printer by ID or name
+
+## [0.66.0] -- 2022-11-12
+### Added
+- Classic.get_policies which returns all policies and filter by category and what is was created by
+- Classic.get_policy which returns data on one policy by ID or name and optional subsets
+- Classic.create_policy which creates a policy 
+- Classic.update_policy which updates an existing policy by ID or name
+- Classic.delete_policy which deletes an existing policy by ID or name
+
+## [0.65.0] -- 2022-11-12
+### Added
+- Classic.get_peripheral_types which returns all peripheral types
+- Classic.get_peripheral_type which returns data on one peripheral type by ID with optional subsets
+- Classic.update_peripheral_type which updates an existing peripheral type by ID 
+- Classic.delete_peripheral_type which deletes an existing peripheral type by ID 
+
+## [0.64.0] -- 2022-11-11
+### Added
+- Classic.get_peripherals which returns all peripherals
+- Classic.get_peripheral which returns data on one peripheral by ID with optional subsets
+- Classic.update_peripheral which updates an existing peripheral by ID 
+- Classic.delete_peripheral which deletes an existing peripheral by ID 
+
+## [0.63.0] -- 2022-11-11
+### Added
+- Classic.get_patch_software_titles which returns all patch software titles
+- Classic.get_patch_software_title which returns data on one patch software title by ID
+- Classic.create_patch_software_title which creates a patch software title by ID
+- Classic.update_patch_software_title which updates an existing patch software title by ID
+- Classic.delete_patch_software_title which deletes an existing patch software title by ID
+
+## [0.62.0] -- 2022-11-11
+### Added
+- Classic.get_policy_report which returns data on patch reports filtered by ID and version
+
+## [0.61.0] -- 2022-11-11
+### Added
+- Classic.get_patch_policies which returns all patch policies
+- Classic.get_patch_policy which returns data on one patch policy by ID with optional subsets
+- Classic.create_patch_policy which creates an patch policy by ID 
+- Classic.update_patch_policy which updates an existing patch policy by ID 
+- Classic.delete_patch_policy which deletes an existing patch policy by ID 
+
+## [0.60.0] -- 2022-11-11
+### Added
+- Classic.get_patch_internal_sources which returns all internal patch sources
+- Classic.get_patch_external_source which returns data on one external patch source by ID or name
+
+## [0.59.0] -- 2022-11-11
+### Added
+- Classic.get_patch_external_sources which returns all external patch sources
+- Classic.get_patch_external_source which returns data on one external patch source by ID or name
+- Classic.create_patch_external_source which creates an external patch source by ID or name
+- Classic.update_patch_external_source which updates an existing external patch source by ID or name
+- Classic.delete_patch_external_source which deletes an existing external patch source by ID 
+
+## [0.58.0] -- 2022-11-11
+### Added
+- Classic.get_package_available_titles which returns all available patch titles for an internal or external patch source by ID
+
+## [0.57.0] -- 2022-11-11
+### Added
+- Classic.get_packages which returns all packages
+- Classic.get_package which returns data on one package by ID or name
+- Classic.create_package which creates a package 
+- Classic.update_package which updates an existing package by ID or name
+- Classic.delete_package which deletes an existing package by ID or name
+
+## [0.56.0] -- 2022-11-11
+### Added
+- Classic.get_osx_configuration_profiles which returns all OSX configuration profiles
+- Classic.get_osx_configuration_profile which returns data on one OSX configuration profile by ID or name and optional subsets
+- Classic.create_osx_configuration_profile which creates a OSX configuration profile 
+- Classic.update_osx_configuration_profile which updates an existing OSX configuration profile by ID or name
+- Classic.delete_osx_configuration_profile which deletes an existing OSX configuration profile by ID or name
+
+## [0.55.0] -- 2022-11-11
+### Added
+- Classic.get_network_segments which returns all network segments
+- Classic.get_network_segment which returns data on one network segment by ID or name
+- Classic.create_network_segment which creates a network segment 
+- Classic.update_network_segment which updates an existing network segment by ID or name
+- Classic.delete_network_segment which deletes an existing network segment by ID or name
+
+## [0.54.0] -- 2022-11-11
+### Added
+- Classic.get_mobile_device_provisioning_profiles which returns all mobile device provisioning profiles
+- Classic.get_mobile_device_provisioning_profile which returns data on one mobile device provisioning profile by either ID, name, or UUID
+- Classic.create_mobile_device_provisioning_profile which creates a mobile device provisioning profile by either ID, name, or UUID
+- Classic.delete_mobile_device_provisioning_profile which deletes a mobile device provisioning profile by either ID, name, or UUID
+
+## [0.53.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_invitations which returns all mobile device invitations
+- Classic.get_mobile_device_invitation which returns data on one mobile device invitation by either ID or invitation
+- Classic.create_mobile_device_invitation which creates a mobile device invitation by either ID or invitation
+- Classic.delete_mobile_device_invitation which deletes a mobile device invitation by either ID or invitation
+
+## [0.52.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_history which returns mobile device history data with all available identifation options and subsets
+
+## [0.51.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_groups which returns all mobile device groups
+- Classic.get_mobile_device_group which returns data on one mobile device group by ID or name
+- Classic.create_mobile_device_group which creates a mobile device group 
+- Classic.update_mobile_device_group which updates an existing mobile device group by ID or name
+- Classic.delete_mobile_device_group which deletes an existing mobile device group by ID or name
+
+## [0.50.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_extension_attributes which returns all mobile device extension attributes
+- Classic.get_mobile_device_extension_attribute which returns data on one mobile device extension attribute by ID or name
+- Classic.create_mobile_device_extension_attribute which creates a mobile device extension attribute 
+- Classic.update_mobile_device_extension_attribute which updates an existing mobile device extension attribute by ID or name
+- Classic.delete_mobile_device_extension_attribute which deletes an existing mobile device extension attribute by ID or name
+
+## [0.49.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_enrollment_profiles which returns all mobile device enrollment profiles
+- Classic.get_mobile_device_enrollment_profile which returns data on one mobile device enrollment profile by ID or name and optional subsets
+- Classic.create_mobile_device_enrollment_profile which creates a mobile device enrollment profile 
+- Classic.update_mobile_device_enrollment_profile which updates an existing mobile device enrollment profile by ID or name
+- Classic.delete_mobile_device_enrollment_profile which deletes an existing mobile device enrollment profile by ID or name
+
+## [0.48.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_configuration_profiles which returns all mobile device configuration profiles
+- Classic.get_mobile_device_configuration_profile which returns data on one mobile device configuration profile by ID or name and optional subsets
+- Classic.create_mobile_device_configuration_profile which creates a mobile device configuration profile 
+- Classic.update_mobile_device_configuration_profile which updates an existing mobile device configuration profile by ID or name
+- Classic.delete_mobile_device_configuration_profile which deletes an existing mobile device configuration profile by ID or name
+
+## [0.47.0] -- 2022-11-10
+### Added
+- Classic.get_mobile_device_commands which returns all mobile device commands in JSON or XML, can optionally filter by command name
+- Classic.get_mobile_device_command which returns data on one mobile device command by UUID in JSON or XML
+- Classic.create_mobile_device_command which sends a mobile device command to a device by XML data or command and IDs
+### Changed
+- Classic.create_computer_command id param is not in List[Union[int, str]] format instead of Union[int, str]
+
+## [0.46.0] -- 2022-11-09
+### Added
+- Classic.get_mobile_device_applications which returns all mobile device applications in JSON or XML
+- Classic.get_mobile_device_application which returns data on one mobile device application by ID, name, or bundle ID in JSON or XML, bundle ID can additionally filter by version
+- Classic.create_mobile_device_application which creates a mobile device application by ID with XML data
+- Classic.update_mobile_device_application which updates an existing mobile device application by ID, name, or bundle ID with XML data, bundle ID can additionally filter by version
+- Classic.delete_mobile_device_application which deletes a mobile device application by ID, name, or bundle ID which can additionally filter by version
+
+## [0.45.0] -- 2022-11-09
+### Added
+- Classic.get_managed_preference_profiles which returns all managed preference profiles
+- Classic.get_managed_preference_profile which returns data on one managed preference profile by ID or name and optional subsets
+- Classic.create_managed_preference_profile which creates a managed preference profile 
+- Classic.update_managed_preference_profile which updates an existing managed preference profile by ID or name
+- Classic.delete_managed_preference_profile which deletes an existing managed preference profile by ID or name
+
+## [0.44.0] -- 2022-11-09
+### Added
+- Classic.get_mac_applications which returns all mac applications
+- Classic.get_mac_application which returns data on one Mac application by ID or name and optional subsets
+- Classic.create_mac_application which creates a Mac application 
+- Classic.update_mac_application which updates an existing Mac application by ID or name
+- Classic.delete_mac_application which deletes an existing Mac application by ID or name
+
+## [0.43.0] -- 2022-11-08
+### Added
+- Classic.log_flush which flushes all policy logs or policy logs for a specific computer in an interval of times with XML data
+- Classic.log_flush_interval which flushes policy logs in an interval or for a specific policy log in an interval
+### Changed
+- RequestBuilder._delete allows + characters in endpoints now to handle Classic.log_flush_interval, need to find a better solution eventually
+
+## [0.42.0] -- 2022-11-08
+### Added
+- Classic.get_licensed_software_all which returns all licensed software
+- Classic.get_licensed_software which returns data on one licensed software by ID or name
+- Classic.create_licensed_software which creates a licensed software 
+- Classic.update_licensed_software which updates an existing licensed software by ID or name
+- Classic.delete_licensed_software which deletes an existing licensed software by ID or name
+
+## [0.41.0] -- 2022-11-08
+### Added
+- Classic.get_ldap_servers which returns all LDAP servers
+- Classic.get_ldap_server which returns data on one LDAP server
+- Classic.get_ldap_server_user which returns data on users matching a user name in a LDAP server
+- Classic.get_ldap_server_group which returns data on a group matching a group name in a LDAP server
+- Classic.get_ldap_server_group_user which returns data on users in a group in a LDAP server
+- Classic.create_ldap_server which creates a LDAP server
+- Classic.update_ldap_server which updates an existing LDAP server
+- Classic.delete_ldap_server which deletes a LDAP server
+### Changed
+- Classic.file_upload now handles the diskencryptionconfiguration resource and enforces p12, cer, and pem file types
+
+## [0.40.0] -- 2022-11-08
+### Added 
+- Classic.get_json_web_token_configurations which returns all JSON web token configurations
+- Classic.get_json_web_token_configuration which returns data on one JSON web token configuration by ID
+- Classic.create_json_web_token_configuration which creates a JSON web token configuration by ID
+- Classic.update_json_web_token_configuration which updates an existing JSON web token configuration by ID
+- Classic.delete_json_web_token_configuration which deletes a JSON web token configuration by ID
+
+## [0.39.0] -- 2022-11-07
+### Added
+- Classic.get_infrasture_managers which returns all infrastructure managers
+- Classic.get_infrastructure_manager which returns data on one infrastructure manager by ID
+- Classic.update_infrastructure_manager which updates an existing infrastructure manager by ID
+
+## [0.38.0] -- 2022-11-07
+### Added
+- Classic.get_ibeacon_regions which returns all ibeacon regions
+- Classic.get_ibeacon_region which returns data on one iBeacon region by ID or name
+- Classic.create_ibeacon_region which creates a iBeacon region 
+- Classic.update_ibeacon_region which updates an existing iBeacon region by ID or name
+- Classic.delete_ibeacon_region which deletes an existing iBeacon region by ID or name
+
+## [0.37.0] -- 2022-11-07
+### Added 
+- Classic.get_healthcare_listener_rules which returns all healtchare listener rules
+- Classic.get_healthcare_listener_rule which returns data on one healthcare listener rule by ID
+- Classic.create_healthcare_listener_rule which creates a healthcare listener rule by ID
+- Classic.update_healthcare_listener_rule which updates an existing healthcare listener rule by ID
+
+## [0.36.0] -- 2022-11-07
+### Added
+- Classic.get_healthcare_listeners which returns all healthcare listeners
+- Classic.get_healthcare_listener which returns data on one healthcare listener by ID
+- Classic.update_healthcare_listener which updates an existing healthcare listener by ID
+
+## [0.35.0] -- 2022-11-07
+### Added
+- Classic.get_gsx_connection which returns data on the JPS GSX connection
+- Classic.update_gsx_connection which updates the JPS GSX connection information
+
+## [0.34.0] -- 2022-11-07
+### Added
+- Classic.file_upload which handles file uploads to the JPS server
+### Changed
+- RequestBuilder._get now supports query strings
+- RequestBuilder._post now handles files and supports query strings
+- RequestBuilder._put now supports query strings
+- RequestBuilder._delete now supports query strings
+
+## [0.33.0] -- 2022-11-05
+### Added
+- Classic.get_ebooks which returns all ebooks
+- Classic.get_ebook which returns data on one ebook by ID or name and optional subsets
+- Classic.create_ebook which creates a ebook 
+- Classic.update_ebook which updates an existing ebook by ID or name
+- Classic.delete_ebook which deletes an existing ebook by ID or name
+
+## [0.32.0] -- 2022-11-05
+### Added
+- Classic.get_dock_items which returns all dock items
+- Classic.get_dock_item which returns data on one dock item by ID or name
+- Classic.create_dock_item which creates a dock item 
+- Classic.update_dock_item which updates an existing dock item by ID or name
+- Classic.delete_dock_item which deletes an existing dock item by ID or name
+
+## [0.31.0] -- 2022-11-05
+### Added
+- Classic.get_distribution_points which returns all distribution points
+- Classic.get_distribution_point which returns data on one distribution point by ID or name
+- Classic.create_distribution_point which creates a distribution point 
+- Classic.update_distribution_point which updates an existing distribution point by ID or name
+- Classic.delete_distribution_point which deletes an existing distribution point by ID or name
+
+## [0.30.0] -- 2022-11-05
+### Added
+- Classic.get_disk_encryption_configurations which returns all disk encryption configurations
+- Classic.get_disk_encryption_configuration which returns data on one disk encryption configuration by ID or name
+- Classic.create_disk_encryption_configuration which creates a disk encryption configuration 
+- Classic.update_disk_encryption_configuration which updates an existing disk encryption configuration by ID or name
+- Classic.delete_disk_encryption_configuration which deletes an existing disk encryption configuration by ID or name
+
+## [0.29.0] -- 2022-11-05
+### Added
+- Classic.get_directory_bindings which returns all directory bindings
+- Classic.get_directory_binding which returns data on one directory binding by ID or name
+- Classic.create_directory_binding which creates a directory binding 
+- Classic.update_directory_binding which updates an existing directory binding by ID or name
+- Classic.delete_directory_binding which deletes an existing directory binding by ID or name
+
+## [0.28.0] -- 2022-11-05
+### Added
+- Classic.get_departments which returns all departments
+- Classic.get_department which returns data on one department by ID or name
+- Classic.create_department which creates a department 
+- Classic.update_department which updates an existing department by ID or name
+- Classic.delete_department which deletes an existing department by ID or name
+
+## [0.27.0] -- 2022-11-05
+### Added
+- Classic.get_computers which returns all computers and can optionally filter by computer values and return basic info
+- Classic.get_computer which returns data on one computer by all available identifiers and subsets
+- Classic.create_computer which creates a computer with XML data
+- Classic.update_computer which updates a computer with XML data
+- Classic.delete_computer which deletes a computer by all available identifiers
+- Classic.delete_computers_extension_attribute_data which flushes the data gathered from a computer extension attribute
+
+## [0.26.0] -- 2022-11-04
+### Added
+- Classic.get_computer_reports which returns all computer reports
+- Classic.get_computer_report which returns data on one computer report by either ID or name 
+
+## [0.25.0] -- 2022-11-04
+### Added
+- Classic.get_computer_management which returns computer managment data with all identifiers and subsets as options with optional username filtering
+
+## [0.24.0] -- 2022-11-04
+### Added
+- Classic.get_computer_invitations which returns all computer invitations
+- Classic.get_computer_invitation which returns data on one computer invitation by either ID or invitation
+- Classic.create_computer_invitation which creates a computer invitation by either ID or invitation
+- Classic.delete_computer_invitation which deletes a computer invitation by either ID or invitation
+### Changed
+- utils.identification_type changed to recognize 0 ints as values and not False
+
+## [0.23.0] -- 2022-11-04
+### Added
+- Classic.get_computer_inventory_collection which returns the computer inventory collection settings of the JPS server
+- Classic.update_computer_inventory_collection which udpates the computer inventory collection settings of the JPS server
+
+## [0.22.0] -- 2022-11-03
+### Added
+- Classic.get_computer_history which returns computer history data with all available identifation options and subsets
+
+## [0.21.0] -- 2022-11-03
+### Added
+- Classic.get_computer_hardware_software_reports which returns computer hardware and software reports with all available identification options and subsets
+
+## [0.20.0] -- 2022-11-03
+### Added
+- Classic.get_computer_groups which returns all computer groups
+- Classic.get_computer_group which returns data on one computer group by ID or name
+- Classic.create_computer_group which creates a computer group 
+- Classic.update_computer_group which updates an existing computer group by ID or name
+- Classic.delete_computer_group which deletes an existing computer group by ID or name
+
+## [0.19.0] -- 2022-11-03
+### Added
+- Classic.get_computer_extension_attributes which returns all computer extension attributes
+- Classic.get_computer_extension_attribute which returns data on one computer extension attribute by ID or name
+- Classic.create_computer_extension_attribute which creates a computer extension attribute 
+- Classic.update_computer_extension_attribute which updates an existing computer extension attribute by ID or name
+- Classic.delete_computer_extension_attribute which deletes an existing computer extension attribute by ID or name
+
+## [0.18.0] -- 2022-11-03
+### Added
+- Classic.get_computer_commands which returns data on all computer commands and can optionally be filtered by name
+- Classic.get_computer_command which returns data on one computer command
+- Classic.get_computer_command_status which returns data on the status of one computer command
+- Classic.create_computer_command which creates a computer command given using either command parameters or XML data
+- utils.check_conflicting_params which makes sure only one of the parameters passed to it are not NoneType
+
+## [0.17.0] -- 2022-11-03
+### Added
+- Classic.get_computer_check_in which returns computer check in settings for the JPS server
+- Classic.update_computer_check_in which updates computer check in settings for the JPS server
+
+## [0.16.0] -- 2022-11-03
+### Added
+- Classic.get_computer_application_usage which returns data on a computer's application usage based on start and end times and an IDentifier
+- utils.date_validator which validates that dates are in YYYY-MM-DD format
+
+## [0.15.0] -- 2022-11-02
+### Added
+- Classic.get_computer_application which returns data on a computer application based on name
+
+## [0.14.0] -- 2022-11-02
+### Added 
+- Classic.command_flush which flushes commands to a specified selection of computers or devices.
+- utils.param_or_data which detects if parameter or data options are being used for a module
+- utils.enforce_params which makes sure that required parameters are not None types
+- utils.valid_param_options which makes sure that the values supplied to a module are within valid criteria
+### Changed
+- request_builder._delete now also takes a data parameter
+
+## [0.13.0] -- 2022-11-02
+### Added
+- Classic.get_classes which returns all classes
+- Classic.get_class which returns data on one class by ID or name
+- Classic.create_class which creates a class 
+- Classic.update_class which updates an existing class by ID or name
+- Classic.delete_class which deletes an existing class by ID or name
+### Changed
+- Changed development status to alpha
+
+## [0.12.0] -- 2022-11-02
+### Added
+- Classic.get_categories which returns all categories
+- Classic.get_category which returns data on one category by ID or name
+- Classic.create_category which creates a category 
+- Classic.update_category which updates an existing category by ID or name
+- Classic.delete_category which deletes an existing category by ID or name
+
+## [0.11.0] -- 2022-11-02
+### Added
+- Classic.get_byo_profiles which returns all byo profiles
+- Classic.get_byo_profile which returns data on one byo profile by ID or name
+- Classic.create_byo_profile which creates a byo profile 
+- Classic.update_byo_profile which updates an existing byo profile by ID or name
+- Classic.delete_byo_profile which deletes an existing byo profile by ID or name
+
+## [0.10.0] -- 2022-11-02
+### Added
+- Classic.get_buildings which returns all buildings
+- Classic.get_building which returns data on one building by ID or name
+- Classic.create_building which creates a building 
+- Classic.update_building which updates an existing building by ID or name
+- Classic.delete_building which deletes an existing building by ID or name
+### Changed
+- Moved data_type to the end of params in get requests
+
+## [0.9.0] -- 2022-11-01
+### Added
+- Classic.get_allowed_file_extensions which returns all allowed file extensions
+- Classic.get_allowed_file_extension which returns data on one allowed file extension by ID or name
+- Classic.create_allowed_file_extension which creates an allowed file extension
+- Classic.delete_allowed_file_extension which deletes an allowed file extension
+
+## [0.8.0] -- 2022-11-01
+## Added
+- Classic.get_advanced_user_searches which returns all advanced user searches
+- Classic.get_advanced_user_search which returns data on one advanced user search by ID or name
+- Classic.create_advanced_user_search which creates an advanced user search 
+- Classic.update_advanced_user_search which updates an existing advanced user search by ID or name
+- Classic.delete_advanced_user_search which deletes an existing advanced user search by ID or name
+
+## [0.7.0] -- 2022-11-01
+### Added
+- Classic.get_advanced_mobile_device_searches which returns all advanced mobile device searches
+- Classic.get_advanced_mobile_device_search which returns data on one advanced mobile device search  by ID or name
+- Classic.create_advanced_mobile_device_search which creates an advanced mobile device search 
+- Classic.update_advanced_mobile_device_search which updates an existing advanced mobile device search by ID or name
+- Classic.delete_advanced_mobile_device_search which deletes an existing advanced mobile device search by ID or name
+
+## [0.6.0] -- 2022-11-01
+### Added
+- Classic.get_advanced_computer_searches which returns all advanced computer searches
+- Classic.get_advanced_computer_search which returns data on one advanced computer search  by ID or name
+- Classic.create_advanced_computer_search which creates an advanced computer search 
+- Classic.update_advanced_computer_search which updates an existing advanced computer search by ID or name
+- Classic.delete_advanced_computer_search which deletes an existing advanced computer search by ID or name
+
+## [0.5.0] -- 2022-11-01
+### Added
+- Classic.get_activation_code which returns the activation code and organization name of the JPS server
+- Classic.update_activation_code which updates the activation code and organziation name of the JPS server
+
+## [0.4.0] -- 2022-11-01
+### Added 
+- Documented the needed endpoints for Classic
+- Classic.get_accounts which gets all accounts and account groups in a JPS instance
+- Classic.get_account_group which returns data on one account group by ID or name
+- Classic.create_account_group which creates a new account group
+- Classic.update_account_group which updates an existing account group by ID or name
+- Classic.delete_account_group which deletes an account group by ID or name
+- Classic.get_account which returns data on one account by ID or name
+- Classic.create_account which creates a new account
+- Classic.update_account which updates an existing account group by ID or name
+- Classic.delete_account_group which deletes an account by ID or name
+
+## [0.3.0] -- 2022-10-31
+### Added 
+- Classic.delete_mobile_device which deletes a mobile device with a given Identifier
+- utils.valid_subsets which will see if subsets were passed and then see if the subsets are part of a list of valID subsets for the endpoint
+### Changed
+- Classic.get_mobile_device now handles subsets
+- Classic.get_mobile_devices now has a match param which lets you search all mobile devices with a specific criteria
+
+## [0.2.0] -- 2022-10-30
+### Added
+- Added utils file for functions and errors that will be used for Classic and Pro
+- Classic.get_mobile_device which gets a mobile device with all of the available endpoint Identifiers
+- Classic.update_mobile_device which updates a mobile device with all of the available endpoint Identifiers
+- Added a function to raise recognized Jamf errors with more troubleshooting info
+- Classic.create_mobile_device which creates a mobile device using XML data
+
+## [0.1.1] -- 2022-10-29
+### Changed
+- Moved ./tests to root directory and added pyproject.toml to fix pytest path
+
+## [0.1.0] -- 2022-10-29
+### Added
+- Base functionality for to build upon for Classic and Pro modules. Added one module to Classic to test functionality.

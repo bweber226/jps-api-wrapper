@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[[source]]
+url = "https://gitlab.com/api/v4/projects/38995343/packages/pypi/simple"
+verify_ssl = true
+name = "jamf_auth"
+
+[packages]
+jamf-auth = {version="*", index="jamf_auth"}
+
+[dev-packages]
+black = "*"
+pytest = "*"
+responses = "*"
+pytest-cov = "*"
+flake8 = "*"
+classic = {editable = true, path = "./src"}
+pro = {editable = true, path = "./src"}
