@@ -96,7 +96,7 @@ To run the tests and get coverage information, run:
 pipenv run pytest --cov=src/ --cov-branch --cov-report=xml --cov-report=term
 ```
 
-Files are formatted with Black prior to committing. Black is installed in your Pipenv virtual environment. Rune it like this before you commit:
+Files are formatted with Black prior to committing. Black is installed in your Pipenv virtual environment. Run it like this before you commit:
 
 ```
 pipenv run black .
