@@ -1,0 +1,3 @@
+typing>=3.7.4.3
+--extra-index-url https://gitlab.com/api/v4/projects/38995343/packages/pypi/simple
+jamf-auth>=1.0.3

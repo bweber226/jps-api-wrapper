@@ -9,6 +9,7 @@ verify_ssl = true
 name = "jamf_auth"
 
 [packages]
+typing = {version="*", index="pypi"}
 jamf-auth = {version="*", index="jamf_auth"}
 
 [dev-packages]

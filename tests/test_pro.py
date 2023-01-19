@@ -64,6 +64,7 @@ def response_builder(method: str, url: str, data_type: str = "json", status: int
 
     return response
 
+
 """
 advanced-mobile-device-searches
 """

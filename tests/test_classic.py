@@ -81,6 +81,7 @@ def response_builder(method: str, url: str, data_type: str = "json", status: int
 
     return response
 
+
 """
 /accounts
 """
@@ -105,8 +106,9 @@ def test_get_accounts_json_500(classic):
     with pytest.raises(HTTPError):
         classic.get_accounts()
 
+
 @responses.activate
-def test_get_accounts_json_500(classic):
+def test_get_accounts_json_invalid_data_type(classic):
     """
     Ensures get_accounts raises InvalidDataType when used with data_type is not
     json or xml
