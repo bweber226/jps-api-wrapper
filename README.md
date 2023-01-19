@@ -69,7 +69,7 @@ Any methods that require the data param will have a link to Jamf's documentation
 
 ## Method Documentation
 
-View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/latest/)
+View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/stable/)
 
 ## Other Notes
 
