@@ -4,8 +4,8 @@ import responses
 from requests.auth import AuthBase
 from unittest import mock
 
-from pro import Pro
-from request_builder import InvalidDataType, NotFound
+from jps_api_wrapper.pro import Pro
+from jps_api_wrapper.request_builder import InvalidDataType, NotFound
 
 
 MOCK_AUTH_STRING = "This is a MockAuth"

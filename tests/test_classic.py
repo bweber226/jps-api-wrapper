@@ -6,15 +6,15 @@ import responses
 from requests.auth import AuthBase
 from requests.exceptions import HTTPError
 
-from classic import Classic
-from request_builder import (
+from jps_api_wrapper.classic import Classic
+from jps_api_wrapper.request_builder import (
     InvalidDataType,
     ClientError,
     NotFound,
     RequestConflict,
     RequestTimedOut,
 )
-from utils import (
+from jps_api_wrapper.utils import (
     ConflictingParameters,
     InvalidParameterOptions,
     InvalidSubset,

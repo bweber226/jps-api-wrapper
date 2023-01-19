@@ -2,8 +2,8 @@ from typing import List, Union
 from os.path import basename
 from mimetypes import guess_type
 
-from request_builder import RequestBuilder
-from utils import (
+from jps_api_wrapper.request_builder import RequestBuilder
+from jps_api_wrapper.utils import (
     check_conflicting_params,
     identification_type,
     remove_empty_params,

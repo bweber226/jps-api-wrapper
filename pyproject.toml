@@ -3,6 +3,6 @@ pythonpath = [
   "src"
 ]
 
-[project]
-name = "JPS API Wrapper"
-authors = [{name = "Bryan Weber", email = "bweber226@gmail.com"}]
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
