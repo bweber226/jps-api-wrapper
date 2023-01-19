@@ -1,6 +1,6 @@
 # JPS (Jamf Pro Server) API Wrapper
 
-[![license](https://gitlab.com/cvtc/appleatcvtc/jps-api-wrapper/-/blob/main/LICENSE)](LICENSE)
+[![license](https://img.shields.io/github/license/bweber226/jps-api-wrapper)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use.

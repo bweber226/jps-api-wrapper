@@ -163,5 +163,5 @@ cython_debug/
 #.idea/
 
 # For testing modules before commits
-src/jamf_api_wrapper/test.py
+src/jps_api_wrapper/test.py
 .vscode
