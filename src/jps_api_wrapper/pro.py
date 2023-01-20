@@ -5527,7 +5527,7 @@ class Pro(RequestBuilder):
         """
         endpoint = f"/api/v2/mobile-devices/{id}"
 
-        return self._put(endpoint, data)
+        return self._patch(endpoint, data)
 
     """
     parent-app-preview

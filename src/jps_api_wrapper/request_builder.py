@@ -259,6 +259,52 @@ class RequestBuilder:
         else:  # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")
 
+    def _patch(
+        self,
+        endpoint: str,
+        data: Union[dict, str],
+        params: dict = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Sends patch requests given an endpoint, data, and data_type
+
+        :param endpoint:
+            The url section of the api endpoint following the base_url
+            e.g. /JSSResource/computers
+        :param data:
+            xml data or json dict used in the put request
+        :param params:
+            Optional params for the request
+        :param data_type:
+            json or xml
+
+        :returns:
+            - response.json - Returned if the data_type was json
+            - response.text - Returned if the data_type was xml
+
+        :raises InvalidDataType:
+            data_type is not json or xml
+        """
+        full_url = self.base_url + quote(endpoint)
+        headers = {"Content-type": f"application/{data_type}"}
+        if data_type == "xml":
+            response = self.session.patch(
+                full_url, headers=headers, data=data, params=params
+            )
+        else:
+            response = self.session.patch(
+                full_url, headers=headers, json=data, params=params
+            )
+        self._raise_recognized_errors(response)
+        response.raise_for_status()
+        if data_type == "json":
+            return response.json()
+        elif data_type == "xml":
+            return response.text
+        else:  # pragma: no cover
+            raise InvalidDataType("data_type needs to be either json or xml")
+
     def _delete(
         self,
         endpoint: str,

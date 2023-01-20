@@ -4431,7 +4431,7 @@ def test_update_mobile_device(pro):
     Ensures that update_mobile_device returns JSON when used with required
     params
     """
-    responses.add(response_builder("PUT", jps_url("/api/v2/mobile-devices/1001")))
+    responses.add(response_builder("PATCH", jps_url("/api/v2/mobile-devices/1001")))
     assert pro.update_mobile_device(EXPECTED_JSON, 1001) == EXPECTED_JSON
 
 
