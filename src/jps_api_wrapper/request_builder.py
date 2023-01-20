@@ -1,10 +1,9 @@
+import re
+from os.path import exists, expanduser, splitext
 from typing import Union
 from urllib.parse import quote
-import re
-from os.path import expanduser, exists, splitext
 
 import requests
-
 from jamf_auth import JamfAuth
 
 

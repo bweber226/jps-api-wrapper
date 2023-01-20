@@ -1483,7 +1483,7 @@ def test_update_computer_inventory(pro):
     required params
     """
     responses.add(
-        response_builder("PUT", jps_url("/api/v1/computers-inventory-detail/1001"))
+        response_builder("PATCH", jps_url("/api/v1/computers-inventory-detail/1001"))
     )
     assert pro.update_computer_inventory(EXPECTED_JSON, 1001) == EXPECTED_JSON
 
@@ -1562,7 +1562,7 @@ def test_update_computer_inventory_collection_settings(pro):
     """
     responses.add(
         response_builder(
-            "PUT", jps_url("/api/v1/computer-inventory-collection-settings")
+            "PATCH", jps_url("/api/v1/computer-inventory-collection-settings")
         )
     )
     assert (
@@ -5798,7 +5798,7 @@ def test_update_team_viewer_remote_administration_connection_configuration(pro):
     """
     responses.add(
         response_builder(
-            "PUT",
+            "PATCH",
             jps_url(
                 "/api/preview/remote-administration-configurations/team-viewer/1001"
             ),
@@ -6073,7 +6073,7 @@ def test_update_venafi_configuration(pro):
     Ensures that update_venafi_configuration returns JSON when used with
     required params
     """
-    responses.add(response_builder("PUT", jps_url("/api/v1/pki/venafi/1001")))
+    responses.add(response_builder("PATCH", jps_url("/api/v1/pki/venafi/1001")))
     assert pro.update_venafi_configuration(EXPECTED_JSON, 1001) == EXPECTED_JSON
 
 
@@ -6298,7 +6298,7 @@ def test_update_volume_purchasing_location(pro):
     required params
     """
     responses.add(
-        response_builder("PUT", jps_url("/api/v1/volume-purchasing-locations/1001"))
+        response_builder("PATCH", jps_url("/api/v1/volume-purchasing-locations/1001"))
     )
     assert pro.update_volume_purchasing_location(EXPECTED_JSON, 1001) == EXPECTED_JSON
 
