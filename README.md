@@ -1,13 +1,13 @@
-# JPS API Wrapper
+# JPS (Jamf Pro Server) API Wrapper
 
-[![license](https://gitlab.com/cvtc/appleatcvtc/jps-api-wrapper/-/blob/main/LICENSE)](LICENSE)
+[![license](https://img.shields.io/github/license/bweber226/jps-api-wrapper)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use.
 
 ## Table of Contents
 
-- [JPS API Wrapper](#jps-api-wrapper)
+- [JPS (Jamf Pro Server) API Wrapper](#jps-jamf-pro-server-api-wrapper)
   - [Table of Contents](#table-of-contents)
   - [Background](#background)
   - [Install](#install)
@@ -44,17 +44,32 @@ PASSWORD = environ["JPS_PASSWORD"]
 
 with Classic(JPS_URL, USERNAME, PASSWORD) as classic:
     print(classic.get_computers())
-    print(classic.get_computer())
+    print(classic.get_computer(1001))
 
 with Pro(JPS_URL, USERNAME, PASSWORD) as pro:
     print(pro.get_mobile_devices())
 ```
 
-Any methods that require the data param will have a link to Jamf's documentation in the docstring for the syntax of the data that the request expects.
+If not using with statements it is recommended to invalidate the token before closing the program. You can do this manually by doing the following.
+
+```
+from jps_api_wrapper.classic import Classic
+from jps_api_wrapper.pro import Pro
+from os import environ
+
+JPS_URL = "https://example.jamfcloud.com"
+USERNAME = environ["JPS_USERNAME"]
+PASSWORD = environ["JPS_PASSWORD"]
+
+print(classic.get_building(name="Example"))
+classic.session.auth.invalidate()
+```
+
+Any methods that require the data param will have a link to Jamf's documentation in the docstring and the method documentation for the syntax of the data that the request expects.
 
 ## Method Documentation
 
-View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/latest/)
+View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/stable/)
 
 ## Other Notes
 
@@ -66,6 +81,26 @@ View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/latest/)
 - Pro methods predicated with replace are put methods that replace all existing data with the new data supplied. They are distringuished from other methods predicated by update so that someone does not mistakingly replace all data when they just meant to update
 
 ## Contributing
+
+This repository contains a Pipfile for easy management of virtual environments
+with Pipenv. Run it, but don't create a lockfile, to install the development
+dependencies:
+
+```
+pipenv install --skip-lock --dev
+```
+
+To run the tests and get coverage information, run:
+
+```
+pipenv run pytest --cov=src/ --cov-branch --cov-report=xml --cov-report=term
+```
+
+Files are formatted with Black prior to committing. Black is installed in your Pipenv virtual environment. Run it like this before you commit:
+
+```
+pipenv run black .
+```
 
 PRs accepted.
 

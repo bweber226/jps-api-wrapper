@@ -24,13 +24,13 @@ copyright = "2023, Bryan Weber"
 author = "Bryan Weber"
 
 # The full version, including alpha/beta/rc tags
-release = "1.0.0"
+release = "1.0.5"
 
 
 # -- General configuration ---------------------------------------------------
 
 # Changes master doc from contents to index
-master_doc = 'index'
+master_doc = "index"
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -68,4 +68,3 @@ html_static_path = ["_static"]
 # unit titles (such as .. function::).
 add_module_names = False
 autodoc_member_order = "bysource"
-

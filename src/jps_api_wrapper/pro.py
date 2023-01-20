@@ -1,13 +1,13 @@
-from typing import List, Union
-from os.path import basename
 from mimetypes import guess_type
+from os.path import basename
+from typing import List, Union
 
 from jps_api_wrapper.request_builder import RequestBuilder
 from jps_api_wrapper.utils import (
     check_conflicting_params,
+    enforce_type,
     identification_type,
     remove_empty_params,
-    enforce_type,
 )
 
 
@@ -1894,7 +1894,7 @@ class Pro(RequestBuilder):
         """
         endpoint = f"/api/v1/computers-inventory-detail/{id}"
 
-        return self._put(endpoint, data)
+        return self._patch(endpoint, data)
 
     def delete_computer_inventory(self, id: Union[int, str]) -> str:
         """
@@ -1982,7 +1982,7 @@ class Pro(RequestBuilder):
         """
         endpoint = "/api/v1/computer-inventory-collection-settings"
 
-        return self._put(endpoint, data)
+        return self._patch(endpoint, data)
 
     def delete_computer_inventory_collection_settings_custom_path(
         self, id: Union[int, str]
@@ -5527,7 +5527,7 @@ class Pro(RequestBuilder):
         """
         endpoint = f"/api/v2/mobile-devices/{id}"
 
-        return self._put(endpoint, data)
+        return self._patch(endpoint, data)
 
     """
     parent-app-preview
@@ -7193,7 +7193,7 @@ class Pro(RequestBuilder):
         """
         endpoint = f"/api/preview/remote-administration-configurations/team-viewer/{id}"
 
-        return self._put(endpoint, data)
+        return self._patch(endpoint, data)
 
     def delete_team_viewer_remote_administration_connection_configuration(
         self, id: Union[int, str]
@@ -7523,7 +7523,7 @@ class Pro(RequestBuilder):
         """
         endpoint = f"/api/v1/pki/venafi/{id}"
 
-        return self._put(endpoint, data)
+        return self._patch(endpoint, data)
 
     def delete_venafi_configuration(self, id: Union[int, str]) -> str:
         """
@@ -7800,7 +7800,7 @@ class Pro(RequestBuilder):
         """
         endpoint = f"/api/v1/volume-purchasing-locations/{id}"
 
-        return self._put(endpoint, data)
+        return self._patch(endpoint, data)
 
     def delete_volume_purchasing_location(self, id: Union[int, str]) -> str:
         """

@@ -5,6 +5,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] -- 2022-1-20
+### Changed
+- Pro.update_computer_inventory changed from put to patch
+- Pro.update_computer_inventory_collection_settings changed from put to patch
+- Pro.update_team_viewer_remote_administration_connection_configuration changed from put to patch
+- Pro.update_venafi_configuration changed from put to patch
+- Pro.update_volume_purchasing_location changed from put to patch
+
+## [1.0.4] -- 2022-1-19
+### Added
+- RequestBuilder._patch
+### Changed
+- Pro.update_mobile_device changed from put to patch
+
+## [1.0.3] -- 2022-1-19
+### Changed
+- Updated setup.cfg now that jamf_auth is published to PYPI
+- sphinx requirements now correctly uses jamf-api-auth
+
+## [1.0.2] -- 2022-1-19
+### Changed
+- Fixed dependencies in setup.cfg
+
+## [1.0.1] -- 2022-1-19
+### Changed
+- setup.cfg to the correct version
+
+## [1.0.0] -- 2022-1-19
+### Changed
+- Updated README, finished formatting
+
+## [0.165.0] -- 2022-1-19
+### Added
+- requirements.txt
+
+## [0.164.4] -- 2022-1-19
+### Changed
+- Moved the main repo from GitLab to GitHub
+- gitignore ignores vscode and my test file
+- Fixed readme license link
+
 ## [0.164.3] -- 2022-1-18
 ### Changed
 - Structure of package was updated to work with standard setup.cfg

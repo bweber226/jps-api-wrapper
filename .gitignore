@@ -163,6 +163,5 @@ cython_debug/
 #.idea/
 
 # For testing modules before commits
-src/test.py
-standard_api_setup.template
-10_get_api_setup.template
+src/jps_api_wrapper/test.py
+.vscode

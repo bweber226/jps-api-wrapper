@@ -1,10 +1,9 @@
+import re
+from os.path import exists, expanduser, splitext
 from typing import Union
 from urllib.parse import quote
-import re
-from os.path import expanduser, exists, splitext
 
 import requests
-
 from jamf_auth import JamfAuth
 
 
@@ -29,11 +28,11 @@ class RequestBuilder:
         self.session = requests.Session()
         self.session.auth = JamfAuth(self.base_url, username, password)
 
-    def __enter__(self):   # pragma: no cover
+    def __enter__(self):  # pragma: no cover
         self.session.auth.refresh_auth_if_needed()
         return self
 
-    def __exit__(self, exception_type, exception_value, traceback):   # pragma: no cover
+    def __exit__(self, exception_type, exception_value, traceback):  # pragma: no cover
         self.session.auth.invalidate()
 
     @classmethod
@@ -210,7 +209,7 @@ class RequestBuilder:
             return response.json()
         elif data_type in ["xml", None]:
             return response.text
-        else:   # pragma: no cover
+        else:  # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")
 
     def _put(
@@ -256,7 +255,53 @@ class RequestBuilder:
             return response.json()
         elif data_type == "xml":
             return response.text
-        else:   # pragma: no cover
+        else:  # pragma: no cover
+            raise InvalidDataType("data_type needs to be either json or xml")
+
+    def _patch(
+        self,
+        endpoint: str,
+        data: Union[dict, str],
+        params: dict = None,
+        data_type: str = "json",
+    ) -> Union[dict, str]:
+        """
+        Sends patch requests given an endpoint, data, and data_type
+
+        :param endpoint:
+            The url section of the api endpoint following the base_url
+            e.g. /JSSResource/computers
+        :param data:
+            xml data or json dict used in the put request
+        :param params:
+            Optional params for the request
+        :param data_type:
+            json or xml
+
+        :returns:
+            - response.json - Returned if the data_type was json
+            - response.text - Returned if the data_type was xml
+
+        :raises InvalidDataType:
+            data_type is not json or xml
+        """
+        full_url = self.base_url + quote(endpoint)
+        headers = {"Content-type": f"application/{data_type}"}
+        if data_type == "xml":
+            response = self.session.patch(
+                full_url, headers=headers, data=data, params=params
+            )
+        else:
+            response = self.session.patch(
+                full_url, headers=headers, json=data, params=params
+            )
+        self._raise_recognized_errors(response)
+        response.raise_for_status()
+        if data_type == "json":
+            return response.json()
+        elif data_type == "xml":
+            return response.text
+        else:  # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")
 
     def _delete(
@@ -298,11 +343,11 @@ class RequestBuilder:
         response.raise_for_status()
         if success_message:
             return success_message
-        elif data_type == "json":   # pragma: no cover
+        elif data_type == "json":  # pragma: no cover
             return response.json()
         elif data_type == "xml":
             return response.text
-        else:   # pragma: no cover
+        else:  # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")
 
 

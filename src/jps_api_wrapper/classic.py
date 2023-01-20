@@ -4,6 +4,7 @@ from typing import List, Union
 
 from jps_api_wrapper.request_builder import RequestBuilder
 from jps_api_wrapper.utils import (
+    InvalidParameterOptions,
     check_conflicting_params,
     enforce_params,
     identification_type,
@@ -11,7 +12,6 @@ from jps_api_wrapper.utils import (
     valid_param_options,
     valid_subsets,
     validate_date,
-    InvalidParameterOptions,
 )
 
 
