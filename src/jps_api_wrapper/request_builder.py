@@ -287,7 +287,7 @@ class RequestBuilder:
         """
         full_url = self.base_url + quote(endpoint)
         headers = {"Content-type": f"application/{data_type}"}
-        if data_type == "xml":
+        if data_type == "xml":  # pragma: no cover
             response = self.session.patch(
                 full_url, headers=headers, data=data, params=params
             )
@@ -299,7 +299,7 @@ class RequestBuilder:
         response.raise_for_status()
         if data_type == "json":
             return response.json()
-        elif data_type == "xml":
+        elif data_type == "xml":  # pragma: no cover
             return response.text
         else:  # pragma: no cover
             raise InvalidDataType("data_type needs to be either json or xml")

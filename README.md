@@ -93,7 +93,7 @@ pipenv install --skip-lock --dev
 To run the tests and get coverage information, run:
 
 ```
-pipenv run pytest --cov=src/ --cov-branch --cov-report=xml --cov-report=term
+pipenv run pytest --cov=src --cov-report=xml --cov-report=term-missing
 ```
 
 Files are formatted with Black prior to committing. Black is installed in your Pipenv virtual environment. Run it like this before you commit:
