@@ -5529,6 +5529,34 @@ class Pro(RequestBuilder):
 
         return self._patch(endpoint, data)
 
+    def update_mobile_device_extension_attributes(
+        self, attributes: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates mobile device extension attributes by ID with JSON
+
+        :param attributes:
+            Dictionary object containing the extension attributes to update as:
+            {
+                "EA name 1": "EA value 1",
+                "EA name 2": "EA value 2"
+            }
+
+        :param id: Mobile device ID
+
+        :returns: Updated mobile device information in JSON
+        """
+        data = {"updatedExtensionAttributes": []}
+
+        for attribute_name, new_value in attributes.items():
+            data["updatedExtensionAttributes"].append(
+                {"name": attribute_name, "value": [new_value]}
+            )
+
+        endpoint = f"/api/v2/mobile-devices/{id}"
+
+        return self._patch(endpoint, data)
+
     """
     parent-app-preview
     """

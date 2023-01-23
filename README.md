@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/github/license/bweber226/jps-api-wrapper)](LICENSE)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use.
+The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use in Python.
 
 ## Table of Contents
 
@@ -93,7 +93,7 @@ pipenv install --skip-lock --dev
 To run the tests and get coverage information, run:
 
 ```
-pipenv run pytest --cov=src/ --cov-branch --cov-report=xml --cov-report=term
+pipenv run pytest --cov=src --cov-report=xml --cov-report=term-missing
 ```
 
 Files are formatted with Black prior to committing. Black is installed in your Pipenv virtual environment. Run it like this before you commit:

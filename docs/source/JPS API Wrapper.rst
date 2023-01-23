@@ -2966,6 +2966,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.update_mobile_device_extension_attribute
+
+   |
+
 .. collapse:: parent-app-preview
 
    |
