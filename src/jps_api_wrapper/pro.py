@@ -381,26 +381,6 @@ class Pro(RequestBuilder):
         return self._get(endpoint)
 
     """
-    branding
-    """
-
-    def get_branding_image(self, id: Union[int, str]) -> str:
-        """
-        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
-
-        Downloads a Self Service branding image to the current user's Downloads
-        folder by ID
-
-        :param id: Self Service branding image ID
-
-        :returns:
-            Success message stating that the branding image was downloaded
-        """
-        endpoint = f"/api/v1/branding-images/download/{id}"
-
-        return self._download(endpoint)
-
-    """
     buildings
     """
 
@@ -1785,43 +1765,6 @@ class Pro(RequestBuilder):
         :returns: Computer inventory details in JSON
         """
         endpoint = f"/api/v1/computers-inventory-detail/{id}"
-
-        return self._get(endpoint)
-
-    def get_computer_inventory_filevaults(
-        self, page: int = None, page_size: int = None
-    ) -> dict:
-        """
-        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
-
-        Returns paginated FileVault information for all computers
-
-        :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
-
-        :returns: FileVault information for all computers in JSON
-        """
-        params = remove_empty_params(
-            {
-                "page": page,
-                "page-size": page_size,
-            }
-        )
-        endpoint = "/api/v1/computers-inventory/filevault"
-
-        return self._get(endpoint, params=params)
-
-    def get_computer_inventory_filevault(self, id: Union[int, str]) -> dict:
-        """
-        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
-
-        Returns FileVault information for a specific computer
-
-        :param id: Computer ID
-
-        :returns: Computer FileVault information in JSON
-        """
-        endpoint = f"/api/v1/computers-inventory/{id}/filevault"
 
         return self._get(endpoint)
 
@@ -3409,23 +3352,6 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
-    def get_enrollment_customization_image(self, id: Union[int, str]) -> dict:
-        """
-        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
-
-        Downloads the specified enrollment customization image to the current
-        users Downloads folder
-
-        :param id: Enrollment customization image ID
-
-        :returns:
-            Success message stating that the enrollment customization image was
-            downloaded
-        """
-        endpoint = f"/api/v2/enrollment-customizations/images/{id}"
-
-        return self._download(endpoint)
-
     def create_enrollment_customization(self, data: dict) -> dict:
         """
         Creates an enrollment customization with JSON data
@@ -3845,37 +3771,6 @@ class Pro(RequestBuilder):
         endpoint = f"/api/v1/icon/{id}"
 
         return self._get(endpoint)
-
-    def get_icon_image(
-        self, id: Union[int, str], resolution: str = None, scale: str = None
-    ) -> str:
-        """
-        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
-        BETA: THIS ENDPOINT CURRENTLY DOES NOT WORK
-
-        Downloads a self service icon by ID along with res and scale options
-
-        :param id: Self service icon ID
-        :param resolution:
-            Request a specific resolution of original, 300, or 512; invalid
-            options will result in original resolution
-        :param scale:
-            Request a scale; 0 results in original image, non-0 results in
-            scaled to 300
-
-        :returns:
-            Success message stating the icon image was downloaded to the user's
-            Downloads folder
-        """
-        params = remove_empty_params(
-            {
-                "res": resolution,
-                "scale": scale,
-            }
-        )
-        endpoint = f"/api/v1/icon/download/{id}"
-
-        return self._download(endpoint, params=params)
 
     def create_icon(self, filepath: str) -> dict:
         """
@@ -7689,56 +7584,6 @@ class Pro(RequestBuilder):
             }
         )
         endpoint = f"/api/v1/volume-purchasing-locations/{id}/history"
-
-        return self._get(endpoint, params=params)
-
-    def get_volume_purchasing_location_content(
-        self,
-        id: Union[int, str],
-        page: int = None,
-        page_size: int = None,
-        sort: List[str] = ["id:asc"],
-        filter: str = None,
-    ) -> dict:
-        """
-        BETA: THIS ENDPOINT ONLY WORKS ON BETA INSTANCES
-
-        Returns the volume purchasing content for the volume purchasing
-        location by ID
-
-        :param id: Volume purchasing location ID
-        :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
-        :param sort:
-            Sorting criteria in the format: property:asc/desc. Default sort is
-            id:asc. Multiple sort criteria are supported and must be separated
-            with a comma.
-
-            Exmaple: ["id:desc", "name:asc"]
-
-        :param filter:
-            Query in the RSQL format, allowing to filter Volume Purchasing
-            Content collection. Default filter is empty query - returning all
-            results for the requested page. Fields allowed in the query: name,
-            licenseCountTotal, licenseCountInUse, licenseCountReported,
-            contentType, and pricingParam. This param can be combined with
-            paging and sorting.
-
-            Example: name=="example" and licenseCountInUse==1
-
-        :returns:
-            Volume purchasing content for the volume purchasing location in
-            JSON
-        """
-        params = remove_empty_params(
-            {
-                "page": page,
-                "page-size": page_size,
-                "sort": sort,
-                "filter": filter,
-            }
-        )
-        endpoint = f"/api/v1/volume-purchasing-locations/{id}/content"
 
         return self._get(endpoint, params=params)
 

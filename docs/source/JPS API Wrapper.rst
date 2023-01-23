@@ -1750,14 +1750,6 @@ Pro
 
    |
 
-.. collapse:: branding
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_branding_image
-
-   |
-
 .. collapse:: buildings
 
    |
@@ -2035,14 +2027,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_computer_inventory_detail
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_inventory_filevaults
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_inventory_filevault
 
    |
 
@@ -2523,10 +2507,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_icon
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_icon_image
 
    |
 
@@ -3540,10 +3520,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_volume_purchasing_location_history
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_volume_purchasing_location_content
 
    |
 
