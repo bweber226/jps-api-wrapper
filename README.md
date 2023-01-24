@@ -102,7 +102,7 @@ Files are formatted with Black prior to committing. Black is installed in your P
 pipenv run black .
 ```
 
-PRs accepted.
+PRs accepted. The main repo is my [organization's GitLab repo](https://gitlab.com/cvtc/appleatcvtc/jps-api-wrapper) so make any pull requests there as the GitHub repo is mirrored from there.
 
 ## License
 
