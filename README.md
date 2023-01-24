@@ -67,6 +67,8 @@ classic.session.auth.invalidate()
 
 Any methods that require the data param will have a link to Jamf's documentation in the docstring and the method documentation for the syntax of the data that the request expects.
 
+For some examples of jps-api-wrapper usage in real projects feel free to check out my other projects in our [GitLab](https://gitlab.com/cvtc/appleatcvtc).
+
 ## Method Documentation
 
 View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/stable/)
