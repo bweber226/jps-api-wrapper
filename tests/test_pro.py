@@ -429,6 +429,26 @@ def test_get_app_store_country_codes(pro):
 
 
 """
+branding
+"""
+
+
+@responses.activate
+def test_get_branding_image_notfound(pro):
+    """
+    Ensures that get_branding_image raises NotFound when returning a 404
+    HTTPError
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/branding-images/download/1001"), status=404
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_branding_image(1001)
+
+
+"""
 buildings
 """
 
@@ -1358,6 +1378,16 @@ def test_get_computer_inventory(pro):
 
 
 @responses.activate
+def test_get_computer_inventory_optional_params(pro):
+    """
+    Ensures that get_computer_inventory returns JSON when used with optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/computers-inventory/1001")))
+    assert pro.get_computer_inventory(1001, ["ALL"]) == EXPECTED_JSON
+
+
+@responses.activate
 def test_get_computer_inventory_detail(pro):
     """
     Ensures that get_computer_inventory_detail returns JSON when used with
@@ -1367,6 +1397,42 @@ def test_get_computer_inventory_detail(pro):
         response_builder("GET", jps_url("/api/v1/computers-inventory-detail/1001"))
     )
     assert pro.get_computer_inventory_detail(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_filevaults(pro):
+    """
+    Ensures that get_computer_inventory_filevaults returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computers-inventory/filevault"))
+    )
+    assert pro.get_computer_inventory_filevaults() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_filevaults_optional_params(pro):
+    """
+    Ensures that get_computer_inventory_filevaults returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computers-inventory/filevault"))
+    )
+    assert pro.get_computer_inventory_filevaults(0, 100) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_inventory_filevault(pro):
+    """
+    Ensures that get_computer_inventory_filevault returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computers-inventory/1001/filevault"))
+    )
+    assert pro.get_computer_inventory_filevault(1001) == EXPECTED_JSON
 
 
 @responses.activate
@@ -2638,6 +2704,21 @@ def test_get_enrollment_customization_prestages(pro):
 
 
 @responses.activate
+def test_get_enrollment_customization_image(pro):
+    """
+    Ensures that get_enrollment_customization_image raises NotFound when
+    a 404 HTTPError is returned
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/enrollment-customizations/images/1001"), status=404
+        )
+    )
+    with pytest.raises(NotFound):
+        pro.get_enrollment_customization_image(1001)
+
+
+@responses.activate
 def test_create_enrollment_customization(pro):
     """
     Ensures that create_enrollment_customization returns JSON when used with
@@ -2992,6 +3073,19 @@ def test_get_icon(pro):
     """
     responses.add(response_builder("GET", jps_url("/api/v1/icon/1001")))
     assert pro.get_icon(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_icon_image_404(pro):
+    """
+    Ensures that get_icon_image raises NotFound when it returns a 404 response
+    code
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/icon/download/1001"), status=404)
+    )
+    with pytest.raises(NotFound):
+        pro.get_icon_image(1001)
 
 
 @responses.activate
@@ -3594,6 +3688,18 @@ def test_update_jamf_pro_server_url_settings(pro):
 """
 jamf-pro-user-account-settings
 """
+
+
+@responses.activate
+def test_get_jamf_pro_user_account_setting_preferences(pro):
+    """
+    Ensures that get_jamf_pro_user_account_setting_preferences returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/user/preferences/settings/1001"))
+    )
+    assert pro.get_jamf_pro_user_account_setting_preferences(1001) == EXPECTED_JSON
 
 
 @responses.activate
@@ -6115,6 +6221,43 @@ def test_get_volume_purchasing_location_history_optional_params(pro):
             100,
             ["date:desc", "note:asc"],
             "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_volume_purchasing_location_content(pro):
+    """
+    Ensures that get_volume_purchasing_location_content returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/volume-purchasing-locations/1001/content")
+        )
+    )
+    assert pro.get_volume_purchasing_location_content(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_volume_purchasing_location_content_optional_params(pro):
+    """
+    Ensures that get_volume_purchasing_location_content returns JSON when used
+    with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/volume-purchasing-locations/1001/content")
+        )
+    )
+    assert (
+        pro.get_volume_purchasing_location_content(
+            1001,
+            0,
+            100,
+            ["id:desc", "name:asc"],
+            'name=="example" and licenseCountInUse==1',
         )
         == EXPECTED_JSON
     )

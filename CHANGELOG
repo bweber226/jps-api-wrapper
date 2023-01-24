@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] -- 2022-1-24
+### Added
+- Pro.get_branding_image which downloads a Self Service branding image to the current user's Downloads folder by ID
+- Pro.get_computer_inventory_filevaults which returns paginated FileVault information for all computers
+- Pro.get_computer_inventory_filevault which returns FileVault information for a specific computer by ID
+- Pro.get_icon_image which downloads a self service icon by ID along with res and scale options
+- Pro.get_jamf_pro_user_account_setting_preferences which returns the user preferences for the authenticated user and key by key ID
+- Pro.get_volume_purchasing_location_content which returns the volume purchasing content for the volume purchasing location by ID
+- Pro.get_enrollment_customization_image which downloads the specified enrollment customization image to the current user's Downloads folder
+
+### Changed
+- Pro.get_computer_inventory updated to include the section param
+
 ## [1.1.1] -- 2022-1-23
 ### Removed
 - Beta endpoints were removed until the release of the next patch when they will be readded
