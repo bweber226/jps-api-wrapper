@@ -5,6 +5,8 @@
 
 The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use in Python.
 
+I plan on keeping this up to date with current releases of JPS. Check the changelog for additional endpoints or changes on new JPS releases.
+
 ## Table of Contents
 
 - [JPS (Jamf Pro Server) API Wrapper](#jps-jamf-pro-server-api-wrapper)
@@ -72,6 +74,8 @@ For some examples of jps-api-wrapper usage in real projects feel free to check o
 ## Method Documentation
 
 View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/stable/)
+
+The method documentation is meant to match [Jamf's API Reference](https://developer.jamf.com/jamf-pro/reference/classic-api) for easy navigation of functionality.
 
 ## Other Notes
 
