@@ -5,18 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.2] -- 2022-1-26
+## [1.2.2] -- 2023-1-26
 ### Changed
 - Fixed typos across project
 
-## [1.2.1] -- 2022-1-24
+## [1.2.1] -- 2023-1-24
 ### Added 
 - GitLab CI set up to test on supported python versions and run pytest/black on commits and before merges
 
 ### Removed
 - GitHub Actions no longer being used since GitLab is the main repo
 
-## [1.2.0] -- 2022-1-24
+## [1.2.0] -- 2023-1-24
 ### Added
 - Pro.get_branding_image which downloads a Self Service branding image to the current user's Downloads folder by ID
 - Pro.get_computer_inventory_filevaults which returns paginated FileVault information for all computers
@@ -29,15 +29,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Pro.get_computer_inventory updated to include the section param
 
-## [1.1.1] -- 2022-1-23
+## [1.1.1] -- 2023-1-23
 ### Removed
 - Beta endpoints were removed until the release of the next patch when they will be re-added
 
-## [1.1.0] -- 2022-1-21
+## [1.1.0] -- 2023-1-21
 ### Added
 - Pro.update_mobile_device_extension_attributes which is a version of Pro.update_mobile_device that more easily handles updating extension attributes
 
-## [1.0.5] -- 2022-1-20
+## [1.0.5] -- 2023-1-20
 ### Changed
 - Pro.update_computer_inventory changed from put to patch
 - Pro.update_computer_inventory_collection_settings changed from put to patch
@@ -45,40 +45,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.update_venafi_configuration changed from put to patch
 - Pro.update_volume_purchasing_location changed from put to patch
 
-## [1.0.4] -- 2022-1-19
+## [1.0.4] -- 2023-1-19
 ### Added
 - RequestBuilder._patch
 ### Changed
 - Pro.update_mobile_device changed from put to patch
 
-## [1.0.3] -- 2022-1-19
+## [1.0.3] -- 2023-1-19
 ### Changed
 - Updated setup.cfg now that jamf_auth is published to PyPI
 - sphinx requirements now correctly uses jamf-api-auth
 
-## [1.0.2] -- 2022-1-19
+## [1.0.2] -- 2023-1-19
 ### Changed
 - Fixed dependencies in setup.cfg
 
-## [1.0.1] -- 2022-1-19
+## [1.0.1] -- 2023-1-19
 ### Changed
 - setup.cfg to the correct version
 
-## [1.0.0] -- 2022-1-19
+## [1.0.0] -- 2023-1-19
 ### Changed
 - Updated README, finished formatting
 
-## [0.165.0] -- 2022-1-19
+## [0.165.0] -- 2023-1-19
 ### Added
 - requirements.txt
 
-## [0.164.4] -- 2022-1-19
+## [0.164.4] -- 2023-1-19
 ### Changed
 - Moved the main repo from GitLab to GitHub
 - gitignore ignores vscode and my test file
 - Fixed readme license link
 
-## [0.164.3] -- 2022-1-18
+## [0.164.3] -- 2023-1-18
 ### Changed
 - Structure of package was updated to work with standard setup.cfg
 
