@@ -150,7 +150,7 @@ def test_create_advanced_mobile_device_search(pro):
 
 
 @responses.activate
-def test_update_advanced_movile_device(pro):
+def test_update_advanced_mobile_device(pro):
     """
     Ensures that update_advanced_mobile_device_search completes successfully
     when used with required params
@@ -197,7 +197,7 @@ def test_delete_advanced_mobile_device_search_multiple(pro):
     )
 
 
-def test_delete_advanced_mobile_search_id_typerror(pro):
+def test_delete_advanced_mobile_search_id_typeerror(pro):
     """
     Ensures that delete_advanced_mobile_device_search raises TypeError when
     id is not an int or str
@@ -669,7 +669,7 @@ categories
 @responses.activate
 def test_get_categories(pro):
     """
-    Ensures taht get_categories returns JSON when used without optional params
+    Ensures that get_categories returns JSON when used without optional params
     """
     responses.add(response_builder("GET", jps_url("/api/v1/categories")))
     assert pro.get_categories() == EXPECTED_JSON
@@ -964,8 +964,8 @@ def test_get_cloud_azure_identity_provider_configuration(pro):
 @responses.activate
 def test_get_cloud_azure_report(pro):
     """
-    Ensures that get_cloud_azure_report completes succesfully when run with
-    required pararms
+    Ensures that get_cloud_azure_report completes successfully when run with
+    required params
     """
     responses.add(
         response_builder(
@@ -1149,7 +1149,7 @@ def test_create_cloud_idp_history_note(pro):
 @responses.activate
 def test_create_cloud_idp_group_test_search(pro):
     """
-    Ensures that create_cloud_idp_group_test_search compeltes successfully when
+    Ensures that create_cloud_idp_group_test_search completes successfully when
     used with required params
     """
     responses.add(
@@ -1161,7 +1161,7 @@ def test_create_cloud_idp_group_test_search(pro):
 @responses.activate
 def test_create_cloud_idp_user_test_search(pro):
     """
-    Ensures that create_cloud_idp_user_test_search compeltes successfully when
+    Ensures that create_cloud_idp_user_test_search completes successfully when
     used with required params
     """
     responses.add(response_builder("POST", jps_url("/api/v1/cloud-idp/1001/test-user")))
@@ -1171,7 +1171,7 @@ def test_create_cloud_idp_user_test_search(pro):
 @responses.activate
 def test_create_cloud_idp_user_membership_test_search(pro):
     """
-    Ensures that create_cloud_idp_user_membership_test_search compeltes
+    Ensures that create_cloud_idp_user_membership_test_search completes
     successfully when used with required params
     """
     responses.add(
@@ -1191,7 +1191,7 @@ cloud-ldap
 @responses.activate
 def test_get_cloud_ldap_default_server_configuration(pro):
     """
-    Ensures that get_cloud_ldap_defailt_server_configuration returns JSON when
+    Ensures that get_cloud_ldap_default_server_configuration returns JSON when
     used with required params
     """
     responses.add(
@@ -1293,7 +1293,7 @@ def test_create_cloud_ldap_keystore_validation(pro):
 @responses.activate
 def test_update_cloud_ldap_configuration(pro):
     """
-    Ensures that update_cloud_ldap_configuration compeltes successfully when
+    Ensures that update_cloud_ldap_configuration completes successfully when
     used with required params
     """
     responses.add(response_builder("PUT", jps_url("/api/v2/cloud-ldaps/1001")))
@@ -1303,7 +1303,7 @@ def test_update_cloud_ldap_configuration(pro):
 @responses.activate
 def test_update_cloud_ldap_mappings_configuration(pro):
     """
-    Ensures that update_cloud_ldap_mappings_configuration compeltes
+    Ensures that update_cloud_ldap_mappings_configuration completes
     successfully when used with required params
     """
     responses.add(response_builder("PUT", jps_url("/api/v2/cloud-ldaps/1001/mappings")))
@@ -1454,7 +1454,7 @@ def test_get_computer_inventory_recovery_lock_password(pro):
 def test_get_computer_inventory_attachment_404(pro):
     """
     Ensures that get_computer_inventory_attachment_file raises NotFound when
-    the file attachmemt is not found
+    the file attachment is not found
     """
     responses.add(
         response_builder(
@@ -1502,7 +1502,7 @@ def test_update_computer_inventory(pro):
 def test_delete_computer_inventory(pro):
     """
     Ensures that delete_computer_inventory returns a str success message after
-    it successfully compeltes
+    it successfully completes
     """
     responses.add(
         response_builder("DELETE", jps_url("/api/v1/computers-inventory/1001"))
@@ -1693,7 +1693,7 @@ def test_update_computer_prestage(pro):
 @responses.activate
 def test_replace_computer_prestage_scope(pro):
     """
-    Ensures that replace_computer_prestage_scope returns JSON when compelted
+    Ensures that replace_computer_prestage_scope returns JSON when completed
     successfully with required params
     """
     responses.add(
@@ -1885,7 +1885,7 @@ def test_get_department_history(pro):
 def test_get_department_history_optional_params(pro):
     """
     Ensures that get_department_history returns JSON when used with all
-    optional parrams
+    optional params
     """
     responses.add(response_builder("GET", jps_url("/api/v1/departments/1001/history")))
     assert pro.get_department_history(
@@ -2008,7 +2008,7 @@ def test_get_device_communication_settings_history_optional_params(pro):
 def test_create_device_communication_settings_history_note(pro):
     """
     Ensures that create_device_communication_settings_history_note returns JSON
-    when completed succesfully
+    when completed successfully
     """
     responses.add(
         response_builder(
@@ -2462,7 +2462,7 @@ def test_get_enrollment_language_codes(pro):
 @responses.activate
 def test_get_enrollment_unused_language_codes(pro):
     """
-    Ensures that get_enrollment_usused_language_codes returns JSON when used
+    Ensures that get_enrollment_unused_language_codes returns JSON when used
     """
     responses.add(
         response_builder("GET", jps_url("/api/v3/enrollment/filtered-language-codes"))
@@ -2548,7 +2548,7 @@ def test_update_enrollment_adue_session_token_settings(pro):
 @responses.activate
 def test_update_enrollment_ldap_group(pro):
     """
-    Ensures that udpate_enrollment_ldap_group returns JSON when used with
+    Ensures that update_enrollment_ldap_group returns JSON when used with
     required params
     """
     responses.add(
@@ -2625,7 +2625,7 @@ enrollment-customization
 def test_get_enrollment_customizations(pro):
     """
     Ensures that get_enrollment_customization returns JSON when used without
-    optoonal params
+    optional params
     """
     responses.add(response_builder("GET", jps_url("/api/v2/enrollment-customizations")))
     assert pro.get_enrollment_customizations() == EXPECTED_JSON
@@ -2635,7 +2635,7 @@ def test_get_enrollment_customizations(pro):
 def test_get_enrollment_customizations_optional_params(pro):
     """
     Ensures that get_enrollment_customization returns JSON when used with all
-    optoonal params
+    optional params
     """
     responses.add(response_builder("GET", jps_url("/api/v2/enrollment-customizations")))
     assert (
@@ -3728,7 +3728,7 @@ def test_update_jamf_pro_user_account_setting(pro):
 def test_delete_jamf_pro_user_account_setting(pro):
     """
     Ensures that delete_jamf_pro_user_account_setting returns a success
-    messsage str when used with required params
+    message str when used with required params
     """
     responses.add(response_builder("DELETE", jps_url("/api/v1/user/preferences/1001")))
     assert (
@@ -3791,7 +3791,7 @@ def test_get_jamf_protect_config_profile_deployment_tasks(pro):
 @responses.activate
 def test_get_jamf_protect_config_profile_deployment_tasks_optional_params(pro):
     """
-    Ensures that get_jamf_protect_config_profile_deployment_tasks reurns JSON
+    Ensures that get_jamf_protect_config_profile_deployment_tasks returns JSON
     when used with all optional params
     """
     responses.add(
@@ -4342,7 +4342,7 @@ def test_update_mobile_device_prestage(pro):
 @responses.activate
 def test_replace_mobile_device_prestage_scope(pro):
     """
-    Ensures that replace_mobile_device_pretage_scope returns JSON when used
+    Ensures that replace_mobile_device_prestage_scope returns JSON when used
     with required params
     """
     responses.add(
@@ -4709,7 +4709,7 @@ def test_get_reenrollment_history(pro):
 @responses.activate
 def test_get_reenrollment_history_optional_params(pro):
     """
-    Ensures that get_reenorllment_history returns JSON when used with all
+    Ensures that get_reenrollment_history returns JSON when used with all
     optional params
     """
     responses.add(response_builder("GET", jps_url("/api/v1/reenrollment/history")))
@@ -5286,7 +5286,7 @@ def test_create_sso_certificate(pro):
 @responses.activate
 def test_create_sso_certificate_parse(pro):
     """
-    Ensures that create_sso_certicate_parse returns JSON when used with
+    Ensures that create_sso_corticate_parse returns JSON when used with
     required params
     """
     responses.add(response_builder("POST", jps_url("/api/v2/sso/cert/parse")))
@@ -6424,7 +6424,7 @@ def test_update_volume_purchasing_subscription(pro):
 
 
 @responses.activate
-def test_delete_volume_purchasing_subsescription(pro):
+def test_delete_volume_purchasing_subscription(pro):
     """
     Ensures that delete_volume_purchasing_subscription returns a success
     message str when used with required params

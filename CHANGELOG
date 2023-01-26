@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] -- 2022-1-26
+### Changed
+- Fixed typos across project
+
 ## [1.2.1] -- 2022-1-24
 ### Added 
 - GitLab CI set up to test on supported python versions and run pytest/black on commits and before merges
@@ -27,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.1] -- 2022-1-23
 ### Removed
-- Beta endpoints were removed until the release of the next patch when they will be readded
+- Beta endpoints were removed until the release of the next patch when they will be re-added
 
 ## [1.1.0] -- 2022-1-21
 ### Added
@@ -49,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.3] -- 2022-1-19
 ### Changed
-- Updated setup.cfg now that jamf_auth is published to PYPI
+- Updated setup.cfg now that jamf_auth is published to PyPI
 - sphinx requirements now correctly uses jamf-api-auth
 
 ## [1.0.2] -- 2022-1-19
@@ -100,12 +104,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Classic.file_upload changed to create_file_upload to better match the rest of the projects syntax
 - Classic.log_flush changed to create_log_flush to better match the rest of the projects syntax
 - Classic.log_flush_interval to create_log_flush_interval to better match the rest of the projects syntax
-- Classic.command_flush to create_command_flush to better matcht he rest of the projects syntax
+- Classic.command_flush to create_command_flush to better match he rest of the projects syntax
 
 ## [0.162.0] -- 2022-12-23
 ### Added
 - Pro.get_volume_purchasing_subscriptions which returns sorted and paged volume purchasing subscriptions
-- Pro.get_volume_purchasing_subscription which returns a volume purchasing subcscription by ID
+- Pro.get_volume_purchasing_subscription which returns a volume purchasing subscription by ID
 - Pro.create_volume_purchasing_subscription which creates a volume purchasing subscription with JSON
 - Pro.update_volume_purchasing_subscription which updates a volume purchasing subscription by ID with JSON
 - Pro.delete_volume_purchasing_subscription which deletes a volume purchasing subscription by ID
@@ -184,7 +188,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_supervision_identity which returns a supervision identity by ID
 - Pro.get_supervision_identity_file which downloads the supervision identity .p12 file by ID
 - Pro.create_supervision_identity which creates a supervision identity with JSON
-- Pro.create_supervision_identity_file which creates the superivision identity .p12 file with JSON
+- Pro.create_supervision_identity_file which creates the supervision identity .p12 file with JSON
 - Pro.update_supervision_identity which updates a supervision identity by ID with JSON
 - Pro.delete_supervision_identity which deletes a supervision identity by ID
 
@@ -205,8 +209,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_sso_settings_saml_metadata_file which downloads the Jamf Pro SAML metadata file to the current users downloads folder
 - Pro.create_sso_settings_disable which disables SSO for the Jamf Pro Server
 - Pro.create_sso_settings_history_note which creates SSO history note with JSON
-- Pro.create_sso_settings_validate_saml_metadata_url which validates content available udner provided metadata URL with JSON
-- Pro.update_sso_settings which updates the current SSSO configuration settings
+- Pro.create_sso_settings_validate_saml_metadata_url which validates content available under provided metadata URL with JSON
+- Pro.update_sso_settings which updates the current SSO configuration settings
 
 ### [0.149.0] -- 2022-12-21
 ### Added
@@ -307,7 +311,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.134.0] -- 2022-12-9
 ### Added
 - Pro.get_parent_app_settings which returns the current Jamf Parent app settings
-- Pro.get_parent_app_settings_history which returns Jamf Paret app settings history
+- Pro.get_parent_app_settings_history which returns Jamf Parent app settings history
 - Pro.create_parent_app_settings_history_note which creates a Jamf Parent app settings history note with JSON
 - Pro.update_parent_app_settings which updates Jamf Parent app settings with JSON
 
@@ -334,7 +338,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.create_mobile_device_prestage_history_note which creates a mobile device prestage history note by ID with JSON
 - Pro.create_mobile_device_prestage_scope which adds device scope for a specific mobile device prestage by ID
 - Pro.update_mobile_device_prestage which updates a mobile device prestage by ID with JSON
-- Pro.replace_mobile_device_prestage_scope which replaces device scope for a specific mobiule device prestage by ID with JSON
+- Pro.replace_mobile_device_prestage_scope which replaces device scope for a specific mobile device prestage by ID with JSON
 - Pro.delete_mobile_device_prestage which deletes a mobile device prestage by ID
 - Pro.delete_mobile_device_prestage_attachment which deletes mobile device prestage attachment(s) by ID with JSON
 - Pro.delete_mobile_device_prestage_scope which removes device scope for a specific mobile device prestage by ID with JSON
@@ -354,14 +358,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.128.0] -- 2022-12-7
 ### Added
 - Pro.get_mdm_commands which returns information about MDM commands made by Jamf Pro
-- Pro.create_mdm_command which is a preview endpoint which reate and queue an MDM command with given JSON data
+- Pro.create_mdm_command which is a preview endpoint which create and queue an MDM command with given JSON data
 - Pro.create_mdm_profile_renew which renews the device's MDM Profile, including the device identity certificate within the MDM Profile with JSON data
 - Pro.create_mdm_deploy_package which deploys packages to macOS devices using the InstallEnterpriseApplication MDM command.
 
 ## [0.127.0] -- 2022-12-6
 ### Added
 - Pro.get_macos_managed_software_updates which returns available macOS manages software updates
-- Pro.create_macos_managed_software_udpates which sends macOS manged software updates
+- Pro.create_macos_managed_software_updates which sends macOS manged software updates
 
 ## [0.126.0] -- 2022-12-6
 ### Added
@@ -371,14 +375,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Pro.get_ldap_servers which returns all active servers including LDAP and cloud identity providers
 - Pro.get_ldap_local_servers which returns all not migrated, LDAP servers
-- Pro.get_ldap_group_search which returns the configured acess groups that containt the text in the search param
+- Pro.get_ldap_group_search which returns the configured access groups that contains the text in the search param
 
 ## [0.124.0] -- 2022-12-5
 ### Added
 - Pro.get_jamf_protect_integration_settings which returns Jamf Protect integration settings for the Jamf Pro server
 - Pro.get_jamf_protect_config_profile_deployment_tasks which returns deployment tasks linked to Jamf Protect config profiles by UUID
 - Pro.get_jamf_protect_history which returns sorted, paginated Jamf Protect history
-- Pro.get_jamf_protect_plans which returns all of the previously synced Jamf Portect Plans with information about their associated configuration profile
+- Pro.get_jamf_protect_plans which returns all of the previously synced Jamf Protect Plans with information about their associated configuration profile
 - Pro.create_jamf_protect_config_profile_deployment_tasks_retry which requests a retry of Jamf Protect install tasks with JSON by UUID
 - Pro.create_jamf_protect_history_note which creates a Jamf Protect history note with JSON
 - Pro.create_jamf_protect_plans_sync which syncs plans with Jamf Protect
@@ -392,7 +396,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.122.0] -- 2022-12-2
 ### Added
-- Pro.get_jamf_pro_user_account_setting which returns the user setting for the authennticated user and key by key ID
+- Pro.get_jamf_pro_user_account_setting which returns the user setting for the authenticated user and key by key ID
 - Pro.update_jamf_pro_user_account_setting which updates the user setting with JSON by key ID
 - Pro.delete_jamf_pro_user_account_setting which deletes specified setting for the authenticated user by key ID
 
@@ -405,7 +409,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.120.0] -- 2022-12-1
 ### Added
-- Pro.get_jamf_pro_notifications which returns notifictions for user and site
+- Pro.get_jamf_pro_notifications which returns notifications for user and site
 - Pro.delete_jamf_pro_notifications which deletes notifications with give type and ID
 
 ## [0.119.0] -- 2022-12-1
@@ -569,7 +573,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_department which returns specified department
 - Pro.get_department_history which returns specified, paginated department history
 - Pro.create_department which creates department record with JSON data
-- Pro.create_department_history_note which creates note in specifed department history with JSON data
+- Pro.create_department_history_note which creates note in specified department history with JSON data
 - Pro.update_department which updates specified department by ID with JSON data
 - Pro.delete_department which deletes a department search by ID or IDS, use id for a single device and ids to delete multiple.
 
@@ -598,7 +602,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.create_computer_prestage which creates a computer prestage with supplied JSON data
 - Pro.create_computer_prestage_scope which adds device(s) to a specific computer prestage's scope by ID
 - Pro.update_computer_prestage updates a computer prestage by ID with JSON data
-- Pro.replace_computer_prestage_scope which replaces device scope for a specified computer prestag
+- Pro.replace_computer_prestage_scope which replaces device scope for a specified computer prestage
 - Pro.delete_computer_prestage which deletes a computer prestage with the supplied ID
 - Pro.delete_computer_prestage_scope which removes device scope for a specified computer prestage by ID
 
@@ -633,7 +637,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_cloud_ldap_default_server_configuration which returns default server configuration for cloud identity provider by provider name
 - Pro.get_cloud_ldap_default_mappings which returns default mapping configuration for cloud identity provider by provider name
 - Pro.get_cloud_ldap_configuration which returns the cloud identity provider configuration by ID
-- Pro.get_cloud_ldap_mappings which returns the cloud identity provider mappings configuratiion by ID
+- Pro.get_cloud_ldap_mappings which returns the cloud identity provider mappings configuration by ID
 - Pro.get_cloud_ldap_connection_status which returns the cloud identity provider connection status
 - Pro.get_cloud_ldap_bind_connection_pool which returns the cloud identity provider bind connection pool statistics
 - Pro.get_cloud_ldap_search_connection_pool which returns the cloud identity provider search connection pool statistics
@@ -645,7 +649,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.94.0] -- 2022-11-18
 ### Added
-- Pro.get_cloud_idps which returns basic informations about all configured Cloud Identitym Providers
+- Pro.get_cloud_idps which returns basic information about all configured Cloud Identity Providers
 - Pro.get_cloud_idp which returns cloud identity provider configuration by ID
 - Pro.get_cloud_idp_history which returns specified cloud identity provider history by ID
 - Pro.get_cloud_idp_export which returns CSV export of cloud identity providers collection
@@ -665,7 +669,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.create_cloud_azure_report which starts a new process in background that will generate Excel report with JSON data
 - Pro.create_cloud_azure_identity_provider_configuration which create new Azure Cloud Identity Provider configuration with unique display name
 - Pro.update_cloud_azure_identity_provider_configuration which updates an Azure Cloud Identity Provider configuration
-- Pro.delete_cloud_azire_identity_provider_configuration which deletes a cloud identity provider configuration by ID
+- Pro.delete_cloud_azure_identity_provider_configuration which deletes a cloud identity provider configuration by ID
 
 ## [0.92.0] -- 2022-11-17
 ### Added
@@ -692,7 +696,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_category_history which returns specified category history object by ID in JSON
 - Pro.create_category which creates a category record with JSON data
 - Pro.create_category_history_note which creates a category history object note by ID with JSON data
-- Pro.udpate_category which updates a category by ID with JSON data
+- Pro.update_category which updates a category by ID with JSON data
 - Pro.delete_category which deletes a category by ID or IDS, use id for a single category and ids to delete multiple
 
 ## [0.88.0] -- 2022-11-16
@@ -726,7 +730,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.85.0] -- 2022-11-15
 ### Added
-- Pro.get_app_request_settings which reutrns the app request settings in JSON
+- Pro.get_app_request_settings which returns the app request settings in JSON
 - Pro.get_app_request_form_input_fields which returns the app request form input fields in JSON
 - Pro.get_app_request_form_input_field which returns specified app request form input field object by ID
 - Pro.create_app_request_form_input_field which creates a app request form input field record with JSON data
@@ -974,7 +978,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.52.0] -- 2022-11-10
 ### Added
-- Classic.get_mobile_device_history which returns mobile device history data with all available identifation options and subsets
+- Classic.get_mobile_device_history which returns mobile device history data with all available identification options and subsets
 
 ## [0.51.0] -- 2022-11-10
 ### Added
@@ -1078,7 +1082,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.39.0] -- 2022-11-07
 ### Added
-- Classic.get_infrasture_managers which returns all infrastructure managers
+- Classic.get_infrastructure_managers which returns all infrastructure managers
 - Classic.get_infrastructure_manager which returns data on one infrastructure manager by ID
 - Classic.update_infrastructure_manager which updates an existing infrastructure manager by ID
 
@@ -1092,7 +1096,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.37.0] -- 2022-11-07
 ### Added 
-- Classic.get_healthcare_listener_rules which returns all healtchare listener rules
+- Classic.get_healthcare_listener_rules which returns all healthcare listener rules
 - Classic.get_healthcare_listener_rule which returns data on one healthcare listener rule by ID
 - Classic.create_healthcare_listener_rule which creates a healthcare listener rule by ID
 - Classic.update_healthcare_listener_rule which updates an existing healthcare listener rule by ID
@@ -1181,7 +1185,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.25.0] -- 2022-11-04
 ### Added
-- Classic.get_computer_management which returns computer managment data with all identifiers and subsets as options with optional username filtering
+- Classic.get_computer_management which returns computer management data with all identifiers and subsets as options with optional username filtering
 
 ## [0.24.0] -- 2022-11-04
 ### Added
@@ -1195,11 +1199,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.23.0] -- 2022-11-04
 ### Added
 - Classic.get_computer_inventory_collection which returns the computer inventory collection settings of the JPS server
-- Classic.update_computer_inventory_collection which udpates the computer inventory collection settings of the JPS server
+- Classic.update_computer_inventory_collection which updates the computer inventory collection settings of the JPS server
 
 ## [0.22.0] -- 2022-11-03
 ### Added
-- Classic.get_computer_history which returns computer history data with all available identifation options and subsets
+- Classic.get_computer_history which returns computer history data with all available identification options and subsets
 
 ## [0.21.0] -- 2022-11-03
 ### Added
@@ -1322,7 +1326,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.0] -- 2022-11-01
 ### Added
 - Classic.get_activation_code which returns the activation code and organization name of the JPS server
-- Classic.update_activation_code which updates the activation code and organziation name of the JPS server
+- Classic.update_activation_code which updates the activation code and organization name of the JPS server
 
 ## [0.4.0] -- 2022-11-01
 ### Added 

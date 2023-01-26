@@ -1066,7 +1066,7 @@ class Pro(RequestBuilder):
         Updates client check-in settings with JSON data
 
         :param data:
-            JSON data to updatae client check-in settings with. For syntax
+            JSON data to update client check-in settings with. For syntax
             information view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/put_v3-check-in>`__
 
@@ -1179,7 +1179,7 @@ class Pro(RequestBuilder):
         display name
 
         :param data:
-            JSON data to create the azure vloud identity provider configuration
+            JSON data to create the azure cloud identity provider configuration
             with. For syntax information view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-azure>`__
 
@@ -1232,7 +1232,7 @@ class Pro(RequestBuilder):
         self, page: int = None, page_size=None, sort: List[str] = ["id:desc"]
     ) -> dict:
         """
-        Returns basic informations about all configured Cloud Identity
+        Returns basic information about all configured Cloud Identity
         Providers
 
         :param page: Page to return, default page is 0.
@@ -1345,7 +1345,7 @@ class Pro(RequestBuilder):
         :param page_size: Page size to return Default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
-            id:asc. Multiple sort criteria are supported and must be seperated
+            id:asc. Multiple sort criteria are supported and must be separated
             with a comma.
 
             Example: ["id:desc", "name:asc"]
@@ -1491,7 +1491,7 @@ class Pro(RequestBuilder):
 
     def get_cloud_ldap_mappings(self, id: Union[int, str]) -> dict:
         """
-        Returns the cloud identity provider mappings configuratiion by ID
+        Returns the cloud identity provider mappings configuration by ID
 
         :param id: Cloud identity provider ID
 
@@ -1594,7 +1594,7 @@ class Pro(RequestBuilder):
         for partial updates, all content body params must be sent.
 
         :param data:
-            JSON data to update the cloud LDAP mappings coniguration with. For
+            JSON data to update the cloud LDAP mappings configuration with. For
             syntax information view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/put_v2-cloud-ldaps-id-mappings>`__
         :param id: Cloud identity provider ID
@@ -1962,7 +1962,7 @@ class Pro(RequestBuilder):
         attachment ID
 
         :param id: Computer ID
-        :param attachmnetId: Computer attachment ID
+        :param attachmentId: Computer attachment ID
 
         :returns:
             Success message stating that the computer inventory attachment was
@@ -2447,7 +2447,7 @@ class Pro(RequestBuilder):
 
     def create_department_history_note(self, data: dict, id: Union[int, str]) -> dict:
         """
-        Creates note in specifed department history with JSON data
+        Creates note in specified department history with JSON data
 
         :param data:
             JSON data to create department history note with. For syntax
@@ -2823,7 +2823,7 @@ class Pro(RequestBuilder):
             <https://developer.jamf.com/jamf-pro/reference/post_v1-device-enrollments-id-disown>`__
         :param id: Device Enrollment ID
 
-        :returns: Device enrollment informaiton in JSON
+        :returns: Device enrollment information in JSON
         """
         endpoint = f"/api/v1/device-enrollments/{id}/disown"
 
@@ -3119,7 +3119,7 @@ class Pro(RequestBuilder):
 
             Example: ["name:asc"]
 
-        :param all_users_opton_first:
+        :param all_users_option_first:
             Return "All LDAP Users" option on the first position if it is
             present in the current page
 
@@ -3188,7 +3188,7 @@ class Pro(RequestBuilder):
 
             Example: en
 
-        :returns: Enrollment language messaging iformation in JSON
+        :returns: Enrollment language messaging information in JSON
         """
         endpoint = f"/api/v3/enrollment/languages/{languageId}"
 
@@ -3789,7 +3789,7 @@ class Pro(RequestBuilder):
         :param panel_id: Panel ID
 
         :returns:
-            Succcess message stating the enrollment customization panel was
+            Success message stating the enrollment customization panel was
             deleted
         """
         endpoint = f"/api/v1/enrollment-customization/{id}/all/{panel_id}"
@@ -4052,7 +4052,7 @@ class Pro(RequestBuilder):
         Returns extension attribute columns currently associated with inventory
         preload records
 
-        :returns: All inventory preloads extension attibutes in JSON
+        :returns: All inventory preloads extension attributes in JSON
         """
         endpoint = "/api/v2/inventory-preload/ea-columns"
 
@@ -4062,7 +4062,7 @@ class Pro(RequestBuilder):
         """
         Returns the inventory preload CSV file template
 
-        :returns: CSV file template for the iventory preloads
+        :returns: CSV file template for the inventory preloads
         """
         endpoint = "/api/v2/inventory-preload/csv-template"
 
@@ -4290,7 +4290,7 @@ class Pro(RequestBuilder):
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["profileId:asc"]. Multiple sort criteria are supported
-            and must be seperated by a comma. Options are status, updated.
+            and must be separated by a comma. Options are status, updated.
 
             Example ["profileId:asc", "version:desc"]
 
@@ -4334,7 +4334,7 @@ class Pro(RequestBuilder):
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["status:desc"]. Multiple sort criteria are supported
-            and must be seperated by a comma. Options are status, updated.
+            and must be separated by a comma. Options are status, updated.
 
             Example ["status:asc", "updated:desc"]
 
@@ -4684,7 +4684,7 @@ class Pro(RequestBuilder):
 
     def get_jamf_pro_user_account_setting(self, keyId: str) -> dict:
         """
-        Returns the user setting for the authennticated user and key by key ID
+        Returns the user setting for the authenticated user and key by key ID
 
         :param keyId: User setting to be retrieved
 
@@ -4779,7 +4779,7 @@ class Pro(RequestBuilder):
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["status:desc"]. Multiple sort criteria are supported
-            and must be seperated by a comma.
+            and must be separated by a comma.
 
             Example ["id:asc", "version:desc"]
 
@@ -4846,7 +4846,7 @@ class Pro(RequestBuilder):
         filter: str = None,
     ) -> dict:
         """
-        Returns all of the previously synced Jamf Portect Plans with
+        Returns all of the previously synced Jamf Protect Plans with
         information about their associated configuration profile
 
         :param page: Page to return, default page is 0.
@@ -5311,7 +5311,7 @@ class Pro(RequestBuilder):
 
         :param id: Mobile device prestage ID
 
-        :returns: Mobile device prestage scope infomration in JSON
+        :returns: Mobile device prestage scope information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/scope"
 
@@ -5387,7 +5387,7 @@ class Pro(RequestBuilder):
             <https://developer.jamf.com/jamf-pro/reference/post_v2-mobile-device-prestages-id-history>`__
         :param id: Mobile device prestage ID
 
-        :returns: New mobile deivce prestage history note information in JSON
+        :returns: New mobile device prestage history note information in JSON
         """
         endpoint = f"/api/v2/mobile-device-prestages/{id}/history"
 
@@ -5431,7 +5431,7 @@ class Pro(RequestBuilder):
         self, data: dict, id: Union[int, str]
     ) -> dict:
         """
-        Replaces device scope for a specific mobiule device prestage by ID with
+        Replaces device scope for a specific mobile device prestage by ID with
         JSON
 
         :param data:
@@ -5679,7 +5679,7 @@ class Pro(RequestBuilder):
         Updates Jamf Parent app settings with JSON
 
         :param data:
-            JSON data to udpate Jamf Parent app settings with. For syntax
+            JSON data to update Jamf Parent app settings with. For syntax
             information view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/put_v1-parent-app>`__
 
@@ -6418,7 +6418,7 @@ class Pro(RequestBuilder):
         :param id: macOS Self Service branding configuration by ID
 
         :returns:
-            Success emssage stating the Self Service branding configuration for
+            Success message stating the Self Service branding configuration for
             macOS was deleted
         """
         endpoint = f"/api/v1/self-service/branding/macos/{id}"
@@ -6779,7 +6779,7 @@ class Pro(RequestBuilder):
 
     def update_sso_settings(self, data: dict) -> dict:
         """
-        Updates the current SSSO configuration settings
+        Updates the current SSO configuration settings
 
         :param data:
             JSON data to update the SSO settings with. For syntax information
@@ -6909,7 +6909,7 @@ class Pro(RequestBuilder):
 
     def create_supervision_identity_file(self, data: dict) -> dict:
         """
-        Creates the superivision identity .p12 file with JSON
+        Creates the supervision identity .p12 file with JSON
 
         :param data:
             JSON data to create supervision identity p12 file with. For syntax
@@ -7379,7 +7379,7 @@ class Pro(RequestBuilder):
         Updates values in the user's current session with JSON
 
         :param data:
-            JSON data to udpate user's current session values with. For syntax
+            JSON data to update user's current session values with. For syntax
             information view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/post_user-updatesession>`__
 
@@ -7763,7 +7763,7 @@ class Pro(RequestBuilder):
             id:asc. Multiple sort criteria are supported and must be separated
             with a comma.
 
-            Exmaple: ["id:desc", "name:asc"]
+            Example: ["id:desc", "name:asc"]
 
         :param filter:
             Query in the RSQL format, allowing to filter Volume Purchasing
@@ -7925,7 +7925,7 @@ class Pro(RequestBuilder):
 
     def get_volume_purchasing_subscription(self, id: Union[int, str]) -> dict:
         """
-        Returns a volume purchasing subcscription by ID
+        Returns a volume purchasing subscription by ID
 
         :param id: Volume purchasing subscription ID
 

@@ -1661,7 +1661,7 @@ Pro
 
    |
 
-.. collapse:: advnced-user-content-searches
+.. collapse:: advanced-user-content-searches
 
    |
 
@@ -3607,7 +3607,7 @@ Pro
 
    |
 
-.. collapse:: vpp-subscriptios-preview
+.. collapse:: vpp-subscriptions-preview
 
    |
 
