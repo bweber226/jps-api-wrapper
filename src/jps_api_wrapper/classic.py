@@ -2069,7 +2069,7 @@ class Classic(RequestBuilder):
         self, match: str = None, basic: bool = False, data_type: str = "json"
     ) -> Union[dict, str]:
         """
-        Returns all computers with optional filter match and the option to only 
+        Returns all computers with optional filter match and the option to only
         return basic information by setting basic to True.
 
         :param match:
