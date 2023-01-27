@@ -68,10 +68,8 @@ deploy:
   stage: deploy
   only:
     - tags
-  variables:
-    TWINE_USERNAME: $TWINE_USERNAME
-    TWINE_PASSWORD: $TWINE_PASSWORD
+  variables:=
   script:
     - pip install twine build
     - python -m build
-    - python -m twine upload -p $TWINE_PASSWORD -u $TWINE_USERNAME dist/*
+    - python -m twine upload dist/* -u $TWINE_USERNAME -p $TWINE_PASSWORD
