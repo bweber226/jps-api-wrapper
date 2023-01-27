@@ -68,7 +68,6 @@ deploy:
   stage: deploy
   only:
     - tags
-  variables:=
   script:
     - pip install twine build
     - python -m build
