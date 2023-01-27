@@ -71,4 +71,4 @@ deploy:
   script:
     - pip install twine build
     - python -m build
-    - python -m twine upload dist/* -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD"
+    - python -m twine upload dist/* -u __token__ -p $TWINE_PASSWORD
