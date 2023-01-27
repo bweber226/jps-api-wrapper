@@ -72,7 +72,6 @@ deploy:
     TWINE_USERNAME: $TWINE_USERNAME
     TWINE_PASSWORD: $TWINE_PASSWORD
   script:
-    - echo "$TWINE_USERNAME"
     - pip install twine build
     - python -m build
-    - python -m twine upload dist/* -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD"
+    - python -m twine upload dist/*
