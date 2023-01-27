@@ -5,6 +5,8 @@
 
 The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use in Python.
 
+I plan on keeping this up to date with current releases of JPS. Check the changelog for additional endpoints or changes on new JPS releases.
+
 ## Table of Contents
 
 - [JPS (Jamf Pro Server) API Wrapper](#jps-jamf-pro-server-api-wrapper)
@@ -19,7 +21,7 @@ The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in th
 
 ## Background
 
-This project is a successor to [OrganicJamf](https://gitlab.com/cvtc/appleatcvtc/organicjamf) which was an API wrapper project that gained functionality as our organization needed it. As I added more and more to it I decided to rip the bandaid off and just finish out the wrapper so that it included all endpoints. This involved a rewrite to make it less time consuming to add endpoints as I plan on maintaining this for future releases of JPS. This was built as a time saving measure for automation projects dealing with JPS.
+This project is a successor to [OrganicJamf](https://gitlab.com/cvtc/appleatcvtc/organicjamf) which was an API wrapper project that gained functionality as our organization needed it. As I added more and more to it I decided to rip the band-aid off and just finish out the wrapper so that it included all endpoints. This involved a rewrite to make it less time consuming to add endpoints as I plan on maintaining this for future releases of JPS. This was built as a time saving measure for automation projects dealing with JPS.
 
 ## Install
 
@@ -67,9 +69,13 @@ classic.session.auth.invalidate()
 
 Any methods that require the data param will have a link to Jamf's documentation in the docstring and the method documentation for the syntax of the data that the request expects.
 
+For some examples of jps-api-wrapper usage in real projects feel free to check out my other projects in our [GitLab](https://gitlab.com/cvtc/appleatcvtc).
+
 ## Method Documentation
 
 View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/stable/)
+
+The method documentation is meant to match [Jamf's API Reference](https://developer.jamf.com/jamf-pro/reference/classic-api) for easy navigation of functionality.
 
 ## Other Notes
 
@@ -77,8 +83,8 @@ View the [ReadTheDocs](https://jps-api-wrapper.readthedocs.io/en/stable/)
 - With deprecated assets like peripherals and managed preferences the get, update, and delete endpoints will be added but not creation since you shouldn't be making these anymore but you may still want to have access to disable or delete them since they're not in the GUI anymore
 - Get methods that end in a plural return all values or filtered selection of all values that return in the same data format as the all request. The only exception to this is if the singular and plural word for the end of the endpoint name is the same (like software) then the all request is appended with _all to differentiate it
 - The method names reflect the get, create, update, delete privilege requirements because they're more readable and easier to understand than post and put for people that aren't familiar with working with HTTP requests. Some methods are labeled to more accurately reflect the actual purpose rather than the HTTP method (i.e. Post requests that delete multiple records)
-- Pro delete methodes enforce type of the id and ids parameters because ids will be split the list into the ids for processing. If this happens to a string, say "123" it will split that instead into ["1", "2", "3"] which would result in resource objects 1, 2, and 3 being deleted instead of the desired 123 resource object
-- Pro methods predicated with replace are put methods that replace all existing data with the new data supplied. They are distringuished from other methods predicated by update so that someone does not mistakingly replace all data when they just meant to update
+- Pro delete methods enforce type of the id and ids parameters because ids will be split the list into the ids for processing. If this happens to a string, say "123" it will split that instead into ["1", "2", "3"] which would result in resource objects 1, 2, and 3 being deleted instead of the desired 123 resource object
+- Pro methods predicated with replace are put methods that replace all existing data with the new data supplied. They are distinguished from other methods predicated by update so that someone does not mistakenly replace all data when they just meant to update
 
 ## Contributing
 
@@ -102,7 +108,7 @@ Files are formatted with Black prior to committing. Black is installed in your P
 pipenv run black .
 ```
 
-PRs accepted.
+PRs accepted. The main repo is my [organization's GitLab repo](https://gitlab.com/cvtc/appleatcvtc/jps-api-wrapper) so make any pull requests there as the GitHub repo is mirrored from there.
 
 ## License
 

@@ -1661,7 +1661,7 @@ Pro
 
    |
 
-.. collapse:: advnced-user-content-searches
+.. collapse:: advanced-user-content-searches
 
    |
 
@@ -2722,6 +2722,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_pro_user_account_setting_preferences
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_pro_user_account_setting
 
    |
@@ -2966,7 +2970,7 @@ Pro
 
    |
 
-   .. automethod:: jps_api_wrapper.pro.Pro.update_mobile_device_extension_attribute
+   .. automethod:: jps_api_wrapper.pro.Pro.update_mobile_device_extension_attributes
 
    |
 
@@ -3603,7 +3607,7 @@ Pro
 
    |
 
-.. collapse:: vpp-subscriptios-preview
+.. collapse:: vpp-subscriptions-preview
 
    |
 

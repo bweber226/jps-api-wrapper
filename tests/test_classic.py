@@ -132,7 +132,7 @@ def test_get_account_group_id_json(classic):
 @responses.activate
 def test_get_account_group_name_json(classic):
     """
-    Ensures data is returned when get_acount_group us used with a name
+    Ensures data is returned when get_account_group us used with a name
     """
     responses.add(
         response_builder("GET", jps_url("/JSSResource/accounts/groupname/name"))
@@ -257,7 +257,7 @@ def test_get_account_id_json(classic):
 @responses.activate
 def test_get_account_name_json(classic):
     """
-    Ensures data is returned when get_acount is used with a name
+    Ensures data is returned when get_account is used with a name
     """
     responses.add(
         response_builder("GET", jps_url("/JSSResource/accounts/username/name"))
@@ -393,7 +393,7 @@ def test_get_activation_code_xml(classic):
 
 
 @responses.activate
-def test_udpate_activation_code(classic):
+def test_update_activation_code(classic):
     """
     Ensures that update_activation_code returns data when updating the
     activation code.
@@ -1538,7 +1538,7 @@ def test_create_command_flush_invalid_parameter_options(classic):
 @responses.activate
 def test_get_computer_application_json(classic):
     """
-    Ensures get_computer_applcation returns data when given only the
+    Ensures get_computer_application returns data when given only the
     application parameter.
     """
     responses.add(
@@ -2480,7 +2480,7 @@ def test_get_computer_invitation_id_json(classic):
 def test_get_computer_invitation_invitation_xml(classic):
     """
     Ensures that get_computer)invitation returns xml data when used with
-    invitation as the identifer and "xml" set as data_type
+    invitation as the identifier and "xml" set as data_type
     """
     responses.add(
         response_builder(
@@ -4035,7 +4035,7 @@ def test_update_gsx_connection(classic):
 
 
 """
-/healthcaraelistener
+/healthcarelistener
 """
 
 
@@ -4912,7 +4912,7 @@ def test_log_flush_interval(classic):
 @responses.activate
 def test_create_log_flush_interval_id(classic):
     """
-    Ensures that create_log_flush_interval completes succesfully when run with
+    Ensures that create_log_flush_interval completes successfully when run with
     ID
     """
     responses.add(
@@ -5406,7 +5406,7 @@ def test_get_mobile_device_application_id_version(classic):
 def test_get_mobile_device_application_bundleid_subsets(classic):
     """
     Ensures that get_mobile_device_application raises ValueError when bundleid
-    is used with subets
+    is used with subsets
     """
     with pytest.raises(ValueError):
         classic.get_mobile_device_application(
@@ -5508,7 +5508,7 @@ def test_update_mobile_device_application_bundleid_version(classic):
     )
 
 
-def test_update_mobile_device_applciation_id_version(classic):
+def test_update_mobile_device_application_id_version(classic):
     """
     Ensures that update_mobile_device_application raises ValueError when run
     with id and version
@@ -5592,7 +5592,7 @@ def test_delete_mobile_device_application_bundleid_version(classic):
     )
 
 
-def test_delete_mobile_device_applciation_id_version(classic):
+def test_delete_mobile_device_application_id_version(classic):
     """
     Ensures that delete_mobile_device_application raises ValueError when run
     with id and version
@@ -6804,7 +6804,7 @@ def test_get_mobile_device_invitation_id_json(classic):
 def test_get_mobile_device_invitation_invitation_xml(classic):
     """
     Ensures that get_mobile_device)invitation returns xml data when used with
-    invitation as the identifer and "xml" set as data_type
+    invitation as the identifier and "xml" set as data_type
     """
     responses.add(
         response_builder(
@@ -6958,7 +6958,7 @@ def test_get_mobile_device_provisioning_profile_name_xml(classic):
 @responses.activate
 def test_get_mobile_device_provisioning_profile_uuid(classic):
     """
-    Ensures taht get_mobile_device_provisinoing_profile returns JSON when uuid
+    Ensures that get_mobile_device_provisioning_profile returns JSON when uuid
     is used as the identifier
     """
     responses.add(
@@ -7178,7 +7178,7 @@ def test_get_mobile_devices_match(classic):
 def test_get_mobile_devices_500(classic):
     """
     Ensures that get_mobile_devices error out correctly when a 500 error
-    is receieved.
+    is received.
     """
     responses.add(
         response_builder("GET", jps_url("/JSSResource/mobiledevices"), status=500)
@@ -8851,7 +8851,7 @@ def test_delete_printer_name(classic):
 @responses.activate
 def test_get_removable_mac_addresses_json(classic):
     """
-    Ensures that get_removable_mac_addressess returns a JSON dict when passing
+    Ensures that get_removable_mac_addresses returns a JSON dict when passing
     "json" as the data_type param
     """
     responses.add(

@@ -1176,7 +1176,7 @@ class Classic(RequestBuilder):
         :param application: Application name, must include extension (.app)
         :param version: Application version
         :param inventory:
-            Display fields seperated by commas without spaces
+            Display fields separated by commas without spaces
             e.g. Platform,Bar Code,HostName
 
         :returns: Computer application information in JSON or XML
@@ -1358,7 +1358,7 @@ class Classic(RequestBuilder):
         - UnlockUserAccount
         - UnmanageDevice
 
-        :param ids: Comma seperated list of IDs without spaces (e.g. 8,10,55)
+        :param ids: Comma separated list of IDs without spaces (e.g. 8,10,55)
         :param action:
             Options:
             - download (just downloads)
@@ -2069,8 +2069,8 @@ class Classic(RequestBuilder):
         self, match: str = None, basic: bool = False, data_type: str = "json"
     ) -> Union[dict, str]:
         """
-        Returns all computers with optional filters match and matchname and the
-        option to only return basic information by setting basic to True.
+        Returns all computers with optional filter match and the option to only
+        return basic information by setting basic to True.
 
         :param match:
             Name, mac address, etc. to filter by. Match uses the same format
@@ -2525,7 +2525,7 @@ class Classic(RequestBuilder):
         :param name: disk encryption configuration name
         :param data_type: json or xml
 
-        :returns: Disk encryption cnofiguration information in JSON or XML
+        :returns: Disk encryption configuration information in JSON or XML
         """
         identification_options = {
             "id": id,
@@ -2622,7 +2622,7 @@ class Classic(RequestBuilder):
 
         :param data_type: json or xml
 
-        :returns: All disribution points in JSON or XML
+        :returns: All distribution points in JSON or XML
         """
         endpoint = "/JSSResource/distributionpoints"
 
@@ -3786,6 +3786,7 @@ class Classic(RequestBuilder):
     """
     /logflush
     """
+
     # The commands complete but nothing changes in the JPS instance
     def create_log_flush(self, data: str) -> str:
         """
@@ -4218,7 +4219,7 @@ class Classic(RequestBuilder):
     ) -> str:
         """
         Updates an existing mobile device application by ID, name, or bundleid.
-        Bundleid can additionaly be defined by version. Need to supply at
+        Bundleid can additionally be defined by version. Need to supply at
         least one identifier.
 
         :param data:
@@ -4261,7 +4262,7 @@ class Classic(RequestBuilder):
     ) -> str:
         """
         Deletes an mobile device application by ID, name, or bundleid.
-        Bundleid can additionaly be defined by version. Need to supply at
+        bundleid can additionally be defined by version. Need to supply at
         least one identifier.
 
         :param id: Mobile device ID
@@ -4414,7 +4415,7 @@ class Classic(RequestBuilder):
             enforce_params(params)
             if command in ["EnableLostMode", "EraseDevice", "PasscodeLockGracePeriod"]:
                 raise InvalidParameterOptions(
-                    f"{command} requires additonal parameters that need to be passed. "
+                    f"{command} requires additional parameters that need to be passed. "
                     "Please use the XML data option to use this command instead."
                 )
             command_options = [
@@ -5254,7 +5255,7 @@ class Classic(RequestBuilder):
         :param name: Mobile device provisioning profile name
         :param uuid: Mobile device provisioning profile UUID
 
-        :returns: New mobile deivce provisioning profile information in XML
+        :returns: New mobile device provisioning profile information in XML
         """
         identification_options = {
             "id": id,
@@ -5340,7 +5341,7 @@ class Classic(RequestBuilder):
         """
         Returns all mobile devices from a JPS instance in either JSON or XML.
         You can pass the match param to get all mobile devices that match
-        your search critera.
+        your search criteria.
 
         :param match: String to search mobile devices
         :param data_type: json or xml
@@ -5650,7 +5651,7 @@ class Classic(RequestBuilder):
 
         :param data_type: json or xml
 
-        :returns: All OSX configuratiion profiles in JSON or XML
+        :returns: All OSX configuration profiles in JSON or XML
         """
         endpoint = "/JSSResource/osxconfigurationprofiles"
 
@@ -6023,7 +6024,7 @@ class Classic(RequestBuilder):
 
         :param id: External patch source ID
 
-        :returns: Deleted external patch sourcen information in XML
+        :returns: Deleted external patch source information in XML
         """
         endpoint = f"/JSSResource/patchexternalsources/id/{id}"
 
@@ -6246,7 +6247,7 @@ class Classic(RequestBuilder):
         Updates a patch software title by ID with XML data
 
         :param data:
-            XML data to udpate the patch software title with. For syntax
+            XML data to update the patch software title with. For syntax
             information view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/patchsoftwaretitlesidbyidput>`__
         :param id: Patch software title ID
@@ -7695,7 +7696,7 @@ class Classic(RequestBuilder):
         Updates a VPP account by ID with XML data
 
         :param data:
-            XML data to udpate the VPP account with. For syntax information
+            XML data to update the VPP account with. For syntax information
             view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/updatevppadminaccountbyid>`__
         :param id: VPP account ID
@@ -7770,7 +7771,7 @@ class Classic(RequestBuilder):
         Updates a VPP assignment by ID with XML data
 
         :param data:
-            XML data to udpate the VPP assignment with. For syntax information
+            XML data to update the VPP assignment with. For syntax information
             view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/updateassignmentbyid>`__
         :param id: VPP assignment ID
@@ -7857,7 +7858,7 @@ class Classic(RequestBuilder):
         Updates a VPP invitation by ID with XML data
 
         :param data:
-            XML data to udpate the VPP invitation with. For syntax information
+            XML data to update the VPP invitation with. For syntax information
             view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/updateinvitationbyid>`__
         :param id: VPP invitation ID

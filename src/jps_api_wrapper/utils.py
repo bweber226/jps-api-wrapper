@@ -30,7 +30,7 @@ def identification_type(identifications: dict):
 
 def valid_subsets(subsets: Union[list, bool], subset_options: list) -> bool:
     """
-    Given a list of subsets and a seperate list of valid subset options returns
+    Given a list of subsets and a separate list of valid subset options returns
     whether or not there are subsets along with checking to see if the passed
     subsets are valid options for the endpoint.
 
@@ -38,7 +38,7 @@ def valid_subsets(subsets: Union[list, bool], subset_options: list) -> bool:
     :param subset_options: The valid subset options for an endpoint
 
     :raises InvalidSubset:
-        The subsets passed had a subset that is not a valid optionf for the
+        The subsets passed had a subset that is not a valid option for the
         endpoint.
     """
     if subsets:
@@ -88,7 +88,7 @@ def param_or_data(params: Union[dict, bool], data: Union[str, bool]) -> str:
 
 def enforce_params(params: dict):
     """
-    Makes sure that required paramters are not None types.
+    Makes sure that required parameters are not None types.
 
     :param params: Dict of required parameters
 
