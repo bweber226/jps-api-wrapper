@@ -1954,6 +1954,14 @@ Pro
 
    |
 
+.. collapse:: cloud-information
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_cloud_information
+
+   |
+
 .. collapse:: cloud-ldap
 
    |

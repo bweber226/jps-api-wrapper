@@ -1430,11 +1430,25 @@ class Pro(RequestBuilder):
             <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-idp-id-test-user-membership>`__
         :param id: Cloud identity provider ID
 
-        :returns: Cloud IDP user membership test search results
+        :returns: Cloud IDP user membership test search results in JSON
         """
         endpoint = f"/api/v1/cloud-idp/{id}/test-user-membership"
 
         return self._post(endpoint, data)
+
+    """
+    cloud-information
+    """
+
+    def get_cloud_information(self) -> dict:
+        """
+        Returns information related to cloud setup
+
+        :returns: Information related to cloud setup in JSON
+        """
+        endpoint = "/api/v1/cloud-information"
+
+        return self._get(endpoint)
 
     """
     cloud-ldap
@@ -5022,7 +5036,10 @@ class Pro(RequestBuilder):
         :returns: All available macOS managed software updates in JSON
         """
         warnings.warn(
-            ("Pro.get_macos_managed_software_updates has been deprecated by Jamf Pro v10.44.0."),
+            (
+                "Pro.get_macos_managed_software_updates has been deprecated by Jamf "
+                "Pro v10.44.0."
+            ),
             category=DeprecationWarning,
         )
 
@@ -5044,7 +5061,10 @@ class Pro(RequestBuilder):
         :returns: Sent macOS managed software updates information in JSON
         """
         warnings.warn(
-            ("Pro.create_macos_managed_software_updates has been deprecated by Jamf Pro v10.44.0."),
+            (
+                "Pro.create_macos_managed_software_updates has been deprecated by Jamf "
+                "Pro v10.44.0."
+            ),
             category=DeprecationWarning,
         )
 

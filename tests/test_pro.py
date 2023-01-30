@@ -1168,6 +1168,20 @@ def test_create_cloud_idp_user_membership_test_search(pro):
 
 
 """
+cloud-information
+"""
+
+
+@responses.activate
+def test_get_cloud_information(pro):
+    """
+    Ensures that get_cloud_information returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/cloud-information")))
+    assert pro.get_cloud_information() == EXPECTED_JSON
+
+
+"""
 cloud-ldap
 """
 
