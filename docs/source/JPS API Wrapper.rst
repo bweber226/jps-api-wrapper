@@ -1698,14 +1698,6 @@ Pro
 
    |
 
-.. collapse:: app-dynamics-configuration-preview
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_app_dynamics_configuration
-
-   |
-
 .. collapse:: app-request-preview
 
    |
@@ -3031,14 +3023,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_patch_dashboards
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_summary
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_summary
 
    |
 

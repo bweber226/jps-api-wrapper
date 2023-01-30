@@ -1,3 +1,4 @@
+import warnings
 from mimetypes import guess_type
 from os.path import basename
 from typing import List, Union
@@ -9,6 +10,8 @@ from jps_api_wrapper.utils import (
     identification_type,
     remove_empty_params,
 )
+
+warnings.simplefilter("always", DeprecationWarning)
 
 
 class Pro(RequestBuilder):
@@ -229,20 +232,6 @@ class Pro(RequestBuilder):
         :returns: API authentication information in JSON
         """
         endpoint = "/api/v1/auth"
-
-        return self._get(endpoint)
-
-    """
-    app-dynamics-configuration-preview
-    """
-
-    def get_app_dynamics_configuration(self) -> dict:
-        """
-        Returns AppDynamicsConfig object
-
-        :returns: App dynamics configuration information in JSON
-        """
-        endpoint = "/api/v1/app-dynamics/script-configuration"
 
         return self._get(endpoint)
 
@@ -4551,7 +4540,7 @@ class Pro(RequestBuilder):
     jamf-pro-initialization-preview
     """
 
-    # All deprecated
+    # All endpoints deprecated
 
     """
     jamf-pro-notifications
@@ -4588,7 +4577,7 @@ class Pro(RequestBuilder):
     jamf-pro-notifications-preview
     """
 
-    # All deprecated
+    # All endpoints deprecated
 
     """
     jamf-pro-server-url-preview
@@ -5026,16 +5015,25 @@ class Pro(RequestBuilder):
 
     def get_macos_managed_software_updates(self) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Returns available macOS managed software updates
 
         :returns: All available macOS managed software updates in JSON
         """
+        warnings.warn(
+            ("Pro.get_macos_managed_software_updates has been deprecated by Jamf Pro v10.44.0."),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/v1/macos-managed-software-updates/available-updates"
 
         return self._get(endpoint)
 
     def create_macos_managed_software_updates(self, data: dict) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Sends macOS managed software updates
 
         :param data:
@@ -5045,6 +5043,11 @@ class Pro(RequestBuilder):
 
         :returns: Sent macOS managed software updates information in JSON
         """
+        warnings.warn(
+            ("Pro.create_macos_managed_software_updates has been deprecated by Jamf Pro v10.44.0."),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/v1/macos-managed-software-updates/send-updates"
 
         return self._post(endpoint, data)
@@ -5695,6 +5698,8 @@ class Pro(RequestBuilder):
 
     def get_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Returns whether or not the requested patch policy is on the dashboard
         by ID
 
@@ -5703,24 +5708,44 @@ class Pro(RequestBuilder):
         :returns:
             Whether or no the request patch policy is on the dashboard in JSON
         """
+        warnings.warn(
+            (
+                "Pro.get_patch_policy_dashboard has been deprecated by Jamf Pro "
+                "v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
         return self._get(endpoint)
 
     def create_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Adds a patch policy to the dashboard by ID
 
         :param id: Patch policy ID
 
         :returns: New patch policy on the dashboard information in JSON
         """
+        warnings.warn(
+            (
+                "Pro.create_patch_policy_dashboard has been deprecated by Jamf Pro "
+                "v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
         return self._post(endpoint)
 
     def delete_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Removes a patch policy from the dashboard by ID
 
         :param id: Patch policy ID
@@ -5729,6 +5754,14 @@ class Pro(RequestBuilder):
             Success message stating that the patch policy was removed from the
             dashboard
         """
+        warnings.warn(
+            (
+                "Pro.delete_patch_policy_dashboard has been deprecated by Jamf Pro "
+                "v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
         return self._delete(
@@ -5753,41 +5786,25 @@ class Pro(RequestBuilder):
 
     def get_patch_dashboards(self) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Returns list of patch IDs on dashboard
 
         :returns: All patch IDs on the dashboard in JSON
         """
+        warnings.warn(
+            ("Pro.get_patch_dashboards has been deprecated by Jamf Pro v10.44.0."),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/patch/onDashboard"
-
-        return self._get(endpoint)
-
-    def get_patch_summary(self, id: Union[int, str]) -> dict:
-        """
-        Returns patch policy summary by ID
-
-        :param id: Patch policy ID
-
-        :returns: Patch policy summary in JSON
-        """
-        endpoint = f"/api/patch/objs/policy/{id}"
-
-        return self._get(endpoint)
-
-    def get_patch_software_summary(self, id: Union[int, str]) -> dict:
-        """
-        Returns the summaries of the patch policies for the software title by
-        ID
-
-        :param id: Software title ID
-
-        :returns: Patch policies summaries for the software title in JSON
-        """
-        endpoint = f"/api/patch/obj/softwareTitle/{id}/policies"
 
         return self._get(endpoint)
 
     def get_patch_software_title_configuration_id(self, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Returns the software title configuration ID for the given patch policy
         by ID
 
@@ -5795,17 +5812,35 @@ class Pro(RequestBuilder):
 
         :returns: Software title configuration for the patch policy in JSON
         """
+        warnings.warn(
+            (
+                "Pro.get_patch_software_title_configuration_id has been deprecated by "
+                "Jamf Pro v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/obj/policy/{id}/softwareTitleConfigurationId"
 
         return self._get(endpoint)
 
     def create_patch_disclaimer_accept(self) -> str:
         """
+        .. deprecated:: 1.3.0
+
         Accepts patch reporting disclaimer
 
         :returns:
             Success message stating the patch reporting disclaimer was accepted
         """
+        warnings.warn(
+            (
+                "Pro.create_patch_disclaimer_accept has been deprecated by Jamf Pro "
+                "v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/patch/disclaimerAgree"
 
         return self._post(
@@ -5814,6 +5849,8 @@ class Pro(RequestBuilder):
 
     def update_patch_report(self, data: dict, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Updates patch report by ID with JSON
 
         :param data:
@@ -5824,6 +5861,11 @@ class Pro(RequestBuilder):
 
         :returns: Updated patch report information in JSON
         """
+        warnings.warn(
+            ("Pro.update_patch_report has been deprecated by Jamf Pro v10.44.0."),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/obj/{id}"
 
         return self._put(endpoint, data)

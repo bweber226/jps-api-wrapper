@@ -299,22 +299,6 @@ def test_get_api_authentication(pro):
 
 
 """
-app-dynamics-configuration-preview
-"""
-
-
-@responses.activate
-def test_get_app_dynamics_configuration(pro):
-    """
-    Ensures that get_app_dynamics_configuration returns JSON data when used
-    """
-    responses.add(
-        response_builder("GET", jps_url("/api/v1/app-dynamics/script-configuration"))
-    )
-    assert pro.get_app_dynamics_configuration() == EXPECTED_JSON
-
-
-"""
 app-request-preview
 """
 
@@ -4600,27 +4584,6 @@ def test_get_patch_dashboards(pro):
     """
     responses.add(response_builder("GET", jps_url("/api/patch/onDashboard")))
     assert pro.get_patch_dashboards() == EXPECTED_JSON
-
-
-@responses.activate
-def test_get_patch_summary(pro):
-    """
-    Ensures that get_patch_summary returns JSON when used with required params
-    """
-    responses.add(response_builder("GET", jps_url("/api/patch/objs/policy/1001")))
-    assert pro.get_patch_summary(1001) == EXPECTED_JSON
-
-
-@responses.activate
-def test_get_patch_software_summary(pro):
-    """
-    Ensures that get_patch_software_summary returns JSON when used with
-    required params
-    """
-    responses.add(
-        response_builder("GET", jps_url("/api/patch/obj/softwareTitle/1001/policies"))
-    )
-    assert pro.get_patch_software_summary(1001) == EXPECTED_JSON
 
 
 @responses.activate

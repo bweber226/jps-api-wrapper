@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] -- 2023-1-30
+
+### Deprecated
+The endpoints that the following methods wrapped were deprecated by Jamf Pro v10.44.0
+- Pro.update_patch_report
+- Pro.get_patch_software_title_configuration_id
+- Pro.create_patch_disclaimer_accept
+- Pro.get_patch_dashboards
+- Pro.get_macos_managed_software_updates
+- Pro.create_macos_managed_software_updates
+- Pro.get_patch_policy_dashboard
+- Pro.create_patch_policy_dashboard
+- Pro.delete_patch_policy_dashboard
+
+### Removed
+The endpoints that the following methods wrapped were removed without deprecation by Jamf Pro v10.44.0
+- Pro.get_patch_summary
+- Pro.get_patch_software_summary
+- Pro.get_app_dynamics_configuration
+
 ## [1.2.3] -- 2023-1-26
 ### Fixed
 - gitlab-ci deployments
