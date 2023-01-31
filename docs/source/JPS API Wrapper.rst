@@ -2850,6 +2850,34 @@ Pro
 
    |
 
+.. collapse:: managed-software-updates
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_available
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_statuses
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_computer_group
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_computer
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_mobile_device_group
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_mobile_device_group
+
+   |
+
 .. collapse:: mdm
 
    |

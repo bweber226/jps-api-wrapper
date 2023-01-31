@@ -457,7 +457,7 @@ def test_get_buildings_all_params(pro):
             page=0,
             page_size=100,
             sort=["id:asc", "name:asc"],
-            filter='filter=city=="Chicago" and name=="build"',
+            filter='city=="Chicago" and name=="build"',
         )
         == EXPECTED_JSON
     )
@@ -4015,7 +4015,7 @@ def test_update_local_admin_password_settings(pro):
     responses.add(
         response_builder("PUT", jps_url("/api/v1/local-admin-password/settings"))
     )
-    assert pro.update_local_admin_password_settings(pro) == EXPECTED_JSON
+    assert pro.update_local_admin_password_settings(EXPECTED_JSON) == EXPECTED_JSON
 
 
 """
@@ -4062,6 +4062,122 @@ def test_create_mac_managed_software_updates(pro):
         )
     )
     assert pro.create_macos_managed_software_updates(EXPECTED_JSON) == EXPECTED_JSON
+
+
+"""
+managed-software-updates
+"""
+
+
+@responses.activate
+def test_get_managed_software_updates_available(pro):
+    """
+    Ensures that get_managed_software_updates_available returns JSON when used
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/managed-software-updates/available-updates")
+        )
+    )
+    assert pro.get_managed_software_updates_available() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_statuses(pro):
+    """
+    Ensures that get_managed_software_updates_statuses returns JSON when used
+    without required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/managed-software-updates/update-statuses")
+        )
+    )
+    assert pro.get_managed_software_updates_statuses() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_statuses_optional_params(pro):
+    """
+    Ensures that get_managed_software_updates_statuses returns JSON when used
+    with all required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/managed-software-updates/update-statuses")
+        )
+    )
+    assert (
+        pro.get_managed_software_updates_statuses(filter="downloaded==True")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_managed_software_updates_computer_group(pro):
+    """
+    Ensures that get_managed_software_updates_computer_group returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v1/managed-software-updates/update-statuses/computer-groups/1001"
+            ),
+        )
+    )
+    assert pro.get_managed_software_updates_computer_group(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_computer(pro):
+    """
+    Ensures that get_managed_software_updates_computer returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/managed-software-updates/update-statuses/computers/1001"),
+        )
+    )
+    assert pro.get_managed_software_updates_computer(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_mobile_device_group(pro):
+    """
+    Ensures that get_managed_software_updates_mobile_device_group returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v1/managed-software-updates/update-statuses/mobile-device-groups"
+                "/1001"
+            ),
+        )
+    )
+    assert pro.get_managed_software_updates_mobile_device_group(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_mobile_device(pro):
+    """
+    Ensures that get_managed_software_updates_mobile_device returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v1/managed-software-updates/update-statuses/mobile-devices/1001"
+            ),
+        )
+    )
+    assert pro.get_managed_software_updates_mobile_device(1001) == EXPECTED_JSON
 
 
 """

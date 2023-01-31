@@ -5042,8 +5042,7 @@ class Pro(RequestBuilder):
 
     def get_local_admin_password_current(self, clientManagementId: str) -> dict:
         """
-        Returns the current local admin password for specified client by using
-        the client management id as a path parameter
+        Returns the current local admin password for specified client
 
         :param clientManagementId: Client management ID of target device
 
@@ -5055,8 +5054,8 @@ class Pro(RequestBuilder):
 
     def update_local_admin_password_settings(self, data: dict) -> dict:
         """
-        Update Local Admin Password auto-deploy feature to be enabled or not.
-        When it is enabled(true), all computers will have the
+        Updates Local Admin Password auto-deploy feature to be enabled or not.
+        When it is enabled (true), all computers will have the
         SetAutoAdminPassword command sent to them automatically.
 
         :param data:
@@ -5130,6 +5129,104 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/macos-managed-software-updates/send-updates"
 
         return self._post(endpoint, data)
+
+    """
+    managed-software-updates
+    """
+
+    def get_managed_software_updates_available(self) -> dict:
+        """
+        Returns available macOS and iOS managed software updates
+
+        :returns:
+            Available macOS and iOS managed software update information in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/available-updates"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_statuses(self, filter: str = None) -> dict:
+        """
+        Returns managed software update statuses
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Managed Software
+            Updates collection. Default filter is empty query - returning all
+            results for the requested page. Fields allowed in the query:
+            osUpdatesStatusId, device.deviceId, device.objectType, downloaded,
+            downloadPercentComplete, productKey, status, deferralsRemaining,
+            maxDeferrals, nextScheduledInstall, created and updated.
+
+        :returns: Managed software update statuses information in JSON
+        """
+        params = remove_empty_params({"filter": filter})
+        endpoint = "/api/v1/managed-software-updates/update-statuses"
+
+        return self._get(endpoint, params=params)
+
+    def get_managed_software_updates_computer_group(self, id: Union[int, str]) -> dict:
+        """
+        Returns managed software update statuses for computer group by ID
+
+        :param id: Computer group ID
+
+        :returns:
+            Managed software update status information for a computer group in
+            JSON
+        """
+        endpoint = (
+            f"/api/v1/managed-software-updates/update-statuses/computer-groups/{id}"
+        )
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_computer(self, id: Union[int, str]) -> dict:
+        """
+        Returns managed software update statuses for computer by ID
+
+        :param id: Computer ID
+
+        :returns:
+            Managed software update status information for a computer in JSON
+        """
+        endpoint = f"/api/v1/managed-software-updates/update-statuses/computers/{id}"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_mobile_device_group(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns managed software update statuses for mobile device group by ID
+
+        :param id: Mobile device group ID
+
+        :returns:
+            Managed software update status information for a mobile device
+            group in JSON
+        """
+        endpoint = (
+            "/api/v1/managed-software-updates/update-statuses/"
+            f"mobile-device-groups/{id}"
+        )
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_mobile_device(self, id: Union[int, str]) -> dict:
+        """
+        Returns managed software update statuses for mobile device by ID
+
+        :param id: Mobile device ID
+
+        :returns:
+            Managed software update status information for a mobile device in
+            JSON
+        """
+        endpoint = (
+            f"/api/v1/managed-software-updates/update-statuses/mobile-devices/{id}"
+        )
+
+        return self._get(endpoint)
 
     """
     mdm
