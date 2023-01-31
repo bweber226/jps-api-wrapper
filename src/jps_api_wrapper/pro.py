@@ -6073,13 +6073,15 @@ class Pro(RequestBuilder):
         """
         Accepts patch management disclaimer
 
-        :returns: 
-            Success message stating the patch management disclaimer was 
+        :returns:
+            Success message stating the patch management disclaimer was
             accepted
         """
         endpoint = "/api/v2/patch-management-accept-disclaimer"
 
-        return self._post(endpoint, success_message="Patch management disclaimer accepted.")
+        return self._post(
+            endpoint, success_message="Patch management disclaimer accepted."
+        )
 
     """
     patch-policies-preview
