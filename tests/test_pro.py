@@ -4823,6 +4823,18 @@ def test_update_parent_app_settings(pro):
     responses.add(response_builder("PUT", jps_url("/api/v1/parent-app")))
     assert pro.update_parent_app_settings(EXPECTED_JSON) == EXPECTED_JSON
 
+"""
+patch-management
+"""
+
+@responses.activate
+def test_create_patch_management_disclaimer_accept(pro):
+    """
+    Ensures that create_patch_management_disclaimer_accept returns a success 
+    message str when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v2/patch-management-accept-disclaimer")))
+    assert pro.create_patch_management_disclaimer_accept() == "Patch management disclaimer accepted."
 
 """
 patch-policies-preview

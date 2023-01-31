@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.create_mobile_device_group_static which creates mobile device static group with JSON data
 - Pro.update_mobile_device_group_static which updates mobile device static group with JSON by ID
 - Pro.delete_mobile_device_group_static which deletes mobile device static group by ID
+- Pro.create_patch_management_disclaimer_accept which accepts patch management disclaimer
 
 ### Deprecated
 The endpoints that the following methods wrapped were deprecated by Jamf Pro v10.44.0

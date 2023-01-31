@@ -2874,7 +2874,7 @@ Pro
 
    |
 
-   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_mobile_device_group
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_mobile_device
 
    |
 
@@ -3067,6 +3067,14 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.update_parent_app_settings
+
+   |
+
+.. collapse:: patch-management
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_management_disclaimer_accept
 
    |
 

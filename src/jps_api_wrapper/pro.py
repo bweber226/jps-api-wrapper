@@ -5964,11 +5964,10 @@ class Pro(RequestBuilder):
         Updates mobile device extension attributes by ID with JSON
 
         :param attributes:
-            Dictionary object containing the extension attributes to update as:
-            {
-                "EA name 1": "EA value 1",
-                "EA name 2": "EA value 2"
-            }
+            Dictionary object containing the extension attributes to update in
+            the following format
+
+            {"EA name 1": "EA value 1", "EA name 2": "EA value 2"}
 
         :param id: Mobile device ID
 
@@ -6065,6 +6064,22 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/parent-app"
 
         return self._put(endpoint, data)
+
+    """
+    patch-management
+    """
+
+    def create_patch_management_disclaimer_accept(self) -> dict:
+        """
+        Accepts patch management disclaimer
+
+        :returns: 
+            Success message stating the patch management disclaimer was 
+            accepted
+        """
+        endpoint = "/api/v2/patch-management-accept-disclaimer"
+
+        return self._post(endpoint, success_message="Patch management disclaimer accepted.")
 
     """
     patch-policies-preview
