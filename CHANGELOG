@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Pro.get_cloud_information which returns information related to cloud setup
+- Pro.get_local_admin_password_settings which returns information about if Local Admin Password auto-deploy feature is enabled
+- Pro.get_local_admin_password_history which returns a full history of all local admin passwords used for a target device
+- Pro.get_local_admin_password_current which returns the current local admin password for specified client
+- Pro.update_local_admin_password_settings which updates Local Admin Password auto-deploy feature to be enabled or not
 
 ### Deprecated
 The endpoints that the following methods wrapped were deprecated by Jamf Pro v10.44.0

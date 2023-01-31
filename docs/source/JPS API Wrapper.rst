@@ -2810,6 +2810,26 @@ Pro
 
    |
 
+.. collapse:: local-admin-password
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_settings
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_current
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_local_admin_password_settings
+
+   |
+
 .. collapse:: locales-preview
 
    |

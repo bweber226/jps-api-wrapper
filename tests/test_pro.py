@@ -3965,6 +3965,60 @@ def test_get_ldap_group_search(pro):
 
 
 """
+local-admin-password
+"""
+
+
+@responses.activate
+def test_get_local_admin_password_settings(pro):
+    """
+    Ensures that get_local_admin_password_settings returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/local-admin-password/settings"))
+    )
+    assert pro.get_local_admin_password_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_local_admin_password_history(pro):
+    """
+    Ensures that get_local_admin_password_history returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/local-admin-password/audit/1a2b-3c4d"))
+    )
+    assert pro.get_local_admin_password_history("1a2b-3c4d") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_local_admin_password_current(pro):
+    """
+    Ensures that get_local_admin_password_current returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/local-admin-password/password/1a2b-3c4d")
+        )
+    )
+    assert pro.get_local_admin_password_current("1a2b-3c4d") == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_local_admin_password_settings(pro):
+    """
+    Ensures that update_local_admin_password_settings returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/local-admin-password/settings"))
+    )
+    assert pro.update_local_admin_password_settings(pro) == EXPECTED_JSON
+
+
+"""
 locales-preview
 """
 

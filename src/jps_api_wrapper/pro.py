@@ -5010,6 +5010,65 @@ class Pro(RequestBuilder):
         return self._get(endpoint, params=params)
 
     """
+    local-admin-password
+    """
+
+    def get_local_admin_password_settings(self) -> dict:
+        """
+        Returns information about if Local Admin Password auto-deploy feature
+        is enabled. When it is enabled, all computers will have the
+        SetAutoAdminPassword command sent to them automatically.
+
+        :returns: Local Admin Password auto-deploy information in JSON
+        """
+        endpoint = "/api/v1/local-admin-password/settings"
+
+        return self._get(endpoint)
+
+    def get_local_admin_password_history(self, clientManagementId: str) -> dict:
+        """
+        Returns a full history of all local admin passwords used for a target
+        device. History will include password, who viewed the password and when
+        it was viewed.
+
+        :param clientManagementId: Client management ID of target device
+
+        :returns:
+            Full history of all local admin passwords used for device in JSON
+        """
+        endpoint = f"/api/v1/local-admin-password/audit/{clientManagementId}"
+
+        return self._get(endpoint)
+
+    def get_local_admin_password_current(self, clientManagementId: str) -> dict:
+        """
+        Returns the current local admin password for specified client by using
+        the client management id as a path parameter
+
+        :param clientManagementId: Client management ID of target device
+
+        :returns: Current local admin password information in JSON
+        """
+        endpoint = f"/api/v1/local-admin-password/password/{clientManagementId}"
+
+        return self._get(endpoint)
+
+    def update_local_admin_password_settings(self, data: dict) -> dict:
+        """
+        Update Local Admin Password auto-deploy feature to be enabled or not.
+        When it is enabled(true), all computers will have the
+        SetAutoAdminPassword command sent to them automatically.
+
+        :param data:
+            JSON data to update local admin password settings with. For syntax
+            information view `Jamf's documentation.
+            <TODO: Add URL on 10.44 release>`__
+        """
+        endpoint = "/api/v1/local-admin-password/settings"
+
+        return self._put(endpoint, data)
+
+    """
     locales-preview
     """
 
