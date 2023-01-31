@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_managed_software_updates_computer which returns managed software update statuses for computer by ID
 - Pro.get_managed_software_updates_mobile_device_group which returns managed software update statuses for mobile device group by ID
 - Pro.get_managed_software_updates_mobile_device which returns managed software update statuses for mobile device by ID
+- Pro.get_mobile_device_groups_static which returns all mobile device static group in JSON
+- Pro.get_mobile_device_group_static which returns mobile device static group by ID
+- Pro.get_mobile_device_group_static_membership which returns mobile device static group membership by ID
+- Pro.create_mobile_device_group_static which creates mobile device static group with JSON data
+- Pro.update_mobile_device_group_static which updates mobile device static group with JSON by ID
+- Pro.delete_mobile_device_group_static which deletes mobile device static group by ID
 
 ### Deprecated
 The endpoints that the following methods wrapped were deprecated by Jamf Pro v10.44.0

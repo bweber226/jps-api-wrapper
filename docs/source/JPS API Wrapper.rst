@@ -2914,6 +2914,34 @@ Pro
 
    |
 
+.. collapse:: mobile-device-groups
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_groups_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_group_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_group_static_membership
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_mobile_device_group_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_mobile_device_group_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_mobile_device_group_static
+
+   |
+
 .. collapse:: mobile-device-groups-preview
 
    |

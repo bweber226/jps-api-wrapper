@@ -402,7 +402,7 @@ class Pro(RequestBuilder):
         Returns all buildings or search for sorted and paged buildings
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -453,7 +453,7 @@ class Pro(RequestBuilder):
 
         :param id: Building ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -511,7 +511,7 @@ class Pro(RequestBuilder):
             matching: export_fields=["id", "name"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be
@@ -577,7 +577,7 @@ class Pro(RequestBuilder):
             matching: export_fields=["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -735,7 +735,7 @@ class Pro(RequestBuilder):
         Returns all category objects in JSON
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -790,7 +790,7 @@ class Pro(RequestBuilder):
 
         :param id: Category ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -1004,7 +1004,7 @@ class Pro(RequestBuilder):
         Returns client check-in settings history in JSON
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is date:desc. Multiple sort criteria are supported and must be
@@ -1225,7 +1225,7 @@ class Pro(RequestBuilder):
         Providers
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:desc. Multiple sort criteria are supported and must be separated
@@ -1271,7 +1271,7 @@ class Pro(RequestBuilder):
 
         :param id: Cloud identity provider ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -1331,7 +1331,7 @@ class Pro(RequestBuilder):
             ["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -1669,7 +1669,7 @@ class Pro(RequestBuilder):
             Example ["GENERAL", "HARDWARE"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is general.name:asc. Multiple sort criteria are supported and must
@@ -1845,7 +1845,7 @@ class Pro(RequestBuilder):
         Returns paginated FileVault information for all computers
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
 
         :returns: FileVault information for all computers in JSON
         """
@@ -2063,7 +2063,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged computer prestages
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is id:desc. Multiple sort criteria are supported and must
@@ -2228,7 +2228,7 @@ class Pro(RequestBuilder):
         Returns a paginated list of computers
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param section:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -2348,7 +2348,7 @@ class Pro(RequestBuilder):
         Returns a paginated list of departments
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -2402,7 +2402,7 @@ class Pro(RequestBuilder):
 
         :param id: Department ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -2540,7 +2540,7 @@ class Pro(RequestBuilder):
         Returns paginated device communication settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -2611,7 +2611,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged device enrollment instances
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -2657,7 +2657,7 @@ class Pro(RequestBuilder):
 
         :param id: Device enrollment instance ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -2859,7 +2859,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated list of all eBooks
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -2929,7 +2929,7 @@ class Pro(RequestBuilder):
         Returns Engage settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -3010,7 +3010,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged enrollment history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is date:desc. Multiple sort criteria are supported and must be
@@ -3060,7 +3060,7 @@ class Pro(RequestBuilder):
             ["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:desc. Multiple sort criteria are supported and must be separated
@@ -3114,7 +3114,7 @@ class Pro(RequestBuilder):
         enrollment
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -3161,7 +3161,7 @@ class Pro(RequestBuilder):
         configured
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             languageCode:asc. Multiple sort criteria are supported and must be
@@ -3377,7 +3377,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged enrollment customizations
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -3422,7 +3422,7 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -3963,7 +3963,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted inventory preload records
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is id:asc. Multiple sort criteria are supported and must be
@@ -4020,7 +4020,7 @@ class Pro(RequestBuilder):
         Returns inventory preload history entries
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is date:desc. Multiple sort criteria are supported and must be
@@ -4111,7 +4111,7 @@ class Pro(RequestBuilder):
             export_fields=["username", "department"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be
@@ -4289,7 +4289,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated config profiles linked to Jamf Connect
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["profileId:asc"]. Multiple sort criteria are supported
@@ -4333,7 +4333,7 @@ class Pro(RequestBuilder):
 
         :param uuid: Jamf Connect config profile UUID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["status:desc"]. Multiple sort criteria are supported
@@ -4376,7 +4376,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated Jamf Connect history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -4614,7 +4614,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated Jamf Pro Server URL settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -4778,7 +4778,7 @@ class Pro(RequestBuilder):
 
         :param uuid: Jamf Protect config profile UUID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["status:desc"]. Multiple sort criteria are supported
@@ -4815,7 +4815,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated Jamf Protect history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -4853,7 +4853,7 @@ class Pro(RequestBuilder):
         information about their associated configuration profile
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be
@@ -5244,12 +5244,12 @@ class Pro(RequestBuilder):
         needs to be set to something otherwise it will return a 400 error.
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Default sort is dateSent:asc. Multiple sort criteria are supported
             and must be separated with a comma.
 
-            ["dateSent:desc", "command:asc"]
+            Example: ["dateSent:desc", "command:asc"]
         :param filter:
             Query in the RSQL format, allowing to filter, for a list of
             commands. All url must contain minimum one filter field. Fields
@@ -5366,6 +5366,204 @@ class Pro(RequestBuilder):
         return self._get(endpoint, params=params)
 
     """
+    mobile-device-groups
+    """
+
+    def get_mobile_device_groups_static(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["groupId:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all mobile device static group in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["groupId:asc"]. Available criteria to sort on: groupId, groupName,
+            siteId.
+
+            Example: ["groupName:desc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter department collection.
+            Default filter is empty query - returning all results for the
+            requested page. Fields allowed in the query: groupId, groupName,
+            siteId. The siteId field can only be filtered by admins with full
+            access. Any sited admin will have siteId filtered automatically.
+            This param can be combined with paging and sorting.
+
+            Example: groupName=="staticGroup1"
+
+        :returns: All mobile device static groups in JSON
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v1/mobile-device-groups/static-groups"
+
+        return self._get(endpoint, params=params)
+
+    def get_mobile_device_group_static(self, id: Union[int, str]) -> dict:
+        """
+        Returns mobile device static group by ID
+
+        :param id: Mobile device static group ID
+
+        :returns: Mobile device static group information in JSON
+        """
+        endpoint = f"/api/v1/mobile-device-groups/static-groups/{id}"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_group_static_membership(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["displayName:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns mobile device static group membership by ID
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["displayName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Fields allowed in the sort: airPlayPassword, appAnalyticsEnabled,
+            assetTag, availableSpaceMb, batteryLevel,
+            bluetoothLowEnergyCapable, bluetoothMacAddress, capacityMb,
+            lostModeEnabledDate, declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, enrollmentSessionTokenValid, exchangeDeviceId,
+            cloudBackupEnabled, osBuild, osRapidSecurityResponse,
+            osSupplementalBuildVersion, osVersion, ipAddress,
+            itunesStoreAccountActive, mobileDeviceId, languages,
+            lastBackupDate, lastEnrolledDate, lastCloudBackupDate,
+            lastInventoryUpdateDate, locales,
+            locationServicesForSelfServiceMobileEnabled, lostModeEnabled,
+            managed, mdmProfileExpirationDate, model, modelIdentifier,
+            modelNumber, modemFirmwareVersion, quotaSize, residentUsers,
+            serialNumber, sharedIpad, supervised, tethered, timeZone, udid,
+            usedSpacePercentage, wifiMacAddress, deviceOwnershipType, building,
+            department, emailAddress, fullName, userPhoneNumber, position,
+            room, username, appleCareId, leaseExpirationDate,
+            lifeExpectancyYears, poDate, poNumber, purchasePrice,
+            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
+            warrantyExpirationDate, activationLockEnabled,
+            blockEncryptionCapable, dataProtection, fileEncryptionCapable,
+            hardwareEncryptionSupported, jailbreakStatus, passcodeCompliant,
+            passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            cellularTechnology, currentCarrierNetwork,
+            currentMobileCountryCode, currentMobileNetworkCode,
+            dataRoamingEnabled, eid, network, homeMobileCountryCode,
+            homeMobileNetworkCode, iccid, imei, imei2, meid,
+            personalHotspotEnabled, voiceRoamingEnabled, roaming
+
+            Example: ["displayName:desc", "username:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter mobile device
+            collection. Default filter is empty query - returning all results
+            for the requested page. This param can be combined with paging and
+            sorting.
+
+            Fields allowed in the query: airPlayPassword, appAnalyticsEnabled,
+            assetTag, availableSpaceMb, batteryLevel,
+            bluetoothLowEnergyCapable, bluetoothMacAddress, capacityMb,
+            declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, exchangeDeviceId, cloudBackupEnabled, osBuild,
+            osSupplementalBuildVersion, osVersion, osRapidSecurityResponse,
+            ipAddress, itunesStoreAccountActive, mobileDeviceId, languages,
+            locales, locationServicesForSelfServiceMobileEnabled,
+            lostModeEnabled, managed, model, modelIdentifier, modelNumber,
+            modemFirmwareVersion, quotaSize, residentUsers, serialNumber,
+            sharedIpad, supervised, tethered, timeZone, udid,
+            usedSpacePercentage, wifiMacAddress, building, department,
+            emailAddress, fullName, userPhoneNumber, position, room, username,
+            appleCareId, lifeExpectancyYears, poNumber, purchasePrice,
+            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
+            activationLockEnabled, blockEncryptionCapable, dataProtection,
+            fileEncryptionCapable, passcodeCompliant,
+            passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            currentCarrierNetwork, currentMobileCountryCode,
+            currentMobileNetworkCode, dataRoamingEnabled, eid, network,
+            homeMobileCountryCode, homeMobileNetworkCode, iccid, imei, imei2,
+            meid, personalHotspotEnabled, roaming
+
+
+            Example: 'displayName=="iPad"'
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = f"/api/v1/mobile-device-groups/static-group-membership/{id}"
+
+        return self._get(endpoint, params=params)
+
+    def create_mobile_device_group_static(self, data: dict) -> dict:
+        """
+        Creates mobile device static group with JSON data
+
+        :param data:
+            JSON data to create the mobile device static group with. For syntax
+            information view `Jamf's documentation.
+            <TODO: Add URL on release>`__
+
+        :returns: New mobile device static group information in JSON
+        """
+        endpoint = "/api/v1/mobile-device-groups/static-groups"
+
+        return self._post(endpoint, data)
+
+    def update_mobile_device_group_static(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates mobile device static group with JSON by ID
+
+        :param data:
+            JSON data to update the mobile device static group with.For syntax
+            information view `Jamf's documentation.
+            <TODO: Add URL on release>`__
+        :param id: Mobile device static group ID
+
+        :returns: Updated mobile device static group information in JSON
+        """
+        endpoint = f"/api/v1/mobile-device-groups/static-groups/{id}"
+
+        return self._patch(endpoint, data)
+
+    def delete_mobile_device_group_static(self, id: Union[int, str]) -> str:
+        """
+        Deletes mobile device static group by ID
+
+        :param id: Mobile device static group ID
+
+        :returns:
+            Success message stating the mobile device static group was deleted
+        """
+        endpoint = f"/api/v1/mobile-device-groups/static-groups/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Mobile device static group {id} successfully deleted.",
+        )
+
+    """
     mobile-device-groups-preview
     """
 
@@ -5390,7 +5588,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged mobile device prestages
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Multiple sort
             criteria are supported and must be separated with a comma. Default
@@ -5467,7 +5665,7 @@ class Pro(RequestBuilder):
 
         :param id: Mobile device prestage ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -5698,7 +5896,7 @@ class Pro(RequestBuilder):
         Returns sorted and paginated mobile devices
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -5812,7 +6010,7 @@ class Pro(RequestBuilder):
         Returns Jamf Parent app settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -6096,7 +6294,7 @@ class Pro(RequestBuilder):
         Returns paginated and sorted re-enrollment history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -6148,7 +6346,7 @@ class Pro(RequestBuilder):
             matching: export_fields=["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -6225,7 +6423,7 @@ class Pro(RequestBuilder):
         Returns remote administration configurations
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
 
         :returns: All remote administration configurations in JSON
         """
@@ -6254,7 +6452,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged scripts
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -6313,7 +6511,7 @@ class Pro(RequestBuilder):
 
         :param id: Script ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -6461,7 +6659,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted Self Service branding configurations for iOS
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -6559,7 +6757,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted Self Service branding configuration for macOS
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -6911,7 +7109,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted SSO settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -7063,7 +7261,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged supervision identities
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -7196,7 +7394,7 @@ class Pro(RequestBuilder):
         Returns Jamf Teacher settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -7296,7 +7494,7 @@ class Pro(RequestBuilder):
 
         :param configuration_id: Team Viewer connection configuration ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param filter:
             Query in the RSQL format, allowing to filter sessions collection.
             Default filter is empty query - returning all results for the
@@ -7661,7 +7859,7 @@ class Pro(RequestBuilder):
 
         :param id: Venafi configuration ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -7872,7 +8070,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged volume purchasing locations
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -7930,7 +8128,7 @@ class Pro(RequestBuilder):
 
         :param id: Volume purchasing location ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -7975,7 +8173,7 @@ class Pro(RequestBuilder):
 
         :param id: Volume purchasing location ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -8124,7 +8322,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged volume purchasing subscriptions
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated

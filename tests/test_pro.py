@@ -4285,6 +4285,130 @@ def test_get_mobile_device_extension_attributes(pro):
 
 
 """
+mobile-device-groups
+"""
+
+
+@responses.activate
+def test_get_mobile_device_groups_static(pro):
+    """
+    Ensures that get_mobile_device_groups_static returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/mobile-device-groups/static-groups"))
+    )
+    assert pro.get_mobile_device_groups_static() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_groups_static_optional_params(pro):
+    """
+    Ensures that get_mobile_device_groups_static returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/mobile-device-groups/static-groups"))
+    )
+    assert (
+        pro.get_mobile_device_groups_static(
+            0, 100, ["groupName:desc"], filter="groupName=='Test - Static Group'"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_mobile_device_group_static(pro):
+    """
+    Ensures that get_mobile_device_group_static returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/mobile-device-groups/static-groups/1001")
+        )
+    )
+    assert pro.get_mobile_device_group_static(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_group_static_membership(pro):
+    """
+    Ensures that get_mobile_device_group_static_membership returns JSON when
+    used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/mobile-device-groups/static-group-membership/1001")
+        )
+    )
+    assert pro.get_mobile_device_group_static_membership(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_group_static_membership_optional_params(pro):
+    """
+    Ensures that get_mobile_device_group_static_membership returns JSON when
+    used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/mobile-device-groups/static-group-membership/1001")
+        )
+    )
+    assert (
+        pro.get_mobile_device_group_static_membership(
+            1001, 0, 100, ["displayName:desc", "username:asc"], 'displayName=="iPad"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_mobile_device_group_static(pro):
+    """
+    Ensures that create_mobile_device_group_static returns JSON when used with
+    all required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/mobile-device-groups/static-groups"))
+    )
+    assert pro.create_mobile_device_group_static(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_mobile_device_group_static(pro):
+    """
+    Ensures that update_mobile_device_group_static returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "PATCH", jps_url("/api/v1/mobile-device-groups/static-groups/1001")
+        )
+    )
+    assert pro.update_mobile_device_group_static(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_mobile_device_group_static(pro):
+    """
+    Ensures that delete_mobile_device_group_static returns a success message
+    str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/mobile-device-groups/static-groups/1001")
+        )
+    )
+    assert (
+        pro.delete_mobile_device_group_static(1001)
+        == "Mobile device static group 1001 successfully deleted."
+    )
+
+
+"""
 mobile-device-groups-preview
 """
 
