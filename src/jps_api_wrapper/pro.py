@@ -6069,7 +6069,7 @@ class Pro(RequestBuilder):
     patch-management
     """
 
-    def create_patch_management_disclaimer_accept(self) -> dict:
+    def create_patch_management_disclaimer_accept(self) -> str:
         """
         Accepts patch management disclaimer
 
@@ -6084,12 +6084,105 @@ class Pro(RequestBuilder):
         )
 
     """
+    patch-policies
+    """
+
+    def get_patch_policies(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all patch policies
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["policyName:asc", "id:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Patch Policy
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id,
+            policyName, policyEnabled, policyTargetVersion,
+            policyDeploymentMethod, softwareTitle,
+            softwareTitleConfigurationId, pending, completed, deferred, and
+            failed. This param can be combined with paging and sorting.
+
+            Example: 'policyName=="Example name"'
+
+        :returns: All patch policies information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v2/patch-policies"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_policy_dashboard_v2(self, id: Union[int, str]) -> dict:
+        """
+        Returns whether or not the requested patch policy is on the dashboard
+        by ID
+
+        :param id: Patch policy ID
+
+        :returns: Patch policy information in JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/dashboard"
+
+        return self._get(endpoint)
+
+    def create_patch_policy_dashboard_v2(self, id: Union[int, str]) -> str:
+        """
+        Adds a patch policy to the dashboard by ID
+
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the patch policy was added to the
+            dashboard
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/dashboard"
+
+        return self._post(
+            endpoint, success_message=f"Patch policy {id} added to dashboard."
+        )
+
+    def delete_patch_policy_dashboard_v2(self, id: Union[int, str]) -> str:
+        """
+        Deletes a patch policy from the dashboard by ID
+
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the patch policy was removed from the
+            dashboard
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/dashboard"
+
+        return self._delete(
+            endpoint, success_message=f"Patch policy {id} removed from dashboard."
+        )
+
+    """
     patch-policies-preview
     """
 
     def get_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
         """
         .. deprecated:: 1.3.0
+            Use :func:`get_patch_policy_dashboard_v2` instead.
 
         Returns whether or not the requested patch policy is on the dashboard
         by ID
@@ -6102,7 +6195,7 @@ class Pro(RequestBuilder):
         warnings.warn(
             (
                 "Pro.get_patch_policy_dashboard has been deprecated by Jamf Pro "
-                "v10.44.0."
+                "v10.44.0. Use Pro.get_patch_policy_v2() instead."
             ),
             category=DeprecationWarning,
         )
@@ -6111,31 +6204,37 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
-    def create_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
+    def create_patch_policy_dashboard(self, id: Union[int, str]) -> str:
         """
         .. deprecated:: 1.3.0
+            Use :func:`create_patch_policy_dashboard_v2` instead.
 
         Adds a patch policy to the dashboard by ID
 
         :param id: Patch policy ID
 
-        :returns: New patch policy on the dashboard information in JSON
+        :returns:
+            Success message stating that the patch policy was added to the
+            dashboard
         """
         warnings.warn(
             (
                 "Pro.create_patch_policy_dashboard has been deprecated by Jamf Pro "
-                "v10.44.0."
+                "v10.44.0. Use Pro.create_patch_policy_v2() instead."
             ),
             category=DeprecationWarning,
         )
 
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
-        return self._post(endpoint)
+        return self._post(
+            endpoint, success_message=f"Patch policy {id} added to dashboard."
+        )
 
-    def delete_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
+    def delete_patch_policy_dashboard(self, id: Union[int, str]) -> str:
         """
         .. deprecated:: 1.3.0
+            Use :func:`delete_patch_policy_dashboard_v2` instead.
 
         Removes a patch policy from the dashboard by ID
 
@@ -6148,7 +6247,7 @@ class Pro(RequestBuilder):
         warnings.warn(
             (
                 "Pro.delete_patch_policy_dashboard has been deprecated by Jamf Pro "
-                "v10.44.0."
+                "v10.44.0. Use Pro.delete_patch_policy_v2() instead."
             ),
             category=DeprecationWarning,
         )

@@ -3078,6 +3078,26 @@ Pro
 
    |
 
+.. collapse:: patch-policies
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policies
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_dashboard_v2
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_policy_dashboard_v2
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_policy_dashboard_v2
+
+   |
+
 .. collapse:: patch-policies-preview
 
    |

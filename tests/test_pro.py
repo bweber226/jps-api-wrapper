@@ -4845,6 +4845,73 @@ def test_create_patch_management_disclaimer_accept(pro):
 
 
 """
+patch-policies
+"""
+
+
+@responses.activate
+def test_get_patch_policies(pro):
+    """
+    Ensures that get_patch_policies returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/patch-policies")))
+    assert pro.get_patch_policies() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_policies_optional_params(pro):
+    """
+    Ensures that get_patch_policies returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/patch-policies")))
+    assert pro.get_patch_policies() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_policy_dashboard_v2(pro):
+    """
+    Ensures that get_patch_policy_dashboard_v2 returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/patch-policies/1001/dashboard"))
+    )
+    assert pro.get_patch_policy_dashboard_v2(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_patch_policy_dashboard_v2(pro):
+    """
+    Ensures that create_patch_policy_dashboard_v2 returns a success message str
+    when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/patch-policies/1001/dashboard"))
+    )
+    assert (
+        pro.create_patch_policy_dashboard_v2(1001)
+        == "Patch policy 1001 added to dashboard."
+    )
+
+
+@responses.activate
+def test_delete_patch_policy_dashboard_v2(pro):
+    """
+    Ensures that delete_patch_policy_dashboard_v2 returns a success message str
+    when used with required params
+    """
+    responses.add(
+        response_builder("DELETE", jps_url("/api/v2/patch-policies/1001/dashboard"))
+    )
+    assert (
+        pro.delete_patch_policy_dashboard_v2(1001)
+        == "Patch policy 1001 removed from dashboard."
+    )
+
+
+"""
 patch-policies-preview
 """
 
@@ -4870,7 +4937,10 @@ def test_create_patch_policy_dashboard(pro):
     responses.add(
         response_builder("POST", jps_url("/api/patch/patch-policies/1001/dashboard"))
     )
-    assert pro.create_patch_policy_dashboard(1001) == EXPECTED_JSON
+    assert (
+        pro.create_patch_policy_dashboard(1001)
+        == "Patch policy 1001 added to dashboard."
+    )
 
 
 @responses.activate

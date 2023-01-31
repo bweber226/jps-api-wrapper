@@ -25,6 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.update_mobile_device_group_static which updates mobile device static group with JSON by ID
 - Pro.delete_mobile_device_group_static which deletes mobile device static group by ID
 - Pro.create_patch_management_disclaimer_accept which accepts patch management disclaimer
+- Pro.get_patch_policies which returns all patch policies
+- Pro.get_patch_policy_dashboard_v2 which returns whether or not the requested patch policy is on the dashboard by ID
+- Pro.create_patch_policy_dashboard_v2 which adds a patch policy to the dashboard by ID
+- Pro.delete_patch_policy_dashboard_v2 which deletes a patch policy from the dashboard by ID
+
+### Fixed
+- Pro.create_patch_policy_dashboard now returns a success message instead of JSON which caused it to break since it returns a 204 status o completion
 
 ### Deprecated
 The endpoints that the following methods wrapped were deprecated by Jamf Pro v10.44.0

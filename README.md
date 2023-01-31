@@ -79,6 +79,8 @@ The method documentation is meant to match [Jamf's API Reference](https://develo
 
 ## Other Notes
 
+- The Jamf Pro API is still under development unlike the Jamf Classic API, Jamf will typically deprecate endpoints before removing them but endpoints can be removed without warning due to security or other concerns. If you are using the Pro module please be aware of this.
+- When a new version of the same endpoint is added to the Pro module it will be appended with a v* (ex Pro.get_patch_policy_dashboard_v2) until the previous version is deleted. Then the new version will retake the original name and the v2 version will be deprecated. I will try to give as much warning as possible on this but the Jamf Pro API is continuously being updated.
 - data parameters come before identification in methods because it's more commonly a required field since more than one type of identification is typical (mostly in the Classic module)
 - With deprecated assets like peripherals and managed preferences the get, update, and delete endpoints will be added but not creation since you shouldn't be making these anymore but you may still want to have access to disable or delete them since they're not in the GUI anymore
 - Get methods that end in a plural return all values or filtered selection of all values that return in the same data format as the all request. The only exception to this is if the singular and plural word for the end of the endpoint name is the same (like software) then the all request is appended with _all to differentiate it
