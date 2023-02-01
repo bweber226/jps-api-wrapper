@@ -6259,13 +6259,148 @@ class Pro(RequestBuilder):
         )
 
     """
+    patch-policy-logs
+    """
+
+    def get_patch_policy_logs(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["deviceName:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns patch policy logs by ID
+
+        :param id: Patch policy ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["deviceName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["deviceName:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Patch Policy Logs
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: deviceId,
+            deviceName, statusCode, statusDate, attemptNumber,
+            ignoredForPatchPolicyId. This param can be combined with paging and
+            sorting.
+
+            Example: "deviceId==1001"
+
+        :returns: Patch policy logs information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = f"/api/v2/patch-policies/{id}/logs"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_policy_logs_eligible_retry_count(self, id: Union[int, str]) -> dict:
+        """
+        Returns the count of the patch policy logs for the patch policy ID that
+        are eligible for a retry attempt
+
+        :param id: Patch policy ID
+
+        :returns:
+            Count of patch policy logs that are eligible for a retry attempt in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/eligible-retry-count"
+
+        return self._get(endpoint)
+
+    def get_patch_policy_log_device(
+        self, id: Union[int, str], deviceId: Union[int, str]
+    ) -> dict:
+        """
+        Returns a patch policy log for a device by ID and deviceID
+
+        :param id: Patch policy ID
+        :param deviceId: Device ID
+
+        :returns: Patch policy log information for a device in JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/{deviceId}"
+
+        return self._get(endpoint)
+
+    def get_patch_policy_log_device_detail(
+        self, id: Union[int, str], deviceId: Union[int, str]
+    ) -> dict:
+        """
+        Returns a detailed patch policy log for a device by ID and deviceId
+
+        :param id: Patch policy ID
+        :param deviceId: Device ID
+
+        :returns: Detailed patch policy log information for a device in JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/{deviceId}/details"
+
+        return self._get(endpoint)
+
+    def create_patch_policy_logs_retry_devices(
+        self, data: dict, id: Union[int, str]
+    ) -> str:
+        """
+        Sends retry attempts for a specific device in a patch policy with JSON
+        by ID
+
+        :param data:
+            JSON data to create patch policy log retries with. For syntax
+            information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE>`__
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the specified patch policy log for the
+            specified devices were retried
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/retry"
+
+        return self._post(
+            endpoint,
+            data,
+            success_message=(
+                f"The patch policy logs for the specified devices in patch policy {id} "
+                "were retried."
+            ),
+        )
+
+    def create_patch_policy_logs_retry_devices_all(self, id: Union[int, str]) -> str:
+        """
+        Sends retry attempts for all devices in a patch policy
+
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the specified patch policy logs for
+            all devices were retried
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/retry-all"
+
+        return self._post(
+            endpoint,
+            success_message=(
+                f"The patch policy logs for all devices in patch policy {id} were "
+                "retried."
+            ),
+        )
+
+    """
     patch-policy-logs-preview
-    """
-
-    # All endpoints deprecated
-
-    """
-    patches
     """
 
     # All endpoints deprecated

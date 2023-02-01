@@ -4959,16 +4959,110 @@ def test_delete_patch_policy_dashboard(pro):
 
 
 """
+patch-policy-logs
+"""
+
+
+@responses.activate
+def test_get_patch_policy_logs(pro):
+    """
+    Ensures that get_patch_policy_logs returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/patch-policies/1001/logs")))
+    assert pro.get_patch_policy_logs(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_policy_logs_optional_params(pro):
+    """
+    Ensures that get_patch_policy_logs returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v2/patch-policies/1001/logs")))
+    assert (
+        pro.get_patch_policy_logs(1001, 0, 100, ["deviceName:desc"], "deviceId==1001")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_policy_logs_eligible_retry_count(pro):
+    """
+    Ensures that get_patch_policy_logs_eligible_retry_count returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/patch-policies/1001/logs/eligible-retry-count")
+        )
+    )
+    assert pro.get_patch_policy_logs_eligible_retry_count(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_policy_log_device(pro):
+    """
+    Ensures that get_patch_policy_log_device returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/patch-policies/1001/logs/1002"))
+    )
+    assert pro.get_patch_policy_log_device(1001, 1002) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_policy_log_device_detail(pro):
+    """
+    Ensures that get_patch_policy_log_device_detail returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/patch-policies/1001/logs/1002/details")
+        )
+    )
+    assert pro.get_patch_policy_log_device_detail(1001, 1002) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_patch_policy_logs_retry_devices(pro):
+    """
+    Ensures that create_patch_policy_logs_retry_devices returns a success
+    message str when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/patch-policies/1001/logs/retry"))
+    )
+    assert pro.create_patch_policy_logs_retry_devices(EXPECTED_JSON, 1001) == (
+        "The patch policy logs for the specified devices in patch policy 1001 were "
+        "retried."
+    )
+
+
+@responses.activate
+def test_create_patch_policy_logs_retry_devices_all(pro):
+    """
+    Ensures that create_patch_policy_logs_retry_all returns a success message
+    str when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/patch-policies/1001/logs/retry-all"))
+    )
+    assert (
+        pro.create_patch_policy_logs_retry_devices_all(1001)
+        == "The patch policy logs for all devices in patch policy 1001 were retried."
+    )
+
+
+"""
 patch-policy-logs-preview
 """
 
-# All endpoints deprecated
-
-"""
-patches
-"""
 
 # All endpoints deprecated
+
 
 """
 patches-preview

@@ -29,6 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_patch_policy_dashboard_v2 which returns whether or not the requested patch policy is on the dashboard by ID
 - Pro.create_patch_policy_dashboard_v2 which adds a patch policy to the dashboard by ID
 - Pro.delete_patch_policy_dashboard_v2 which deletes a patch policy from the dashboard by ID
+- Pro.get_patch_policy_logs which returns patch policy logs by ID
+- Pro.get_patch_policy_logs_eligible_retry_count which returns the count of the patch policy logs for the patch policy ID that are eligible for a retry attempt
+- Pro.get_patch_policy_log_device which returns a patch policy log for a device by ID and deviceID
+- Pro.get_patch_policy_log_device_detail which returns a detailed patch policy log for a device by ID and deviceId
+- Pro.create_patch_policy_logs_retry_devices which sends retry attempts for a specific device in a patch policy with JSON by ID
+- Pro.create_patch_policy_logs_retry_devices_all which sends retry attempts for all devices in a patch policy
+
 
 ### Fixed
 - Pro.create_patch_policy_dashboard now returns a success message instead of JSON which caused it to break since it returns a 204 status o completion

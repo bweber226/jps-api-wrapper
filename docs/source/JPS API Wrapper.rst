@@ -3114,15 +3114,35 @@ Pro
 
    |
 
+.. collapse:: patch-policy_logs
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_logs
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_logs_eligible_retry_count
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_log_device
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_log_device_detail
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_policy_logs_retry_devices
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_policy_logs_retry_devices_all
+
+   |
+
 .. collapse:: patch-policy-logs-preview
-
-   |
-
-   All endpoints deprecated.
-
-   |
-
-.. collapse:: patches
 
    |
 
