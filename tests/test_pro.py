@@ -5065,6 +5065,349 @@ patch-policy-logs-preview
 
 
 """
+patch-software-title-configurations
+"""
+
+
+@responses.activate
+def test_get_patch_software_title_configurations(pro):
+    """
+    Ensures that get_patch_software_title_configurations returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/patch-software-title-configurations"))
+    )
+    assert pro.get_patch_software_title_configurations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_title_configuration(pro):
+    """
+    Ensures that get_patch_software_title_configuration returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/patch-software-title-configurations/1001")
+        )
+    )
+    assert pro.get_patch_software_title_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_dashboard(pro):
+    """
+    Ensures that get_patch_software_title_configuration_dashboard returns JSON
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/patch-software-title-configurations/1001/dashboard")
+        )
+    )
+    assert pro.get_patch_software_title_configuration_dashboard(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_definitions(pro):
+    """
+    Ensures that get_patch_software_title_configuration_definitions returns
+    JSON when used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v2/patch-software-title-configurations/1001/definitions"),
+        )
+    )
+    assert pro.get_patch_software_title_configuration_definitions(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_definitions_optional_params(pro):
+    """
+    Ensures that get_patch_software_title_configuration_definitions returns
+    JSON when used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v2/patch-software-title-configurations/1001/definitions"),
+        )
+    )
+    assert (
+        pro.get_patch_software_title_configuration_definitions(
+            1001, 0, 100, ["releaseDate:asc"], "rebootRequired==True"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_export(pro):
+    """
+    Ensures that get_patch_software_title_configuration_export returns a str
+    when used without optional params
+    """
+    responses.add(
+        "GET",
+        jps_url("/api/v2/patch-software-title-configurations/1001/export-report"),
+        status=200,
+    )
+    assert pro.get_patch_software_title_configuration_export(1001) == ""
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_export_optional_params(pro):
+    """
+    Ensures that get_patch_software_title_configuration_export returns a str
+    when used with all optional params
+    """
+    responses.add(
+        "GET",
+        jps_url("/api/v2/patch-software-title-configurations/1001/export-report"),
+        status=200,
+    )
+    assert (
+        pro.get_patch_software_title_configuration_export(
+            1001,
+            ["computerName", "deviceId"],
+            0,
+            100,
+            ["deviceId:asc", "computerName:desc"],
+            "username==test",
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_extension_attributes(pro):
+    """
+    Ensures that get_patch_software_title_configuration_extensions_attributes
+    returns JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v2/patch-software-title-configurations/1001/extension-attributes"
+            ),
+        )
+    )
+    assert (
+        pro.get_patch_software_title_configuration_extension_attributes(1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_history(pro):
+    """
+    Ensures that get_patch_software_title_configuration_history returns JSON
+    when used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/patch-software-title-configurations/1001/history")
+        )
+    )
+    assert pro.get_patch_software_title_configuration_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_history_optional_params(pro):
+    """
+    Ensures that get_patch_software_title_configuration_history returns JSON
+    when used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/patch-software-title-configurations/1001/history")
+        )
+    )
+    assert (
+        pro.get_patch_software_title_configuration_history(
+            1001, 0, 100, ["username:asc"], "username!=admin and details==disabled"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_report(pro):
+    """
+    Ensures that get_patch_software_title_configuration_patch_report returns
+    JSON when used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v2/patch-software-title-configurations/1001/patch-report"),
+        )
+    )
+    assert (
+        pro.get_patch_software_title_configuration_patch_report(1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_report_optional_params(pro):
+    """
+    Ensures that get_patch_software_title_configuration_patch_report returns
+    JSON when used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v2/patch-software-title-configurations/1001/patch-report"),
+        )
+    )
+    assert (
+        pro.get_patch_software_title_configuration_patch_report(
+            1001, 0, 100, ["computerName:desc", "buildingName:asc"], "version==10.1"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_patch_summary(pro):
+    """
+    Ensures that get_patch_software_title_configuration_patch_summary returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v2/patch-software-title-configurations/1001/patch-summary"),
+        )
+    )
+    assert (
+        pro.get_patch_software_title_configuration_patch_summary(1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_software_title_configuration_patch_versions(pro):
+    """
+    Ensures that get_patch_software_title_configuration_patch_versions returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v2/patch-software-title-configurations/1001/patch-summary"
+                "/versions"
+            ),
+        )
+    )
+    assert (
+        pro.get_patch_software_title_configuration_patch_versions(1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_patch_software_title_configuration(pro):
+    """
+    Ensures that create_patch_software_title_configuration returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/patch-software-title-configurations"))
+    )
+    assert pro.create_patch_software_title_configuration(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_patch_software_title_configuration_dashboard(pro):
+    """
+    Ensures that create_patch_software_title_configuration returns a success
+    message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v2/patch-software-title-configurations/1001/dashboard"),
+        )
+    )
+    assert (
+        pro.create_patch_software_title_configuration_dashboard(1001)
+        == "Patch software title configuration 1001 added to dashboard."
+    )
+
+
+@responses.activate
+def test_create_patch_software_title_configuration_history_note(pro):
+    """
+    Ensures that create_patch_software_title_configuration_history_note returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v2/patch-software-title-configurations/1001/history")
+        )
+    )
+    assert (
+        pro.create_patch_software_title_configuration_history_note(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_patch_software_title_configuration(pro):
+    """
+    Ensures that update_patch_software_title_configuration returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "PATCH", jps_url("/api/v2/patch-software-title-configurations/1001")
+        )
+    )
+    assert (
+        pro.update_patch_software_title_configuration(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_patch_software_title_configuration(pro):
+    """
+    Ensures that delete_patch_software_title_configuration returns a success
+    message str when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v2/patch-software-title-configurations/1001")
+        )
+    )
+    assert (
+        pro.delete_patch_software_title_configuration(1001)
+        == "Patch software title configuration 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_patch_software_title_configuration_dashboard(pro):
+    """
+    Ensures that delete_patch_software_title_configuration_dashboard returns a
+    success message string when used with required params
+    """
+    responses.add(
+        response_builder(
+            "DELETE",
+            jps_url("/api/v2/patch-software-title-configurations/1001/dashboard"),
+        )
+    )
+    assert (
+        pro.delete_patch_software_title_configuration_dashboard(1001)
+        == "Patch software title configuration 1001 removed from dashboard."
+    )
+
+
+"""
 patches-preview
 """
 

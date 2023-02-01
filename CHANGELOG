@@ -35,7 +35,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_patch_policy_log_device_detail which returns a detailed patch policy log for a device by ID and deviceId
 - Pro.create_patch_policy_logs_retry_devices which sends retry attempts for a specific device in a patch policy with JSON by ID
 - Pro.create_patch_policy_logs_retry_devices_all which sends retry attempts for all devices in a patch policy
-
+- Pro.get_patch_software_title_configurations which returns all patch software title configurations
+- Pro.get_patch_software_title_configuration which returns patch software title configuration by ID
+- Pro.get_patch_software_title_configuration_dashboard which returns whether or not the requested software title configuration is on the dashboard by ID
+- Pro.get_patch_software_title_configuration_definitions which returns patch software title definitions by ID
+- Pro.get_patch_software_title_configuration_export which returns CSV data on patch software title configuration data by ID
+- Pro.get_patch_software_title_configuration_extension_attributes which returns software title extension attributes by ID
+- Pro.get_patch_software_title_configuration_history which returns specified patch software title configuration history by ID
+- Pro.get_patch_software_title_configuration_patch_report which returns patch software title configuration patch report by ID
+- Pro.get_patch_software_title_configuration_patch_summary which returns active patch summary for the patch software title configuration by ID
+- Pro.get_patch_software_title_configuration_patch_versions which returns patch versions for the patch software title configuration by ID
+- Pro.create_patch_software_title_configuration which creates patch software title configuration with JSON data
+- Pro.create_patch_software_title_configuration_dashboard which adds patch software title configuration to the dashboard by ID
+- Pro.create_patch_software_title_configuration_history_note which creates patch software title configuration history note by ID with JSON
+- Pro.update_patch_software_title_configuration which updates patch software title configuration with JSON by ID
+- Pro.delete_patch_software_title_configuration which deletes patch software title configuration by ID
+- Pro.delete_patch_software_title_configuration_dashboard which removes a patch software title configuration from the dashboard
 
 ### Fixed
 - Pro.create_patch_policy_dashboard now returns a success message instead of JSON which caused it to break since it returns a 204 status o completion

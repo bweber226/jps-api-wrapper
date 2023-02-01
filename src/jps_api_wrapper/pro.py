@@ -6300,6 +6300,7 @@ class Pro(RequestBuilder):
                 "page": page,
                 "page-size": page_size,
                 "sort": sort,
+                "filter": filter,
             }
         )
         endpoint = f"/api/v2/patch-policies/{id}/logs"
@@ -6404,6 +6405,416 @@ class Pro(RequestBuilder):
     """
 
     # All endpoints deprecated
+
+    """
+    patch-software-title-configurations
+    """
+
+    def get_patch_software_title_configurations(self) -> dict:
+        """
+        Returns all patch software title configurations
+
+        :returns: All patch software title configurations information in JSON
+        """
+        endpoint = "/api/v2/patch-software-title-configurations"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration(self, id: Union[int, str]) -> dict:
+        """
+        Returns patch software title configuration by ID
+
+        :param id: Software title configuration ID
+
+        :returns: Patch software title configuration information in JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_dashboard(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns whether or not the requested software title configuration is on
+        the dashboard by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Whether the software title configuration is on the dashboard in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/dashboard"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_definitions(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["absoluteOrderId:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns patch software title definitions by ID
+
+        :param id: Patch software title configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["absoluteOrderId:asc"]. Multiple sort criteria are supported and
+            must be separated with a comma.
+
+            Example: ["releaseDate:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Patch Software Title
+            Definition collection. Default filter is empty query - returning
+            all results for the requested page. Fields allowed in the query:
+            id, version, minimumOperatingSystem, releaseDate, reboot,
+            standalone and absoluteOrderId. This param can be combined with
+            paging and sorting.
+
+            Example: 'id=="1001"'
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/definitions"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_software_title_configuration_export(
+        self,
+        id: Union[int, str],
+        columns_to_export: List[str] = ["all"],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["computerName:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Returns CSV data on patch software title configuration data by ID
+
+        :param id: Patch software title configuration ID
+        :param columns_to_export:
+            List of column names to export. Allowed fields: all, computerName,
+            deviceId, username, operatingSystemVersion, lastContactTime,
+            buildingName, departmentName, siteName, version.
+
+            Example: ["computerName", "deviceId"]
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["computerName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["deviceId:asc", "computerName:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: computerName,
+            deviceId, username, operatingSystemVersion, lastContactTime,
+            buildingName, departmentName, siteName, version. This param can be
+            combined with paging and sorting.
+
+        :returns:
+            CSV formatted string of the requested patch software title
+            configuration
+        """
+        if "all" in columns_to_export:
+            columns_to_export = [
+                "computerName",
+                "deviceId",
+                "username",
+                "operatingSystemVersion",
+                "lastContactTime",
+                "buildingName",
+                "departmentName",
+                "siteName",
+                "version",
+            ]
+        params = remove_empty_params(
+            {
+                "columns-to-export": columns_to_export,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/export-report"
+
+        return self._get(endpoint, params=params, headers=headers, data_type=None)
+
+    def get_patch_software_title_configuration_extension_attributes(
+        self, id: Union[int, str]
+    ) -> List[dict]:
+        """
+        Returns software title extension attributes by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Patch software title configuration extension attributes information
+            in a list of dictionaries
+        """
+        endpoint = (
+            f"/api/v2/patch-software-title-configurations/{id}/extension-attributes"
+        )
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns specified patch software title configuration history by ID
+
+        :param id: Patch software title configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["date:desc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["username:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: "username!=admin and details==disabled"
+
+        :returns:
+            Patch software title configuration history information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_software_title_configuration_patch_report(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["computerName:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns patch software title configuration patch report by ID
+
+        :param id: Patch software title configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["computerName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["computerName:desc", "buildingName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter patch report
+            collection on version equality only. Default filter is empty query
+            - returning all results for the requested page. Fields allowed in
+            the query: version. Comparators allowed in the query: ==, != This
+            param can be combined with paging and sorting.
+
+            Example: "version==10.1"
+
+        :returns: Patch software title configuration report information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/patch-report"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_software_title_configuration_patch_summary(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns active patch summary for the patch software title configuration
+        by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Active patch summary for the patch software title configuration in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/patch-summary"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_patch_versions(
+        self, id: Union[int, str]
+    ) -> List[dict]:
+        """
+        Returns patch versions for the patch software title configuration by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Patch versions for the patch software title configuration in a list
+            of dictionaries
+        """
+        endpoint = (
+            f"/api/v2/patch-software-title-configurations/{id}/patch-summary/versions"
+        )
+
+        return self._get(endpoint)
+
+    def create_patch_software_title_configuration(self, data: dict) -> dict:
+        """
+        Creates patch software title configuration with JSON data
+
+        :param data:
+            JSON data to create the patch software title configuration with.
+            For syntax information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE OF 10.44>`__
+
+        :returns: New patch software title configuration information in JSON
+        """
+        endpoint = "/api/v2/patch-software-title-configurations"
+
+        return self._post(endpoint, data)
+
+    def create_patch_software_title_configuration_dashboard(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        Adds patch software title configuration to the dashboard by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Success message stating the patch software title configuration was
+            added to the dashboard
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/dashboard"
+
+        return self._post(
+            endpoint,
+            success_message=(
+                f"Patch software title configuration {id} added to dashboard."
+            ),
+        )
+
+    def create_patch_software_title_configuration_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates patch software title configuration history note by ID with JSON
+
+        :param data:
+            JSON data to create the patch software title configuration history
+            note with. For syntax information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE OF 10.44>`__
+        :param id: Patch software title configuration ID
+
+        :returns:
+            New patch policy title configuration history note information in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_patch_software_title_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates patch software title configuration with JSON by ID
+
+        :param data:
+            JSON data to update the patch software title configuration history
+            note with. For syntax information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE OF 10.44>`__
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Updated patch policy title configuration history note information
+            in JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}"
+
+        return self._patch(endpoint, data)
+
+    def delete_patch_software_title_configuration(self, id: Union[int, str]) -> str:
+        """
+        Deletes patch software title configuration by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Success message stating the patch software title configuration was
+            successfully deleted
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Patch software title configuration {id} successfully deleted."
+            ),
+        )
+
+    def delete_patch_software_title_configuration_dashboard(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        Removes a patch software title configuration from the dashboard
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Success message stating the patch software title configuration was
+            removed from the dashboard
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/dashboard"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Patch software title configuration {id} removed from dashboard."
+            ),
+        )
 
     """
     patches-preview

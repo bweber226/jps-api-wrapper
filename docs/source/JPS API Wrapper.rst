@@ -3150,6 +3150,74 @@ Pro
 
    |
 
+.. collapse:: patch-software-title-configurations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configurations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_dashboard
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_definitions
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_export
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_extension_attributes
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_patch_report
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_patch_summary
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_patch_versions
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_software_title_configuration_dashboard
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_software_title_configuration_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_software_title_configuration_dashboard
+
+   |
+
 .. collapse:: patches-preview
 
    |
