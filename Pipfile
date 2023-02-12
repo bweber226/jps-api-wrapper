@@ -3,14 +3,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[[source]]
-url = "https://gitlab.com/api/v4/projects/38995343/packages/pypi/simple"
-verify_ssl = true
-name = "jamf_auth"
-
 [packages]
 typing = {version="*", index="pypi"}
-jamf-auth = {version="*", index="jamf_auth"}
+jamf-api-auth = {version="*", index="pypi"}
 
 [dev-packages]
 black = "*"
