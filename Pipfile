@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 typing = {version="*", index="pypi"}
 jamf-api-auth = {version="*", index="pypi"}
+requests = {version="*", index="pypi"}
 
 [dev-packages]
 black = "*"
