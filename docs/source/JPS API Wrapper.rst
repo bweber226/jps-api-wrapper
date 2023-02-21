@@ -1698,14 +1698,6 @@ Pro
 
    |
 
-.. collapse:: app-dynamics-configuration-preview
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_app_dynamics_configuration
-
-   |
-
 .. collapse:: app-request-preview
 
    |
@@ -1959,6 +1951,14 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.create_cloud_idp_user_membership_test_search
+
+   |
+
+.. collapse:: cloud-information
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_cloud_information
 
    |
 
@@ -2810,6 +2810,26 @@ Pro
 
    |
 
+.. collapse:: local-admin-password
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_settings
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_current
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_local_admin_password_settings
+
+   |
+
 .. collapse:: locales-preview
 
    |
@@ -2827,6 +2847,34 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.create_macos_managed_software_updates
+
+   |
+
+.. collapse:: managed-software-updates
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_available
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_statuses
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_computer_group
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_computer
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_mobile_device_group
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_mobile_device
 
    |
 
@@ -2863,6 +2911,34 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_extension_attributes
+
+   |
+
+.. collapse:: mobile-device-groups
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_groups_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_group_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_group_static_membership
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_mobile_device_group_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_mobile_device_group_static
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_mobile_device_group_static
 
    |
 
@@ -2994,6 +3070,34 @@ Pro
 
    |
 
+.. collapse:: patch-management
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_management_disclaimer_accept
+
+   |
+
+.. collapse:: patch-policies
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policies
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_dashboard_v2
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_policy_dashboard_v2
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_policy_dashboard_v2
+
+   |
+
 .. collapse:: patch-policies-preview
 
    |
@@ -3010,6 +3114,34 @@ Pro
 
    |
 
+.. collapse:: patch-policy_logs
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_logs
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_logs_eligible_retry_count
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_log_device
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_log_device_detail
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_policy_logs_retry_devices
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_policy_logs_retry_devices_all
+
+   |
+
 .. collapse:: patch-policy-logs-preview
 
    |
@@ -3018,11 +3150,71 @@ Pro
 
    |
 
-.. collapse:: patches
+.. collapse:: patch-software-title-configurations
 
    |
 
-   All endpoints deprecated.
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configurations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_dashboard
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_definitions
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_export
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_extension_attributes
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_patch_report
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_patch_summary
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_patch_versions
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_software_title_configuration_dashboard
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_software_title_configuration_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_software_title_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_software_title_configuration_dashboard
 
    |
 
@@ -3031,14 +3223,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_patch_dashboards
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_summary
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_summary
 
    |
 

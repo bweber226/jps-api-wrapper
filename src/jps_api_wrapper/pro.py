@@ -1,3 +1,4 @@
+import warnings
 from mimetypes import guess_type
 from os.path import basename
 from typing import List, Union
@@ -9,6 +10,8 @@ from jps_api_wrapper.utils import (
     identification_type,
     remove_empty_params,
 )
+
+warnings.simplefilter("always", DeprecationWarning)
 
 
 class Pro(RequestBuilder):
@@ -233,20 +236,6 @@ class Pro(RequestBuilder):
         return self._get(endpoint)
 
     """
-    app-dynamics-configuration-preview
-    """
-
-    def get_app_dynamics_configuration(self) -> dict:
-        """
-        Returns AppDynamicsConfig object
-
-        :returns: App dynamics configuration information in JSON
-        """
-        endpoint = "/api/v1/app-dynamics/script-configuration"
-
-        return self._get(endpoint)
-
-    """
     app-request-preview
     """
 
@@ -413,7 +402,7 @@ class Pro(RequestBuilder):
         Returns all buildings or search for sorted and paged buildings
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -464,7 +453,7 @@ class Pro(RequestBuilder):
 
         :param id: Building ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -522,7 +511,7 @@ class Pro(RequestBuilder):
             matching: export_fields=["id", "name"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be
@@ -588,7 +577,7 @@ class Pro(RequestBuilder):
             matching: export_fields=["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -746,7 +735,7 @@ class Pro(RequestBuilder):
         Returns all category objects in JSON
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -801,7 +790,7 @@ class Pro(RequestBuilder):
 
         :param id: Category ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -1015,7 +1004,7 @@ class Pro(RequestBuilder):
         Returns client check-in settings history in JSON
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is date:desc. Multiple sort criteria are supported and must be
@@ -1236,7 +1225,7 @@ class Pro(RequestBuilder):
         Providers
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:desc. Multiple sort criteria are supported and must be separated
@@ -1282,7 +1271,7 @@ class Pro(RequestBuilder):
 
         :param id: Cloud identity provider ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -1342,7 +1331,7 @@ class Pro(RequestBuilder):
             ["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -1441,11 +1430,25 @@ class Pro(RequestBuilder):
             <https://developer.jamf.com/jamf-pro/reference/post_v1-cloud-idp-id-test-user-membership>`__
         :param id: Cloud identity provider ID
 
-        :returns: Cloud IDP user membership test search results
+        :returns: Cloud IDP user membership test search results in JSON
         """
         endpoint = f"/api/v1/cloud-idp/{id}/test-user-membership"
 
         return self._post(endpoint, data)
+
+    """
+    cloud-information
+    """
+
+    def get_cloud_information(self) -> dict:
+        """
+        Returns information related to cloud setup
+
+        :returns: Information related to cloud setup in JSON
+        """
+        endpoint = "/api/v1/cloud-information"
+
+        return self._get(endpoint)
 
     """
     cloud-ldap
@@ -1666,7 +1669,7 @@ class Pro(RequestBuilder):
             Example ["GENERAL", "HARDWARE"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is general.name:asc. Multiple sort criteria are supported and must
@@ -1842,7 +1845,7 @@ class Pro(RequestBuilder):
         Returns paginated FileVault information for all computers
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
 
         :returns: FileVault information for all computers in JSON
         """
@@ -2060,7 +2063,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged computer prestages
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is id:desc. Multiple sort criteria are supported and must
@@ -2225,7 +2228,7 @@ class Pro(RequestBuilder):
         Returns a paginated list of computers
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param section:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -2345,7 +2348,7 @@ class Pro(RequestBuilder):
         Returns a paginated list of departments
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -2399,7 +2402,7 @@ class Pro(RequestBuilder):
 
         :param id: Department ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -2537,7 +2540,7 @@ class Pro(RequestBuilder):
         Returns paginated device communication settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -2608,7 +2611,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged device enrollment instances
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -2654,7 +2657,7 @@ class Pro(RequestBuilder):
 
         :param id: Device enrollment instance ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -2856,7 +2859,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated list of all eBooks
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -2926,7 +2929,7 @@ class Pro(RequestBuilder):
         Returns Engage settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -3007,7 +3010,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged enrollment history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is date:desc. Multiple sort criteria are supported and must be
@@ -3057,7 +3060,7 @@ class Pro(RequestBuilder):
             ["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:desc. Multiple sort criteria are supported and must be separated
@@ -3111,7 +3114,7 @@ class Pro(RequestBuilder):
         enrollment
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -3158,7 +3161,7 @@ class Pro(RequestBuilder):
         configured
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             languageCode:asc. Multiple sort criteria are supported and must be
@@ -3374,7 +3377,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged enrollment customizations
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -3419,7 +3422,7 @@ class Pro(RequestBuilder):
 
         :param id: Enrollment customization ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -3960,7 +3963,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted inventory preload records
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is id:asc. Multiple sort criteria are supported and must be
@@ -4017,7 +4020,7 @@ class Pro(RequestBuilder):
         Returns inventory preload history entries
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             is date:desc. Multiple sort criteria are supported and must be
@@ -4108,7 +4111,7 @@ class Pro(RequestBuilder):
             export_fields=["username", "department"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be
@@ -4286,7 +4289,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated config profiles linked to Jamf Connect
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["profileId:asc"]. Multiple sort criteria are supported
@@ -4330,7 +4333,7 @@ class Pro(RequestBuilder):
 
         :param uuid: Jamf Connect config profile UUID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["status:desc"]. Multiple sort criteria are supported
@@ -4373,7 +4376,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated Jamf Connect history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -4551,7 +4554,7 @@ class Pro(RequestBuilder):
     jamf-pro-initialization-preview
     """
 
-    # All deprecated
+    # All endpoints deprecated
 
     """
     jamf-pro-notifications
@@ -4588,7 +4591,7 @@ class Pro(RequestBuilder):
     jamf-pro-notifications-preview
     """
 
-    # All deprecated
+    # All endpoints deprecated
 
     """
     jamf-pro-server-url-preview
@@ -4611,7 +4614,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated Jamf Pro Server URL settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -4775,7 +4778,7 @@ class Pro(RequestBuilder):
 
         :param uuid: Jamf Protect config profile UUID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort
             order is ["status:desc"]. Multiple sort criteria are supported
@@ -4812,7 +4815,7 @@ class Pro(RequestBuilder):
         Returns sorted, paginated Jamf Protect history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -4850,7 +4853,7 @@ class Pro(RequestBuilder):
         information about their associated configuration profile
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be
@@ -5007,6 +5010,64 @@ class Pro(RequestBuilder):
         return self._get(endpoint, params=params)
 
     """
+    local-admin-password
+    """
+
+    def get_local_admin_password_settings(self) -> dict:
+        """
+        Returns information about if Local Admin Password auto-deploy feature
+        is enabled. When it is enabled, all computers will have the
+        SetAutoAdminPassword command sent to them automatically.
+
+        :returns: Local Admin Password auto-deploy information in JSON
+        """
+        endpoint = "/api/v1/local-admin-password/settings"
+
+        return self._get(endpoint)
+
+    def get_local_admin_password_history(self, clientManagementId: str) -> dict:
+        """
+        Returns a full history of all local admin passwords used for a target
+        device. History will include password, who viewed the password and when
+        it was viewed.
+
+        :param clientManagementId: Client management ID of target device
+
+        :returns:
+            Full history of all local admin passwords used for device in JSON
+        """
+        endpoint = f"/api/v1/local-admin-password/audit/{clientManagementId}"
+
+        return self._get(endpoint)
+
+    def get_local_admin_password_current(self, clientManagementId: str) -> dict:
+        """
+        Returns the current local admin password for specified client
+
+        :param clientManagementId: Client management ID of target device
+
+        :returns: Current local admin password information in JSON
+        """
+        endpoint = f"/api/v1/local-admin-password/password/{clientManagementId}"
+
+        return self._get(endpoint)
+
+    def update_local_admin_password_settings(self, data: dict) -> dict:
+        """
+        Updates Local Admin Password auto-deploy feature to be enabled or not.
+        When it is enabled (true), all computers will have the
+        SetAutoAdminPassword command sent to them automatically.
+
+        :param data:
+            JSON data to update local admin password settings with. For syntax
+            information view `Jamf's documentation.
+            <TODO: Add URL on 10.44 release>`__
+        """
+        endpoint = "/api/v1/local-admin-password/settings"
+
+        return self._put(endpoint, data)
+
+    """
     locales-preview
     """
 
@@ -5026,16 +5087,28 @@ class Pro(RequestBuilder):
 
     def get_macos_managed_software_updates(self) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Returns available macOS managed software updates
 
         :returns: All available macOS managed software updates in JSON
         """
+        warnings.warn(
+            (
+                "Pro.get_macos_managed_software_updates has been deprecated by Jamf "
+                "Pro v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/v1/macos-managed-software-updates/available-updates"
 
         return self._get(endpoint)
 
     def create_macos_managed_software_updates(self, data: dict) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Sends macOS managed software updates
 
         :param data:
@@ -5045,9 +5118,115 @@ class Pro(RequestBuilder):
 
         :returns: Sent macOS managed software updates information in JSON
         """
+        warnings.warn(
+            (
+                "Pro.create_macos_managed_software_updates has been deprecated by Jamf "
+                "Pro v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/v1/macos-managed-software-updates/send-updates"
 
         return self._post(endpoint, data)
+
+    """
+    managed-software-updates
+    """
+
+    def get_managed_software_updates_available(self) -> dict:
+        """
+        Returns available macOS and iOS managed software updates
+
+        :returns:
+            Available macOS and iOS managed software update information in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/available-updates"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_statuses(self, filter: str = None) -> dict:
+        """
+        Returns managed software update statuses
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Managed Software
+            Updates collection. Default filter is empty query - returning all
+            results for the requested page. Fields allowed in the query:
+            osUpdatesStatusId, device.deviceId, device.objectType, downloaded,
+            downloadPercentComplete, productKey, status, deferralsRemaining,
+            maxDeferrals, nextScheduledInstall, created and updated.
+
+        :returns: Managed software update statuses information in JSON
+        """
+        params = remove_empty_params({"filter": filter})
+        endpoint = "/api/v1/managed-software-updates/update-statuses"
+
+        return self._get(endpoint, params=params)
+
+    def get_managed_software_updates_computer_group(self, id: Union[int, str]) -> dict:
+        """
+        Returns managed software update statuses for computer group by ID
+
+        :param id: Computer group ID
+
+        :returns:
+            Managed software update status information for a computer group in
+            JSON
+        """
+        endpoint = (
+            f"/api/v1/managed-software-updates/update-statuses/computer-groups/{id}"
+        )
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_computer(self, id: Union[int, str]) -> dict:
+        """
+        Returns managed software update statuses for computer by ID
+
+        :param id: Computer ID
+
+        :returns:
+            Managed software update status information for a computer in JSON
+        """
+        endpoint = f"/api/v1/managed-software-updates/update-statuses/computers/{id}"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_mobile_device_group(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns managed software update statuses for mobile device group by ID
+
+        :param id: Mobile device group ID
+
+        :returns:
+            Managed software update status information for a mobile device
+            group in JSON
+        """
+        endpoint = (
+            "/api/v1/managed-software-updates/update-statuses/"
+            f"mobile-device-groups/{id}"
+        )
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_mobile_device(self, id: Union[int, str]) -> dict:
+        """
+        Returns managed software update statuses for mobile device by ID
+
+        :param id: Mobile device ID
+
+        :returns:
+            Managed software update status information for a mobile device in
+            JSON
+        """
+        endpoint = (
+            f"/api/v1/managed-software-updates/update-statuses/mobile-devices/{id}"
+        )
+
+        return self._get(endpoint)
 
     """
     mdm
@@ -5065,12 +5244,12 @@ class Pro(RequestBuilder):
         needs to be set to something otherwise it will return a 400 error.
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Default sort is dateSent:asc. Multiple sort criteria are supported
             and must be separated with a comma.
 
-            ["dateSent:desc", "command:asc"]
+            Example: ["dateSent:desc", "command:asc"]
         :param filter:
             Query in the RSQL format, allowing to filter, for a list of
             commands. All url must contain minimum one filter field. Fields
@@ -5187,6 +5366,204 @@ class Pro(RequestBuilder):
         return self._get(endpoint, params=params)
 
     """
+    mobile-device-groups
+    """
+
+    def get_mobile_device_groups_static(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["groupId:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all mobile device static group in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["groupId:asc"]. Available criteria to sort on: groupId, groupName,
+            siteId.
+
+            Example: ["groupName:desc"]
+        :param filter:
+            Query in the RSQL format, allowing to filter department collection.
+            Default filter is empty query - returning all results for the
+            requested page. Fields allowed in the query: groupId, groupName,
+            siteId. The siteId field can only be filtered by admins with full
+            access. Any sited admin will have siteId filtered automatically.
+            This param can be combined with paging and sorting.
+
+            Example: groupName=="staticGroup1"
+
+        :returns: All mobile device static groups in JSON
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v1/mobile-device-groups/static-groups"
+
+        return self._get(endpoint, params=params)
+
+    def get_mobile_device_group_static(self, id: Union[int, str]) -> dict:
+        """
+        Returns mobile device static group by ID
+
+        :param id: Mobile device static group ID
+
+        :returns: Mobile device static group information in JSON
+        """
+        endpoint = f"/api/v1/mobile-device-groups/static-groups/{id}"
+
+        return self._get(endpoint)
+
+    def get_mobile_device_group_static_membership(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["displayName:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns mobile device static group membership by ID
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["displayName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Fields allowed in the sort: airPlayPassword, appAnalyticsEnabled,
+            assetTag, availableSpaceMb, batteryLevel,
+            bluetoothLowEnergyCapable, bluetoothMacAddress, capacityMb,
+            lostModeEnabledDate, declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, enrollmentSessionTokenValid, exchangeDeviceId,
+            cloudBackupEnabled, osBuild, osRapidSecurityResponse,
+            osSupplementalBuildVersion, osVersion, ipAddress,
+            itunesStoreAccountActive, mobileDeviceId, languages,
+            lastBackupDate, lastEnrolledDate, lastCloudBackupDate,
+            lastInventoryUpdateDate, locales,
+            locationServicesForSelfServiceMobileEnabled, lostModeEnabled,
+            managed, mdmProfileExpirationDate, model, modelIdentifier,
+            modelNumber, modemFirmwareVersion, quotaSize, residentUsers,
+            serialNumber, sharedIpad, supervised, tethered, timeZone, udid,
+            usedSpacePercentage, wifiMacAddress, deviceOwnershipType, building,
+            department, emailAddress, fullName, userPhoneNumber, position,
+            room, username, appleCareId, leaseExpirationDate,
+            lifeExpectancyYears, poDate, poNumber, purchasePrice,
+            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
+            warrantyExpirationDate, activationLockEnabled,
+            blockEncryptionCapable, dataProtection, fileEncryptionCapable,
+            hardwareEncryptionSupported, jailbreakStatus, passcodeCompliant,
+            passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            cellularTechnology, currentCarrierNetwork,
+            currentMobileCountryCode, currentMobileNetworkCode,
+            dataRoamingEnabled, eid, network, homeMobileCountryCode,
+            homeMobileNetworkCode, iccid, imei, imei2, meid,
+            personalHotspotEnabled, voiceRoamingEnabled, roaming
+
+            Example: ["displayName:desc", "username:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter mobile device
+            collection. Default filter is empty query - returning all results
+            for the requested page. This param can be combined with paging and
+            sorting.
+
+            Fields allowed in the query: airPlayPassword, appAnalyticsEnabled,
+            assetTag, availableSpaceMb, batteryLevel,
+            bluetoothLowEnergyCapable, bluetoothMacAddress, capacityMb,
+            declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, exchangeDeviceId, cloudBackupEnabled, osBuild,
+            osSupplementalBuildVersion, osVersion, osRapidSecurityResponse,
+            ipAddress, itunesStoreAccountActive, mobileDeviceId, languages,
+            locales, locationServicesForSelfServiceMobileEnabled,
+            lostModeEnabled, managed, model, modelIdentifier, modelNumber,
+            modemFirmwareVersion, quotaSize, residentUsers, serialNumber,
+            sharedIpad, supervised, tethered, timeZone, udid,
+            usedSpacePercentage, wifiMacAddress, building, department,
+            emailAddress, fullName, userPhoneNumber, position, room, username,
+            appleCareId, lifeExpectancyYears, poNumber, purchasePrice,
+            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
+            activationLockEnabled, blockEncryptionCapable, dataProtection,
+            fileEncryptionCapable, passcodeCompliant,
+            passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            currentCarrierNetwork, currentMobileCountryCode,
+            currentMobileNetworkCode, dataRoamingEnabled, eid, network,
+            homeMobileCountryCode, homeMobileNetworkCode, iccid, imei, imei2,
+            meid, personalHotspotEnabled, roaming
+
+
+            Example: 'displayName=="iPad"'
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = f"/api/v1/mobile-device-groups/static-group-membership/{id}"
+
+        return self._get(endpoint, params=params)
+
+    def create_mobile_device_group_static(self, data: dict) -> dict:
+        """
+        Creates mobile device static group with JSON data
+
+        :param data:
+            JSON data to create the mobile device static group with. For syntax
+            information view `Jamf's documentation.
+            <TODO: Add URL on release>`__
+
+        :returns: New mobile device static group information in JSON
+        """
+        endpoint = "/api/v1/mobile-device-groups/static-groups"
+
+        return self._post(endpoint, data)
+
+    def update_mobile_device_group_static(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates mobile device static group with JSON by ID
+
+        :param data:
+            JSON data to update the mobile device static group with.For syntax
+            information view `Jamf's documentation.
+            <TODO: Add URL on release>`__
+        :param id: Mobile device static group ID
+
+        :returns: Updated mobile device static group information in JSON
+        """
+        endpoint = f"/api/v1/mobile-device-groups/static-groups/{id}"
+
+        return self._patch(endpoint, data)
+
+    def delete_mobile_device_group_static(self, id: Union[int, str]) -> str:
+        """
+        Deletes mobile device static group by ID
+
+        :param id: Mobile device static group ID
+
+        :returns:
+            Success message stating the mobile device static group was deleted
+        """
+        endpoint = f"/api/v1/mobile-device-groups/static-groups/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=f"Mobile device static group {id} successfully deleted.",
+        )
+
+    """
     mobile-device-groups-preview
     """
 
@@ -5211,7 +5588,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged mobile device prestages
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Multiple sort
             criteria are supported and must be separated with a comma. Default
@@ -5288,7 +5665,7 @@ class Pro(RequestBuilder):
 
         :param id: Mobile device prestage ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -5519,7 +5896,7 @@ class Pro(RequestBuilder):
         Returns sorted and paginated mobile devices
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -5587,11 +5964,10 @@ class Pro(RequestBuilder):
         Updates mobile device extension attributes by ID with JSON
 
         :param attributes:
-            Dictionary object containing the extension attributes to update as:
-            {
-                "EA name 1": "EA value 1",
-                "EA name 2": "EA value 2"
-            }
+            Dictionary object containing the extension attributes to update in
+            the following format
+
+            {"EA name 1": "EA value 1", "EA name 2": "EA value 2"}
 
         :param id: Mobile device ID
 
@@ -5633,7 +6009,7 @@ class Pro(RequestBuilder):
         Returns Jamf Parent app settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -5690,11 +6066,124 @@ class Pro(RequestBuilder):
         return self._put(endpoint, data)
 
     """
+    patch-management
+    """
+
+    def create_patch_management_disclaimer_accept(self) -> str:
+        """
+        Accepts patch management disclaimer
+
+        :returns:
+            Success message stating the patch management disclaimer was
+            accepted
+        """
+        endpoint = "/api/v2/patch-management-accept-disclaimer"
+
+        return self._post(
+            endpoint, success_message="Patch management disclaimer accepted."
+        )
+
+    """
+    patch-policies
+    """
+
+    def get_patch_policies(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all patch policies
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["policyName:asc", "id:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Patch Policy
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id,
+            policyName, policyEnabled, policyTargetVersion,
+            policyDeploymentMethod, softwareTitle,
+            softwareTitleConfigurationId, pending, completed, deferred, and
+            failed. This param can be combined with paging and sorting.
+
+            Example: 'policyName=="Example name"'
+
+        :returns: All patch policies information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v2/patch-policies"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_policy_dashboard_v2(self, id: Union[int, str]) -> dict:
+        """
+        Returns whether or not the requested patch policy is on the dashboard
+        by ID
+
+        :param id: Patch policy ID
+
+        :returns: Patch policy information in JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/dashboard"
+
+        return self._get(endpoint)
+
+    def create_patch_policy_dashboard_v2(self, id: Union[int, str]) -> str:
+        """
+        Adds a patch policy to the dashboard by ID
+
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the patch policy was added to the
+            dashboard
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/dashboard"
+
+        return self._post(
+            endpoint, success_message=f"Patch policy {id} added to dashboard."
+        )
+
+    def delete_patch_policy_dashboard_v2(self, id: Union[int, str]) -> str:
+        """
+        Deletes a patch policy from the dashboard by ID
+
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the patch policy was removed from the
+            dashboard
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/dashboard"
+
+        return self._delete(
+            endpoint, success_message=f"Patch policy {id} removed from dashboard."
+        )
+
+    """
     patch-policies-preview
     """
 
     def get_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+            Use :func:`get_patch_policy_dashboard_v2` instead.
+
         Returns whether or not the requested patch policy is on the dashboard
         by ID
 
@@ -5703,24 +6192,50 @@ class Pro(RequestBuilder):
         :returns:
             Whether or no the request patch policy is on the dashboard in JSON
         """
+        warnings.warn(
+            (
+                "Pro.get_patch_policy_dashboard has been deprecated by Jamf Pro "
+                "v10.44.0. Use Pro.get_patch_policy_v2() instead."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
         return self._get(endpoint)
 
-    def create_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
+    def create_patch_policy_dashboard(self, id: Union[int, str]) -> str:
         """
+        .. deprecated:: 1.3.0
+            Use :func:`create_patch_policy_dashboard_v2` instead.
+
         Adds a patch policy to the dashboard by ID
 
         :param id: Patch policy ID
 
-        :returns: New patch policy on the dashboard information in JSON
+        :returns:
+            Success message stating that the patch policy was added to the
+            dashboard
         """
+        warnings.warn(
+            (
+                "Pro.create_patch_policy_dashboard has been deprecated by Jamf Pro "
+                "v10.44.0. Use Pro.create_patch_policy_v2() instead."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
-        return self._post(endpoint)
+        return self._post(
+            endpoint, success_message=f"Patch policy {id} added to dashboard."
+        )
 
-    def delete_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
+    def delete_patch_policy_dashboard(self, id: Union[int, str]) -> str:
         """
+        .. deprecated:: 1.3.0
+            Use :func:`delete_patch_policy_dashboard_v2` instead.
+
         Removes a patch policy from the dashboard by ID
 
         :param id: Patch policy ID
@@ -5729,10 +6244,160 @@ class Pro(RequestBuilder):
             Success message stating that the patch policy was removed from the
             dashboard
         """
+        warnings.warn(
+            (
+                "Pro.delete_patch_policy_dashboard has been deprecated by Jamf Pro "
+                "v10.44.0. Use Pro.delete_patch_policy_v2() instead."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/patch-policies/{id}/dashboard"
 
         return self._delete(
             endpoint, success_message=f"Patch policy {id} removed from dashboard."
+        )
+
+    """
+    patch-policy-logs
+    """
+
+    def get_patch_policy_logs(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["deviceName:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns patch policy logs by ID
+
+        :param id: Patch policy ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["deviceName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["deviceName:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Patch Policy Logs
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: deviceId,
+            deviceName, statusCode, statusDate, attemptNumber,
+            ignoredForPatchPolicyId. This param can be combined with paging and
+            sorting.
+
+            Example: "deviceId==1001"
+
+        :returns: Patch policy logs information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/patch-policies/{id}/logs"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_policy_logs_eligible_retry_count(self, id: Union[int, str]) -> dict:
+        """
+        Returns the count of the patch policy logs for the patch policy ID that
+        are eligible for a retry attempt
+
+        :param id: Patch policy ID
+
+        :returns:
+            Count of patch policy logs that are eligible for a retry attempt in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/eligible-retry-count"
+
+        return self._get(endpoint)
+
+    def get_patch_policy_log_device(
+        self, id: Union[int, str], deviceId: Union[int, str]
+    ) -> dict:
+        """
+        Returns a patch policy log for a device by ID and deviceID
+
+        :param id: Patch policy ID
+        :param deviceId: Device ID
+
+        :returns: Patch policy log information for a device in JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/{deviceId}"
+
+        return self._get(endpoint)
+
+    def get_patch_policy_log_device_detail(
+        self, id: Union[int, str], deviceId: Union[int, str]
+    ) -> dict:
+        """
+        Returns a detailed patch policy log for a device by ID and deviceId
+
+        :param id: Patch policy ID
+        :param deviceId: Device ID
+
+        :returns: Detailed patch policy log information for a device in JSON
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/{deviceId}/details"
+
+        return self._get(endpoint)
+
+    def create_patch_policy_logs_retry_devices(
+        self, data: dict, id: Union[int, str]
+    ) -> str:
+        """
+        Sends retry attempts for a specific device in a patch policy with JSON
+        by ID
+
+        :param data:
+            JSON data to create patch policy log retries with. For syntax
+            information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE>`__
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the specified patch policy log for the
+            specified devices were retried
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/retry"
+
+        return self._post(
+            endpoint,
+            data,
+            success_message=(
+                f"The patch policy logs for the specified devices in patch policy {id} "
+                "were retried."
+            ),
+        )
+
+    def create_patch_policy_logs_retry_devices_all(self, id: Union[int, str]) -> str:
+        """
+        Sends retry attempts for all devices in a patch policy
+
+        :param id: Patch policy ID
+
+        :returns:
+            Success message stating that the specified patch policy logs for
+            all devices were retried
+        """
+        endpoint = f"/api/v2/patch-policies/{id}/logs/retry-all"
+
+        return self._post(
+            endpoint,
+            success_message=(
+                f"The patch policy logs for all devices in patch policy {id} were "
+                "retried."
+            ),
         )
 
     """
@@ -5742,10 +6407,414 @@ class Pro(RequestBuilder):
     # All endpoints deprecated
 
     """
-    patches
+    patch-software-title-configurations
     """
 
-    # All endpoints deprecated
+    def get_patch_software_title_configurations(self) -> dict:
+        """
+        Returns all patch software title configurations
+
+        :returns: All patch software title configurations information in JSON
+        """
+        endpoint = "/api/v2/patch-software-title-configurations"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration(self, id: Union[int, str]) -> dict:
+        """
+        Returns patch software title configuration by ID
+
+        :param id: Software title configuration ID
+
+        :returns: Patch software title configuration information in JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_dashboard(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns whether or not the requested software title configuration is on
+        the dashboard by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Whether the software title configuration is on the dashboard in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/dashboard"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_definitions(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["absoluteOrderId:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns patch software title definitions by ID
+
+        :param id: Patch software title configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["absoluteOrderId:asc"]. Multiple sort criteria are supported and
+            must be separated with a comma.
+
+            Example: ["releaseDate:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Patch Software Title
+            Definition collection. Default filter is empty query - returning
+            all results for the requested page. Fields allowed in the query:
+            id, version, minimumOperatingSystem, releaseDate, reboot,
+            standalone and absoluteOrderId. This param can be combined with
+            paging and sorting.
+
+            Example: 'id=="1001"'
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/definitions"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_software_title_configuration_export(
+        self,
+        id: Union[int, str],
+        columns_to_export: List[str] = ["all"],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["computerName:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Returns CSV data on patch software title configuration data by ID
+
+        :param id: Patch software title configuration ID
+        :param columns_to_export:
+            List of column names to export. Allowed fields: all, computerName,
+            deviceId, username, operatingSystemVersion, lastContactTime,
+            buildingName, departmentName, siteName, version.
+
+            Example: ["computerName", "deviceId"]
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["computerName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["deviceId:asc", "computerName:desc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: computerName,
+            deviceId, username, operatingSystemVersion, lastContactTime,
+            buildingName, departmentName, siteName, version. This param can be
+            combined with paging and sorting.
+
+        :returns:
+            CSV formatted string of the requested patch software title
+            configuration
+        """
+        if "all" in columns_to_export:
+            columns_to_export = [
+                "computerName",
+                "deviceId",
+                "username",
+                "operatingSystemVersion",
+                "lastContactTime",
+                "buildingName",
+                "departmentName",
+                "siteName",
+                "version",
+            ]
+        params = remove_empty_params(
+            {
+                "columns-to-export": columns_to_export,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/export-report"
+
+        return self._get(endpoint, params=params, headers=headers, data_type=None)
+
+    def get_patch_software_title_configuration_extension_attributes(
+        self, id: Union[int, str]
+    ) -> List[dict]:
+        """
+        Returns software title extension attributes by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Patch software title configuration extension attributes information
+            in a list of dictionaries
+        """
+        endpoint = (
+            f"/api/v2/patch-software-title-configurations/{id}/extension-attributes"
+        )
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns specified patch software title configuration history by ID
+
+        :param id: Patch software title configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["date:desc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["username:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: "username!=admin and details==disabled"
+
+        :returns:
+            Patch software title configuration history information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_software_title_configuration_patch_report(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["computerName:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns patch software title configuration patch report by ID
+
+        :param id: Patch software title configuration ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["computerName:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["computerName:desc", "buildingName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter patch report
+            collection on version equality only. Default filter is empty query
+            - returning all results for the requested page. Fields allowed in
+            the query: version. Comparators allowed in the query: ==, != This
+            param can be combined with paging and sorting.
+
+            Example: "version==10.1"
+
+        :returns: Patch software title configuration report information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/patch-report"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_software_title_configuration_patch_summary(
+        self, id: Union[int, str]
+    ) -> dict:
+        """
+        Returns active patch summary for the patch software title configuration
+        by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Active patch summary for the patch software title configuration in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/patch-summary"
+
+        return self._get(endpoint)
+
+    def get_patch_software_title_configuration_patch_versions(
+        self, id: Union[int, str]
+    ) -> List[dict]:
+        """
+        Returns patch versions for the patch software title configuration by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Patch versions for the patch software title configuration in a list
+            of dictionaries
+        """
+        endpoint = (
+            f"/api/v2/patch-software-title-configurations/{id}/patch-summary/versions"
+        )
+
+        return self._get(endpoint)
+
+    def create_patch_software_title_configuration(self, data: dict) -> dict:
+        """
+        Creates patch software title configuration with JSON data
+
+        :param data:
+            JSON data to create the patch software title configuration with.
+            For syntax information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE OF 10.44>`__
+
+        :returns: New patch software title configuration information in JSON
+        """
+        endpoint = "/api/v2/patch-software-title-configurations"
+
+        return self._post(endpoint, data)
+
+    def create_patch_software_title_configuration_dashboard(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        Adds patch software title configuration to the dashboard by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Success message stating the patch software title configuration was
+            added to the dashboard
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/dashboard"
+
+        return self._post(
+            endpoint,
+            success_message=(
+                f"Patch software title configuration {id} added to dashboard."
+            ),
+        )
+
+    def create_patch_software_title_configuration_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates patch software title configuration history note by ID with JSON
+
+        :param data:
+            JSON data to create the patch software title configuration history
+            note with. For syntax information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE OF 10.44>`__
+        :param id: Patch software title configuration ID
+
+        :returns:
+            New patch policy title configuration history note information in
+            JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_patch_software_title_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates patch software title configuration with JSON by ID
+
+        :param data:
+            JSON data to update the patch software title configuration history
+            note with. For syntax information view `Jamf's documentation.
+            <TODO: ADD URL ON RELEASE OF 10.44>`__
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Updated patch policy title configuration history note information
+            in JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}"
+
+        return self._patch(endpoint, data)
+
+    def delete_patch_software_title_configuration(self, id: Union[int, str]) -> str:
+        """
+        Deletes patch software title configuration by ID
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Success message stating the patch software title configuration was
+            successfully deleted
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Patch software title configuration {id} successfully deleted."
+            ),
+        )
+
+    def delete_patch_software_title_configuration_dashboard(
+        self, id: Union[int, str]
+    ) -> str:
+        """
+        Removes a patch software title configuration from the dashboard
+
+        :param id: Patch software title configuration ID
+
+        :returns:
+            Success message stating the patch software title configuration was
+            removed from the dashboard
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/dashboard"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Patch software title configuration {id} removed from dashboard."
+            ),
+        )
 
     """
     patches-preview
@@ -5753,41 +6822,25 @@ class Pro(RequestBuilder):
 
     def get_patch_dashboards(self) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Returns list of patch IDs on dashboard
 
         :returns: All patch IDs on the dashboard in JSON
         """
+        warnings.warn(
+            ("Pro.get_patch_dashboards has been deprecated by Jamf Pro v10.44.0."),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/patch/onDashboard"
-
-        return self._get(endpoint)
-
-    def get_patch_summary(self, id: Union[int, str]) -> dict:
-        """
-        Returns patch policy summary by ID
-
-        :param id: Patch policy ID
-
-        :returns: Patch policy summary in JSON
-        """
-        endpoint = f"/api/patch/objs/policy/{id}"
-
-        return self._get(endpoint)
-
-    def get_patch_software_summary(self, id: Union[int, str]) -> dict:
-        """
-        Returns the summaries of the patch policies for the software title by
-        ID
-
-        :param id: Software title ID
-
-        :returns: Patch policies summaries for the software title in JSON
-        """
-        endpoint = f"/api/patch/obj/softwareTitle/{id}/policies"
 
         return self._get(endpoint)
 
     def get_patch_software_title_configuration_id(self, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Returns the software title configuration ID for the given patch policy
         by ID
 
@@ -5795,17 +6848,35 @@ class Pro(RequestBuilder):
 
         :returns: Software title configuration for the patch policy in JSON
         """
+        warnings.warn(
+            (
+                "Pro.get_patch_software_title_configuration_id has been deprecated by "
+                "Jamf Pro v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/obj/policy/{id}/softwareTitleConfigurationId"
 
         return self._get(endpoint)
 
     def create_patch_disclaimer_accept(self) -> str:
         """
+        .. deprecated:: 1.3.0
+
         Accepts patch reporting disclaimer
 
         :returns:
             Success message stating the patch reporting disclaimer was accepted
         """
+        warnings.warn(
+            (
+                "Pro.create_patch_disclaimer_accept has been deprecated by Jamf Pro "
+                "v10.44.0."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/api/patch/disclaimerAgree"
 
         return self._post(
@@ -5814,6 +6885,8 @@ class Pro(RequestBuilder):
 
     def update_patch_report(self, data: dict, id: Union[int, str]) -> dict:
         """
+        .. deprecated:: 1.3.0
+
         Updates patch report by ID with JSON
 
         :param data:
@@ -5824,6 +6897,11 @@ class Pro(RequestBuilder):
 
         :returns: Updated patch report information in JSON
         """
+        warnings.warn(
+            ("Pro.update_patch_report has been deprecated by Jamf Pro v10.44.0."),
+            category=DeprecationWarning,
+        )
+
         endpoint = f"/api/patch/obj/{id}"
 
         return self._put(endpoint, data)
@@ -5878,7 +6956,7 @@ class Pro(RequestBuilder):
         Returns paginated and sorted re-enrollment history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -5930,7 +7008,7 @@ class Pro(RequestBuilder):
             matching: export_fields=["id", "username"]
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -6007,7 +7085,7 @@ class Pro(RequestBuilder):
         Returns remote administration configurations
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
 
         :returns: All remote administration configurations in JSON
         """
@@ -6036,7 +7114,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged scripts
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             name:asc. Multiple sort criteria are supported and must be
@@ -6095,7 +7173,7 @@ class Pro(RequestBuilder):
 
         :param id: Script ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -6243,7 +7321,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted Self Service branding configurations for iOS
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -6341,7 +7419,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted Self Service branding configuration for macOS
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -6693,7 +7771,7 @@ class Pro(RequestBuilder):
         Returns paged and sorted SSO settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -6845,7 +7923,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged supervision identities
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -6978,7 +8056,7 @@ class Pro(RequestBuilder):
         Returns Jamf Teacher settings history
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -7078,7 +8156,7 @@ class Pro(RequestBuilder):
 
         :param configuration_id: Team Viewer connection configuration ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param filter:
             Query in the RSQL format, allowing to filter sessions collection.
             Default filter is empty query - returning all results for the
@@ -7443,7 +8521,7 @@ class Pro(RequestBuilder):
 
         :param id: Venafi configuration ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -7654,7 +8732,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged volume purchasing locations
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -7712,7 +8790,7 @@ class Pro(RequestBuilder):
 
         :param id: Volume purchasing location ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             date:desc. Multiple sort criteria are supported and must be
@@ -7757,7 +8835,7 @@ class Pro(RequestBuilder):
 
         :param id: Volume purchasing location ID
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated
@@ -7906,7 +8984,7 @@ class Pro(RequestBuilder):
         Returns sorted and paged volume purchasing subscriptions
 
         :param page: Page to return, default page is 0.
-        :param page_size: Page size to return Default page-size is 100.
+        :param page_size: Page size to return, default page-size is 100.
         :param sort:
             Sorting criteria in the format: property:asc/desc. Default sort is
             id:asc. Multiple sort criteria are supported and must be separated

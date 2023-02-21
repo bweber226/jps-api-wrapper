@@ -5,6 +5,74 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0]
+### Added
+- Pro.get_cloud_information which returns information related to cloud setup
+- Pro.get_local_admin_password_settings which returns information about if Local Admin Password auto-deploy feature is enabled
+- Pro.get_local_admin_password_history which returns a full history of all local admin passwords used for a target device
+- Pro.get_local_admin_password_current which returns the current local admin password for specified client
+- Pro.update_local_admin_password_settings which updates Local Admin Password auto-deploy feature to be enabled or not
+- Pro.get_managed_software_updates_available which returns available macOS and iOS managed software updates
+- Pro.get_managed_software_updates_statuses which returns managed software update statuses
+- Pro.get_managed_software_updates_computer_group which returns managed software update statuses for computer group by ID
+- Pro.get_managed_software_updates_computer which returns managed software update statuses for computer by ID
+- Pro.get_managed_software_updates_mobile_device_group which returns managed software update statuses for mobile device group by ID
+- Pro.get_managed_software_updates_mobile_device which returns managed software update statuses for mobile device by ID
+- Pro.get_mobile_device_groups_static which returns all mobile device static group in JSON
+- Pro.get_mobile_device_group_static which returns mobile device static group by ID
+- Pro.get_mobile_device_group_static_membership which returns mobile device static group membership by ID
+- Pro.create_mobile_device_group_static which creates mobile device static group with JSON data
+- Pro.update_mobile_device_group_static which updates mobile device static group with JSON by ID
+- Pro.delete_mobile_device_group_static which deletes mobile device static group by ID
+- Pro.create_patch_management_disclaimer_accept which accepts patch management disclaimer
+- Pro.get_patch_policies which returns all patch policies
+- Pro.get_patch_policy_dashboard_v2 which returns whether or not the requested patch policy is on the dashboard by ID
+- Pro.create_patch_policy_dashboard_v2 which adds a patch policy to the dashboard by ID
+- Pro.delete_patch_policy_dashboard_v2 which deletes a patch policy from the dashboard by ID
+- Pro.get_patch_policy_logs which returns patch policy logs by ID
+- Pro.get_patch_policy_logs_eligible_retry_count which returns the count of the patch policy logs for the patch policy ID that are eligible for a retry attempt
+- Pro.get_patch_policy_log_device which returns a patch policy log for a device by ID and deviceID
+- Pro.get_patch_policy_log_device_detail which returns a detailed patch policy log for a device by ID and deviceId
+- Pro.create_patch_policy_logs_retry_devices which sends retry attempts for a specific device in a patch policy with JSON by ID
+- Pro.create_patch_policy_logs_retry_devices_all which sends retry attempts for all devices in a patch policy
+- Pro.get_patch_software_title_configurations which returns all patch software title configurations
+- Pro.get_patch_software_title_configuration which returns patch software title configuration by ID
+- Pro.get_patch_software_title_configuration_dashboard which returns whether or not the requested software title configuration is on the dashboard by ID
+- Pro.get_patch_software_title_configuration_definitions which returns patch software title definitions by ID
+- Pro.get_patch_software_title_configuration_export which returns CSV data on patch software title configuration data by ID
+- Pro.get_patch_software_title_configuration_extension_attributes which returns software title extension attributes by ID
+- Pro.get_patch_software_title_configuration_history which returns specified patch software title configuration history by ID
+- Pro.get_patch_software_title_configuration_patch_report which returns patch software title configuration patch report by ID
+- Pro.get_patch_software_title_configuration_patch_summary which returns active patch summary for the patch software title configuration by ID
+- Pro.get_patch_software_title_configuration_patch_versions which returns patch versions for the patch software title configuration by ID
+- Pro.create_patch_software_title_configuration which creates patch software title configuration with JSON data
+- Pro.create_patch_software_title_configuration_dashboard which adds patch software title configuration to the dashboard by ID
+- Pro.create_patch_software_title_configuration_history_note which creates patch software title configuration history note by ID with JSON
+- Pro.update_patch_software_title_configuration which updates patch software title configuration with JSON by ID
+- Pro.delete_patch_software_title_configuration which deletes patch software title configuration by ID
+- Pro.delete_patch_software_title_configuration_dashboard which removes a patch software title configuration from the dashboard
+
+### Fixed
+- Pro.create_patch_policy_dashboard now returns a success message instead of JSON which caused it to break since it returns a 204 status o completion
+
+### Deprecated
+The endpoints that the following methods wrapped were deprecated by Jamf Pro v10.44.0
+- Pro.update_patch_report
+- Pro.get_patch_software_title_configuration_id
+- Pro.create_patch_disclaimer_accept
+- Pro.get_patch_dashboards
+- Pro.get_macos_managed_software_updates
+- Pro.create_macos_managed_software_updates
+- Pro.get_patch_policy_dashboard
+- Pro.create_patch_policy_dashboard
+- Pro.delete_patch_policy_dashboard
+
+### Removed
+The endpoints that the following methods wrapped were removed without deprecation by Jamf Pro v10.44.0
+- Pro.get_patch_summary
+- Pro.get_patch_software_summary
+- Pro.get_app_dynamics_configuration
+
 ## [1.2.3] -- 2023-1-26
 ### Fixed
 - gitlab-ci deployments
