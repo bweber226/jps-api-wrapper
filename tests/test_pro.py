@@ -2286,7 +2286,7 @@ def test_get_engage_settings(pro):
     """
     Ensures that get_engage_settings returns JSON when used
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/engage")))
+    responses.add(response_builder("GET", jps_url("/api/v2/engage")))
     assert pro.get_engage_settings() == EXPECTED_JSON
 
 
@@ -2296,7 +2296,7 @@ def test_get_engage_settings_history(pro):
     Ensures that get_engage_settings_history returns JSON when used without
     optional params
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/engage/history")))
+    responses.add(response_builder("GET", jps_url("/api/v2/engage/history")))
     assert pro.get_engage_settings_history() == EXPECTED_JSON
 
 
@@ -2306,7 +2306,7 @@ def test_get_engage_settings_history_optional_params(pro):
     Ensures that get_engage_settings_history returns JSON when used with all
     optional params
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/engage/history")))
+    responses.add(response_builder("GET", jps_url("/api/v2/engage/history")))
     assert (
         pro.get_engage_settings_history(
             0,
@@ -2324,7 +2324,7 @@ def test_create_engage_settings_history_note(pro):
     Ensures that create_engage_settings_history_note returns JSON when
     completes successfully with required params
     """
-    responses.add(response_builder("POST", jps_url("/api/v1/engage/history")))
+    responses.add(response_builder("POST", jps_url("/api/v2/engage/history")))
     assert pro.create_engage_settings_history_note(EXPECTED_JSON) == EXPECTED_JSON
 
 
@@ -2334,7 +2334,7 @@ def test_update_engage_settings(pro):
     Ensures that update_engage_settings returns JSON when completed
     successfully with required params
     """
-    responses.add(response_builder("PUT", jps_url("/api/v1/engage")))
+    responses.add(response_builder("PUT", jps_url("/api/v2/engage")))
     assert pro.update_engage_settings(EXPECTED_JSON) == EXPECTED_JSON
 
 
@@ -3981,29 +3981,53 @@ def test_get_local_admin_password_settings(pro):
 
 
 @responses.activate
-def test_get_local_admin_password_history(pro):
+def test_get_local_admin_password_user_history(pro):
     """
-    Ensures that get_local_admin_password_history returns JSON when used with
-    required params
+    Ensures that get_local_admin_password_user_history returns JSON when used
+    with required params
     """
     responses.add(
-        response_builder("GET", jps_url("/api/v1/local-admin-password/audit/1a2b-3c4d"))
+        response_builder(
+            "GET",
+            jps_url("/api/v1/local-admin-password/1a2b-3c4d/account/testuser/audit"),
+        )
     )
-    assert pro.get_local_admin_password_history("1a2b-3c4d") == EXPECTED_JSON
+    assert (
+        pro.get_local_admin_password_user_history("1a2b-3c4d", "testuser")
+        == EXPECTED_JSON
+    )
 
 
 @responses.activate
-def test_get_local_admin_password_current(pro):
+def test_get_local_admin_password_accounts(pro):
     """
-    Ensures that get_local_admin_password_current returns JSON when used with
+    Ensures that get_local_admin_password_accounts returns JSON when used with
     required params
     """
     responses.add(
         response_builder(
-            "GET", jps_url("/api/v1/local-admin-password/password/1a2b-3c4d")
+            "GET", jps_url("/api/v1/local-admin-password/1a2b-3c4d/accounts")
         )
     )
-    assert pro.get_local_admin_password_current("1a2b-3c4d") == EXPECTED_JSON
+    assert pro.get_local_admin_password_accounts("1a2b-3c4d") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_local_admin_password_user_current(pro):
+    """
+    Ensures that get_local_admin_password_user_current returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/local-admin-password/1a2b-3c4d/account/testuser/password"),
+        )
+    )
+    assert (
+        pro.get_local_admin_password_user_current("1a2b-3c4d", "testuser")
+        == EXPECTED_JSON
+    )
 
 
 @responses.activate
@@ -6115,6 +6139,29 @@ sso-certificate-preview
 """
 
 # sso-certificate is a more up to date version of this collection
+
+"""
+sso-failover
+"""
+
+
+@responses.activate
+def test_get_sso_failover_settings(pro):
+    """
+    Ensures that get_sso_failover_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sso/failover")))
+    assert pro.get_sso_failover_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_sso_failover_settings(pro):
+    """
+    Ensures that create_sso_failover_settings returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/sso/failover/generate")))
+    assert pro.create_sso_failover_settings() == EXPECTED_JSON
+
 
 """
 sso-settings

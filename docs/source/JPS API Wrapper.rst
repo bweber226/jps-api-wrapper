@@ -2818,11 +2818,15 @@ Pro
 
    |
 
-   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_history
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_accounts
 
    |
 
-   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_current
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_current
 
    |
 
@@ -3472,6 +3476,18 @@ Pro
 
    Use sso-certificate instead as that is a more up to date version of this 
    endpoint collection.
+
+   |
+
+.. collapse:: sso-failover
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_sso_failover_settings
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_sso_failover_settings
 
    |
 
