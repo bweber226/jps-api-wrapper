@@ -2914,7 +2914,7 @@ class Pro(RequestBuilder):
 
         :returns: Engage settings information in JSON
         """
-        endpoint = "/api/v1/engage"
+        endpoint = "/api/v2/engage"
 
         return self._get(endpoint)
 
@@ -2955,7 +2955,7 @@ class Pro(RequestBuilder):
                 "filter": filter,
             }
         )
-        endpoint = "/api/v1/engage/history"
+        endpoint = "/api/v2/engage/history"
 
         return self._get(endpoint, params=params)
 
@@ -2970,7 +2970,7 @@ class Pro(RequestBuilder):
 
         :returns: New Engage settings history note information in JSON
         """
-        endpoint = "/api/v1/engage/history"
+        endpoint = "/api/v2/engage/history"
 
         return self._post(endpoint, data)
 
@@ -2985,7 +2985,7 @@ class Pro(RequestBuilder):
 
         :returns: Updated Engage settings information in JSON
         """
-        endpoint = "/api/v1/engage"
+        endpoint = "/api/v2/engage"
 
         return self._put(endpoint, data)
 
@@ -5025,30 +5025,61 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
-    def get_local_admin_password_history(self, clientManagementId: str) -> dict:
+    def get_local_admin_password_accounts(self, clientManagementId: str) -> dict:
         """
-        Returns a full history of all local admin passwords used for a target
-        device. History will include password, who viewed the password and when
-        it was viewed.
+        Returns a full list of admin accounts that are LAPS capable
 
         :param clientManagementId: Client management ID of target device
 
         :returns:
-            Full history of all local admin passwords used for device in JSON
+            All LAPS capable accounts for the device in JSON
         """
-        endpoint = f"/api/v1/local-admin-password/audit/{clientManagementId}"
+        endpoint = f"/api/v1/local-admin-password/{clientManagementId}/accounts"
 
         return self._get(endpoint)
 
-    def get_local_admin_password_current(self, clientManagementId: str) -> dict:
+    def get_local_admin_password_user_history(
+        self, clientManagementId: str, username: str
+    ) -> dict:
         """
-        Returns the current local admin password for specified client
+        Returns full history of all local admin passwords for a specific
+        username on a target device. History will include password, who viewed
+        the password and when it was viewed. Get audit history by using the
+        client management id and username as the path parameters.
 
         :param clientManagementId: Client management ID of target device
+        :param username: Username to view audit information for
 
-        :returns: Current local admin password information in JSON
+        :returns:
+            Full history of all local admin passwords used for user on device
+            in JSON
         """
-        endpoint = f"/api/v1/local-admin-password/password/{clientManagementId}"
+        endpoint = (
+            f"/api/v1/local-admin-password/{clientManagementId}/account/"
+            f"{username}/audit"
+        )
+
+        return self._get(endpoint)
+
+    def get_local_admin_password_user_current(
+        self, clientManagementId: str, username: str
+    ) -> dict:
+        """
+        Returns current LAPS password for specified client by using the client
+        management id and username as the path parameters. Once the password is
+        viewed it will be rotated out with a new password based on the rotation
+        time settings.
+
+        :param clientManagementId: Client management ID of target device
+        :param username: Username to view audit information for
+
+        :returns:
+            Current local admin password used for user on device in JSON
+        """
+        endpoint = (
+            f"/api/v1/local-admin-password/{clientManagementId}/account/"
+            f"{username}/password"
+        )
 
         return self._get(endpoint)
 
@@ -7735,6 +7766,31 @@ class Pro(RequestBuilder):
     """
 
     # sso-certificate is a more up to date version of this collection
+
+    """
+    sso-failover
+    """
+
+    def get_sso_failover_settings(self) -> dict:
+        """
+        Returns the current failover settings in JSON
+
+        :returns: Current failover settings in JSON
+        """
+        endpoint = "/api/v1/sso/failover"
+
+        return self._get(endpoint)
+
+    def create_sso_failover_settings(self) -> dict:
+        """
+        Regenerates failover url, by changing failover key to new one, and
+        returns new failover settings in JSON
+
+        :returns: New failover settings in JSON
+        """
+        endpoint = "/api/v1/sso/failover/generate"
+
+        return self._post(endpoint)
 
     """
     sso-settings
