@@ -6117,11 +6117,11 @@ class Classic(RequestBuilder):
         ]
         if valid_subsets(subsets, subset_options):
             endpoint = (
-                f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+                f"/JSSResource/patchpolicies/id/{id}"
                 f"/subset/{'&'.join(subsets)}"
             )
         else:
-            endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+            endpoint = f"/JSSResource/patchpolicies/id/{id}"
 
         return self._get(endpoint, data_type)
 
