@@ -8140,9 +8140,7 @@ def test_get_patch_policy_id_json(classic):
     optional params
     """
     responses.add(
-        response_builder(
-            "GET", jps_url("/JSSResource/patchpolicies/softwaretitleconfig/id/1001")
-        )
+        response_builder("GET", jps_url("/JSSResource/patchpolicies/id/1001"))
     )
     assert classic.get_patch_policy(1001)
 
@@ -8156,10 +8154,7 @@ def test_get_patch_policy_id_xml_subsets(classic):
     responses.add(
         response_builder(
             "GET",
-            jps_url(
-                "/JSSResource/patchpolicies/softwaretitleconfig/id/1001"
-                "/subset/General%26Scope"
-            ),
+            jps_url("/JSSResource/patchpolicies/id/1001/subset/General%26Scope"),
             data_type="xml",
         )
     )
