@@ -1,3 +1,4 @@
+import warnings
 from mimetypes import guess_type
 from os.path import basename
 from typing import List, Union
@@ -6077,12 +6078,22 @@ class Classic(RequestBuilder):
 
     def get_patch_policies(self, data_type: str = "json") -> Union[dict, str]:
         """
+        .. deprecated:: 1.4.1
+
         Returns all patch policies in JSON or XML
 
         :param data_type: json or xml
 
         :returns: All patch policies in JSON or XML
         """
+        warnings.warn(
+            (
+                "Classic.get_patch_policies has been deprecated by Jamf. "
+                "Please transition to Pro.get_patch_policies."
+            ),
+            category=DeprecationWarning,
+        )
+
         endpoint = "/JSSResource/patchpolicies"
 
         return self._get(endpoint, data_type)
@@ -6150,7 +6161,7 @@ class Classic(RequestBuilder):
 
         :returns: Updated patch policy information in XML
         """
-        endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+        endpoint = f"/JSSResource/patchpolicies/id/{id}"
 
         return self._put(endpoint, data, data_type="xml")
 
@@ -6162,7 +6173,7 @@ class Classic(RequestBuilder):
 
         :returns: Deleted patch policy information in XML
         """
-        endpoint = f"/JSSResource/patchpolicies/softwaretitleconfig/id/{id}"
+        endpoint = f"/JSSResource/patchpolicies/id/{id}"
 
         return self._delete(endpoint, data_type="xml")
 

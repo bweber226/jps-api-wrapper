@@ -8186,7 +8186,7 @@ def test_update_patch_policy_id(classic):
     responses.add(
         response_builder(
             "PUT",
-            jps_url("/JSSResource/patchpolicies/softwaretitleconfig/id/1001"),
+            jps_url("/JSSResource/patchpolicies/id/1001"),
             data_type="xml",
         )
     )
@@ -8202,7 +8202,7 @@ def test_delete_patch_policy(classic):
     responses.add(
         response_builder(
             "DELETE",
-            jps_url("/JSSResource/patchpolicies/softwaretitleconfig/id/1001"),
+            jps_url("/JSSResource/patchpolicies/id/1001"),
             data_type="xml",
         )
     )
