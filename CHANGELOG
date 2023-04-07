@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.1] -- 2023-4-6
 ### Changed
-- Pro.get_patch_policy updated to use correct endpoint
+- Classic.get_patch_policy updated to use correct endpoint
 
 ## [1.4.0]
 ### Added
