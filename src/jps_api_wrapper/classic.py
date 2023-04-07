@@ -6094,10 +6094,10 @@ class Classic(RequestBuilder):
         data_type: str = "json",
     ) -> Union[dict, str]:
         """
-        Returns data on one patch policy by ID or software title config ID
+        Returns data on one patch policy by ID or software title ID
         in JSON or XML
 
-        :param id: Software title config ID
+        :param id: Software title ID
         :param subsets:
             Subset(s) of data from the patch policy in a list of strings
 
@@ -6116,9 +6116,7 @@ class Classic(RequestBuilder):
             "UserInteraction",
         ]
         if valid_subsets(subsets, subset_options):
-            endpoint = (
-                f"/JSSResource/patchpolicies/id/{id}" f"/subset/{'&'.join(subsets)}"
-            )
+            endpoint = f"/JSSResource/patchpolicies/id/{id}/subset/{'&'.join(subsets)}"
         else:
             endpoint = f"/JSSResource/patchpolicies/id/{id}"
 
