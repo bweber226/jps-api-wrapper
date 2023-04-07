@@ -6117,8 +6117,7 @@ class Classic(RequestBuilder):
         ]
         if valid_subsets(subsets, subset_options):
             endpoint = (
-                f"/JSSResource/patchpolicies/id/{id}"
-                f"/subset/{'&'.join(subsets)}"
+                f"/JSSResource/patchpolicies/id/{id}" f"/subset/{'&'.join(subsets)}"
             )
         else:
             endpoint = f"/JSSResource/patchpolicies/id/{id}"
