@@ -3975,7 +3975,7 @@ def test_get_local_admin_password_settings(pro):
     Ensures that get_local_admin_password_settings returns JSON when used
     """
     responses.add(
-        response_builder("GET", jps_url("/api/v1/local-admin-password/settings"))
+        response_builder("GET", jps_url("/api/v2/local-admin-password/settings"))
     )
     assert pro.get_local_admin_password_settings() == EXPECTED_JSON
 
@@ -3989,7 +3989,7 @@ def test_get_local_admin_password_user_history(pro):
     responses.add(
         response_builder(
             "GET",
-            jps_url("/api/v1/local-admin-password/1a2b-3c4d/account/testuser/audit"),
+            jps_url("/api/v2/local-admin-password/1a2b-3c4d/account/testuser/audit"),
         )
     )
     assert (
@@ -4006,7 +4006,7 @@ def test_get_local_admin_password_accounts(pro):
     """
     responses.add(
         response_builder(
-            "GET", jps_url("/api/v1/local-admin-password/1a2b-3c4d/accounts")
+            "GET", jps_url("/api/v2/local-admin-password/1a2b-3c4d/accounts")
         )
     )
     assert pro.get_local_admin_password_accounts("1a2b-3c4d") == EXPECTED_JSON
@@ -4021,7 +4021,7 @@ def test_get_local_admin_password_user_current(pro):
     responses.add(
         response_builder(
             "GET",
-            jps_url("/api/v1/local-admin-password/1a2b-3c4d/account/testuser/password"),
+            jps_url("/api/v2/local-admin-password/1a2b-3c4d/account/testuser/password"),
         )
     )
     assert (
@@ -4037,9 +4037,23 @@ def test_update_local_admin_password_settings(pro):
     with required params
     """
     responses.add(
-        response_builder("PUT", jps_url("/api/v1/local-admin-password/settings"))
+        response_builder("PUT", jps_url("/api/v2/local-admin-password/settings"))
     )
     assert pro.update_local_admin_password_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_local_admin_password(pro):
+    """
+    Ensures that update_local_admin_password returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/api/v2/local-admin-password/1a2b-3c4d/set-password")
+        )
+    )
+    assert pro.update_local_admin_password(EXPECTED_JSON, "1a2b-3c4d") == EXPECTED_JSON
 
 
 """
@@ -5468,16 +5482,6 @@ def test_create_patch_disclaimer_accept(pro):
     assert (
         pro.create_patch_disclaimer_accept() == "Patch reporting disclaimer accepted."
     )
-
-
-@responses.activate
-def test_update_patch_report(pro):
-    """
-    Ensures that update_patch_report returns JSON when used with required
-    params
-    """
-    responses.add(response_builder("PUT", jps_url("/api/patch/obj/1001")))
-    assert pro.update_patch_report(EXPECTED_JSON, 1001) == EXPECTED_JSON
 
 
 """

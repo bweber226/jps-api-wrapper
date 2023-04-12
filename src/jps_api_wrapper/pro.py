@@ -5021,7 +5021,7 @@ class Pro(RequestBuilder):
 
         :returns: Local Admin Password auto-deploy information in JSON
         """
-        endpoint = "/api/v1/local-admin-password/settings"
+        endpoint = "/api/v2/local-admin-password/settings"
 
         return self._get(endpoint)
 
@@ -5034,7 +5034,7 @@ class Pro(RequestBuilder):
         :returns:
             All LAPS capable accounts for the device in JSON
         """
-        endpoint = f"/api/v1/local-admin-password/{clientManagementId}/accounts"
+        endpoint = f"/api/v2/local-admin-password/{clientManagementId}/accounts"
 
         return self._get(endpoint)
 
@@ -5055,7 +5055,7 @@ class Pro(RequestBuilder):
             in JSON
         """
         endpoint = (
-            f"/api/v1/local-admin-password/{clientManagementId}/account/"
+            f"/api/v2/local-admin-password/{clientManagementId}/account/"
             f"{username}/audit"
         )
 
@@ -5077,7 +5077,7 @@ class Pro(RequestBuilder):
             Current local admin password used for user on device in JSON
         """
         endpoint = (
-            f"/api/v1/local-admin-password/{clientManagementId}/account/"
+            f"/api/v2/local-admin-password/{clientManagementId}/account/"
             f"{username}/password"
         )
 
@@ -5092,9 +5092,28 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update local admin password settings with. For syntax
             information view `Jamf's documentation.
-            <TODO: Add URL on 10.44 release>`__
+            <TODO: Add URL on 10.46 release>`__
+
+        :returns: Updated local admin password settings in JSON
         """
-        endpoint = "/api/v1/local-admin-password/settings"
+        endpoint = "/api/v2/local-admin-password/settings"
+
+        return self._put(endpoint, data)
+
+    def update_local_admin_password(self, data: dict, clientManagementId: str) -> dict:
+        """
+        Updates the LAPS password for a device. This will set the password for
+        all LAPS capable accounts.
+
+        :param data:
+            JSON data to update local admin password with. For syntax
+            information view `Jamf's documentation.
+            <TODO: Add URL on 10.46 release>`__
+        :param clientManagementId: Client management ID of target device
+
+        :returns: Information on the updated account in JSON
+        """
+        endpoint = f"/api/v2/local-admin-password/{clientManagementId}/set-password"
 
         return self._put(endpoint, data)
 
@@ -5552,7 +5571,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the mobile device static group with. For syntax
             information view `Jamf's documentation.
-            <TODO: Add URL on release>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-mobile-device-groups-static-groups>`__
 
         :returns: New mobile device static group information in JSON
         """
@@ -5569,7 +5588,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the mobile device static group with.For syntax
             information view `Jamf's documentation.
-            <TODO: Add URL on release>`__
+            <https://developer.jamf.com/jamf-pro/reference/patch_v1-mobile-device-groups-static-groups-id>`__
         :param id: Mobile device static group ID
 
         :returns: Updated mobile device static group information in JSON
@@ -6393,7 +6412,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create patch policy log retries with. For syntax
             information view `Jamf's documentation.
-            <TODO: ADD URL ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-patch-policies-id-logs-retry>`__
         :param id: Patch policy ID
 
         :returns:
@@ -6552,12 +6571,13 @@ class Pro(RequestBuilder):
             Example: ["deviceId:asc", "computerName:desc"]
 
         :param filter:
-            Query in the RSQL format, allowing to filter history notes
-            collection. Default filter is empty query - returning all results
-            for the requested page. Fields allowed in the query: computerName,
-            deviceId, username, operatingSystemVersion, lastContactTime,
-            buildingName, departmentName, siteName, version. This param can be
-            combined with paging and sorting.
+            Query in the RSQL format, allowing to filter Patch Report
+            collection on version equality only. Default filter is empty query
+            - returning all results for the requested page. Fields allowed in
+            the query: version. Comparators allowed in the query: ==, != This
+            param can be combined with paging and sorting.
+
+            Example: "version==10.1"
 
         :returns:
             CSV formatted string of the requested patch software title
@@ -6738,7 +6758,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the patch software title configuration with.
             For syntax information view `Jamf's documentation.
-            <TODO: ADD URL ON RELEASE OF 10.44>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-patch-software-title-configurations>`__
 
         :returns: New patch software title configuration information in JSON
         """
@@ -6776,7 +6796,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the patch software title configuration history
             note with. For syntax information view `Jamf's documentation.
-            <TODO: ADD URL ON RELEASE OF 10.44>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-patch-software-title-configurations-id-history>`__
         :param id: Patch software title configuration ID
 
         :returns:
@@ -6796,7 +6816,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the patch software title configuration history
             note with. For syntax information view `Jamf's documentation.
-            <TODO: ADD URL ON RELEASE OF 10.44>`__
+            <https://developer.jamf.com/jamf-pro/reference/patch_v2-patch-software-title-configurations-id>`__
         :param id: Patch software title configuration ID
 
         :returns:
@@ -6913,29 +6933,6 @@ class Pro(RequestBuilder):
         return self._post(
             endpoint, success_message="Patch reporting disclaimer accepted."
         )
-
-    def update_patch_report(self, data: dict, id: Union[int, str]) -> dict:
-        """
-        .. deprecated:: 1.3.0
-
-        Updates patch report by ID with JSON
-
-        :param data:
-            JSON data to update patch report with. For syntax information view
-            `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/put_patch-obj-id>`__
-        :param id: Patch ID
-
-        :returns: Updated patch report information in JSON
-        """
-        warnings.warn(
-            ("Pro.update_patch_report has been deprecated by Jamf Pro v10.44.0."),
-            category=DeprecationWarning,
-        )
-
-        endpoint = f"/api/patch/obj/{id}"
-
-        return self._put(endpoint, data)
 
     """
     policies-preview

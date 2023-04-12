@@ -2834,6 +2834,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.update_local_admin_password
+
+   |
+
 .. collapse:: locales-preview
 
    |
@@ -3235,10 +3239,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.create_patch_disclaimer_accept
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.update_patch_report
 
    |
 
