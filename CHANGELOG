@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] -- Unreleased
+### Added
+- Pro.update_local_admin_password which updates the LAPS password for a device
+
+### Changed
+- Pro.get_local_admin_password_settings updated to use new v2 endpoint since they are functionally the same
+- Pro.get_local_admin_password_accounts updated to use new v2 endpoint since they are functionally the same
+- Pro.get_local_admin_password_user_history updated to use new v2 endpoint since they are functionally the same
+- Pro.get_local_admin_password_user_current updated to use new v2 endpoint since they are functionally the same
+- Pro.update_local_admin_password_settings updated to use new v2 endpoint since they are functionally the same
+
+### Fixed
+- Handful of methods had their docstrings updated to include direct Jamf documentation links
+
+### Removed
+- Pro.update_patch_report
+
 ## [1.4.1] -- 2023-4-6
 ### Fixed
 - Classic.get_patch_policy updated to use correct endpoint
@@ -12,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Classic.delete_patch_policy updated to use correct endpoint
 
 ### Deprecated
-- Classic.get_patch_policies' endpoint was deprecated by Jamf, please transition to Pro.get_patch_policies
+- Classic.get_patch_policies endpoint was deprecated by Jamf, please transition to Pro.get_patch_policies
 
 ## [1.4.0]
 ### Added

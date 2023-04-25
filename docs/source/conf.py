@@ -24,7 +24,7 @@ copyright = "2023, Bryan Weber"
 author = "Bryan Weber"
 
 # The full version, including alpha/beta/rc tags
-release = "1.4.1"
+release = "1.5.0"
 
 
 # -- General configuration ---------------------------------------------------
