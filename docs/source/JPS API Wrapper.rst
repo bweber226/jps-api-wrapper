@@ -2098,6 +2098,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_prestages_v2
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_computer_prestage_scopes
 
    |
@@ -3091,6 +3095,10 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policies
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policies_policy_details
 
    |
 

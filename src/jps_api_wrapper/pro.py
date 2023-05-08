@@ -2060,6 +2060,9 @@ class Pro(RequestBuilder):
         self, page: int = None, page_size: int = None, sort: List[str] = ["id:desc"]
     ) -> dict:
         """
+        .. deprecated:: 1.6.0
+            Use :func:`get_computer_prestages_v2` instead.
+
         Returns sorted and paged computer prestages
 
         :param page: Page to return, default page is 0.
@@ -2084,6 +2087,34 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint, params=params)
 
+    def get_computer_prestages_v2(
+        self, page: int = None, page_size: int = None, sort: List[str] = ["id:desc"]
+    ) -> dict:
+        """
+        Returns sorted and paged computer prestages
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort
+            is id:desc. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+            Example: ["id:desc", "enrollmentCustomizationId:asc"]
+
+        :returns: All computer prestages in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v3/computer-prestages"
+
+        return self._get(endpoint, params=params)
+
     def get_computer_prestage_scopes(self) -> dict:
         """
         Returns all device scopes for all computer prestages
@@ -2102,7 +2133,7 @@ class Pro(RequestBuilder):
 
         :returns: Computer prestage information in JSON
         """
-        endpoint = f"/api/v2/computer-prestages/{id}"
+        endpoint = f"/api/v3/computer-prestages/{id}"
 
         return self._get(endpoint)
 
@@ -2161,7 +2192,7 @@ class Pro(RequestBuilder):
 
         :returns: Updated computer prestage information in JSON
         """
-        endpoint = f"/api/v2/computer-prestages/{id}"
+        endpoint = f"/api/v3/computer-prestages/{id}"
 
         return self._put(endpoint, data)
 
@@ -2190,7 +2221,7 @@ class Pro(RequestBuilder):
         :returns:
             Success message stating that the computer prestage was deleted
         """
-        endpoint = f"/api/v2/computer-prestages/{id}"
+        endpoint = f"/api/v3/computer-prestages/{id}"
 
         return self._delete(
             endpoint, success_message=f"Computer prestage {id} successfully deleted."
@@ -6170,13 +6201,51 @@ class Pro(RequestBuilder):
         :returns: All patch policies information in JSON
         """
         params = remove_empty_params(
-            {
-                "page": page,
-                "page-size": page_size,
-                "sort": sort,
-            }
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
         )
         endpoint = "/api/v2/patch-policies"
+
+        return self._get(endpoint, params=params)
+
+    def get_patch_policies_policy_details(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = None,
+        filter: str = None,
+    ):
+        """
+        Returns policy details on all patch policies
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Patch Policy
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name,
+            enabled, targetPatchVersion, deploymentMethod, softwareTitleId,
+            softwareTitleConfigurationId, killAppsDelayMinutes,
+            killAppsMessage, isDowngrade, isPatchUnknownVersion,
+            notificationHeader, selfServiceEnforceDeadline,
+            selfServiceDeadline, installButtonText, selfServiceDescription,
+            iconId, reminderFrequency, reminderEnabled. This param can be
+            combined with paging and sorting.
+
+            Example: 'name == "Example Name"'
+
+        :returns: Policy details for all patch policies in JSON
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v2/patch-policies/policy-details"
 
         return self._get(endpoint, params=params)
 
