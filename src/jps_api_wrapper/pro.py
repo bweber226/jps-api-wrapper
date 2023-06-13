@@ -5123,7 +5123,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update local admin password settings with. For syntax
             information view `Jamf's documentation.
-            <TODO: Add URL on 10.46 release>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-local-admin-password-settings>`__
 
         :returns: Updated local admin password settings in JSON
         """
@@ -5139,7 +5139,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update local admin password with. For syntax
             information view `Jamf's documentation.
-            <TODO: Add URL on 10.46 release>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-local-admin-password-clientmanagementid-set-password>`__
         :param clientManagementId: Client management ID of target device
 
         :returns: Information on the updated account in JSON
