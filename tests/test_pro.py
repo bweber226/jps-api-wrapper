@@ -1626,6 +1626,31 @@ def test_get_computer_prestages_optional_params(pro):
 
 
 @responses.activate
+def test_get_computer_prestages_v2(pro):
+    """
+    Ensures that get_computer_prestages_v2 returns JSON when used with no
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/computer-prestages")))
+    assert pro.get_computer_prestages_v2() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_prestages_v2_optional_params(pro):
+    """
+    Ensure that get_computer_prestages_v2 returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v3/computer-prestages")))
+    assert (
+        pro.get_computer_prestages_v2(
+            0, 100, ["id:desc", "enrollmentCustomizationId:asc"]
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
 def test_get_computer_prestage_scopes(pro):
     """
     Ensures that get_computer_prestage_scopes returns JSON when used
@@ -1640,7 +1665,7 @@ def test_get_computer_prestage(pro):
     Ensures that get_computer_prestage returns JSON when used with required
     params
     """
-    responses.add(response_builder("GET", jps_url("/api/v2/computer-prestages/1001")))
+    responses.add(response_builder("GET", jps_url("/api/v3/computer-prestages/1001")))
     assert pro.get_computer_prestage(1001) == EXPECTED_JSON
 
 
@@ -1684,7 +1709,7 @@ def test_update_computer_prestage(pro):
     Ensures that update_computer_prestage returns JSON when completed
     successfully with required params
     """
-    responses.add(response_builder("PUT", jps_url("/api/v2/computer-prestages/1001")))
+    responses.add(response_builder("PUT", jps_url("/api/v3/computer-prestages/1001")))
     assert pro.update_computer_prestage(EXPECTED_JSON, 1001) == EXPECTED_JSON
 
 
@@ -1707,7 +1732,7 @@ def test_delete_computer_prestage(pro):
     used with required params
     """
     responses.add(
-        response_builder("DELETE", jps_url("/api/v2/computer-prestages/1001"))
+        response_builder("DELETE", jps_url("/api/v3/computer-prestages/1001"))
     )
     assert (
         pro.delete_computer_prestage(1001)
@@ -4904,7 +4929,38 @@ def test_get_patch_policies_optional_params(pro):
     params
     """
     responses.add(response_builder("GET", jps_url("/api/v2/patch-policies")))
-    assert pro.get_patch_policies() == EXPECTED_JSON
+    assert (
+        pro.get_patch_policies(
+            0, 100, ["policyName:asc", "id:desc"], 'policyName=="Example name"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_patch_policies_policy_details(pro):
+    """
+    Ensures that get_patch_policies_policy_details returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/patch-policies/policy-details"))
+    )
+    assert pro.get_patch_policies_policy_details() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_patch_policies_policy_details_optional_params(pro):
+    """
+    Ensures that get_patch_policies_policy_details returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/patch-policies/policy-details"))
+    )
+    assert pro.get_patch_policies_policy_details(
+        0, 100, ["id:desc", "name:asc"], 'name == "Example Name"'
+    )
 
 
 @responses.activate
