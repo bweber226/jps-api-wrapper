@@ -2365,6 +2365,20 @@ class Pro(RequestBuilder):
         )
 
     """
+    dashboard
+    """
+
+    def get_dashboard(self) -> dict:
+        """
+        Returns all the dashboard information for widgets and setup tasks
+
+        :returns: Dashboard information in JSON
+        """
+        endpoint = "/api/v1/dashboard"
+
+        return self._get(endpoint)
+
+    """
     departments
     """
 
@@ -5233,7 +5247,9 @@ class Pro(RequestBuilder):
         :param filter:
             Query in the RSQL format, allowing to filter Managed Software
             Updates collection. Default filter is empty query - returning all
-            results for the requested page. Fields allowed in the query:
+            results for the requested page.
+
+            Options:
             osUpdatesStatusId, device.deviceId, device.objectType, downloaded,
             downloadPercentComplete, productKey, status, deferralsRemaining,
             maxDeferrals, nextScheduledInstall, created and updated.
@@ -5244,6 +5260,96 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/managed-software-updates/update-statuses"
 
         return self._get(endpoint, params=params)
+
+    def get_managed_software_updates_plans(
+        self,
+        page: Union[int, str] = None,
+        page_size: int = None,
+        sort: List[str] = ["planUuid:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns managed software update plans
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["planUuid:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["planUuid:desc", "maxDeferrals:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Managed Software
+            Updates collection. Default filter is empty query - returning all
+            results for the requested page.
+
+            Options:
+            planUuid, device.deviceId, device.objectType, updateAction,
+            versionType, specificVersion, maxDeferrals.
+
+            Example: 'maxDeferrals >= 1 and versionType == "LATEST_ANY"'
+
+        :returns: Managed software update plans in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/managed-software-updates/plans"
+
+        return self._get(endpoint, params=params)
+
+    def get_managed_software_updates_feature_toggle(self) -> dict:
+        """
+        Returns status of the managed software updates feature toggle
+
+        :returns: Status of the managed software updates feature toggle in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/feature-toggle"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_group_plans(
+        self,
+        id: Union[int, str],
+        group_type: str,
+    ) -> dict:
+        """
+        Returns managed software update plans for a group by ID
+
+        :param id: Managed software update group ID
+        :param group_type:
+            Managed software update group type
+
+            Options:
+            COMPUTER_GROUP, MOBILE_DEVICE_GROUP
+
+            Example: "COMPUTER_GROUP"
+
+        :returns: Managed software update plans for a group in JSON
+        """
+        params = {"group-type": group_type}
+        endpoint = f"/api/v1/managed-software-updates/plans/group/{id}"
+
+        return self._get(endpoint, params=params)
+
+    def get_managed_software_updates_plan(self, id: str) -> dict:
+        """
+        Returns a managed software update plan by UUID
+
+        :param id: Managed software update plan UUID
+
+        :returns: Managed software update plan in JSON
+        """
+        endpoint = f"/api/v1/managed-software-updates/plans/{id}"
+
+        return self._get(endpoint)
 
     def get_managed_software_updates_computer_group(self, id: Union[int, str]) -> dict:
         """
@@ -5309,6 +5415,54 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def create_managed_software_updates_plan(self, data: dict) -> dict:
+        """
+        Creates a managed software update plan with JSON data
+
+        :param data:
+            JSON data to create managed software update plan with. For syntax
+            information view `Jamf's documentation.
+            <TODO ADD URL BEFORE RELEASE>`__
+
+        :returns: New managed software update plan in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans"
+
+        return self._post(endpoint, data)
+
+    def create_managed_software_updates_group_plan(self, data: dict) -> dict:
+        """
+        Creates a managed software update plans for a group with JSON data
+
+        :param data:
+            JSON data to create managed software update plans for a group with.
+            For syntax information view `Jamf's documentation.
+            <TODO ADD URL BEFORE RELEASE>`__
+
+        :returns: New managed software update plans for the group in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/group"
+
+        return self._post(endpoint, data)
+
+    def update_managed_software_updates_feature_toggle(self, data: dict) -> dict:
+        """
+        Updates the value of the feature toggle for managed software updates,
+        turning the feature on or off
+
+        :param data:
+            JSON data to update the managed software updates feature toggle
+            with. For syntax information view `Jamf's documentation.
+            <TODO ADD URL BEFORE RELEASE>`__
+
+        :returns:
+            Updated status of the managed software update feature toggle status
+            in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/feature-toggle"
+
+        return self._put(endpoint, data)
+
     """
     mdm
     """
@@ -5339,7 +5493,7 @@ class Pro(RequestBuilder):
             and active. This param can be combined with paging. Filter needs to
             be set to something otherwise it will return a 400 error.
 
-            Example: status==Pending
+            Example: 'status==Pending'
 
         :returns: All MDM commands in JSON
         """
@@ -5476,7 +5630,7 @@ class Pro(RequestBuilder):
             access. Any sited admin will have siteId filtered automatically.
             This param can be combined with paging and sorting.
 
-            Example: groupName=="staticGroup1"
+            Example: 'groupName=="staticGroup1"'
 
         :returns: All mobile device static groups in JSON
         """
@@ -5995,6 +6149,118 @@ class Pro(RequestBuilder):
             }
         )
         endpoint = "/api/v2/mobile-devices"
+
+        return self._get(endpoint, params=params)
+
+    def get_mobile_devices_detail(
+        self,
+        section: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all sorted and paginated mobile devices with detailed info
+
+        :param section:
+            Section of mobile device details, if not specified, General section
+            data is returned. Multiple section parameters are supported.
+
+            Options:
+            GENERAL, HARDWARE, USER_AND_LOCATION, PURCHASING, SECURITY,
+            APPLICATIONS, EBOOKS, NETWORK, SERVICE_SUBSCRIPTIONS, CERTIFICATES,
+            PROFILES, USER_PROFILES, PROVISIONING_PROFILES, SHARED_USERS,
+            EXTENSION_ATTRIBUTES
+
+            Example: ["GENERAL", "HARDWARE"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            displayName:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Options:
+            airPlayPassword, appAnalyticsEnabled, assetTag, availableSpaceMb,
+            batteryLevel, bluetoothLowEnergyCapable, bluetoothMacAddress,
+            capacityMb, lostModeEnabledDate,
+            declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, enrollmentSessionTokenValid, exchangeDeviceId,
+            cloudBackupEnabled, osBuild, osSupplementalBuildVersion, osVersion,
+            osRapidSecurityResponse, ipAddress, itunesStoreAccountActive,
+            mobileDeviceId, languages, lastBackupDate, lastEnrolledDate,
+            lastCloudBackupDate, lastInventoryUpdateDate, locales,
+            locationServicesForSelfServiceMobileEnabled, lostModeEnabled,
+            managed, mdmProfileExpirationDate, model, modelIdentifier,
+            modelNumber, modemFirmwareVersion, quotaSize, residentUsers,
+            serialNumber, sharedIpad, supervised, tethered, timeZone, udid,
+            usedSpacePercentage, wifiMacAddress, deviceOwnershipType, building,
+            department, emailAddress, fullName, userPhoneNumber, position,
+            room, username, appleCareId,
+            leaseExpirationDate,lifeExpectancyYears, poDate, poNumber,
+            purchasePrice, purchasedOrLeased, purchasingAccount,
+            purchasingContact, vendor, warrantyExpirationDate,
+            activationLockEnabled, blockEncryptionCapable, dataProtection,
+            fileEncryptionCapable, hardwareEncryptionSupported,
+            jailbreakStatus, passcodeCompliant, passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            cellularTechnology, currentCarrierNetwork,
+            currentMobileCountryCode, currentMobileNetworkCode,
+            dataRoamingEnabled, eid, network, homeMobileCountryCode,
+            homeMobileNetworkCode, iccid, imei, imei2, meid,
+            personalHotspotEnabled, voiceRoamingEnabled, roaming
+
+            Example: ["deviceId:desc", "displayName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter mobile device
+            collection. Default filter is empty query - returning all results
+            for the requested page.
+
+            Options:
+            airPlayPassword, appAnalyticsEnabled, assetTag, availableSpaceMb,
+            batteryLevel, bluetoothLowEnergyCapable, bluetoothMacAddress,
+            capacityMb, declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, exchangeDeviceId, cloudBackupEnabled, osBuild,
+            osSupplementalBuildVersion, osVersion, osRapidSecurityResponse,
+            ipAddress, itunesStoreAccountActive, mobileDeviceId, languages,
+            locales, locationServicesForSelfServiceMobileEnabled,
+            lostModeEnabled, managed, model, modelIdentifier, modelNumber,
+            modemFirmwareVersion, quotaSize, residentUsers, serialNumber,
+            sharedIpad, supervised, tethered, timeZone, udid,
+            usedSpacePercentage, wifiMacAddress, building, department,
+            emailAddress, fullName, userPhoneNumber, position, room, username,
+            appleCareId, lifeExpectancyYears, poNumber, purchasePrice,
+            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
+            activationLockEnabled, blockEncryptionCapable, dataProtection,
+            fileEncryptionCapable, passcodeCompliant,
+            passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            currentCarrierNetwork, currentMobileCountryCode,
+            currentMobileNetworkCode, dataRoamingEnabled, eid, network,
+            homeMobileCountryCode, homeMobileNetworkCode, iccid, imei, imei2,
+            meid, personalHotspotEnabled, roaming
+
+            Example: 'displayName=="iPad" and deviceId==1001'
+        """
+        params = remove_empty_params(
+            {
+                "section": section,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v2/mobile-devices/detail"
 
         return self._get(endpoint, params=params)
 
@@ -6598,6 +6864,8 @@ class Pro(RequestBuilder):
             paging and sorting.
 
             Example: 'id=="1001"'
+
+        :returns: Patch software title definition in JSON
         """
         params = remove_empty_params(
             {
@@ -6610,6 +6878,21 @@ class Pro(RequestBuilder):
         endpoint = f"/api/v2/patch-software-title-configurations/{id}/definitions"
 
         return self._get(endpoint, params=params)
+
+    def get_patch_software_title_configuration_dependencies(
+        self,
+        id: Union[int, str],
+    ) -> dict:
+        """
+        Returns Patch Software Title Configuration Dependencies by ID
+
+        :param id: Patch Software Title Configuration ID
+
+        :returns: Patch software title configuration dependencies in JSON
+        """
+        endpoint = f"/api/v2/patch-software-title-configurations/{id}/dependencies"
+
+        return self._get(endpoint)
 
     def get_patch_software_title_configuration_export(
         self,

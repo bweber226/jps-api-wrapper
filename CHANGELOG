@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] -- 
+
+### Added
+- Pro.get_dashboard which returns all the dashboard information for widgets and setup tasks
+- Pro.get_mobile_devices_detail which returns all sorted and paginated mobile devices with detailed info
+- Pro.get_patch_software_title_configuration_dependencies which returns Patch Software Title Configuration Dependencies by ID
+- Pro.get_managed_software_updates_plans which returns managed software update plans
+- Pro.get_managed_software_updates_feature_toggle which returns status of the managed software updates feature toggle
+- Pro.get_managed_software_updates_group_plans which returns managed software update plans for a group by ID
+- Pro.get_managed_software_updates_plan which returns a managed software update plan by UUID
+- Pro.create_managed_software_updates_plan which creates a managed software update plan with JSON data
+- Pro.create_managed_software_updates_group_plan which creates a managed software update plans for a group with JSON data
+- Pro.update_managed_software_updates_feature_toggle which updates the value of the feature toggle for managed software updates, turning the feature off or on
+
 ## [1.6.0] -- 06-13-2023
 ### Added
 - Pro.get_patch_policies_policy_details which returns policy details on patch policies
