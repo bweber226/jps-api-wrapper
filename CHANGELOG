@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_managed_software_updates_plan which returns a managed software update plan by UUID
 - Pro.create_managed_software_updates_plan which creates a managed software update plan with JSON data
 - Pro.create_managed_software_updates_group_plan which creates a managed software update plans for a group with JSON data
-- Pro.update_managed_software_updates_feature_toggle which updates the value of the feature toggle for managed software updates, turning the feature off or on
+- Pro.update_managed_software_updates_feature_toggle which updates the value of the feature toggle for managed software updates, turning the feature on or off
 
 ## [1.6.0] -- 06-13-2023
 ### Added
