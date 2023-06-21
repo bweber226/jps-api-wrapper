@@ -19,7 +19,6 @@ semgrep:
   script:
       - semgrep ci --config auto
 
-
 cache:
   paths:
     - .cache/pip
