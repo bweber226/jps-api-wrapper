@@ -2886,22 +2886,6 @@ Pro
 
    |
 
-   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_plans
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_feature_toggle
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_group_plans
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_plan
-
-   |
-
    .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_computer_group
 
    |
@@ -2915,18 +2899,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_mobile_device
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.create_managed_software_updates_plan
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.create_managed_software_updates_group_plan
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.update_managed_software_updates_feature_toggle
 
    |
 
