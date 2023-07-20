@@ -10,6 +10,15 @@ stages:
   - build_check
   - deploy
 
+semgrep:
+  image: docker.io/returntocorp/semgrep
+  stage: test
+  rules:
+      - if: $CI_PIPELINE_SOURCE == "push" 
+      - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+      - semgrep ci --config auto
+
 cache:
   paths:
     - .cache/pip
