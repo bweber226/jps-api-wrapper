@@ -1023,10 +1023,6 @@ Classic
 
    |
 
-   .. automethod:: jps_api_wrapper.classic.Classic.get_mobile_devices_detail
-
-   |
-
    .. automethod:: jps_api_wrapper.classic.Classic.get_mobile_device
 
    |
@@ -3058,6 +3054,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_devices_detail
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device
 
    |
@@ -3195,6 +3195,10 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_definitions
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_dependencies
 
    |
 
