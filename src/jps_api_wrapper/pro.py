@@ -236,6 +236,253 @@ class Pro(RequestBuilder):
         return self._get(endpoint)
 
     """
+    api-integrations
+    """
+
+    def get_api_integrations(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all Jamf Pro API integrations with search criteria in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Options: id, displayName.
+
+            Example: ["id:desc", "displayName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter app titles collection.
+            Default filter is empty query - returning all results for the
+            requested page.
+
+            Options: id, displayName
+
+            Example: 'displayName=="IntegrationName"'
+
+        :returns: All Jamf Pro API integrations in JSON
+        """
+        endpoint = "/api/v1/api-integrations"
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+
+        return self._get(endpoint, params=params)
+
+    def get_api_integration(self, id: Union[int, str]) -> dict:
+        """
+        Returns specified API integration by ID
+
+        :param id: API integration ID
+
+        :returns: API integration information in JSON
+        """
+        endpoint = f"/api/v1/api-integrations/{id}"
+
+        return self._get(endpoint)
+
+    def create_api_integration(self, data: dict) -> dict:
+        """
+        Creates API integration with JSON data
+
+        :param data:
+            JSON data to create API integration with. For syntax information
+            view `Jamf's documentation.
+            <TODO: Add after release>`__
+
+        :returns: New API integration information in JSON
+        """
+        endpoint = "/api/v1/api-integrations"
+
+        return self._post(endpoint, data)
+
+    def create_api_integration_client_credentials(self, id: Union[int, str]) -> dict:
+        """
+        Creates client credentials for the specified API integration with JSON
+        data
+
+        :param id: API integration ID
+
+        :returns: New API integration client credentials in JSON
+        """
+        endpoint = f"/api/v1/api-integrations/{id}/client-credentials"
+
+        return self._post(endpoint)
+
+    def update_api_integration(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates specified API integrations with JSON data by ID
+
+        :param data:
+            JSON data to update API integration with. For syntax information
+            view `Jamf's documentation.
+            <TODO: Add after releasee>`__
+        :param id: API integration ID
+
+        :returns: Updated API integration information in JSON
+        """
+        endpoint = f"/api/v1/api-integrations/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_api_integration(self, id: Union[int, str]) -> str:
+        """
+        Deletes specified API integration by ID
+
+        :param id: API integration ID
+
+        :returns: Success message stating that the API integration was deleted
+        """
+        endpoint = f"/api/v1/api-integrations/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"API integration {id} successfully deleted."
+        )
+
+    """
+    api-role-privileges
+    """
+
+    def get_api_role_privileges(self) -> dict:
+        """
+        Returns all API role privileges in JSON
+
+        :returns: All API role privileges in JSON
+        """
+        endpoint = "/api/v1/api-role-privileges"
+
+        return self._get(endpoint)
+
+    def get_api_role_privileges_search(self, name: str, limit: int = None) -> dict:
+        """
+        Returns the results of the search of the API role privileges in JSON
+
+        :param name:
+            The partial or complete API role privilege name we are searching
+            for
+        :param limit:
+            Number to limit the results to, defaults to 15
+
+        :returns: List of matching results of the API role privileges in JSON
+        """
+        params = remove_empty_params(
+            {
+                "name": name,
+                "limit": limit,
+            }
+        )
+        endpoint = "/api/v1/api-role-privileges/search"
+
+        return self._get(endpoint, params=params)
+
+    """
+    api-roles
+    """
+
+    def get_api_roles(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all API roles in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Options: id, displayName
+
+            Example: ["id:desc", "displayName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter app titles collection.
+            Default filter is empty query - returning all results for the
+            requested page.
+
+            Options: id, displayName
+
+            Example: 'displayName=="myRole"'
+        """
+        endpoint = "/api/v1/api-roles"
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+
+        return self._get(endpoint, params=params)
+
+    def get_api_role(self, id: Union[int, str]) -> dict:
+        """
+        Returns specific API role in JSON by ID
+
+        :param id: API role ID
+
+        :returns: API role information in JSON
+        """
+        endpoint = f"/api/v1/api-roles/{id}"
+
+        return self._get(endpoint)
+
+    def create_api_role(self, data: dict) -> dict:
+        """
+        Creates a new API role with JSON data
+
+        :param data:
+            JSON data to create API role with. For syntax information view
+            `Jamf's documentation.
+            <TODO: Add after releasee>`__
+
+        :returns: New API role information in JSON
+        """
+        endpoint = "/api/v1/api-roles"
+
+        return self._post(endpoint, data)
+
+    def update_api_role(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates specific API role with JSON data by ID
+
+        :param data:
+            JSON data to update API role with. For syntax information view
+            `Jamf's documentation.
+            <TODO: Add after releasee>`__
+        :param id: API role ID
+
+        :returns: Updated API role information in JSON
+        """
+        endpoint = f"/api/v1/api-roles/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_api_role(self, id: Union[int, str]) -> dict:
+        """
+        Deletes specific API role by ID
+
+        :param id: API role ID
+
+        :returns: Success message str stating that the API role was deleted
+        """
+        endpoint = f"/api/v1/api-roles/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"API role {id} successfully deleted."
+        )
+
+    """
     app-request-preview
     """
 
@@ -3044,7 +3291,7 @@ class Pro(RequestBuilder):
 
         :returns: Enrollment settings information in JSON
         """
-        endpoint = "/api/v2/enrollment"
+        endpoint = "/api/v3/enrollment"
 
         return self._get(endpoint)
 
@@ -3305,7 +3552,7 @@ class Pro(RequestBuilder):
 
         :returns: Updated enrollment settings in JSON
         """
-        endpoint = "/api/v2/enrollment"
+        endpoint = "/api/v3/enrollment"
 
         return self._put(endpoint, data)
 
@@ -5069,6 +5316,17 @@ class Pro(RequestBuilder):
         endpoint = "/api/v2/local-admin-password/settings"
 
         return self._get(endpoint)
+    
+    def get_local_admin_password_pending_rotations(self) -> dict:
+        """
+        Returns information about all devices and usernames currently in the
+        state of a pending LAPS rotation
+
+        :returns: Pending rotations information in JSON
+        """
+        endpoint = "/api/v2/local-admin-password/pending-rotations"
+
+        return self._get(endpoint)
 
     def get_local_admin_password_accounts(self, clientManagementId: str) -> dict:
         """
@@ -5083,7 +5341,7 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
-    def get_local_admin_password_user_history(
+    def get_local_admin_password_user_audit(
         self, clientManagementId: str, username: str
     ) -> dict:
         """
@@ -5096,12 +5354,33 @@ class Pro(RequestBuilder):
         :param username: Username to view audit information for
 
         :returns:
-            Full history of all local admin passwords used for user on device
-            in JSON
+            LAPS password viewed history for the device and username in jSON
         """
         endpoint = (
             f"/api/v2/local-admin-password/{clientManagementId}/account/"
             f"{username}/audit"
+        )
+
+        return self._get(endpoint)
+    
+    def get_local_admin_password_user_history(
+        self, clientManagementId: str, username: str
+    ) -> dict:
+        """
+        Returns the full history of all for a specific username on a target 
+        device. History will include date created, date last seen, expiration 
+        time, and rotational status. Get audit history by using the client 
+        management id and username as the path parameters.
+
+        :param clientManagementId: Client management ID of target device
+        :param username: Username to view audit information for
+
+        :returns:
+            LAPS historical records for the device and username in JSON
+        """
+        endpoint = (
+            f"/api/v2/local-admin-password/{clientManagementId}/account/"
+            f"{username}/history"
         )
 
         return self._get(endpoint)
@@ -5424,6 +5703,29 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/deploy-package"
 
         return self._post(endpoint, data, params=params)
+
+    """
+    mobile-device-apps
+    """
+
+    def create_mobile_device_app_reinstall_config(self, data: dict) -> str:
+        """
+        Creates a redeploy of the managed app configuration for a specific app
+        on a specific device using the $APP_CONFIG_REINSTALL_CODE generated
+        during deployment
+
+        :param data:
+            JSON data to create the redeploy with. For syntax information view
+            `Jamf's documentation.
+            <TODO: Add after release>`__
+
+        :returns: Success message stating the app config was redeployed
+        """
+        endpoint = "/api/v1/mobile-device-apps/reinstall-app-config"
+
+        return self._post(
+            endpoint, data, success_message="Mobile device app config redeployed."
+        )
 
     """
     mobile-device-enrollment-profile
@@ -6423,89 +6725,6 @@ class Pro(RequestBuilder):
         )
 
     """
-    patch-policies-preview
-    """
-
-    def get_patch_policy_dashboard(self, id: Union[int, str]) -> dict:
-        """
-        .. deprecated:: 1.3.0
-            Use :func:`get_patch_policy_dashboard_v2` instead.
-
-        Returns whether or not the requested patch policy is on the dashboard
-        by ID
-
-        :param id: Patch policy ID
-
-        :returns:
-            Whether or no the request patch policy is on the dashboard in JSON
-        """
-        warnings.warn(
-            (
-                "Pro.get_patch_policy_dashboard has been deprecated by Jamf Pro "
-                "v10.44.0. Use Pro.get_patch_policy_v2() instead."
-            ),
-            category=DeprecationWarning,
-        )
-
-        endpoint = f"/api/patch/patch-policies/{id}/dashboard"
-
-        return self._get(endpoint)
-
-    def create_patch_policy_dashboard(self, id: Union[int, str]) -> str:
-        """
-        .. deprecated:: 1.3.0
-            Use :func:`create_patch_policy_dashboard_v2` instead.
-
-        Adds a patch policy to the dashboard by ID
-
-        :param id: Patch policy ID
-
-        :returns:
-            Success message stating that the patch policy was added to the
-            dashboard
-        """
-        warnings.warn(
-            (
-                "Pro.create_patch_policy_dashboard has been deprecated by Jamf Pro "
-                "v10.44.0. Use Pro.create_patch_policy_v2() instead."
-            ),
-            category=DeprecationWarning,
-        )
-
-        endpoint = f"/api/patch/patch-policies/{id}/dashboard"
-
-        return self._post(
-            endpoint, success_message=f"Patch policy {id} added to dashboard."
-        )
-
-    def delete_patch_policy_dashboard(self, id: Union[int, str]) -> str:
-        """
-        .. deprecated:: 1.3.0
-            Use :func:`delete_patch_policy_dashboard_v2` instead.
-
-        Removes a patch policy from the dashboard by ID
-
-        :param id: Patch policy ID
-
-        :returns:
-            Success message stating that the patch policy was removed from the
-            dashboard
-        """
-        warnings.warn(
-            (
-                "Pro.delete_patch_policy_dashboard has been deprecated by Jamf Pro "
-                "v10.44.0. Use Pro.delete_patch_policy_v2() instead."
-            ),
-            category=DeprecationWarning,
-        )
-
-        endpoint = f"/api/patch/patch-policies/{id}/dashboard"
-
-        return self._delete(
-            endpoint, success_message=f"Patch policy {id} removed from dashboard."
-        )
-
-    """
     patch-policy-logs
     """
 
@@ -7079,73 +7298,6 @@ class Pro(RequestBuilder):
             success_message=(
                 f"Patch software title configuration {id} removed from dashboard."
             ),
-        )
-
-    """
-    patches-preview
-    """
-
-    def get_patch_dashboards(self) -> dict:
-        """
-        .. deprecated:: 1.3.0
-
-        Returns list of patch IDs on dashboard
-
-        :returns: All patch IDs on the dashboard in JSON
-        """
-        warnings.warn(
-            ("Pro.get_patch_dashboards has been deprecated by Jamf Pro v10.44.0."),
-            category=DeprecationWarning,
-        )
-
-        endpoint = "/api/patch/onDashboard"
-
-        return self._get(endpoint)
-
-    def get_patch_software_title_configuration_id(self, id: Union[int, str]) -> dict:
-        """
-        .. deprecated:: 1.3.0
-
-        Returns the software title configuration ID for the given patch policy
-        by ID
-
-        :param ID: Policy ID
-
-        :returns: Software title configuration for the patch policy in JSON
-        """
-        warnings.warn(
-            (
-                "Pro.get_patch_software_title_configuration_id has been deprecated by "
-                "Jamf Pro v10.44.0."
-            ),
-            category=DeprecationWarning,
-        )
-
-        endpoint = f"/api/patch/obj/policy/{id}/softwareTitleConfigurationId"
-
-        return self._get(endpoint)
-
-    def create_patch_disclaimer_accept(self) -> str:
-        """
-        .. deprecated:: 1.3.0
-
-        Accepts patch reporting disclaimer
-
-        :returns:
-            Success message stating the patch reporting disclaimer was accepted
-        """
-        warnings.warn(
-            (
-                "Pro.create_patch_disclaimer_accept has been deprecated by Jamf Pro "
-                "v10.44.0."
-            ),
-            category=DeprecationWarning,
-        )
-
-        endpoint = "/api/patch/disclaimerAgree"
-
-        return self._post(
-            endpoint, success_message="Patch reporting disclaimer accepted."
         )
 
     """

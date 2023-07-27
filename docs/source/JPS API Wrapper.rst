@@ -1698,6 +1698,70 @@ Pro
 
    |
 
+.. collapse:: api-integrations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_api_integrations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_api_integration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_api_integration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_api_integration_client_credentials
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_api_integration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_api_integration
+
+   |
+
+.. collapse:: api-role-privileges
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_api_role_privileges
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_api_role_privileges_search
+
+   |
+
+.. collapse:: api-roles
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_api_roles
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_api_role
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_api_role
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_api_role
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_api_role
+
+   |
+
 .. collapse:: app-request-preview
 
    |
@@ -2830,7 +2894,15 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_pending_rotations
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_accounts
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_audit
 
    |
 
@@ -2915,6 +2987,14 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.create_mdm_deploy_package
+
+   |
+
+.. collapse:: mobile-device-apps
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_mobile_device_app_reinstall_config
 
    |
 
@@ -3126,22 +3206,6 @@ Pro
 
    |
 
-.. collapse:: patch-policies-preview
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_policy_dashboard
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_policy_dashboard
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_policy_dashboard
-
-   |
-
 .. collapse:: patch-policy_logs
 
    |
@@ -3247,22 +3311,6 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.delete_patch_software_title_configuration_dashboard
-
-   |
-
-.. collapse:: patches-preview
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_dashboards
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.get_patch_software_title_configuration_id
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.create_patch_disclaimer_accept
 
    |
 
