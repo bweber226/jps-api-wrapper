@@ -4206,7 +4206,11 @@ def test_get_local_admin_password_pending_rotation(pro):
     Ensures that get_local_admin_password_pending_rotation returns JSON when
     used
     """
-    responses.add(response_builder("GET", jps_url("/api/v2/local-admin-password/pending-rotations")))
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/local-admin-password/pending-rotations")
+        )
+    )
     assert pro.get_local_admin_password_pending_rotations() == EXPECTED_JSON
 
 

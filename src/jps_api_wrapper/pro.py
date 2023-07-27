@@ -5316,7 +5316,7 @@ class Pro(RequestBuilder):
         endpoint = "/api/v2/local-admin-password/settings"
 
         return self._get(endpoint)
-    
+
     def get_local_admin_password_pending_rotations(self) -> dict:
         """
         Returns information about all devices and usernames currently in the
@@ -5362,14 +5362,14 @@ class Pro(RequestBuilder):
         )
 
         return self._get(endpoint)
-    
+
     def get_local_admin_password_user_history(
         self, clientManagementId: str, username: str
     ) -> dict:
         """
-        Returns the full history of all for a specific username on a target 
-        device. History will include date created, date last seen, expiration 
-        time, and rotational status. Get audit history by using the client 
+        Returns the full history of all for a specific username on a target
+        device. History will include date created, date last seen, expiration
+        time, and rotational status. Get audit history by using the client
         management id and username as the path parameters.
 
         :param clientManagementId: Client management ID of target device
