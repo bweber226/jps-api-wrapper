@@ -114,7 +114,7 @@ def valid_param_options(params: Union[str, list], param_options: list):
         The values that were passed to this parameter do not match the valid
         options.
     """
-    if type(params) == str:
+    if type(params) is str:
         params = [params]
     for param in params:
         if param not in param_options:
