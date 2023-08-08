@@ -297,7 +297,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create API integration with. For syntax information
             view `Jamf's documentation.
-            <TODO: Add after release>`__
+            <https://developer.jamf.com/jamf-pro/reference/postcreateapiintegration>`__
 
         :returns: New API integration information in JSON
         """
@@ -325,7 +325,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update API integration with. For syntax information
             view `Jamf's documentation.
-            <TODO: Add after releasee>`__
+            <https://developer.jamf.com/jamf-pro/reference/putupdateapiintegration>`__
         :param id: API integration ID
 
         :returns: Updated API integration information in JSON
@@ -444,7 +444,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create API role with. For syntax information view
             `Jamf's documentation.
-            <TODO: Add after releasee>`__
+            <https://developer.jamf.com/jamf-pro/reference/postcreateapirole>`__
 
         :returns: New API role information in JSON
         """
@@ -459,7 +459,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update API role with. For syntax information view
             `Jamf's documentation.
-            <TODO: Add after releasee>`__
+            <https://developer.jamf.com/jamf-pro/reference/putupdateapirole>`__
         :param id: API role ID
 
         :returns: Updated API role information in JSON
@@ -5717,7 +5717,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the redeploy with. For syntax information view
             `Jamf's documentation.
-            <TODO: Add after release>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-mobile-device-apps-reinstall-app-config>`__
 
         :returns: Success message stating the app config was redeployed
         """
