@@ -299,6 +299,187 @@ def test_get_api_authentication(pro):
 
 
 """
+api-integrations
+"""
+
+
+@responses.activate
+def test_get_api_integrations(pro):
+    """
+    Ensures that get_api_integrations returns JSON data when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/api-integrations")))
+    assert pro.get_api_integrations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_api_integrations_optional_params(pro):
+    """
+    Ensures that get_api_integrations returns JSON data when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/api-integrations")))
+    assert (
+        pro.get_api_integrations(
+            0, 100, ["id:desc", "displayName:asc"], 'displayName=="IntegrationName"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_api_integration(pro):
+    """
+    Ensures that get_api_integration returns JSON data when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/api-integrations/1001")))
+    assert pro.get_api_integration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_api_integration(pro):
+    """
+    Ensures that create_api_integration returns JSON data when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/api-integrations")))
+    assert pro.create_api_integration(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_api_integration_client_credentials(pro):
+    """
+    Ensures that create_api_integration_client_credentials returns JSON when
+    used
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/api-integrations/1001/client-credentials")
+        )
+    )
+    assert pro.create_api_integration_client_credentials(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_api_integration(pro):
+    """
+    Ensures that update_api_integration returns JSON when used
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/api-integrations/1001")))
+    assert pro.update_api_integration(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_api_integration(pro):
+    """
+    Ensures that delete_api_integration returns a success message when used
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/api-integrations/1001")))
+    assert (
+        pro.delete_api_integration(1001) == "API integration 1001 successfully deleted."
+    )
+
+
+"""
+api-role-privileges
+"""
+
+
+@responses.activate
+def test_get_api_role_privileges(pro):
+    """
+    Ensures that get_api_role_privileges returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/api-role-privileges")))
+    assert pro.get_api_role_privileges() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_api_role_privileges_search(pro):
+    """
+    Ensures that get_api_role_privileges_search returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/api-role-privileges/search"))
+    )
+    assert pro.get_api_role_privileges_search("Read") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_api_role_privileges_search_optional_params(pro):
+    """
+    Ensures that get_api_role_privileges_search returns JSON when used with all
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/api-role-privileges/search"))
+    )
+    assert pro.get_api_role_privileges_search("Read", 10) == EXPECTED_JSON
+
+
+"""
+api-roles
+"""
+
+
+@responses.activate
+def test_get_api_roles(pro):
+    """
+    Ensures that get_api_roles returns JSON when used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/api-roles")))
+    assert pro.get_api_roles() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_api_roles_optional_params(pro):
+    """
+    Ensures that get_api_roles returns JSON with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/api-roles")))
+    assert pro.get_api_roles(
+        0, 100, ["id:desc", "displayName:asc"], 'displayName=="myRole"'
+    )
+
+
+@responses.activate
+def test_get_api_role(pro):
+    """
+    Ensures that get_api_role returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/api-roles/1001")))
+    assert pro.get_api_role(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_api_role(pro):
+    """
+    Ensures that create_api_role returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/api-roles")))
+    assert pro.create_api_role(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_api_role(pro):
+    """
+    Ensures that update_api_role returns JSON when used
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/api-roles/1001")))
+    assert pro.update_api_role(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_api_roles(pro):
+    """
+    Ensures that delete_api_role returns a success message when used
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/api-roles/1001")))
+    assert pro.delete_api_role(1001) == "API role 1001 successfully deleted."
+
+
+"""
 app-request-preview
 """
 
@@ -2387,7 +2568,7 @@ def test_get_enrollment_settings(pro):
     """
     Ensures that get_enrollment_settings returns JSON when used
     """
-    responses.add(response_builder("GET", jps_url("/api/v2/enrollment")))
+    responses.add(response_builder("GET", jps_url("/api/v3/enrollment")))
     assert pro.get_enrollment_settings() == EXPECTED_JSON
 
 
@@ -2563,7 +2744,7 @@ def test_update_enrollment_settings(pro):
     Ensures that update_enrollment_settings returns JSON when used with
     required params
     """
-    responses.add(response_builder("PUT", jps_url("/api/v2/enrollment")))
+    responses.add(response_builder("PUT", jps_url("/api/v3/enrollment")))
     assert pro.update_enrollment_settings(EXPECTED_JSON) == EXPECTED_JSON
 
 
@@ -4020,21 +4201,17 @@ def test_get_local_admin_password_settings(pro):
 
 
 @responses.activate
-def test_get_local_admin_password_user_history(pro):
+def test_get_local_admin_password_pending_rotation(pro):
     """
-    Ensures that get_local_admin_password_user_history returns JSON when used
-    with required params
+    Ensures that get_local_admin_password_pending_rotation returns JSON when
+    used
     """
     responses.add(
         response_builder(
-            "GET",
-            jps_url("/api/v2/local-admin-password/1a2b-3c4d/account/testuser/audit"),
+            "GET", jps_url("/api/v2/local-admin-password/pending-rotations")
         )
     )
-    assert (
-        pro.get_local_admin_password_user_history("1a2b-3c4d", "testuser")
-        == EXPECTED_JSON
-    )
+    assert pro.get_local_admin_password_pending_rotations() == EXPECTED_JSON
 
 
 @responses.activate
@@ -4049,6 +4226,42 @@ def test_get_local_admin_password_accounts(pro):
         )
     )
     assert pro.get_local_admin_password_accounts("1a2b-3c4d") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_local_admin_password_user_audit(pro):
+    """
+    Ensures that get_local_admin_password_user_audit returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v2/local-admin-password/1a2b-3c4d/account/testuser/audit"),
+        )
+    )
+    assert (
+        pro.get_local_admin_password_user_audit("1a2b-3c4d", "testuser")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_local_admin_password_user_history(pro):
+    """
+    Ensures that get_local_admin_password_user_history returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v2/local-admin-password/1a2b-3c4d/account/testuser/history"),
+        )
+    )
+    assert (
+        pro.get_local_admin_password_user_history("1a2b-3c4d", "testuser")
+        == EXPECTED_JSON
+    )
 
 
 @responses.activate
@@ -4322,6 +4535,27 @@ def test_create_mdm_deploy_package_optional_params(pro):
     """
     responses.add(response_builder("POST", jps_url("/api/v1/deploy-package")))
     assert pro.create_mdm_deploy_package(EXPECTED_JSON, True) == EXPECTED_JSON
+
+
+"""
+mobile-device-apps
+"""
+
+
+@responses.activate
+def test_create_mobile_device_app_reinstall_config(pro):
+    """
+    Ensures that create_mobile_app_reinstall_config returns JSON when used
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/mobile-device-apps/reinstall-app-config")
+        )
+    )
+    assert (
+        pro.create_mobile_device_app_reinstall_config(EXPECTED_JSON)
+        == "Mobile device app config redeployed."
+    )
 
 
 """
@@ -5046,53 +5280,6 @@ def test_delete_patch_policy_dashboard_v2(pro):
 
 
 """
-patch-policies-preview
-"""
-
-
-@responses.activate
-def test_get_patch_policy_dashboard(pro):
-    """
-    Ensures that get_patch_policy_dashboard returns JSON when used with
-    required params
-    """
-    responses.add(
-        response_builder("GET", jps_url("/api/patch/patch-policies/1001/dashboard"))
-    )
-    assert pro.get_patch_policy_dashboard(1001) == EXPECTED_JSON
-
-
-@responses.activate
-def test_create_patch_policy_dashboard(pro):
-    """
-    Ensures that create_patch_policy_dashboard returns JSON when used with
-    required params
-    """
-    responses.add(
-        response_builder("POST", jps_url("/api/patch/patch-policies/1001/dashboard"))
-    )
-    assert (
-        pro.create_patch_policy_dashboard(1001)
-        == "Patch policy 1001 added to dashboard."
-    )
-
-
-@responses.activate
-def test_delete_patch_policy_dashboard(pro):
-    """
-    Ensures that delete_patch_policy_dashboard returns a success message str
-    when used with required params
-    """
-    responses.add(
-        response_builder("DELETE", jps_url("/api/patch/patch-policies/1001/dashboard"))
-    )
-    assert (
-        pro.delete_patch_policy_dashboard(1001)
-        == "Patch policy 1001 removed from dashboard."
-    )
-
-
-"""
 patch-policy-logs
 """
 
@@ -5555,45 +5742,6 @@ def test_delete_patch_software_title_configuration_dashboard(pro):
     assert (
         pro.delete_patch_software_title_configuration_dashboard(1001)
         == "Patch software title configuration 1001 removed from dashboard."
-    )
-
-
-"""
-patches-preview
-"""
-
-
-@responses.activate
-def test_get_patch_dashboards(pro):
-    """
-    Ensures that get_patch_dashboards returns JSON when used
-    """
-    responses.add(response_builder("GET", jps_url("/api/patch/onDashboard")))
-    assert pro.get_patch_dashboards() == EXPECTED_JSON
-
-
-@responses.activate
-def test_get_patch_software_title_configuration_id(pro):
-    """
-    Ensures that get_patch_software_title_configuration_id returns JSON when
-    used with required params
-    """
-    responses.add(
-        response_builder(
-            "GET", jps_url("/api/patch/obj/policy/1001/softwareTitleConfigurationId")
-        )
-    )
-    assert pro.get_patch_software_title_configuration_id(1001) == EXPECTED_JSON
-
-
-@responses.activate
-def test_create_patch_disclaimer_accept(pro):
-    """
-    Ensures that create_patch_disclaimer_accept returns JSON when used
-    """
-    responses.add(response_builder("POST", jps_url("/api/patch/disclaimerAgree")))
-    assert (
-        pro.create_patch_disclaimer_accept() == "Patch reporting disclaimer accepted."
     )
 
 

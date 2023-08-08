@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] -- 08-08-2023
+
+### Added
+- Pro.get_api_integrations which returns all Jamf Pro API integrations with search criteria in JSON
+- Pro.get_api_integration which returns specified API integration by ID
+- Pro.create_api_integration which creates API integration with JSON data
+- Pro.create_api_integration_client_credentials which creates client credentials for the specified API integration with JSON data
+- Pro.update_api_integration which updates specified API integrations with JSON data by ID
+- Pro.delete_api_integration which deletes specified API integration by ID
+- Pro.get_api_role_privileges which returns all API role privileges in JSON
+- Pro.get_api_role_privileges_search which returns the results of the search of the API role privileges in JSON
+- Pro.get_api_roles which returns all API roles in JSON
+- Pro.get_api_role which returns specific API role in JSON by ID
+- Pro.create_api_role which creates a new API role with JSON data
+- Pro.update_api_role which updates specific API role with JSON data by ID
+- Pro.delete_api_role which deletes specific API role by ID
+- Pro.create_mobile_device_app_reinstall_config which creates a redeploy of a managed app configuration
+- Pro.get_local_admin_password_pending_rotations which returns information about all devices and usernames currently in the state of a pending LAPS rotation
+- Pro.get_local_admin_password_user_history which returns the full history of all for a specific username on a target device
+
+### Changed
+- Pro.get_enrollments_settings to use the new v3 endpoint since the data structure is the same for both
+- Pro.update_enrollments_settings to use the new v3 endpoint since the data structure is the same for both
+- Pro.get_local_admin_password_user_history changed to Pro.get_local_admin_password_user_audit due to previously mistyped named
+  
+### Removed
+- Pro.create_patch_disclaimer_accept removed since the corresponding API endpoint was removed
+- Pro.get_patch_software_title_configuration_id removed since the corresponding API endpoint was removed
+- Pro.get_patch_dashboards removed since the corresponding API endpoint was removed
+- Pro.get_patch_policy_dashboard removed since the corresponding API endpoint was removed
+- Pro.create_patch_policy_dashboard removed since the corresponding API endpoint was removed
+- Pro.delete_patch_policy_dashboard removed since the corresponding API endpoint was removed
+
 ## [1.7.0] -- 07-20-2023
 
 ### Added
