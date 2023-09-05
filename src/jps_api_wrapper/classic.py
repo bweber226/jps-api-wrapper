@@ -17,8 +17,8 @@ from jps_api_wrapper.utils import (
 
 
 class Classic(RequestBuilder):
-    def __init__(self, base_url, username, password):
-        super().__init__(base_url, username, password)  # pragma: no cover
+    def __init__(self, base_url, username, password, client=False):
+        super().__init__(base_url, username, password, client)  # pragma: no cover
 
     """
     /accounts

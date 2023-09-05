@@ -15,8 +15,8 @@ warnings.simplefilter("always", DeprecationWarning)
 
 
 class Pro(RequestBuilder):
-    def __init__(self, base_url, username, password):
-        super().__init__(base_url, username, password)  # pragma: no cover
+    def __init__(self, base_url, username, password, client=False):
+        super().__init__(base_url, username, password, client)  # pragma: no cover
 
     """
     advanced-mobile-device-searches
@@ -5646,7 +5646,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create managed software update plan with. For syntax
             information view `Jamf's documentation.
-            <TODO ADD URL BEFORE RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-managed-software-updates-plans>`__
 
         :returns: New managed software update plan in JSON
         """
@@ -5661,7 +5661,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create managed software update plans for a group with.
             For syntax information view `Jamf's documentation.
-            <TODO ADD URL BEFORE RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-managed-software-updates-plans-group>`__
 
         :returns: New managed software update plans for the group in JSON
         """
@@ -5677,7 +5677,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the managed software updates feature toggle
             with. For syntax information view `Jamf's documentation.
-            <TODO ADD URL BEFORE RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-managed-software-updates-plans-feature-toggle>`__
 
         :returns:
             Updated status of the managed software update feature toggle status

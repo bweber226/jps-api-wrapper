@@ -18,15 +18,19 @@ class RequestBuilder:
         Username for the JPS instance
     :param password:
         Password for the JPS instance
+    :param client:
+        Whether or not the credentials are for an API client
 
     :raises InvalidDataType:
         data_type is not json or xml
     """
 
-    def __init__(self, base_url: str, username: str, password: str):  # pragma: no cover
+    def __init__(
+        self, base_url: str, username: str, password: str, client: bool
+    ):  # pragma: no cover
         self.base_url = base_url
         self.session = requests.Session()
-        self.session.auth = JamfAuth(self.base_url, username, password)
+        self.session.auth = JamfAuth(self.base_url, username, password, client)
 
     def __enter__(self):  # pragma: no cover
         self.session.auth.refresh_auth_if_needed()
