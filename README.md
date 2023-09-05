@@ -15,6 +15,7 @@ I plan on keeping this up to date with current releases of JPS. Check the change
   - [Background](#background)
   - [Install](#install)
   - [Usage](#usage)
+  - [API Client Authentication](#api-client-authentication)
   - [Method Documentation](#method-documentation)
   - [Other Notes](#other-notes)
   - [Contributing](#contributing)
@@ -71,6 +72,29 @@ classic.session.auth.invalidate()
 Any methods that require the data param will have a link to Jamf's documentation in the docstring and the method documentation for the syntax of the data that the request expects.
 
 For some examples of jps-api-wrapper usage in real projects feel free to check out my other projects in our [GitLab](https://gitlab.com/cvtc/appleatcvtc).
+
+## API Client Authentication
+
+To authenticate using an API Client added with JPS 10.49 use the new client parameter when initializing a Classic or Pro method. This new parameter is set to False be default to not affect current deployments of the wrapper.
+
+
+```
+from jps_api_wrapper.classic import Classic
+from jps_api_wrapper.pro import Pro
+from os import environ
+
+JPS_URL = "https://example.jamfcloud.com"
+CLIENT_ID = environ["CLIENT_ID"]
+CLIENT_SECRET = environ["CLIENT_SECRET"]
+
+with Classic(JPS_URL, CLIENT_ID, CLIENT_SECRET, client=True) as classic:
+    print(classic.get_computers())
+    print(classic.get_computer(1001))
+
+with Pro(JPS_URL, CLIENT_ID, CLIENT_SECRET, client=True) as pro:
+    print(pro.get_mobile_devices())
+```
+
 
 ## Method Documentation
 

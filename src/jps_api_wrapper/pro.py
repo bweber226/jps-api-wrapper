@@ -15,8 +15,8 @@ warnings.simplefilter("always", DeprecationWarning)
 
 
 class Pro(RequestBuilder):
-    def __init__(self, base_url, username, password):
-        super().__init__(base_url, username, password)  # pragma: no cover
+    def __init__(self, base_url, username, password, client=False):
+        super().__init__(base_url, username, password, client)  # pragma: no cover
 
     """
     advanced-mobile-device-searches
@@ -1353,61 +1353,6 @@ class Pro(RequestBuilder):
         endpoint = f"/api/v1/cloud-azure/{id}"
 
         return self._get(endpoint)
-
-    def get_cloud_azure_report(self, id: Union[int, str]):
-        """
-        Returns excel file of generated cloud azure report
-
-        :param id: Existing report ID
-
-        :returns: Cloud azure report excel file
-        """
-        headers = {
-            "accept": "application/vnd.openxmlformats-officedocument"
-            ".spreadsheetml.sheet",
-            "Content-type": "application/json",
-        }
-        endpoint = f"/api/v1/azure-ad-migration/reports/{id}/download"
-
-        return self._get(endpoint, headers=headers)
-
-    def get_cloud_azure_report_status(self, id: Union[int, str]) -> dict:
-        """
-        Returns status of Azure AD migration report
-
-        :param id: Existing report ID
-
-        :returns: Cloud azure report status information in JSON
-        """
-        endpoint = f"/api/v1/azure-ad-migration/reports/{id}"
-
-        return self._get(endpoint)
-
-    def get_cloud_azure_pending_report(self):
-        """
-        Returns info about pending report
-
-        :returns: Cloud azure pending report information in JSON
-        """
-        endpoint = "/api/v1/azure-ad-migration/reports/pending"
-
-        return self._get(endpoint)
-
-    def create_cloud_azure_report(self, data: dict) -> dict:
-        """
-        Starts a new process in background that will generate Excel report
-        with JSON data
-
-        :param data:
-            JSON data to create the report with. For syntax information view
-            `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/post_v1-azure-ad-migration-reports>`__
-
-        :returns: New cloud azure report information in JSON
-        """
-        endpoint = "/api/v1/azure-ad-migration/reports"
-
-        return self._post(endpoint, data)
 
     def create_cloud_azure_identity_provider_configuration(self, data: dict) -> dict:
         """
@@ -5540,6 +5485,96 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint, params=params)
 
+    def get_managed_software_updates_plans(
+        self,
+        page: Union[int, str] = None,
+        page_size: int = None,
+        sort: List[str] = ["planUuid:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns managed software update plans
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["planUuid:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["planUuid:desc", "maxDeferrals:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter Managed Software
+            Updates collection. Default filter is empty query - returning all
+            results for the requested page.
+
+            Options:
+            planUuid, device.deviceId, device.objectType, updateAction,
+            versionType, specificVersion, maxDeferrals.
+
+            Example: 'maxDeferrals >= 1 and versionType == "LATEST_ANY"'
+
+        :returns: Managed software update plans in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/managed-software-updates/plans"
+
+        return self._get(endpoint, params=params)
+
+    def get_managed_software_updates_feature_toggle(self) -> dict:
+        """
+        Returns status of the managed software updates feature toggle
+
+        :returns: Status of the managed software updates feature toggle in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/feature-toggle"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_group_plans(
+        self,
+        id: Union[int, str],
+        group_type: str,
+    ) -> dict:
+        """
+        Returns managed software update plans for a group by ID
+
+        :param id: Managed software update group ID
+        :param group_type:
+            Managed software update group type
+
+            Options:
+            COMPUTER_GROUP, MOBILE_DEVICE_GROUP
+
+            Example: "COMPUTER_GROUP"
+
+        :returns: Managed software update plans for a group in JSON
+        """
+        params = {"group-type": group_type}
+        endpoint = f"/api/v1/managed-software-updates/plans/group/{id}"
+
+        return self._get(endpoint, params=params)
+
+    def get_managed_software_updates_plan(self, id: str) -> dict:
+        """
+        Returns a managed software update plan by UUID
+
+        :param id: Managed software update plan UUID
+
+        :returns: Managed software update plan in JSON
+        """
+        endpoint = f"/api/v1/managed-software-updates/plans/{id}"
+
+        return self._get(endpoint)
+
     def get_managed_software_updates_computer_group(self, id: Union[int, str]) -> dict:
         """
         Returns managed software update statuses for computer group by ID
@@ -5603,6 +5638,54 @@ class Pro(RequestBuilder):
         )
 
         return self._get(endpoint)
+
+    def create_managed_software_updates_plan(self, data: dict) -> dict:
+        """
+        Creates a managed software update plan with JSON data
+
+        :param data:
+            JSON data to create managed software update plan with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-managed-software-updates-plans>`__
+
+        :returns: New managed software update plan in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans"
+
+        return self._post(endpoint, data)
+
+    def create_managed_software_updates_group_plan(self, data: dict) -> dict:
+        """
+        Creates a managed software update plans for a group with JSON data
+
+        :param data:
+            JSON data to create managed software update plans for a group with.
+            For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-managed-software-updates-plans-group>`__
+
+        :returns: New managed software update plans for the group in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/group"
+
+        return self._post(endpoint, data)
+
+    def update_managed_software_updates_feature_toggle(self, data: dict) -> dict:
+        """
+        Updates the value of the feature toggle for managed software updates,
+        turning the feature on or off
+
+        :param data:
+            JSON data to update the managed software updates feature toggle
+            with. For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-managed-software-updates-plans-feature-toggle>`__
+
+        :returns:
+            Updated status of the managed software update feature toggle status
+            in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/feature-toggle"
+
+        return self._put(endpoint, data)
 
     """
     mdm

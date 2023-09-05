@@ -5,9 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] -- 09-05-2023
+
+### Added
+- Added API Client auth to Pro and Classic, view the README for more information
+- Pro.get_managed_software_updates_plans which returns managed software update plans
+- Pro.get_managed_software_updates_feature_toggle which returns status of the managed software updates feature toggle
+- Pro.get_managed_software_updates_group_plans which returns managed software update plans for a group by ID
+- Pro.get_managed_software_updates_plan which returns a managed software update plan by UUID
+- Pro.create_managed_software_updates_plan which creates a managed software update plan with JSON data
+- Pro.create_managed_software_updates_group_plan which creates a managed software update plans for a group with JSON data
+- Pro.update_managed_software_updates_feature_toggle which updates the value of the feature toggle for managed software updates, turning the feature on or off
+
+### Removed
+- Pro.get_cloud_azure_report removed since the corresponding API endpoint was removed
+- Pro.get_cloud_azure_report_status removed since the corresponding API endpoint was removed
+- Pro.get_cloud_azure_pending_report removed since the corresponding API endpoint was removed
+- Pro.create_cloud_azure_report removed since the corresponding API endpoint was removed
+
+
 ## [1.8.0] -- 08-08-2023
 
 ### Added
+- Added API Client authentication support, view the README for more info
 - Pro.get_api_integrations which returns all Jamf Pro API integrations with search criteria in JSON
 - Pro.get_api_integration which returns specified API integration by ID
 - Pro.create_api_integration which creates API integration with JSON data

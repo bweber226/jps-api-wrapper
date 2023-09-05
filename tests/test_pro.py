@@ -1127,56 +1127,6 @@ def test_get_cloud_azure_identity_provider_configuration(pro):
 
 
 @responses.activate
-def test_get_cloud_azure_report(pro):
-    """
-    Ensures that get_cloud_azure_report completes successfully when run with
-    required params
-    """
-    responses.add(
-        response_builder(
-            "GET", jps_url("/api/v1/azure-ad-migration/reports/1001/download")
-        )
-    )
-    assert pro.get_cloud_azure_report(1001) == EXPECTED_JSON
-
-
-@responses.activate
-def test_get_cloud_azure_report_status(pro):
-    """
-    Ensures that get_cloud_azure_report_status completes successfully when
-    run with required params
-    """
-    responses.add(
-        response_builder("GET", jps_url("/api/v1/azure-ad-migration/reports/1001"))
-    )
-    assert pro.get_cloud_azure_report_status(1001) == EXPECTED_JSON
-
-
-@responses.activate
-def test_get_cloud_azure_pending_report(pro):
-    """
-    Ensures that get_cloud_azure_pending_report completes successfully when
-    run with required params
-    """
-    responses.add(
-        response_builder("GET", jps_url("/api/v1/azure-ad-migration/reports/pending"))
-    )
-    assert pro.get_cloud_azure_pending_report() == EXPECTED_JSON
-
-
-@responses.activate
-def test_create_cloud_azure_report(pro):
-    """
-    Ensures that create_cloud_azure_report completes successfully when run with
-    required params
-    """
-    responses.add(
-        response_builder("POST", jps_url("/api/v1/azure-ad-migration/reports"))
-    )
-    assert pro.create_cloud_azure_report(EXPECTED_JSON) == EXPECTED_JSON
-
-
-@responses.activate
 def test_create_cloud_azure_identity_provider_configuration(pro):
     """
     Ensures that create_cloud_azure_identity_provider_configuration completes
@@ -4404,6 +4354,81 @@ def test_get_managed_software_updates_statuses_optional_params(pro):
 
 
 @responses.activate
+def test_get_managed_software_updates_plans(pro):
+    """
+    Ensures that get_managed_software_updates_plans returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/managed-software-updates/plans"))
+    )
+    assert pro.get_managed_software_updates_plans() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_plans_optional_params(pro):
+    """
+    Ensures that get_managed_software_updates_plans returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/managed-software-updates/plans"))
+    )
+    assert (
+        pro.get_managed_software_updates_plans(
+            0,
+            100,
+            ["planUuid:desc", "maxDeferrals:asc"],
+            'maxDeferrals >= 1 and versionType == "LATEST_ANY"',
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_managed_software_updates_feature_toggle(pro):
+    """
+    Ensures that get_managed_software_updates_feature_toggle returns JSON when
+    used
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/managed-software-updates/plans/feature-toggle")
+        )
+    )
+    assert pro.get_managed_software_updates_feature_toggle() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_group_plans(pro):
+    """
+    Ensures that get_managed_software_updates_group_plans return JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/managed-software-updates/plans/group/1001")
+        )
+    )
+    assert (
+        pro.get_managed_software_updates_group_plans(1001, "COMPUTER_GROUP")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_managed_software_updates_plan(pro):
+    """
+    Ensures that get_managed_software_updates_plan returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/managed-software-updates/plans/1001"))
+    )
+    assert pro.get_managed_software_updates_plan(1001) == EXPECTED_JSON
+
+
+@responses.activate
 def test_get_managed_software_updates_computer_group(pro):
     """
     Ensures that get_managed_software_updates_computer_group returns JSON when
@@ -4468,6 +4493,51 @@ def test_get_managed_software_updates_mobile_device(pro):
         )
     )
     assert pro.get_managed_software_updates_mobile_device(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_managed_software_updates_plan(pro):
+    """
+    Ensures that create_managed_software_updates_plan returns JSON when used
+    with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/managed-software-updates/plans"))
+    )
+    assert pro.create_managed_software_updates_plan(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_managed_software_updates_group_plan(pro):
+    """
+    Ensures that create_managed_software_updates_group_plan returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/managed-software-updates/plans/group")
+        )
+    )
+    assert (
+        pro.create_managed_software_updates_group_plan(EXPECTED_JSON) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_managed_software_updates_feature_toggle(pro):
+    """
+    Ensures that update_managed_software_updates_feature_toggle returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "PUT", jps_url("/api/v1/managed-software-updates/plans/feature-toggle")
+        )
+    )
+    assert (
+        pro.update_managed_software_updates_feature_toggle(EXPECTED_JSON)
+        == EXPECTED_JSON
+    )
 
 
 """
