@@ -15,7 +15,11 @@ I plan on keeping this up to date with current releases of JPS. Check the change
   - [Background](#background)
   - [Install](#install)
   - [Usage](#usage)
-  - [API Client Authentication](#api-client-authentication)
+    - [API Client Authentication](#api-client-authentication)
+    - [Keyring Auth](#keyring-auth)
+      - [Install](#install-1)
+      - [Setting the password](#setting-the-password)
+      - [Retrieving the password in Python and authenticating](#retrieving-the-password-in-python-and-authenticating)
   - [Method Documentation](#method-documentation)
   - [Other Notes](#other-notes)
   - [Contributing](#contributing)
@@ -38,9 +42,9 @@ pip install jps-api-wrapper
 Using with statements with the Classic and Pro modules will cause the authentication token to invalidate upon exiting. Do any requests before exiting to use the same session authentication.
 
 ```
+from os import environ
 from jps_api_wrapper.classic import Classic
 from jps_api_wrapper.pro import Pro
-from os import environ
 
 JPS_URL = "https://example.jamfcloud.com"
 USERNAME = environ["JPS_USERNAME"]
@@ -57,9 +61,9 @@ with Pro(JPS_URL, USERNAME, PASSWORD) as pro:
 If not using with statements it is recommended to invalidate the token before closing the program. You can do this manually by doing the following.
 
 ```
+from os import environ
 from jps_api_wrapper.classic import Classic
 from jps_api_wrapper.pro import Pro
-from os import environ
 
 JPS_URL = "https://example.jamfcloud.com"
 USERNAME = environ["JPS_USERNAME"]
@@ -73,15 +77,15 @@ Any methods that require the data param will have a link to Jamf's documentation
 
 For some examples of jps-api-wrapper usage in real projects feel free to check out my other projects in our [GitLab](https://gitlab.com/cvtc/appleatcvtc).
 
-## API Client Authentication
+### API Client Authentication
 
 To authenticate using an API Client added with JPS 10.49 use the new client parameter when initializing a Classic or Pro method. This new parameter is set to False be default to not affect current deployments of the wrapper.
 
 
 ```
+from os import environ
 from jps_api_wrapper.classic import Classic
 from jps_api_wrapper.pro import Pro
-from os import environ
 
 JPS_URL = "https://example.jamfcloud.com"
 CLIENT_ID = environ["CLIENT_ID"]
@@ -92,6 +96,41 @@ with Classic(JPS_URL, CLIENT_ID, CLIENT_SECRET, client=True) as classic:
     print(classic.get_computer(1001))
 
 with Pro(JPS_URL, CLIENT_ID, CLIENT_SECRET, client=True) as pro:
+    print(pro.get_mobile_devices())
+```
+
+### Keyring Auth
+
+Per popular demand from my JNUC2023 session I thought I would add documentation for using keyring to authenticate. It's pretty similar to the previous authentication but instead of environment variables we'll use the keyring package to handle our secrets.
+
+#### Install
+```
+pip install keyring
+```
+
+#### Setting the password
+Open a terminal session and enter the following command, you can replace system and username with whatever your prefer. You will be prompted to enter your chosen password.
+```
+keyring set system username
+```
+
+#### Retrieving the password in Python and authenticating
+All we need to do now is retrieve the password we set in Keychain using keyring.get_password along with the parameters we chose before and then use the credentials normally to authenticate with jps-api-wrapper.
+
+```
+import keyring
+from jps_api_wrapper.classic import Classic
+from jps_api_wrapper.pro import Pro
+
+JPS_URL = "https://example.jamfcloud.com"
+USERNAME = "username"
+PASSWORD = keyring.get_password("system", "username")
+
+with Classic(JPS_URL, USERNAME, PASSWORD) as classic:
+    print(classic.get_computers())
+    print(classic.get_computer(1001))
+
+with Pro(JPS_URL, USERNAME, PASSWORD) as pro:
     print(pro.get_mobile_devices())
 ```
 
