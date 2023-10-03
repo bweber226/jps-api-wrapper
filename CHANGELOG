@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.0] -- TODO ADD ON RELEASE
+
+### Added
+- Pro.get_scheduler_jobs which returns all Jamf Pro scheduler jobs
+- Pro.get_scheduler_job_triggers which returns all triggers for a scheduler job by job key
+- Pro.get_scheduler_summary which returns a summary of the Jamf Pro scheduler
+- Pro.create_user_password_change which changes the account password for a currently authenticated user
+
 ## [1.9.0] -- 09-05-2023
 
 ### Added

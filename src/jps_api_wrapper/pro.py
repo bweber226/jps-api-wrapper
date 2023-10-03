@@ -7577,6 +7577,71 @@ class Pro(RequestBuilder):
         return self._get(endpoint, params=params)
 
     """
+    scheduler
+    """
+
+    def get_scheduler_jobs(self) -> dict:
+        """
+        Returns all Jamf Pro scheduler jobs
+
+        :returns: All scheduler jobs in JSON
+        """
+        endpoint = "/api/v1/scheduler/jobs"
+
+        return self._get(endpoint)
+
+    def get_scheduler_job_triggers(
+        self,
+        job_key: str,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["nextFireTime:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all triggers for a scheduler job by job key
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorts results by one or more criteria, following the format
+            ["property:asc/desc"]. Default sort is "nextFireTime:asc".
+
+            Example: ["nextFireTime:desc", "previousFireTime:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter the Jamf Pro Scheduler
+            triggers collection. Default filter is empty string - returning all
+            results for the requested page. Fields allowed in the query:
+            triggerKey, previousFireTime, nextFireTime.
+
+            Example: "triggerKey==exampleTriggerKey"
+
+        :returns: All specified scheduler job triggers in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/scheduler/jobs/{job_key}/triggers"
+
+        return self._get(endpoint, params=params)
+
+    def get_scheduler_summary(self) -> dict:
+        """
+        Returns a summary of the Jamf Pro scheduler
+
+        :returns: Scheduler summary information in JSON
+        """
+        endpoint = "/api/v1/scheduler/summary"
+
+        return self._get(endpoint)
+
+    """
     scripts
     """
 
@@ -8939,6 +9004,25 @@ class Pro(RequestBuilder):
         return self._post(
             endpoint, success_message="SSL certificate successfully created."
         )
+
+    """
+    user
+    """
+
+    def create_user_password_change(self, data: dict) -> dict:
+        """
+        Changes the account password for a currently authenticated user
+
+        :param data:
+            JSON data to change user password with. For syntax information view
+            `Jamf's documentation.
+            <TODO Update on release>`__
+
+        :returns: Updated user password information in JSON
+        """
+        endpoint = "/api/v1/user/change-password"
+
+        return self._post(endpoint, data=data)
 
     """
     user-session-preview
