@@ -3371,6 +3371,22 @@ Pro
 
    |
 
+.. collapse:: scheduler
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_scheduler_jobs
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_scheduler_job_triggers
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_scheduler_summary
+
+   |
+
 .. collapse:: scripts
 
    |
@@ -3745,6 +3761,14 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.create_tomcat_settings_ssl_certificate
+
+   |
+
+.. collapse:: user
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_user_password_change
 
    |
 

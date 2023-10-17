@@ -5959,6 +5959,62 @@ def test_get_remote_administration_configurations_optional_params(pro):
 
 
 """
+scheduler
+"""
+
+
+@responses.activate
+def test_get_scheduler_jobs(pro):
+    """
+    Ensures that get_scheduler_jobs returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/scheduler/jobs")))
+    assert pro.get_scheduler_jobs() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_scheduler_job_triggers(pro):
+    """
+    Ensures that get_scheduler_job_triggers returns JSON when used without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/scheduler/jobs/exampleKey/triggers"))
+    )
+    assert pro.get_scheduler_job_triggers("exampleKey") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_scheduler_job_triggers_optional_params(pro):
+    """
+    Ensures that get_scheduler_job_triggers returns JSON when used with all
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/scheduler/jobs/exampleKey/triggers"))
+    )
+    assert (
+        pro.get_scheduler_job_triggers(
+            "exampleKey",
+            0,
+            100,
+            ["nextFireTime:desc", "previousFireTime:asc"],
+            "triggerKey==exampleTriggerKey",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_scheduler_summary(pro):
+    """
+    Ensures that get_scheduler_summary returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/scheduler/summary")))
+    assert pro.get_scheduler_summary() == EXPECTED_JSON
+
+
+"""
 scripts
 """
 
@@ -7101,6 +7157,20 @@ def test_create_tomcat_settings_ssl_certificate(pro):
         pro.create_tomcat_settings_ssl_certificate()
         == "SSL certificate successfully created."
     )
+
+
+"""
+user
+"""
+
+
+@responses.activate
+def test_create_user_password_change(pro):
+    """
+    Ensures that create_user_password_change returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/user/change-password")))
+    assert pro.create_user_password_change(EXPECTED_JSON) == EXPECTED_JSON
 
 
 """

@@ -65,6 +65,10 @@ test_3.11:
   extends: .run_tests
   image: python:3.11
 
+test_3.12:
+  extends: .run_tests
+  image: python:3.12
+
 build_check:
   image: python:3.10
   stage: build_check
