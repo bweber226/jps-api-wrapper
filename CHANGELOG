@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_scheduler_summary which returns a summary of the Jamf Pro scheduler
 - Pro.create_user_password_change which changes the account password for a currently authenticated user
 
+### Changed
+- Pro.get_mobile_devices_detail had the filter options ostModeEnabledDate, lastBackupDate, lastEnrolledDate, lastCloudBackupDate, lastInventoryUpdateDate, mdmProfileExpirationDate, warrantyExpirationDate, jailbreakStatus, hardwareEncryptionSupported, voiceRoamingEnabled removed
+
 ## [1.9.0] -- 09-05-2023
 
 ### Added

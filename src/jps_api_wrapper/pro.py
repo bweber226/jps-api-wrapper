@@ -6471,30 +6471,31 @@ class Pro(RequestBuilder):
 
             Options:
             airPlayPassword, appAnalyticsEnabled, assetTag, availableSpaceMb,
-            batteryLevel, bluetoothLowEnergyCapable, bluetoothMacAddress,
-            capacityMb, declarativeDeviceManagementEnabled, deviceId,
-            deviceLocatorServiceEnabled, devicePhoneNumber,
-            diagnosticAndUsageReportingEnabled, displayName,
-            doNotDisturbEnabled, exchangeDeviceId, cloudBackupEnabled, osBuild,
+            batteryLevel, bluetoothLowEnergyCapable, bluetoothMacAddress, 
+            capacityMb, declarativeDeviceManagementEnabled, deviceId, 
+            deviceLocatorServiceEnabled, devicePhoneNumber, 
+            diagnosticAndUsageReportingEnabled, displayName, 
+            doNotDisturbEnabled, exchangeDeviceId, cloudBackupEnabled, osBuild, 
             osSupplementalBuildVersion, osVersion, osRapidSecurityResponse,
-            ipAddress, itunesStoreAccountActive, mobileDeviceId, languages,
-            locales, locationServicesForSelfServiceMobileEnabled,
-            lostModeEnabled, managed, model, modelIdentifier, modelNumber,
-            modemFirmwareVersion, quotaSize, residentUsers, serialNumber,
-            sharedIpad, supervised, tethered, timeZone, udid,
-            usedSpacePercentage, wifiMacAddress, building, department,
-            emailAddress, fullName, userPhoneNumber, position, room, username,
-            appleCareId, lifeExpectancyYears, poNumber, purchasePrice,
-            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
+            ipAddress, itunesStoreAccountActive, mobileDeviceId, languages, 
+            locales, locationServicesForSelfServiceMobileEnabled, 
+            lostModeEnabled, managed, model, modelIdentifier, modelNumber, 
+            modemFirmwareVersion, quotaSize, residentUsers, serialNumber, 
+            sharedIpad, supervised, tethered, timeZone, udid, 
+            usedSpacePercentage, wifiMacAddress, building, department, 
+            emailAddress, fullName, userPhoneNumber, position, room, username, 
+            appleCareId, lifeExpectancyYears, poNumber, purchasePrice, 
+            purchasedOrLeased, purchasingAccount, purchasingContact, vendor, 
             activationLockEnabled, blockEncryptionCapable, dataProtection,
-            fileEncryptionCapable, passcodeCompliant,
-            passcodeCompliantWithProfile,
-            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
-            personalDeviceProfileCurrent, carrierSettingsVersion,
-            currentCarrierNetwork, currentMobileCountryCode,
-            currentMobileNetworkCode, dataRoamingEnabled, eid, network,
-            homeMobileCountryCode, homeMobileNetworkCode, iccid, imei, imei2,
-            meid, personalHotspotEnabled, roaming
+            fileEncryptionCapable, passcodeCompliant, 
+            passcodeCompliantWithProfile, 
+            passcodeLockGracePeriodEnforcedSeconds,
+            passcodePresent, personalDeviceProfileCurrent, 
+            carrierSettingsVersion, currentCarrierNetwork,
+            currentMobileCountryCode, currentMobileNetworkCode, 
+            dataRoamingEnabled, eid, network, homeMobileCountryCode, 
+            homeMobileNetworkCode, iccid, imei, imei2, meid, 
+            personalHotspotEnabled, roaming
 
             Example: 'displayName=="iPad" and deviceId==1001'
         """
@@ -9016,7 +9017,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to change user password with. For syntax information view
             `Jamf's documentation.
-            <TODO Update on release>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-user-change-password>`__
 
         :returns: Updated user password information in JSON
         """
