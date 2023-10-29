@@ -8520,14 +8520,14 @@ class Pro(RequestBuilder):
         return self._post(
             endpoint, data, success_message="SMTP server test successfully created."
         )
-    
+
     def update_smtp_server(self, data: dict) -> dict:
         """
-        Updates SMTP server information. If requiresAuthentication is set to 
+        Updates SMTP server information. If requiresAuthentication is set to
         True, a username and password must be provided.
 
         :param data:
-            JSON data to update SMTP server with. For syntax information view 
+            JSON data to update SMTP server with. For syntax information view
             `Jamf's documentation.
             <TODO Add link on release>`__
 
