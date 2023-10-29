@@ -5170,6 +5170,176 @@ def test_update_mobile_device_extension_attributes(pro):
 
 
 """
+onboarding
+"""
+
+
+@responses.activate
+def test_get_onboarding_settings(pro):
+    """
+    Ensures that get_onboarding_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/onboarding")))
+    assert pro.get_onboarding_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_onboarding_eligible_apps(pro):
+    """
+    Ensures that get_onboarding_eligible_apps returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/onboarding/eligible-apps")))
+    assert pro.get_onboarding_eligible_apps() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_onboarding_eligible_apps_optional_params(pro):
+    """
+    Ensures that get_onboarding_eligible_apps returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/onboarding/eligible-apps")))
+    assert (
+        pro.get_onboarding_eligible_apps(0, 100, ["date:desc", "name:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_onboarding_eligible_configuration_profiles(pro):
+    """
+    Ensures that get_onboarding_eligible_configuration_profiles returns JSON
+    when used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/onboarding/eligible-configuration-profiles")
+        )
+    )
+    assert pro.get_onboarding_eligible_configuration_profiles() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_onboarding_eligible_configuration_profiles_optional_params(pro):
+    """
+    Ensures that get_onboarding_eligible_configuration_profiles returns JSON
+    when used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/onboarding/eligible-configuration-profiles")
+        )
+    )
+    assert (
+        pro.get_onboarding_eligible_configuration_profiles(
+            0, 100, ["date:desc", "name:asc"]
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_onboarding_eligible_policies(pro):
+    """
+    Ensures that get_onboarding_eligible_policies returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/onboarding/eligible-policies"))
+    )
+    assert pro.get_onboarding_eligible_policies() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_onboarding_eligible_policies_optional_params(pro):
+    """
+    Ensures that get_onboarding_eligible_policies returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/onboarding/eligible-policies"))
+    )
+    assert (
+        pro.get_onboarding_eligible_policies(0, 100, ["date:desc", "name:asc"])
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_onboarding_history(pro):
+    """
+    Ensures that get_onboarding_history returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/onboarding/history")))
+    assert pro.get_onboarding_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_onboarding_history_optional_params(pro):
+    """
+    Ensures that get_onboarding_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/onboarding/history")))
+    assert (
+        pro.get_onboarding_history(
+            0, 100, ["date:desc", "name:asc"], "username!=admin and date<2019-12-15"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_onboarding_history_export(pro):
+    """
+    Ensures that get_onboarding_history_export returns str when used without
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v1/onboarding/history/export"))
+    assert pro.get_onboarding_history_export() == ""
+
+
+@responses.activate
+def test_get_onboarding_history_export_optional_params(pro):
+    """
+    Ensures that get_onboarding_history_export returns str when used with all
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v1/onboarding/history/export"))
+    assert (
+        pro.get_onboarding_history_export(
+            ["id", "username"],
+            ["identification", "name"],
+            0,
+            100,
+            ["id:desc", "date:asc"],
+            'username=="exampleuser"',
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_create_onboarding_history_note(pro):
+    """
+    Ensures that create_onboarding_history_note returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/onboarding/history")))
+    assert pro.create_onboarding_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_onboarding_settings(pro):
+    """
+    Ensures that update_onboarding_settings returns JSON when used
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/onboarding")))
+    assert pro.update_onboarding_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
+"""
 parent-app-preview
 """
 
@@ -6462,6 +6632,75 @@ def test_create_smart_user_group_recalculate_group(pro):
 
 
 """
+smtp-server
+"""
+
+
+@responses.activate
+def test_get_smtp_server(pro):
+    """
+    Ensures that get_smtp_server returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/smtp-server")))
+    assert pro.get_smtp_server() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_smtp_server_history(pro):
+    """
+    Ensures that get_smtp_serve_history returns JSON when used without optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/smtp-server/history")))
+    assert pro.get_smtp_server_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_smtp_server_history_optional_params(pro):
+    """
+    Ensures that get_smtp_serve_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/smtp-server/history")))
+    assert (
+        pro.get_smtp_server_history(
+            0, 100, ["date:desc", "name:asc"], "username!=admin and date<2019-12-15"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_smtp_server_history_note(pro):
+    """
+    Ensures that get_smtp_serve_history_note returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/smtp-server/history")))
+    assert pro.create_smtp_server_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_smtp_server_test(pro):
+    """
+    Ensures that create_smtp_server_test returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/smtp-server/test")))
+    assert (
+        pro.create_smtp_server_test(EXPECTED_JSON)
+        == "SMTP server test successfully created."
+    )
+
+
+@responses.activate
+def test_update_smtp_server(pro):
+    """
+    Ensures that update_smtp_server returns JSON when used
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/smtp-server")))
+    assert pro.update_smtp_server(EXPECTED_JSON) == EXPECTED_JSON
+
+
+"""
 sso-certificate
 """
 
@@ -6564,7 +6803,7 @@ def test_get_sso_settings(pro):
     """
     Ensures that get_sso_settings returns JSON when used
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/sso")))
+    responses.add(response_builder("GET", jps_url("/api/v2/sso")))
     assert pro.get_sso_settings() == EXPECTED_JSON
 
 
@@ -6574,7 +6813,7 @@ def test_get_sso_settings_enrollment_customizations(pro):
     Ensures that get_sso_settings_enrollment_customization returns JSON when
     used
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/sso/dependencies")))
+    responses.add(response_builder("GET", jps_url("/api/v2/sso/dependencies")))
     assert pro.get_sso_settings_enrollment_customizations() == EXPECTED_JSON
 
 
@@ -6584,7 +6823,7 @@ def test_get_sso_settings_history(pro):
     Ensures that get_sso_settings_history returns JSON when used without
     optional params
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/sso/history")))
+    responses.add(response_builder("GET", jps_url("/api/v2/sso/history")))
     assert pro.get_sso_settings_history() == EXPECTED_JSON
 
 
@@ -6594,7 +6833,7 @@ def test_get_sso_settings_history_optional_params(pro):
     Ensures that get_sso_settings_history returns JSON when used with all
     optional params
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/sso/history")))
+    responses.add(response_builder("GET", jps_url("/api/v2/sso/history")))
     assert (
         pro.get_sso_settings_history(
             0,
@@ -6613,7 +6852,7 @@ def test_get_sso_settings_saml_metadata_file_notfound(pro):
     returns a 404 HTTPError
     """
     responses.add(
-        response_builder("GET", jps_url("/api/v1/sso/metadata/download"), status=404)
+        response_builder("GET", jps_url("/api/v2/sso/metadata/download"), status=404)
     )
     with pytest.raises(NotFound):
         pro.get_sso_settings_saml_metadata_file()
@@ -6625,7 +6864,7 @@ def test_create_sso_settings_disable(pro):
     Ensures that create_sso_settings_disable returns a success message str when
     used
     """
-    responses.add(response_builder("POST", jps_url("/api/v1/sso/disable")))
+    responses.add(response_builder("POST", jps_url("/api/v2/sso/disable")))
     assert pro.create_sso_settings_disable() == "SSO successfully disabled."
 
 
@@ -6635,7 +6874,7 @@ def test_create_sso_settings_history_note(pro):
     Ensures that create_sso_settings_history_note returns JSON when used with
     required params
     """
-    responses.add(response_builder("POST", jps_url("/api/v1/sso/history")))
+    responses.add(response_builder("POST", jps_url("/api/v2/sso/history")))
     assert pro.create_sso_settings_history_note(EXPECTED_JSON) == EXPECTED_JSON
 
 
@@ -6646,7 +6885,7 @@ def test_create_sso_settings_validate_saml_metadata_url(pro):
     success message str when used with required params and metadata URL is
     valid
     """
-    responses.add(response_builder("POST", jps_url("/api/v1/sso/validate")))
+    responses.add(response_builder("POST", jps_url("/api/v2/sso/validate")))
     assert (
         pro.create_sso_settings_validate_saml_metadata_url(EXPECTED_JSON)
         == "Metadata URL is valid."
@@ -6659,7 +6898,7 @@ def test_update_sso_settings(pro):
     Ensures that update_sso_settings returns JSON when used with required
     params
     """
-    responses.add(response_builder("PUT", jps_url("/api/v1/sso")))
+    responses.add(response_builder("PUT", jps_url("/api/v2/sso")))
     assert pro.update_sso_settings(EXPECTED_JSON) == EXPECTED_JSON
 
 

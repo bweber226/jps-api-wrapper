@@ -3167,6 +3167,46 @@ Pro
 
    |
 
+.. collapse:: onboarding
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_onboarding_settings
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_onboarding_eligible_apps
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_onboarding_eligible_configuration_profiles
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_onboarding_eligible_policies
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_onboarding_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_onboarding_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_onboarding_history_export
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_onboarding_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_onboarding_settings
+   
+   |
+
 .. collapse:: parent-app-preview
 
    |
@@ -3540,6 +3580,30 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.create_smart_user_group_recalculate_group
+
+   |
+
+.. collapse:: smtp-server
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_smtp_server
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_smtp_server_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_smtp_server_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_smtp_server_test
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_smtp_server
 
    |
 

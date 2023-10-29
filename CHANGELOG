@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] -- TODO ADD DATE BEFORE RELEASE
+
+### Added
+- Pro.get_onboarding_settings which returns the current onboarding settings configuration
+- Pro.get_onboarding_eligible_apps which returns a list of applications that are eligible to be used in an onboarding configuration
+- Pro.get_onboarding_eligible_configuration_profiles which returns a list of configuration profiles that are eligible to be used in an onboarding configuration
+- Pro.get_onboarding_eligible_policies which returns a list of policies that are eligible to be used in an onboarding configuration
+- Pro.get_onboarding_history which returns onboarding history
+- Pro.get_onboarding_history_export which exports onboarding history collection in CSV format
+- Pro.create_onboarding_history_note which creates an onboarding history note with JSON
+- Pro.update_onboarding_settings which updates the onboarding settings with JSON
+- Pro.get_smtp_server which returns the SMTP server information
+- Pro.get_smtp_server_history which returns SMTP server history
+- Pro.create_smtp_server_history_note which creates a SMTP server history note with JSON
+- Pro.create_smtp_server_test which creates a SMTP server functionality test
+- Pro.update_smtp_server which updates SMTP server information
+
+### Changed
+- Pro.get_sso_settings updated to use v2 endpoint
+- Pro.get_sso_settings_enrollment_customizations updated to use v2 endpoint
+- Pro.get_sso_settings_history updated to use v2 endpoint
+- Pro.get_sso_settings_saml_metadata_file updated to use v2 endpoint
+- Pro.create_sso_settings_disable updated to use v2 endpoint
+- Pro.create_sso_settings_history_note updated to use v2 endpoint
+- Pro.create_sso_settings_validate_saml_metadata_url updated to use v2 endpoint
+- Pro.update_sso_settings updated to use v2 endpoint
+
 ## [1.10.0] -- 10-17-2023
 
 ### Added

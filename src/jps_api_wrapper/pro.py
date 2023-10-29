@@ -6580,6 +6580,254 @@ class Pro(RequestBuilder):
         return self._patch(endpoint, data)
 
     """
+    onboarding
+    """
+
+    def get_onboarding_settings(self) -> dict:
+        """
+        Returns the current onboarding settings configuration
+
+        :returns: Current onboarding settings configuration in JSON
+        """
+        endpoint = "/api/v1/onboarding"
+
+        return self._get(endpoint)
+
+    def get_onboarding_eligible_apps(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+    ) -> dict:
+        """
+        Returns a list of applications that are eligible to be used in an
+        onboarding configuration
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :returns:
+            Applications that are eligible to be used in an onboarding
+            configuration in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/onboarding/eligible-apps"
+
+        return self._get(endpoint, params=params)
+
+    def get_onboarding_eligible_configuration_profiles(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+    ) -> dict:
+        """
+        Returns a list of configuration profiles that are eligible to be used
+        in an onboarding configuration
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :returns:
+            Configuration profiles that are eligible to be used in an
+            onboarding configuration in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/onboarding/eligible-configuration-profiles"
+
+        return self._get(endpoint, params=params)
+
+    def get_onboarding_eligible_policies(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+    ) -> dict:
+        """
+        Returns a list of policies that are eligible to be used in an
+        onboarding configuration
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :returns:
+            Policies that are eligible to be used in an onboarding
+            configuration in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+            }
+        )
+        endpoint = "/api/v1/onboarding/eligible-policies"
+
+        return self._get(endpoint, params=params)
+
+    def get_onboarding_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns onboarding history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["date:desc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: 'username!=admin and date<2019-12-15'
+
+        :returns:
+            Onboarding history in JSON
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v1/onboarding/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_onboarding_history_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Exports onboarding history collection in CSV format
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Options: id, username, date, note, details
+
+            Example: ["id", "username"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["identification", "name"] with
+            matching: export_fields=["id", "username"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["date:desc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["id:desc", "date:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: 'username=="exampleuser"'
+        """
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = "/api/v1/onboarding/history/export"
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def create_onboarding_history_note(self, data: dict) -> dict:
+        """
+        Creates an onboarding history note with JSON
+
+        :param data:
+            JSON data to create the onboarding history note with. For syntax
+            information view `Jamf's documentation.
+            <TODO ADD LINK ON RELEASE>`__
+
+        :returns:
+            New onboarding history note information in JSON
+        """
+        endpoint = "/api/v1/onboarding/history"
+
+        return self._post(endpoint, data)
+
+    def update_onboarding_settings(self, data: dict) -> dict:
+        """
+        Updates the onboarding settings with JSON
+
+        :param data:
+            JSON data to update the onboarding settings with. For syntax
+            information view `Jamf's documentation.
+            <TODO ADD LINK ON RELEASE>`__
+
+        :returns: Updated onboarding settings in JSON
+        """
+        endpoint = "/api/v1/onboarding"
+
+        return self._put(endpoint, data)
+
+    """
     parent-app-preview
     """
 
@@ -6619,7 +6867,7 @@ class Pro(RequestBuilder):
             date, note, details. This param can be combined with paging and
             sorting.
 
-            Example: username!=admin and details==disabled and date<2019-12-15
+            Example: 'username!=admn and details==disabled and date<2019-12-15'
 
         :returns: Jamf Parent app settings history information in JSON
         """
@@ -6635,7 +6883,7 @@ class Pro(RequestBuilder):
         Creates a Jamf Parent app settings history note with JSON
 
         :param data:
-            JSON data to create the jamf parent app settings history note with.
+            JSON data to create the Jamf parent app settings history note with.
             For syntax information view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/post_v1-parent-app-history>`__
 
@@ -8190,6 +8438,106 @@ class Pro(RequestBuilder):
         return self._post(endpoint)
 
     """
+    smtp-server
+    """
+
+    def get_smtp_server(self) -> dict:
+        """
+        Returns the SMTP server information
+
+        :returns: SMTP server information in JSON
+        """
+        endpoint = "/api/v1/smtp-server"
+
+        return self._get(endpoint)
+
+    def get_smtp_server_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns SMTP server history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["date:desc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: 'username!=admin and date<2019-12-15'
+
+        :returns:
+            SMTP server history in JSON
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v1/smtp-server/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_smtp_server_history_note(self, data: dict) -> dict:
+        """
+        Creates a SMTP server history note with JSON
+
+        :param data:
+            JSON data to create SMTP server history note with. For syntax
+            information view `Jamf's documentation.
+            <TODO Add link on release>`__
+
+        :returns: New SMTP server history note in JSON
+        """
+        endpoint = "/api/v1/smtp-server/history"
+
+        return self._post(endpoint, data)
+
+    def create_smtp_server_test(self, data: dict) -> str:
+        """
+        Creates a SMTP server functionality test
+
+        :param data:
+            JSON data to create SMTP server functionality test with. For syntax
+            information view `Jamf's documentation.
+            <TODO Add link on release>`__
+
+        :returns: Success message stating the SMTP server test was created
+        """
+        endpoint = "/api/v1/smtp-server/test"
+
+        return self._post(
+            endpoint, data, success_message="SMTP server test successfully created."
+        )
+    
+    def update_smtp_server(self, data: dict) -> dict:
+        """
+        Updates SMTP server information. If requiresAuthentication is set to 
+        True, a username and password must be provided.
+
+        :param data:
+            JSON data to update SMTP server with. For syntax information view 
+            `Jamf's documentation.
+            <TODO Add link on release>`__
+
+        :returns: Updated SMTP server information in JSON
+        """
+        endpoint = "/api/v1/smtp-server"
+
+        return self._put(endpoint, data)
+
+    """
     sso-certificate
     """
 
@@ -8314,7 +8662,7 @@ class Pro(RequestBuilder):
 
         :returns: SSO settings in JSON
         """
-        endpoint = "/api/v1/sso"
+        endpoint = "/api/v2/sso"
 
         return self._get(endpoint)
 
@@ -8324,7 +8672,7 @@ class Pro(RequestBuilder):
 
         :returns: Enrollment customization using SSO in JSON
         """
-        endpoint = "/api/v1/sso/dependencies"
+        endpoint = "/api/v2/sso/dependencies"
 
         return self._get(endpoint)
 
@@ -8366,7 +8714,7 @@ class Pro(RequestBuilder):
                 "filter": filter,
             }
         )
-        endpoint = "/api/v1/sso/history"
+        endpoint = "/api/v2/sso/history"
 
         return self._get(endpoint, params=params)
 
@@ -8379,7 +8727,7 @@ class Pro(RequestBuilder):
             Success message stating the SAML metadata file was downloaded to
             the user's Downloads folder
         """
-        endpoint = "/api/v1/sso/metadata/download"
+        endpoint = "/api/v2/sso/metadata/download"
 
         return self._download(endpoint)
 
@@ -8389,7 +8737,7 @@ class Pro(RequestBuilder):
 
         :returns: Disabled SSO information in JSON
         """
-        endpoint = "/api/v1/sso/disable"
+        endpoint = "/api/v2/sso/disable"
 
         return self._post(endpoint, success_message="SSO successfully disabled.")
 
@@ -8398,13 +8746,14 @@ class Pro(RequestBuilder):
         Creates SSO history note with JSON
 
         :param data:
+            TODO DOUBLE CHECK URL
             JSON data to create SSO history note with. For syntax information
             view `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/post_v1-sso-history>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-sso-history>`__
 
         :returns: New SSO settings history note information in JSON
         """
-        endpoint = "/api/v1/sso/history"
+        endpoint = "/api/v2/sso/history"
 
         return self._post(endpoint, data)
 
@@ -8413,13 +8762,14 @@ class Pro(RequestBuilder):
         Validates content available under provided metadata URL with JSON
 
         :param data:
+            TODO DOUBLE CHECK URL
             JSON data to validate. For syntax information view `Jamf's
             documentation.
-            <https://developer.jamf.com/jamf-pro/reference/post_v1-sso-validate>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-sso-validate>`__
 
         :returns: Success message stating the metadata URL is valid
         """
-        endpoint = "/api/v1/sso/validate"
+        endpoint = "/api/v2/sso/validate"
 
         return self._post(endpoint, data, success_message="Metadata URL is valid.")
 
@@ -8428,13 +8778,14 @@ class Pro(RequestBuilder):
         Updates the current SSO configuration settings
 
         :param data:
+            TODO DOUBLE CHECK URL
             JSON data to update the SSO settings with. For syntax information
             view `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/put_v1-sso>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-sso>`__
 
         :returns: Updated SSO settings information in JSON
         """
-        endpoint = "/api/v1/sso"
+        endpoint = "/api/v2/sso"
 
         return self._put(endpoint, data)
 
