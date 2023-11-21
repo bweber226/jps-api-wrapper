@@ -6803,7 +6803,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the onboarding history note with. For syntax
             information view `Jamf's documentation.
-            <TODO ADD LINK ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-onboarding-history>`__
 
         :returns:
             New onboarding history note information in JSON
@@ -6819,7 +6819,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the onboarding settings with. For syntax
             information view `Jamf's documentation.
-            <TODO ADD LINK ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-onboarding>`__
 
         :returns: Updated onboarding settings in JSON
         """
@@ -8496,7 +8496,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create SMTP server history note with. For syntax
             information view `Jamf's documentation.
-            <TODO Add link on release>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-smtp-server-history>`__
 
         :returns: New SMTP server history note in JSON
         """
@@ -8511,7 +8511,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create SMTP server functionality test with. For syntax
             information view `Jamf's documentation.
-            <TODO Add link on release>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-smtp-server-test>`__
 
         :returns: Success message stating the SMTP server test was created
         """
@@ -8529,7 +8529,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update SMTP server with. For syntax information view
             `Jamf's documentation.
-            <TODO Add link on release>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-smtp-server>`__
 
         :returns: Updated SMTP server information in JSON
         """
@@ -8746,7 +8746,6 @@ class Pro(RequestBuilder):
         Creates SSO history note with JSON
 
         :param data:
-            TODO DOUBLE CHECK URL
             JSON data to create SSO history note with. For syntax information
             view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/post_v2-sso-history>`__
@@ -8762,7 +8761,6 @@ class Pro(RequestBuilder):
         Validates content available under provided metadata URL with JSON
 
         :param data:
-            TODO DOUBLE CHECK URL
             JSON data to validate. For syntax information view `Jamf's
             documentation.
             <https://developer.jamf.com/jamf-pro/reference/post_v2-sso-validate>`__
@@ -8778,7 +8776,6 @@ class Pro(RequestBuilder):
         Updates the current SSO configuration settings
 
         :param data:
-            TODO DOUBLE CHECK URL
             JSON data to update the SSO settings with. For syntax information
             view `Jamf's documentation.
             <https://developer.jamf.com/jamf-pro/reference/put_v2-sso>`__
