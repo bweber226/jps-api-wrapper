@@ -2,7 +2,7 @@
 
 [![GitLab](https://img.shields.io/gitlab/license/cvtc/appleatcvtc/jps-api-wrapper?style=flat-square)]()
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/jps-api-wrapper)](https://img.shields.io/pypi/dm/jps-api-wrapper?style=flat-square)
+[![Downloads](https://static.pepy.tech/badge/jps-api-wrapper/month)](https://pepy.tech/project/jps-api-wrapper)
 
 The JPS (Jamf Pro Server) API Wrapper encapsulates all available endpoints in the Classic and Pro versions of the Jamf API to make them easier and faster to use in Python.
 
