@@ -6404,7 +6404,7 @@ class Pro(RequestBuilder):
         section: List[str] = None,
         page: int = None,
         page_size: int = None,
-        sort: List[str] = ["date:desc"],
+        sort: List[str] = ["displayName:asc"],
         filter: str = None,
     ) -> dict:
         """
