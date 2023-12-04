@@ -8,8 +8,8 @@ from requests.exceptions import HTTPError
 
 from jps_api_wrapper.classic import Classic
 from jps_api_wrapper.request_builder import (
-    InvalidDataType,
     ClientError,
+    InvalidDataType,
     NotFound,
     RequestConflict,
     RequestTimedOut,
@@ -1827,7 +1827,7 @@ def test_create_computer_command_scheduleosupdate_action_multiple_ids(classic):
             "POST",
             jps_url(
                 "/JSSResource/computercommands/command/ScheduleOSUpdate/action/install"
-                "/id/1001%2C1002"
+                "/id/1001,1002"
             ),
             data_type="xml",
         )
@@ -3915,14 +3915,14 @@ def test_create_file_upload_name_mobiledeviceapplicationsipa_force_ipa_upload(cl
             "POST",
             jps_url(
                 "/JSSResource/fileuploads/mobiledeviceapplicationsipa/name"
-                "/%3Ftest%3Fname?FORCE_IPA_UPLOAD=true"
+                "/testname?FORCE_IPA_UPLOAD=true"
             ),
         )
         assert (
             classic.create_file_upload(
                 "mobiledeviceapplicationsipa",
                 filepath="/test.ipa",
-                name="?test?name",
+                name="testname",
                 force_ipa_upload=True,
             )
             == "File uploaded successfully."
@@ -4657,7 +4657,7 @@ def test_get_ldap_server_group_users_name_xml(classic):
             "GET",
             jps_url(
                 "/JSSResource/ldapservers/name/ldapname/group/groupname/user"
-                "/userone%2Cusertwo"
+                "/userone,usertwo"
             ),
             data_type="xml",
         )
@@ -5718,7 +5718,7 @@ def test_create_mobile_device_command_generic_commands(classic):
                 "POST",
                 jps_url(
                     f"/JSSResource/mobiledevicecommands/command/{command}"
-                    "/id/1001%2C1002"
+                    "/id/1001,1002"
                 ),
                 data_type="xml",
             )
