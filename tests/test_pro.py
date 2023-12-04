@@ -1,12 +1,12 @@
+from unittest import mock
+
 import pytest
 import requests
 import responses
 from requests.auth import AuthBase
-from unittest import mock
 
 from jps_api_wrapper.pro import Pro
 from jps_api_wrapper.request_builder import InvalidDataType, NotFound
-
 
 MOCK_AUTH_STRING = "This is a MockAuth"
 EXPECTED_AUTH = {"Authorization": MOCK_AUTH_STRING}

@@ -96,7 +96,7 @@ class RequestBuilder:
         :raises InvalidDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint, safe="/,")
         if not headers:
             headers = {"Accept": f"application/{data_type}"}
         response = self.session.get(full_url, headers=headers, params=params)
@@ -121,7 +121,7 @@ class RequestBuilder:
         :param params:
             Optional params for the request
         """
-        full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint, safe="/,")
         headers = {"Accept": "application/json"}
         response = self.session.get(full_url, headers=headers, params=params)
         self._raise_recognized_errors(response)
@@ -191,7 +191,8 @@ class RequestBuilder:
         :raises InvalidDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint, safe="/,")
+        full_url = self.base_url + endpoint
         if not file:
             if not headers:
                 headers = {"Content-type": f"application/{data_type}"}
@@ -243,7 +244,7 @@ class RequestBuilder:
         :raises InvalidDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint, safe="/,")
         headers = {"Content-type": f"application/{data_type}"}
         if data_type == "xml":
             response = self.session.put(
@@ -289,7 +290,7 @@ class RequestBuilder:
         :raises InvalidDataType:
             data_type is not json or xml
         """
-        full_url = self.base_url + quote(endpoint)
+        full_url = self.base_url + quote(endpoint, safe="/,")
         headers = {"Content-type": f"application/{data_type}"}
         if data_type == "xml":  # pragma: no cover
             response = self.session.patch(
@@ -338,7 +339,7 @@ class RequestBuilder:
         """
         # + was added as a safe character to make
         # Classic.log_flush_interval work, need to find a better workaround
-        full_url = self.base_url + quote(endpoint, safe="/+")
+        full_url = self.base_url + quote(endpoint, safe="/+,")
         headers = {"Content-type": f"application/{data_type}"}
         response = self.session.delete(
             full_url, headers=headers, data=data, params=params
