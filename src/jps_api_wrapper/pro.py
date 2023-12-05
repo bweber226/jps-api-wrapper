@@ -1406,6 +1406,22 @@ class Pro(RequestBuilder):
         )
 
     """
+    cloud-distribution-point
+    """
+
+    def get_cloud_distribution_point_upload_capability(self) -> dict:
+        """
+        Returns a variety of values based on the currently configured
+        Cloud Distrbution Point
+
+        :returns:
+            Cloud distribution point upload capability information in JSON
+        """
+        endpoint = "/api/v1/cloud-distribution-point/upload-capability"
+
+        return self._get(endpoint)
+
+    """
     cloud-idp
     """
 
@@ -2469,6 +2485,16 @@ class Pro(RequestBuilder):
     conditional-access
     """
 
+    def get_conditional_access_feature_toggle(self) -> dict:
+        """
+        Returns the status of the conditional access feature toggle
+
+        :returns: Conditional access feature toggle information in JSON
+        """
+        endpoint = "/api/v1/conditional-access/device-compliance/feature-toggle"
+
+        return self._get(endpoint)
+
     def get_conditional_access_computer(self, id: Union[int, str]) -> dict:
         """
         Returns basic compliance information for the given computer by ID
@@ -3084,6 +3110,67 @@ class Pro(RequestBuilder):
         endpoint = f"/api/v1/device-enrollments/{id}/devices"
 
         return self._get(endpoint)
+
+    """
+    dock-items
+    """
+
+    def get_dock_item(self, id: Union[int, str]) -> dict:
+        """
+        Returns a dock item with the supplied ID
+
+        :param id: Dock item ID
+
+        :returns: Dock item information in JSON
+        """
+        endpoint = f"/api/v1/dock-items/{id}"
+
+        return self._get(endpoint)
+
+    def create_dock_item(self, data: dict) -> dict:
+        """
+        Creates a dock item with JSON data
+
+        :param data:
+            JSON data to create the dock item with. For syntax information
+            view `Jamf's documentation.
+            <TODO ADD AFTER RELEASE>`__
+
+        :returns: New dock item information in JSON
+        """
+        endpoint = "/api/v1/dock-items"
+
+        return self._post(endpoint, data)
+
+    def update_dock_item(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a dock item by ID with JSON data
+
+        :param data:
+            JSON data to update the dock item with. For syntax information
+            view `Jamf's documentation.
+            <TODO ADD AFTER RELEASE>`__
+        :param id: Dock item ID
+
+        :returns: Updated dock item information in JSON
+        """
+        endpoint = f"/api/v1/dock-items/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_dock_item(self, id: Union[int, str]) -> str:
+        """
+        Deletes a dock item by ID
+
+        :param id: Dock item ID
+
+        :returns: Success message stating the dock item was deleted
+        """
+        endpoint = f"/api/v1/dock-items/{id}"
+
+        return self._delete(
+            endpoint, success_message=f"Dock item {id} successfully deleted."
+        )
 
     """
     ebooks
@@ -4699,6 +4786,79 @@ class Pro(RequestBuilder):
         return self._put(endpoint, data)
 
     """
+    jamf-content-distribution-server
+    """
+
+    def get_jamf_content_distribution_server_files(self) -> List[dict]:
+        """
+        Returns a list of files and file metadata from the Jamf Content
+        Distribution Server
+
+        :returns:
+            List of files and file metadata from the Jamf Content Distribution
+            Server
+        """
+        endpoint = "/api/v1/jcds/files"
+
+        return self._get(endpoint)
+
+    def get_jamf_content_distribution_server_file(self, file_name: str) -> dict:
+        """
+        Returns a download URL for a specific file from the Jamf Content
+        Distribution Server
+
+        :param file_name: Name of the file
+
+        :returns:
+            Download URL for a specific file from the Jamf Content in JSON
+        """
+        endpoint = f"/api/v1/jcds/files/{file_name}"
+
+        return self._get(endpoint)
+
+    def create_jamf_content_distribution_server_upload(self) -> dict:
+        """
+        Creates a temporary record and returns the credentials and information
+        needed for uploading the file to the Jamf Content Distribution Server
+
+        :returns:
+            Credentials and information needed for uploading the file to the
+            Jamf Content Distribution Server in JSON
+        """
+        endpoint = "/api/v1/jcds/files"
+
+        return self._post(endpoint)
+
+    def create_jamf_content_distribution_server_renew_credentials(self) -> dict:
+        """
+        Renews the credentials needed for uploading the file to the Jamf
+        Content Distribution Server
+
+        :returns:
+            Credentials and information needed for uploading the file to the
+            Jamf Content Distribution Server in JSON
+        """
+        endpoint = "/api/v1/jcds/renew-credentials"
+
+        return self._post(endpoint)
+
+    def delete_jamf_content_distribution_server_file(self, file_name: str) -> str:
+        """
+        Deletes a file from the Jamf Content Distribution Server by file name
+
+        :param file_name: Name of the file
+
+        :returns:
+            Success message stating the file was deleted from the Jamf Content
+            Distribution Server
+        """
+        endpoint = f"/api/v1/jcds/files/{file_name}"
+
+        return self._delete(
+            endpoint, success_message=f"File {file_name} successfully deleted."
+        )
+
+    """
     jamf-management-framework
     """
 
@@ -4736,6 +4896,26 @@ class Pro(RequestBuilder):
         endpoint = "/api/v2/jamf-package"
 
         return self._get(endpoint, params=params)
+
+    """
+    jamf-pro-account-preferences
+    """
+
+    def get_jamf_pro_account_preferences(self, accept_language: str) -> dict:
+        """
+        TODO Add on release when the other documentation is out
+
+        Needs to be added to CHANGELOG and docs as well
+        """
+
+    def update_jamf_pro_account_preferences(
+        self, data: dict, accept_language: str, jsessionid: str = None
+    ) -> dict:
+        """
+        TODO Add on release when the other documentation is out
+
+        Needs to be added to CHANGELOG and docs as well
+        """
 
     """
     jamf-pro-information
@@ -5286,6 +5466,22 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def get_local_admin_password_history(self, clientManagementId: str) -> dict:
+        """
+        Returns the full history of all local admin passwords for all accounts
+        for a specific management ID. History will include password, who viewed
+        the password and when it was viewed. This will include rotation history
+        as well.
+
+        :param clientManagementId: Client management ID of target device
+
+        :returns:
+            LAPS password viewed history for the device in JSON
+        """
+        endpoint = f"/api/v2/local-admin-password/{clientManagementId}/history"
+
+        return self._get(endpoint)
+
     def get_local_admin_password_user_audit(
         self, clientManagementId: str, username: str
     ) -> dict:
@@ -5735,19 +5931,16 @@ class Pro(RequestBuilder):
 
     def create_mdm_command(self, data: dict) -> dict:
         """
-        PREVIEW: THIS ENDPOINT IS A PREVIEW, IT CAN BE CHANGED OR REMOVED
-        ON FUTURE JAMF PRO RELEASES. NOT RECOMMENDED FOR PRODUCTION USE.
-
         Create and queue an MDM command with given JSON data
 
         :param data:
             JSON data to create the MDM command with. For syntax information
             view `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/post_preview-mdm-commands>`__
+            <TODO ADD ON RELEASE>`__
 
         :returns: New MDM command information in JSON
         """
-        endpoint = "/api/preview/mdm/commands"
+        endpoint = "/api/v2/mdm/commands"
 
         return self._post(endpoint, data)
 
@@ -8323,7 +8516,7 @@ class Pro(RequestBuilder):
     sites
     """
 
-    def get_sites(self) -> dict:
+    def get_sites(self) -> List[dict]:
         """
         Returns all sites
 
@@ -8332,6 +8525,68 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/sites"
 
         return self._get(endpoint)
+
+    def get_site_objects(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["objectType:asc"],
+        filter: str = None,
+    ) -> List[dict]:
+        """
+        Returns site objects for Site ID, with the ability to filter out
+        different object types and object IDs for the site ID
+
+        :param id: Site ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorts results by one or more criteria, following the format
+            ["property:asc/desc"]. Default sort is "objectType:asc".
+
+            Example: ["objectType:desc", "objectId:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter the site objects
+            collection. Default filter is empty string - returning all results
+            for the requested page. Fields allowed in the query: objectType,
+            objectId.
+
+            List of objectType options (case-insensitive):
+            "Computer", "Peripheral", "Licensed Software",
+            "Licensed Software Template", "Policy",
+            "macOS Configuration Profile", "Restricted Software",
+            "Managed Preference Profile", "Computer Group", "Mobile Device",
+            "Apple TV", "Android Device", "User Group",
+            "iOS Configuration Profile", "Mobile Device App", "E-book",
+            "Mobile Device Group", "Classroom", "Advanced Computer Search",
+            "Advanced Mobile Search", "Advanced User Search",
+            "Advanced User Content Search", "Computer Invitation",
+            "Mobile Device Invitation", "Mobile Device Enrollment Profile",
+            "Device Enrollment Program Instance", "Mobile Device Prestage",
+            "Computer DEP Prestage", "Enrollment Customization",
+            "VPP Location", "VPP Subscription", "VPP Invitation",
+            "VPP Assignment", "User", "Network Integration", "Mac App",
+            "App Installer", "BYO Profile", "Self Service Plugin",
+            "Software Title", "Patch Software Title Summary", "Patch Policy",
+            "Patch Software Title Configuration", "Change Password",
+            "Mobile Device Inventory", "Computer Inventory",
+            "Change Management", "Licensed Software License"
+
+            Example: 'objectType=="Computer" and objectId=="1"'
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/sites/{id}/objects"
+
+        return self._get(endpoint, params=params)
 
     """
     sites-preview
@@ -9948,6 +10203,48 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def get_volume_purchasing_subscription_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns sorted and paginated volume purchasing subscription history by
+        ID
+
+        :param id: Volume purchasing subscription ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details.
+
+            Example: "username!=admin and details==disabled and date<2019-12-15"
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}/history"
+
+        return self._get(endpoint, params=params)
+
     def create_volume_purchasing_subscription(self, data: dict) -> dict:
         """
         Creates a volume purchasing subscription with JSON
@@ -9960,6 +10257,25 @@ class Pro(RequestBuilder):
         :returns: New volume purchasing subscription information in JSON
         """
         endpoint = "/api/v1/volume-purchasing-subscriptions"
+
+        return self._post(endpoint, data)
+
+    def create_volume_purchasing_subscription_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a volume purchasing subscription history note by ID with JSON
+
+        :param data:
+            JSON data to create volume purchasing subscription history note
+            with. For syntax information view `Jamf's documentation.
+            <TODO ADD ON RELEASE>`__
+        :param id: Volume purchasing subscription ID
+
+        :returns:
+            New volume purchasing subscription history note information in JSON
+        """
+        endpoint = f"/api/v1/volume-purchasing-subscriptions/{id}/history"
 
         return self._post(endpoint, data)
 

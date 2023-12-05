@@ -1166,6 +1166,25 @@ def test_delete_cloud_azure_identity_provider_configuration(pro):
 
 
 """
+cloud-distribution-point
+"""
+
+
+@responses.activate
+def test_get_cloud_distribution_point_upload_capability(pro):
+    """
+    Ensures that get_cloud_distribution_point_upload_capability returns JSON
+    when used
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/cloud-distribution-point/upload-capability")
+        )
+    )
+    assert pro.get_cloud_distribution_point_upload_capability() == EXPECTED_JSON
+
+
+"""
 cloud-idp
 """
 
@@ -1915,6 +1934,20 @@ conditional-access
 
 
 @responses.activate
+def test_get_conditional_access_feature_toggle(pro):
+    """
+    Ensures that get_conditional_access_feature_toggle returns JSON when used
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/conditional-access/device-compliance/feature-toggle"),
+        )
+    )
+    assert pro.get_conditional_access_feature_toggle() == EXPECTED_JSON
+
+
+@responses.activate
 def test_get_conditional_access_computer(pro):
     """
     Ensures that get_conditional_access_computer returns JSON when used with
@@ -2402,6 +2435,48 @@ def test_get_device_enrollments_devices(pro):
         response_builder("GET", jps_url("/api/v1/device-enrollments/1001/devices"))
     )
     assert pro.get_device_enrollments_devices(1001) == EXPECTED_JSON
+
+
+"""
+dock-items
+"""
+
+
+@responses.activate
+def test_get_dock_item(pro):
+    """
+    Ensures that get_dock_item returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/dock-items/1001")))
+    assert pro.get_dock_item(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_dock_item(pro):
+    """
+    Ensures that create_dock_item returns JSON when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/dock-items")))
+    assert pro.create_dock_item(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_dock_item(pro):
+    """
+    Ensures that update_dock_item returns JSON when used with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/dock-items/1001")))
+    assert pro.update_dock_item(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_dock_item(pro):
+    """
+    Ensures that delete_dock_item returns a success message str when used with
+    required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/dock-items/1001")))
+    assert pro.delete_dock_item(1001) == "Dock item 1001 successfully deleted."
 
 
 """
@@ -3662,6 +3737,66 @@ def test_update_jamf_connect_app_update_method(pro):
 
 
 """
+jamf-content-distribution-server
+"""
+
+
+@responses.activate
+def test_get_jamf_content_distribution_server_files(pro):
+    """
+    Ensures that get_jamf_content_distribution_server_files returns JSON when
+    used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jcds/files")))
+    assert pro.get_jamf_content_distribution_server_files() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_content_distribution_server_file(pro):
+    """
+    Ensures that get_jamf_content_distribution_server_file returns JSON when
+    used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jcds/files/example")))
+    assert pro.get_jamf_content_distribution_server_file("example") == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_jamf_content_distribution_server_upload(pro):
+    """
+    Ensures that create_jamf_content_distribution_server_upload returns JSON
+    when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/jcds/files")))
+    assert pro.create_jamf_content_distribution_server_upload() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_jamf_content_distribution_server_renew_credentials(pro):
+    """
+    Ensures that create_jamf_content_distribution_server_renew_credentials
+    returns JSON when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/jcds/renew-credentials")))
+    assert (
+        pro.create_jamf_content_distribution_server_renew_credentials() == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_jamf_content_distribution_server_file(pro):
+    """
+    Ensures that delete_jamf_content_distribution_server_file returns a success
+    message str when used with required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/jcds/files/example")))
+    assert (
+        pro.delete_jamf_content_distribution_server_file("example")
+        == "File example successfully deleted."
+    )
+
+
+"""
 jamf-management-framework
 """
 
@@ -3701,6 +3836,27 @@ def test_get_jamf_package_valueerror(pro):
     """
     with pytest.raises(ValueError):
         pro.get_jamf_package("test")
+
+
+"""
+jamf-pro-account-preferences
+"""
+
+
+@responses.activate
+def test_get_jamf_pro_account_preferences(pro):
+    """
+    Ensures that get_jamf_pro_account_preferences returns JSON when used
+    """
+    # TODO - Waiting on documentation to make this one
+
+
+@responses.activate
+def test_update_jamf_pro_account_preferences(pro):
+    """
+    Ensures that update_jamf_pro_account_preferences returns JSON when used
+    """
+    # TODO - Waiting on documentation to make this one
 
 
 """
@@ -4179,6 +4335,20 @@ def test_get_local_admin_password_accounts(pro):
 
 
 @responses.activate
+def test_get_local_admin_password_history(pro):
+    """
+    Ensures that get_local_admin_password_history returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/local-admin-password/1a2b-3c4d/history")
+        )
+    )
+    assert pro.get_local_admin_password_history("1a2b-3c4d") == EXPECTED_JSON
+
+
+@responses.activate
 def test_get_local_admin_password_user_audit(pro):
     """
     Ensures that get_local_admin_password_user_audit returns JSON when used
@@ -4573,7 +4743,7 @@ def test_create_mdm_command(pro):
     """
     Ensures that create_mdm_command returns JSON when used with required params
     """
-    responses.add(response_builder("POST", jps_url("/api/preview/mdm/commands")))
+    responses.add(response_builder("POST", jps_url("/api/v2/mdm/commands")))
     assert pro.create_mdm_command(EXPECTED_JSON) == EXPECTED_JSON
 
 
@@ -6528,6 +6698,33 @@ def test_get_sites(pro):
     assert pro.get_sites() == EXPECTED_JSON
 
 
+@responses.activate
+def test_get_site_objects(pro):
+    """
+    Ensures that get_site_objects returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sites/1001/objects")))
+    assert pro.get_site_objects(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_site_objects_optional_params(pro):
+    """
+    Ensures that get_site_objects returns JSON when used with all optional
+    params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/sites/1001/objects")))
+    assert (
+        pro.get_site_objects(
+            1001,
+            0,
+            100,
+            ["objectType:desc", "objectId:asc"],
+            'objectType=="Computer" and objectId=="1"',
+        )
+    ) == EXPECTED_JSON
+
+
 """
 sites-preview
 """
@@ -7887,6 +8084,45 @@ def test_get_volume_purchasing_subscription(pro):
 
 
 @responses.activate
+def test_get_volume_purchasing_subscription_history(pro):
+    """
+    Ensures that get_volume_purchasing_subscription_history returns JSON when
+    used without optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/volume-purchasing-subscriptions/1001/history"),
+        )
+    )
+    assert pro.get_volume_purchasing_subscription_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_volume_purchasing_subscription_history_optional_params(pro):
+    """
+    Ensures that get_volume_purchasing_subscription_history returns JSON when
+    used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/volume-purchasing-subscriptions/1001/history"),
+        )
+    )
+    assert (
+        pro.get_volume_purchasing_subscription_history(
+            1001,
+            0,
+            100,
+            ["date:desc", "note:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
 def test_create_volume_purchasing_subscription(pro):
     """
     Ensures that create_volume_purchasing_subscription returns JSON when used
@@ -7896,6 +8132,24 @@ def test_create_volume_purchasing_subscription(pro):
         response_builder("POST", jps_url("/api/v1/volume-purchasing-subscriptions"))
     )
     assert pro.create_volume_purchasing_subscription(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_volume_purchasing_subscription_history_note(pro):
+    """
+    Ensures that create_volume_purchasing_subscription_history_note returns
+    JSON when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v1/volume-purchasing-subscriptions/1001/history"),
+        )
+    )
+    assert (
+        pro.create_volume_purchasing_subscription_history_note(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
 
 
 @responses.activate

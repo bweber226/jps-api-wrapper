@@ -1966,6 +1966,14 @@ Pro
 
    |
 
+.. collapse:: cloud-distribution-point
+   
+      |
+   
+      .. automethod:: jps_api_wrapper.pro.Pro.get_cloud_distribution_point_upload_capability
+   
+      |
+
 .. collapse:: cloud-idp
 
    |
@@ -2198,6 +2206,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_conditional_access_feature_toggle
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_conditional_access_computer
 
    |
@@ -2347,6 +2359,26 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_device_enrollments_devices
+
+   |
+
+.. collapse:: dock-items
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_dock_item
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_dock_item
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_dock_item
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_dock_item
 
    |
 
@@ -2694,6 +2726,30 @@ Pro
 
    |
 
+.. collapse:: jamf-content-distribution-server
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_content_distribution_server_files
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_content_distribution_server_file
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_jamf_content_distribution_server_upload
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_jamf_content_distribution_server_renew_credentials
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_jamf_content_distribution_server_file
+
+   |
+
 .. collapse:: jamf-management-framework
 
    |
@@ -2883,6 +2939,10 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_accounts
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_history
 
    |
 
@@ -3539,6 +3599,10 @@ Pro
    
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_site_objects
+
+   |
+
 .. collapse:: site-preview
 
    |
@@ -3960,7 +4024,15 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_volume_purchasing_subscription_history
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.create_volume_purchasing_subscription
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_volume_purchasing_subscription_history_note
 
    |
 
