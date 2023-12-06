@@ -10231,7 +10231,8 @@ class Pro(RequestBuilder):
             for the requested page. Fields allowed in the query: username,
             date, note, details.
 
-            Example: "username!=admin and details==disabled and date<2019-12-15"
+            Example:
+            "username!=admin and details==disabled and date<2019-12-15"
         """
         params = remove_empty_params(
             {
