@@ -2766,6 +2766,18 @@ Pro
 
    |
 
+.. collapse:: jamf-pro-account-preferences
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_pro_account_preferences
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_jamf_pro_account_preferences
+
+   |
+
 .. collapse:: jamf-pro-information
 
    |

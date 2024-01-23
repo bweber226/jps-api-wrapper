@@ -3848,7 +3848,8 @@ def test_get_jamf_pro_account_preferences(pro):
     """
     Ensures that get_jamf_pro_account_preferences returns JSON when used
     """
-    # TODO - Waiting on documentation to make this one
+    responses.add(response_builder("GET", jps_url("/api/v2/account-preferences")))
+    assert pro.get_jamf_pro_account_preferences() == EXPECTED_JSON
 
 
 @responses.activate
@@ -3856,7 +3857,8 @@ def test_update_jamf_pro_account_preferences(pro):
     """
     Ensures that update_jamf_pro_account_preferences returns JSON when used
     """
-    # TODO - Waiting on documentation to make this one
+    responses.add(response_builder("PATCH", jps_url("/api/v2/account-preferences")))
+    assert pro.update_jamf_pro_account_preferences(EXPECTED_JSON) == EXPECTED_JSON
 
 
 """

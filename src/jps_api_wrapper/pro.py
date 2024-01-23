@@ -3134,7 +3134,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the dock item with. For syntax information
             view `Jamf's documentation.
-            <TODO ADD AFTER RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-dock-items>`__
 
         :returns: New dock item information in JSON
         """
@@ -3149,7 +3149,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the dock item with. For syntax information
             view `Jamf's documentation.
-            <TODO ADD AFTER RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-dock-items-id>`__
         :param id: Dock item ID
 
         :returns: Updated dock item information in JSON
@@ -4901,21 +4901,48 @@ class Pro(RequestBuilder):
     jamf-pro-account-preferences
     """
 
-    def get_jamf_pro_account_preferences(self, accept_language: str) -> dict:
+    def get_jamf_pro_account_preferences(self, accept_language: str = "en") -> dict:
         """
-        TODO Add on release when the other documentation is out
+        Returns Jamf Pro account preferences
 
-        Needs to be added to CHANGELOG and docs as well
+        :param accept_language:
+            Accept-Language header
+
+            Example: "en" for English
+
+        :returns: Jamf Pro account preferences in JSON
         """
+        endpoint = "/api/v2/account-preferences"
+        headers = {"Accept-Language": accept_language, "Accept": "application/json"}
+
+        return self._get(endpoint, headers=headers)
 
     def update_jamf_pro_account_preferences(
-        self, data: dict, accept_language: str, jsessionid: str = None
+        self, data: dict, accept_language: str = "en"
     ) -> dict:
         """
-        TODO Add on release when the other documentation is out
+        Updates Jamf Pro account preferences with JSON
 
-        Needs to be added to CHANGELOG and docs as well
+        :param data:
+            JSON data to update Jamf Pro account preferences with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_v2-account-preferences>`__
+
+        :param accept_language:
+            Accept-Language header
+
+            Example: "en" for English
+
+        :returns: Updated Jamf Pro account preferences in JSON
         """
+        endpoint = "/api/v2/account-preferences"
+        headers = {
+            "Accept-Language": accept_language,
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        }
+
+        return self._patch(endpoint, data, headers=headers)
 
     """
     jamf-pro-information
@@ -5936,7 +5963,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the MDM command with. For syntax information
             view `Jamf's documentation.
-            <TODO ADD ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-mdm-commands>`__
 
         :returns: New MDM command information in JSON
         """
@@ -10270,7 +10297,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create volume purchasing subscription history note
             with. For syntax information view `Jamf's documentation.
-            <TODO ADD ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-volume-purchasing-subscriptions-id-history>`__
         :param id: Volume purchasing subscription ID
 
         :returns:
