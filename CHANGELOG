@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] -- 01-23-2024
+
+### Added
+- Pro.get_cloud_distribution_point_upload_capability which returns a variety of values based on the currently configured Cloud Distrbution Point
+- Pro.get_conditional_access_feature_toggle which returns the status of the conditional access feature toggle
+- Pro.get_dock_item which returns a dock item by ID
+- Pro.create_dock_item which creates a dock item with JSON
+- Pro.update_dock_item which updates a dock item by ID with JSON
+- Pro.delete_dock_item which deletes a dock item by ID
+- Pro.get_jamf_content_distribution_server_file which returns a list of files and file metadata from the Jamf Content Distribution Server
+- Pro.get_jamf_content_distribution_server_file which returns a download URL for a specific file from the Jamf Content Distribution Server
+- Pro.create_jamf_content_distribution_server_upload which creates a temporary record and returns the credentials and information needed for uploading the file to the Jamf Content Distribution Server
+- Pro.create_jamf_content_distribution_server_renew_credentials which renews the credentials needed for uploading the file to the Jamf Content Distribution Server
+- Pro.delete_jamf_content_distribution_server_file which deletes a file from the Jamf Content Distribution Server by file name
+- Pro.get_site_objects which returns site objects for Site ID, with the ability to filter out different object types and object IDs for the site ID
+- Pro.get_volume_purchasing_subscription_history which returns the history of a volume purchasing subscription by ID
+- Pro.create_volume_purchasing_subscription_history_note which creates a volume purchasing subscription history note by ID with JSON
+- Pro.get_local_admin_password_history which returns the full history of all local admin passwords for all accounts for a specific management ID
+- Pro.get_jamf_pro_account_preferences which returns returns Jamf Pro account preferences
+- Pro.update_jamf_pro_account_preferences which updates Jamf Pro account preferences with JSON
+
+### Changed
+- Pro.create_mdm_command now uses the new v2 endpoint since the data structure is the same
+
 ## [1.11.2] -- 12-04-2023
 
 ### Fixed

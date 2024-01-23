@@ -269,6 +269,7 @@ class RequestBuilder:
         data: Union[dict, str],
         params: dict = None,
         data_type: str = "json",
+        headers: dict = None,
     ) -> Union[dict, str]:
         """
         Sends patch requests given an endpoint, data, and data_type
@@ -282,6 +283,9 @@ class RequestBuilder:
             Optional params for the request
         :param data_type:
             json or xml
+        :param headers:
+            Optional headers for content that is not JSON or XML which are
+            handled by the method
 
         :returns:
             - response.json - Returned if the data_type was json
@@ -291,7 +295,8 @@ class RequestBuilder:
             data_type is not json or xml
         """
         full_url = self.base_url + quote(endpoint, safe="/,")
-        headers = {"Content-type": f"application/{data_type}"}
+        if not headers:
+            headers = {"Content-type": f"application/{data_type}"}
         if data_type == "xml":  # pragma: no cover
             response = self.session.patch(
                 full_url, headers=headers, data=data, params=params
