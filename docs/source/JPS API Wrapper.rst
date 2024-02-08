@@ -2610,6 +2610,14 @@ Pro
 
    |
 
+.. collapse:: health-check
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_health_check
+
+   |
+
 .. collapse:: icon
 
    |
@@ -2735,6 +2743,10 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_content_distribution_server_file
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_content_distribution_server_properties
 
    |
 
@@ -2962,11 +2974,23 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_guid_audit
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_history
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_guid_history
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_current
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_local_admin_password_user_guid_current
 
    |
 
@@ -3018,6 +3042,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_feature_toggle_status
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_group_plans
 
    |
@@ -3042,7 +3070,7 @@ Pro
 
    |
 
-      .. automethod:: jps_api_wrapper.pro.Pro.create_managed_software_updates_plan
+   .. automethod:: jps_api_wrapper.pro.Pro.create_managed_software_updates_plan
 
    |
 
@@ -3054,6 +3082,9 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.update_managed_software_updates_feature_toggle_process
+
+   |
 
 .. collapse:: mdm
 
@@ -3331,7 +3362,7 @@ Pro
 
    |
 
-.. collapse:: patch-policy_logs
+.. collapse:: patch-policy-logs
 
    |
 
@@ -3480,6 +3511,30 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_remote_administration_configurations
+
+   |
+
+.. collapse:: return-to-service
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_return_to_service_configurations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_return_to_service_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_return_to_service_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_return_to_service_configuration
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_return_to_service_configuration
 
    |
 
