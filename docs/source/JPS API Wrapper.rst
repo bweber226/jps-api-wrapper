@@ -3086,6 +3086,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_managed_software_updates_feature_toggle_process
+
+   |
+
 .. collapse:: mdm
 
    |
