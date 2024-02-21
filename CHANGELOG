@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] -- 2-21-2024
+
+### Added
+- Pro.get_health_check which returns Jamf Pro API status
+- Pro.get_jamf_content_distribution_server_properties which returns Jamf Content Distribution Server properties
+- Pro.get_managed_software_updates_feature_toggle_status which returns background status of the managed software updates feature toggle
+- Pro.delete_managed_software_updates_feature_toggle_process which deletes the background process of the managed software updates feature toggle
+- Pro.get_return_to_service_configuration which returns all return to service configurations
+- Pro.get_return_to_service_configuration which returns a return to service configuration by ID
+- Pro.create_return_to_service_configuration which creates a return to service configuration with JSON data
+- Pro.update_return_to_service_configuration which updates a return to service configuration by ID with JSON data
+- Pro.delete_return_to_service_configuration which deletes a return to service configuration by ID
+- Pro.get_local_admin_password_user_guid_audit which returns the full history of all local admin passwords for a specific user guid on a target device
+- Pro.get_local_admin_password_user_guid_history which returns the full history of all for a specific user guid on a target device
+- Pro.get_local_admin_password_user_guid_current which returns current LAPS password for specified client by using the client management id, username, and user guid as the path parameters
+
+### Changed
+- Pro.get_enrollment_settings updated to use the new v4 endpoint
+- Pro.update_enrollment_settings updated to use the new v4 endpoint
+- Updated documentation on handful of endpoints
+
 ## [1.12.1] -- 1-29-2024
 
 ### Fixed

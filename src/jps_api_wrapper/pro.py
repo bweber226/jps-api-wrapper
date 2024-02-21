@@ -1412,7 +1412,7 @@ class Pro(RequestBuilder):
     def get_cloud_distribution_point_upload_capability(self) -> dict:
         """
         Returns a variety of values based on the currently configured
-        Cloud Distrbution Point
+        Cloud Distribution Point
 
         :returns:
             Cloud distribution point upload capability information in JSON
@@ -3323,7 +3323,7 @@ class Pro(RequestBuilder):
 
         :returns: Enrollment settings information in JSON
         """
-        endpoint = "/api/v3/enrollment"
+        endpoint = "/api/v4/enrollment"
 
         return self._get(endpoint)
 
@@ -3580,11 +3580,11 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the enrollment settings with. For syntax
             information view `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/put_v2-enrollment>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v4-enrollment>`__
 
         :returns: Updated enrollment settings in JSON
         """
-        endpoint = "/api/v3/enrollment"
+        endpoint = "/api/v4/enrollment"
 
         return self._put(endpoint, data)
 
@@ -4197,6 +4197,20 @@ class Pro(RequestBuilder):
                 "successfully deleted."
             ),
         )
+
+    """
+    health-check
+    """
+
+    def get_health_check(self) -> dict:
+        """
+        Returns Jamf Pro API status
+
+        :returns: Jamf Pro API status, will return error code if not healthy
+        """
+        endpoint = "/api/v1/health-check"
+
+        return self._get(endpoint, success_message="Jamf Pro API is healthy.")
 
     """
     icon
@@ -4816,6 +4830,16 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def get_jamf_content_distribution_server_properties(self) -> dict:
+        """
+        Returns Jamf Content Distribution Server properties
+
+        :returns: Jamf Content Distribution Server properties in JSON
+        """
+        endpoint = "/api/v1/jcds/properties"
+
+        return self._get(endpoint)
+
     def create_jamf_content_distribution_server_upload(self) -> dict:
         """
         Creates a temporary record and returns the credentials and information
@@ -5018,7 +5042,49 @@ class Pro(RequestBuilder):
         """
         Deletes notifications with give type and ID
 
-        :param type: Type of the notification
+        :param type:
+            Type of the notification
+
+            Options:
+            APNS_CERT_REVOKED, APNS_CONNECTION_FAILURE,
+            APPLE_SCHOOL_MANAGER_T_C_NOT_SIGNED, BUILT_IN_CA_EXPIRED,
+            BUILT_IN_CA_EXPIRING, BUILT_IN_CA_RENEWAL_FAILED,
+            BUILT_IN_CA_RENEWAL_SUCCESS, CLOUD_LDAP_CERT_EXPIRED,
+            CLOUD_LDAP_CERT_WILL_EXPIRE, DEP_INSTANCE_EXPIRED,
+            DEP_INSTANCE_WILL_EXPIRE, DEVICE_ENROLLMENT_PROGRAM_T_C_NOT_SIGNED,
+            EXCEEDED_LICENSE_COUNT, FREQUENT_INVENTORY_COLLECTION_POLICY,
+            GSX_CERT_EXPIRED, GSX_CERT_WILL_EXPIRE, HCL_BIND_ERROR, HCL_ERROR,
+            INSECURE_LDAP, INVALID_REFERENCES_EXT_ATTR,
+            INVALID_REFERENCES_POLICIES, INVALID_REFERENCES_SCRIPTS,
+            JAMF_CONNECT_UPDATE, JAMF_PROTECT_UPDATE, JIM_ERROR,
+            LDAP_CONNECTION_CHECK_THROUGH_JIM_FAILED,
+            LDAP_CONNECTION_CHECK_THROUGH_JIM_SUCCESSFUL,
+            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRED,
+            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRING,
+            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRING_TODAY,
+            MII_HEARTBEAT_FAILED_NOTIFICATION,
+            MII_INVENTORY_UPLOAD_FAILED_NOTIFICATION,
+            MII_UNATHORIZED_RESPONSE_NOTIFICATION,
+            PATCH_EXTENTION_ATTRIBUTE, PATCH_UPDATE,
+            POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_MULTIPLE,
+            POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_SINGLE,
+            PUSH_CERT_EXPIRED, PUSH_CERT_WILL_EXPIRE, PUSH_PROXY_CERT_EXPIRED,
+            SSO_CERT_EXPIRED, SSO_IDP_CERT_EXPIRED, SSO_CERT_WILL_EXPIRE,
+            SSO_IDP_CERT_WILL_EXPIRE, TOMCAT_SSL_CERT_EXPIRED,
+            TOMCAT_SSL_CERT_WILL_EXPIRE,
+            USER_INITIATED_ENROLLMENT_MANAGEMENT_ACCOUNT_SECURITY_ISSUE,
+            USER_MAID_DUPLICATE_ERROR, USER_MAID_MISMATCH_ERROR,
+            USER_MAID_ROSTER_DUPLICATE_ERROR, VPP_ACCOUNT_EXPIRED,
+            VPP_ACCOUNT_WILL_EXPIRE, VPP_TOKEN_REVOKED,
+            DEVICE_COMPLIANCE_CONNECTION_ERROR,
+            CONDITIONAL_ACCESS_CONNECTION_ERROR,
+            AZURE_AD_MIGRATION_REPORT_GENERATED, BEYOND_CORP_CONNECTION_ERROR,
+            APP_INSTALLERS_NEW_APP_VERSION_AVAILABLE,
+            APP_INSTALLERS_NEW_APP_VERSION_DEPLOYMENT_STARTED,
+            APP_INSTALLERS_APP_VERSION_REMOVED,
+            APP_INSTALLERS_APP_TITLE_REMOVED,
+            APP_INSTALLERS_DEPLOYMENT_INSTALLATION_FAILED
+
         :param id: Instance ID of the notification
 
         :returns:
@@ -5513,10 +5579,12 @@ class Pro(RequestBuilder):
         self, clientManagementId: str, username: str
     ) -> dict:
         """
-        Returns full history of all local admin passwords for a specific
+        Returns the full history of all local admin passwords for a specific
         username on a target device. History will include password, who viewed
         the password and when it was viewed. Get audit history by using the
-        client management id and username as the path parameters.
+        client management id and username as the path parameters. If multiple
+        accounts with the same username exist, the MDM source will be selected
+        by default.
 
         :param clientManagementId: Client management ID of target device
         :param username: Username to view audit information for
@@ -5527,6 +5595,30 @@ class Pro(RequestBuilder):
         endpoint = (
             f"/api/v2/local-admin-password/{clientManagementId}/account/"
             f"{username}/audit"
+        )
+
+        return self._get(endpoint)
+
+    def get_local_admin_password_user_guid_audit(
+        self, clientManagementId: str, username: str, guid: str
+    ) -> dict:
+        """
+        Returns the full history of all local admin passwords for a specific
+        user guid on a target device. History will include password, who viewed
+        the password and when it was viewed. Get audit history by using the
+        client management id, username, and user guid as the path parameters.
+
+        :param clientManagementId: Client management ID of target device
+        :param username: Username to view audit information for
+        :param guid: User GUID to view audit information for
+
+        :returns:
+            LAPS password viewed history for the device, username, and user
+            guid in JSON
+        """
+        endpoint = (
+            f"/api/v2/local-admin-password/{clientManagementId}/account/"
+            f"{username}/{guid}/audit"
         )
 
         return self._get(endpoint)
@@ -5553,6 +5645,30 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def get_local_admin_password_user_guid_history(
+        self, clientManagementId: str, username: str, guid: str
+    ) -> dict:
+        """
+        Returns the full history of all for a specific user guid on a target
+        device. History will include date created, date last seen, expiration
+        time, and rotational status. Get audit history by using the client
+        management id, username, and user guid as the path parameters.
+
+        :param clientManagementId: Client management ID of target device
+        :param username: Username to view history information for
+        :param guid: User GUID to view history information for
+
+        :returns:
+            LAPS historical records for the device, username, and user guid in
+            JSON
+        """
+        endpoint = (
+            f"/api/v2/local-admin-password/{clientManagementId}/account/"
+            f"{username}/{guid}/history"
+        )
+
+        return self._get(endpoint)
+
     def get_local_admin_password_user_current(
         self, clientManagementId: str, username: str
     ) -> dict:
@@ -5560,10 +5676,11 @@ class Pro(RequestBuilder):
         Returns current LAPS password for specified client by using the client
         management id and username as the path parameters. Once the password is
         viewed it will be rotated out with a new password based on the rotation
-        time settings.
+        time settings. If multiple accounts with the same username exist, the
+        MDM source will be selected by default.
 
         :param clientManagementId: Client management ID of target device
-        :param username: Username to view audit information for
+        :param username: Username for the account
 
         :returns:
             Current local admin password used for user on device in JSON
@@ -5571,6 +5688,29 @@ class Pro(RequestBuilder):
         endpoint = (
             f"/api/v2/local-admin-password/{clientManagementId}/account/"
             f"{username}/password"
+        )
+
+        return self._get(endpoint)
+
+    def get_local_admin_password_user_guid_current(
+        self, clientManagementId: str, username: str, guid: str
+    ) -> dict:
+        """
+        Returns current LAPS password for specified client by using the client
+        management id, username, and user guid as the path parameters. Once the
+        password is viewed it will be rotated out with a new password based on
+        the rotation time settings.
+
+        :param clientManagementId: Client management ID of target device
+        :param username: Username for the account
+        :param guid: User GUID for the account
+
+        :returns:
+            Current local admin password used for user on device in JSON
+        """
+        endpoint = (
+            f"/api/v2/local-admin-password/{clientManagementId}/account/"
+            f"{username}/{guid}/password"
         )
 
         return self._get(endpoint)
@@ -5734,7 +5874,8 @@ class Pro(RequestBuilder):
 
             Options:
             planUuid, device.deviceId, device.objectType, updateAction,
-            versionType, specificVersion, maxDeferrals.
+            versionType, specificVersion, maxDeferrals, recipeId,
+            forceInstallLocalDateTime, state
 
             Example: 'maxDeferrals >= 1 and versionType == "LATEST_ANY"'
 
@@ -5754,11 +5895,24 @@ class Pro(RequestBuilder):
 
     def get_managed_software_updates_feature_toggle(self) -> dict:
         """
-        Returns status of the managed software updates feature toggle
+        Returns current value of the Feature Toggle
 
         :returns: Status of the managed software updates feature toggle in JSON
         """
         endpoint = "/api/v1/managed-software-updates/plans/feature-toggle"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_feature_toggle_status(self) -> dict:
+        """
+        Returns background status of the managed software updates feature
+        toggle
+
+        :returns:
+            Background status of the managed software updates feature toggle
+            in JSON
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/feature-toggle/status"
 
         return self._get(endpoint)
 
@@ -5894,8 +6048,10 @@ class Pro(RequestBuilder):
 
     def update_managed_software_updates_feature_toggle(self, data: dict) -> dict:
         """
-        Updates the value of the feature toggle for managed software updates,
-        turning the feature on or off
+        Updates the value of the Feature Toggle - This endpoint is
+        asynchronous, the provided value will not be immediately updated.
+        Please use the following endpoint to track the status of your toggle
+        request. Pro.get_managed_software_updates_feature_toggle_status
 
         :param data:
             JSON data to update the managed software updates feature toggle
@@ -5909,6 +6065,28 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/managed-software-updates/plans/feature-toggle"
 
         return self._put(endpoint, data)
+
+    def delete_managed_software_updates_feature_toggle_process(self) -> dict:
+        """
+        "Break Glass" endpoint, not for nominal usage. Use this endpoint to
+        forcefully abandon the feature-toggle background process if the status
+        of the feature-toggle is 'stuck' or has reached an non-restartable
+        failed state. Usage of this endpoint under nominal conditions is
+        undefined and unsupported.
+
+        :returns:
+            Success message stating the managed software updates feature toggle
+            process was abandoned
+        """
+        endpoint = "/api/v1/managed-software-updates/plans/feature-toggle/abandon"
+
+        return self._post(
+            endpoint,
+            success_message=(
+                "Managed Software Update Plan Feature Toggle abandon request "
+                "was received."
+            ),
+        )
 
     """
     mdm
@@ -7087,7 +7265,8 @@ class Pro(RequestBuilder):
             date, note, details. This param can be combined with paging and
             sorting.
 
-            Example: 'username!=admn and details==disabled and date<2019-12-15'
+            Example:
+            'username!=admin and details==disabled and date<2019-12-15'
 
         :returns: Jamf Parent app settings history information in JSON
         """
@@ -8044,6 +8223,82 @@ class Pro(RequestBuilder):
         endpoint = "/api/preview/remote-administration-configurations"
 
         return self._get(endpoint, params=params)
+
+    """
+    return-to-service
+    """
+
+    def get_return_to_service_configurations(self) -> dict:
+        """
+        Returns all return to service configurations
+
+        :returns: All return to service configurations in JSON
+        """
+        endpoint = "/api/v1/return-to-service"
+
+        return self._get(endpoint)
+
+    def get_return_to_service_configuration(self, id: Union[int, str]) -> dict:
+        """
+        Returns return to service configuration by ID
+
+        :param id: Return to service configuration ID
+
+        :returns: Return to service configuration information in JSON
+        """
+        endpoint = f"/api/v1/return-to-service/{id}"
+
+        return self._get(endpoint)
+
+    def create_return_to_service_configuration(self, data: dict) -> dict:
+        """
+        Creates return to service configuration with JSON data
+
+        :param data:
+            JSON data to create return to service configuration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-return-to-service>`__
+        """
+        endpoint = "/api/v1/return-to-service"
+
+        return self._post(endpoint, data)
+
+    def update_return_to_service_configuration(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates return to service configuration with JSON data by ID
+
+        :param data:
+            JSON data to update return to service configuration with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-return-to-service-id>`__
+        :param id: Return to service configuration ID
+
+        :returns: Updated return to service configuration information in JSON
+        """
+        endpoint = f"/api/v1/return-to-service/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_return_to_service_configuration(self, id: Union[int, str]) -> str:
+        """
+        Deletes return to service configuration by ID
+
+        :param id: Return to service configuration ID
+
+        :returns:
+            Success message stating the return to service configuration was
+            successfully deleted
+        """
+        endpoint = f"/api/v1/return-to-service/{id}"
+
+        return self._delete(
+            endpoint,
+            success_message=(
+                f"Return to service configuration {id} successfully deleted."
+            ),
+        )
 
     """
     scheduler
@@ -9962,9 +10217,9 @@ class Pro(RequestBuilder):
             Location collection. Default filter is empty query - returning all
             results for the requested page. Fields allowed in the query: id,
             name, appleId, organizationName, tokenExpiration, countryCode,
-            locationName, automaticallyPopulatePurchasedContent, and
-            sendNotificationWhenNoLongerAssigned. This param can be combined
-            with paging and sorting.
+            locationName, automaticallyPopulatePurchasedContent,
+            sendNotificationWhenNoLongerAssigned, siteId and siteName. This
+            param can be combined with paging and sorting.
 
             Example: name=="example.jamfcloud.com" and countryCode=="US"
 

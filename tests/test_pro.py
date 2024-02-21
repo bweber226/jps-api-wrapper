@@ -2593,7 +2593,7 @@ def test_get_enrollment_settings(pro):
     """
     Ensures that get_enrollment_settings returns JSON when used
     """
-    responses.add(response_builder("GET", jps_url("/api/v3/enrollment")))
+    responses.add(response_builder("GET", jps_url("/api/v4/enrollment")))
     assert pro.get_enrollment_settings() == EXPECTED_JSON
 
 
@@ -2769,7 +2769,7 @@ def test_update_enrollment_settings(pro):
     Ensures that update_enrollment_settings returns JSON when used with
     required params
     """
-    responses.add(response_builder("PUT", jps_url("/api/v3/enrollment")))
+    responses.add(response_builder("PUT", jps_url("/api/v4/enrollment")))
     assert pro.update_enrollment_settings(EXPECTED_JSON) == EXPECTED_JSON
 
 
@@ -3305,6 +3305,21 @@ def test_delete_enrollment_customization_text_panel(pro):
 
 
 """
+health-check
+"""
+
+
+@responses.activate
+def test_get_health_check(pro):
+    """
+    Ensures that get_health_check returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/health-check")))
+
+    assert pro.get_health_check() == "Jamf Pro API is healthy."
+
+
+"""
 icon
 """
 
@@ -3759,6 +3774,17 @@ def test_get_jamf_content_distribution_server_file(pro):
     """
     responses.add(response_builder("GET", jps_url("/api/v1/jcds/files/example")))
     assert pro.get_jamf_content_distribution_server_file("example") == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_content_distribution_server_properties(pro):
+    """
+    Ensures that get_jamf_content_distribution_server_properties returns JSON
+    when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/jcds/properties")))
+
+    assert pro.get_jamf_content_distribution_server_properties() == EXPECTED_JSON
 
 
 @responses.activate
@@ -4369,6 +4395,26 @@ def test_get_local_admin_password_user_audit(pro):
 
 
 @responses.activate
+def test_get_local_admin_password_user_guid_audit(pro):
+    """
+    Ensures that get_local_admin_password_user_guid_audit returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v2/local-admin-password/1a2b-3c4d/account/testuser/1001/audit"
+            ),
+        )
+    )
+    assert (
+        pro.get_local_admin_password_user_guid_audit("1a2b-3c4d", "testuser", 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
 def test_get_local_admin_password_user_history(pro):
     """
     Ensures that get_local_admin_password_user_history returns JSON when used
@@ -4387,6 +4433,26 @@ def test_get_local_admin_password_user_history(pro):
 
 
 @responses.activate
+def test_get_local_admin_password_user_guid_history(pro):
+    """
+    Ensures that get_local_admin_password_user_guid_history returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v2/local-admin-password/1a2b-3c4d/account/testuser/1001/history"
+            ),
+        )
+    )
+    assert (
+        pro.get_local_admin_password_user_guid_history("1a2b-3c4d", "testuser", 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
 def test_get_local_admin_password_user_current(pro):
     """
     Ensures that get_local_admin_password_user_current returns JSON when used
@@ -4400,6 +4466,26 @@ def test_get_local_admin_password_user_current(pro):
     )
     assert (
         pro.get_local_admin_password_user_current("1a2b-3c4d", "testuser")
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_local_admin_password_user_guid_current(pro):
+    """
+    Ensures that get_local_admin_password_user_guid_current returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url(
+                "/api/v2/local-admin-password/1a2b-3c4d/account/testuser/1001/password"
+            ),
+        )
+    )
+    assert (
+        pro.get_local_admin_password_user_guid_current("1a2b-3c4d", "testuser", 1001)
         == EXPECTED_JSON
     )
 
@@ -4572,6 +4658,21 @@ def test_get_managed_software_updates_feature_toggle(pro):
 
 
 @responses.activate
+def test_get_managed_software_updates_feature_toggle_status(pro):
+    """
+    Ensures that get_managed_software_updates_feature_toggle_status returns
+    JSON when used
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/managed-software-updates/plans/feature-toggle/status"),
+        )
+    )
+    assert pro.get_managed_software_updates_feature_toggle_status() == EXPECTED_JSON
+
+
+@responses.activate
 def test_get_managed_software_updates_group_plans(pro):
     """
     Ensures that get_managed_software_updates_group_plans return JSON when
@@ -4709,6 +4810,24 @@ def test_update_managed_software_updates_feature_toggle(pro):
     assert (
         pro.update_managed_software_updates_feature_toggle(EXPECTED_JSON)
         == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_managed_software_updates_feature_toggle_process(pro):
+    """
+    Ensures that delete_managed_software_updates_feature_toggle_process returns
+    a success message str when used
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v1/managed-software-updates/plans/feature-toggle/abandon"),
+        )
+    )
+    assert (
+        pro.delete_managed_software_updates_feature_toggle_process()
+        == "Managed Software Update Plan Feature Toggle abandon request was received."
     )
 
 
@@ -6298,6 +6417,64 @@ def test_get_remote_administration_configurations_optional_params(pro):
         )
     )
     assert pro.get_remote_administration_configurations(0, 100) == EXPECTED_JSON
+
+
+"""
+return-to-service
+"""
+
+
+@responses.activate
+def test_get_return_to_service_configurations(pro):
+    """
+    Ensures that get_return_to_service_configurations returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/return-to-service")))
+    assert pro.get_return_to_service_configurations() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_return_to_service_(pro):
+    """
+    Ensures that get_return_to_service_configurations returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/return-to-service/1001")))
+    assert pro.get_return_to_service_configuration(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_return_to_service_configuration(pro):
+    """
+    Ensures that create_return_to_service_configuration returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/return-to-service")))
+    assert pro.create_return_to_service_configuration(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_return_to_service_configuration(pro):
+    """
+    Ensures that update_return_to_service_configuration returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/return-to-service/1001")))
+    assert (
+        pro.update_return_to_service_configuration(EXPECTED_JSON, 1001) == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_delete_return_to_service_configuration(pro):
+    """
+    Ensures that delete_return_to_service_configuration returns a success
+    message str when used with required params
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/return-to-service/1001")))
+    assert (
+        pro.delete_return_to_service_configuration(1001)
+        == "Return to service configuration 1001 successfully deleted."
+    )
 
 
 """
