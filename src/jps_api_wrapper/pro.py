@@ -8257,7 +8257,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create return to service configuration with. For
             syntax information view `Jamf's documentation.
-            <TODO ADD BEFORE RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-return-to-service>`__
         """
         endpoint = "/api/v1/return-to-service"
 
@@ -8272,7 +8272,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update return to service configuration with. For
             syntax information view `Jamf's documentation.
-            <TODO ADD BEFORE RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-return-to-service-id>`__
         :param id: Return to service configuration ID
 
         :returns: Updated return to service configuration information in JSON
