@@ -165,3 +165,4 @@ cython_debug/
 # For testing modules before commits
 src/jps_api_wrapper/test.py
 .vscode
+.ruff_cache

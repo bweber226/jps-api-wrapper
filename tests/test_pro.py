@@ -1996,24 +1996,6 @@ def test_get_csa(pro):
 
 
 @responses.activate
-def test_create_csa(pro):
-    """
-    Ensures that create_csa returns JSON when used with required params
-    """
-    responses.add(response_builder("POST", jps_url("/api/v1/csa/token")))
-    assert pro.create_csa(EXPECTED_JSON) == EXPECTED_JSON
-
-
-@responses.activate
-def test_update_csa(pro):
-    """
-    Ensures that update_csa returns JSON when used with required params
-    """
-    responses.add(response_builder("PUT", jps_url("/api/v1/csa/token")))
-    assert pro.update_csa(EXPECTED_JSON) == EXPECTED_JSON
-
-
-@responses.activate
 def test_delete_csa(pro):
     """
     Ensures that delete_csa returns a success message str when used with
@@ -4282,6 +4264,77 @@ def test_delete_jamf_protect_api_registration(pro):
     assert (
         pro.delete_jamf_protect_api_registration()
         == "Jamf Protect API registration successfully deleted."
+    )
+
+
+"""
+jamf-remote-session
+"""
+
+
+@responses.activate
+def test_get_jamf_remote_assist_sessions(pro):
+    """
+    Ensures that get_jamf_remote__assist_sessions returns JSON when used
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/jamf-remote-assist/session"))
+    )
+    assert pro.get_jamf_remote_assist_sessions() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_remote_assist_session(pro):
+    """
+    Ensures that get_jamf_remote_assist_session returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/jamf-remote-assist/session/1001"))
+    )
+    assert pro.get_jamf_remote_assist_session(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_remote_assist_sessions_export(pro):
+    """
+    Ensures that get_jamf_remote_assist_sessions_export returns str when used
+    without optional params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v2/jamf-remote-assist/session/export"),
+        )
+    )
+    assert pro.get_jamf_remote_assist_sessions_export()
+
+
+@responses.activate
+def test_get_jamf_remote_assist_sessions_export_optional_params(pro):
+    """
+    Ensures that get_jamf_remote_assist_sessions_export returns str when used
+    with all optional params
+    """
+    responses.add(
+        response_builder(
+            "POST",
+            jps_url("/api/v2/jamf-remote-assist/session/export"),
+        )
+    )
+    assert pro.get_jamf_remote_assist_sessions_export(
+        (
+            "sessionId, deviceId, tenantId, sessionStartedTimestamp, "
+            "sessionEndedTimestamp, sessionType, statusType, sessionAdminId, comment"
+        ),
+        (
+            "sessionId, devd, tenantId, sessiomp, sessionEndedTimestamp, sessionType,"
+            " statusType, sessionAdminId, comment"
+        ),
+        0,
+        100,
+        ["sessionId:desc", "deviceId:asc"],
+        'sessionId=="1001"',
     )
 
 
@@ -7017,7 +7070,7 @@ def test_get_smtp_server(pro):
     """
     Ensures that get_smtp_server returns JSON when used
     """
-    responses.add(response_builder("GET", jps_url("/api/v1/smtp-server")))
+    responses.add(response_builder("GET", jps_url("/api/v2/smtp-server")))
     assert pro.get_smtp_server() == EXPECTED_JSON
 
 
@@ -7072,7 +7125,7 @@ def test_update_smtp_server(pro):
     """
     Ensures that update_smtp_server returns JSON when used
     """
-    responses.add(response_builder("PUT", jps_url("/api/v1/smtp-server")))
+    responses.add(response_builder("PUT", jps_url("/api/v2/smtp-server")))
     assert pro.update_smtp_server(EXPECTED_JSON) == EXPECTED_JSON
 
 

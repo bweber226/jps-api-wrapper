@@ -2226,14 +2226,6 @@ Pro
 
    |
 
-   .. automethod:: jps_api_wrapper.pro.Pro.create_csa
-
-   |
-
-   .. automethod:: jps_api_wrapper.pro.Pro.update_csa
-
-   |
-
    .. automethod:: jps_api_wrapper.pro.Pro.delete_csa
 
    |
@@ -2931,6 +2923,22 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.delete_jamf_protect_api_registration
+
+   |
+
+.. collapse:: jamf-remote-assist
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_remote_assist_sessions
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_remote_assist_session
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_jamf_remote_assist_sessions_export
 
    |
 
