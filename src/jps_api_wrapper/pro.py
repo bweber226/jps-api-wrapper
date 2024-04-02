@@ -2538,37 +2538,6 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
-    def create_csa(self, data: dict) -> dict:
-        """
-        Initializes the CSA token exchange - This will allow Jamf Pro to
-        authenticate with cloud-hosted services
-
-        :param data:
-            JSON data to initialize the CSA token exchange with. For syntax
-            information view `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/post_v1-csa-token>`__
-
-        :returns: New CSA token exchange information in JSON
-        """
-        endpoint = "/api/v1/csa/token"
-
-        return self._post(endpoint, data)
-
-    def update_csa(self, data: dict) -> dict:
-        """
-        Re-initializes the CSA token exchange with new credentials
-
-        :param data:
-            JSON data to re-initialize the CSA token exchange with. For syntax
-            information view `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/put_v1-csa-token>`__
-
-        :returns: Updated CSA token exchange information in JSON
-        """
-        endpoint = "/api/v1/csa/token"
-
-        return self._put(endpoint, data)
-
     def delete_csa(self) -> str:
         """
         Deletes the CSA token exchange - This will disable Jamf Pro's ability
@@ -5484,6 +5453,98 @@ class Pro(RequestBuilder):
         )
 
     """
+    jamf-remote-assist
+    """
+
+    def get_jamf_remote_assist_sessions(self) -> dict:
+        """
+        Returns tenants sessions history
+
+        :returns: Jamf Remote Assist sessions information in JSON
+        """
+        endpoint = "/api/v2/jamf-remote-assist/session"
+
+        return self._get(endpoint)
+
+    def get_jamf_remote_assist_session(self, id: str) -> dict:
+        """
+        Returns a specific session by session ID
+
+        :param id: Session ID
+
+        :returns: Jamf Remote Assist session information in JSON
+        """
+        endpoint = f"/api/v2/jamf-remote-assist/session/{id}"
+
+        return self._get(endpoint)
+
+    def get_jamf_remote_assist_sessions_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["sessionId:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Exports jamf remote assist history collection in CSV format
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Options:
+                sessionId, deviceId, tenantId, sessionStartedTimestamp,
+                sessionEndedTimestamp, sessionType, statusType, sessionAdminId,
+                comment
+
+            Example: ["sessionId", "deviceId"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["sessionID", "deviceId"] with
+            matching: export_fields=["session", "device"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["date:desc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["sessionId:desc", "deviceId:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: 'sessionId=="1001"'
+        """
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = "/api/v2/jamf-remote-assist/session/export"
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    """
     ldap
     """
 
@@ -6366,17 +6427,17 @@ class Pro(RequestBuilder):
             doNotDisturbEnabled, exchangeDeviceId, cloudBackupEnabled, osBuild,
             osSupplementalBuildVersion, osVersion, osRapidSecurityResponse,
             ipAddress, itunesStoreAccountActive, mobileDeviceId, languages,
-            locales, locationServicesForSelfServiceMobileEnabled,
-            lostModeEnabled, managed, model, modelIdentifier, modelNumber,
-            modemFirmwareVersion, quotaSize, residentUsers, serialNumber,
-            sharedIpad, supervised, tethered, timeZone, udid,
-            usedSpacePercentage, wifiMacAddress, building, department,
-            emailAddress, fullName, userPhoneNumber, position, room, username,
-            appleCareId, lifeExpectancyYears, poNumber, purchasePrice,
-            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
-            activationLockEnabled, blockEncryptionCapable, dataProtection,
-            fileEncryptionCapable, passcodeCompliant,
-            passcodeCompliantWithProfile,
+            lastInventoryUpdateDate, locales,
+            locationServicesForSelfServiceMobileEnabled, lostModeEnabled,
+            managed, model, modelIdentifier, modelNumber, modemFirmwareVersion,
+            quotaSize, residentUsers, serialNumber, sharedIpad, supervised,
+            tethered, timeZone, udid, usedSpacePercentage, wifiMacAddress,
+            building, department, emailAddress, fullName, userPhoneNumber,
+            position, room, username, appleCareId, lifeExpectancyYears,
+            poNumber, purchasePrice, purchasedOrLeased, purchasingAccount,
+            purchasingContact, vendor, activationLockEnabled,
+            blockEncryptionCapable, dataProtection, fileEncryptionCapable,
+            passcodeCompliant, passcodeCompliantWithProfile,
             passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
             personalDeviceProfileCurrent, carrierSettingsVersion,
             currentCarrierNetwork, currentMobileCountryCode,
@@ -6845,13 +6906,13 @@ class Pro(RequestBuilder):
             serialNumber, sharedIpad, supervised, tethered, timeZone, udid,
             usedSpacePercentage, wifiMacAddress, deviceOwnershipType, building,
             department, emailAddress, fullName, userPhoneNumber, position,
-            room, username, appleCareId,
-            leaseExpirationDate,lifeExpectancyYears, poDate, poNumber,
-            purchasePrice, purchasedOrLeased, purchasingAccount,
-            purchasingContact, vendor, warrantyExpirationDate,
-            activationLockEnabled, blockEncryptionCapable, dataProtection,
-            fileEncryptionCapable, hardwareEncryptionSupported,
-            jailbreakStatus, passcodeCompliant, passcodeCompliantWithProfile,
+            room, username, appleCareId, leaseExpirationDate,
+            lifeExpectancyYears, poDate, poNumber, purchasePrice,
+            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
+            warrantyExpirationDate, activationLockEnabled,
+            blockEncryptionCapable, dataProtection, fileEncryptionCapable,
+            hardwareEncryptionSupported, jailbreakStatus, passcodeCompliant,
+            passcodeCompliantWithProfile,
             passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
             personalDeviceProfileCurrent, carrierSettingsVersion,
             cellularTechnology, currentCarrierNetwork,
@@ -6876,24 +6937,23 @@ class Pro(RequestBuilder):
             doNotDisturbEnabled, exchangeDeviceId, cloudBackupEnabled, osBuild,
             osSupplementalBuildVersion, osVersion, osRapidSecurityResponse,
             ipAddress, itunesStoreAccountActive, mobileDeviceId, languages,
-            locales, locationServicesForSelfServiceMobileEnabled,
-            lostModeEnabled, managed, model, modelIdentifier, modelNumber,
-            modemFirmwareVersion, quotaSize, residentUsers, serialNumber,
-            sharedIpad, supervised, tethered, timeZone, udid,
-            usedSpacePercentage, wifiMacAddress, building, department,
-            emailAddress, fullName, userPhoneNumber, position, room, username,
-            appleCareId, lifeExpectancyYears, poNumber, purchasePrice,
-            purchasedOrLeased, purchasingAccount, purchasingContact, vendor,
-            activationLockEnabled, blockEncryptionCapable, dataProtection,
-            fileEncryptionCapable, passcodeCompliant,
-            passcodeCompliantWithProfile,
-            passcodeLockGracePeriodEnforcedSeconds,
-            passcodePresent, personalDeviceProfileCurrent,
-            carrierSettingsVersion, currentCarrierNetwork,
-            currentMobileCountryCode, currentMobileNetworkCode,
-            dataRoamingEnabled, eid, network, homeMobileCountryCode,
-            homeMobileNetworkCode, iccid, imei, imei2, meid,
-            personalHotspotEnabled, roaming
+            lastInventoryUpdateDate, locales,
+            locationServicesForSelfServiceMobileEnabled, lostModeEnabled,
+            managed, model, modelIdentifier, modelNumber, modemFirmwareVersion,
+            quotaSize, residentUsers, serialNumber, sharedIpad, supervised,
+            tethered, timeZone, udid, usedSpacePercentage, wifiMacAddress,
+            building, department, emailAddress, fullName, userPhoneNumber,
+            position, room, username, appleCareId, lifeExpectancyYears,
+            poNumber, purchasePrice, purchasedOrLeased, purchasingAccount,
+            purchasingContact, vendor, activationLockEnabled,
+            blockEncryptionCapable, dataProtection, fileEncryptionCapable,
+            passcodeCompliant, passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            currentCarrierNetwork, currentMobileCountryCode,
+            currentMobileNetworkCode, dataRoamingEnabled, eid, network,
+            homeMobileCountryCode, homeMobileNetworkCode, iccid, imei, imei2,
+            meid, personalHotspotEnabled, roaming
 
             Example: 'displayName=="iPad" and deviceId==1001'
         """
@@ -8984,7 +9044,7 @@ class Pro(RequestBuilder):
 
         :returns: SMTP server information in JSON
         """
-        endpoint = "/api/v1/smtp-server"
+        endpoint = "/api/v2/smtp-server"
 
         return self._get(endpoint)
 
@@ -9066,11 +9126,11 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update SMTP server with. For syntax information view
             `Jamf's documentation.
-            <https://developer.jamf.com/jamf-pro/reference/put_v1-smtp-server>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v2-smtp-server>`__
 
         :returns: Updated SMTP server information in JSON
         """
-        endpoint = "/api/v1/smtp-server"
+        endpoint = "/api/v2/smtp-server"
 
         return self._put(endpoint, data)
 
