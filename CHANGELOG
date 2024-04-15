@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.0] -- TODO UPDATE BEFORE RELEASE
+
+### Added
+- Pro.update_activation_code which updates activation code with JSON data
+- Pro.get_gsx_connection which returns the Jamf Pro GSX connection information
+- Pro.get_gsx_connection_history which returns the Jamf Pro GSX connection history
+- Pro.create_gsx_connection_test which tests functionality of an GSX Connection
+- Pro.create_gsx_connection_history_note which creates a GSX connection history note with JSON data
+- Pro.update_gsx_connection which updates the Jamf Pro GSX connection with JSON data
+- Pro.replace_gsx_connection which replaces the Jamf Pro GSX connection with JSON data
+- Pro.get_login_customization_settings which returns current login customization settings
+- Pro.update_login_customization_settings which updates login customization settings with JSON data
+- Pro.get_mobile_device_paired_devices which returns all paired devices for a mobile device by ID
+- Pro.get_packages which returns all packages
+- Pro.get_package which returns a package by ID
+- Pro.get_package_history_notes which returns all package history notes for a package by ID
+- Pro.get_package_export which returns packages collection in CSV format
+- Pro.get_package_history_notes_export which returns package history notes collection in CSV format
+- Pro.create_package which creates a package with JSON data
+- Pro.create_package_history_note which creates a package history note with JSON data
+- Pro.create_package_manifest which creates a manifest for a package by ID
+- Pro.create_package_file which uploads a file to a package by ID
+- Pro.update_package which updates a package by ID with JSON data
+- Pro.delete_package which deletes a package or multiple packages by ID or IDs
+- Pro.delete_package_manifest which deletes a manifest for a package by ID
+
+### Changed
+- Pro.get_mobile_devices added the ability to filter by general.managementId
+- Pro.get_jamf_remote_assist_session added page, page_size, sort, and filter query parameters
+- Pro.get_jamf_remote_assist_sessions removed other params for the new body based query
+- Pro.get_patch_software_title_configuration_export removed page, page_size, and sort
+
 ## [1.14.0] -- 4-2-2024
 
 ### Added

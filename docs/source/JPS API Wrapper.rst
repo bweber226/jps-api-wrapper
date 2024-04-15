@@ -593,6 +593,14 @@ Classic
 
    |
 
+   .. automethod:: jps_api_wrapper.classic.Classic.get_gsx_connection_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.classic.Classic.create_gsx_connection_test
+
+   |
+
    .. automethod:: jps_api_wrapper.classic.Classic.update_gsx_connection
 
    |
@@ -1632,6 +1640,13 @@ Classic
 
 Pro
 ------------------
+.. collapse:: activation-code
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_activation_code
+
+   |
 
 .. collapse:: advanced-mobile-device-searches
 
@@ -2602,6 +2617,34 @@ Pro
 
    |
 
+.. collapse:: gsx-connection
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_gsx_connection
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_gsx_connection_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_gsx_connection_test
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_gsx_connection_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_gsx_connection
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.replace_gsx_connection
+
+   |
+
 .. collapse:: health-check
 
    |
@@ -3018,6 +3061,18 @@ Pro
 
    |
 
+.. collapse:: login-customization
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_login_customization_settings
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_login_customization_settings
+
+   |
+
 .. collapse:: macos-managed-software-updates
 
    |
@@ -3274,6 +3329,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_mobile_device_paired_devices
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.update_mobile_device
 
    |
@@ -3320,6 +3379,58 @@ Pro
 
    .. automethod:: jps_api_wrapper.pro.Pro.update_onboarding_settings
    
+   |
+
+.. collapse:: packages
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_packages
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_package
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_package_history_notes
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_package_export
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_packages_history_notes_export
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_package
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_package_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_package_manifest
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_package_file
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_package
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_package
+   
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_package_manifest
+
    |
 
 .. collapse:: parent-app-preview
