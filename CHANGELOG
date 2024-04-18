@@ -37,6 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pro.get_jamf_remote_assist_sessions removed other params for the new body based query
 - Pro.get_patch_software_title_configuration_export removed page, page_size, and sort
 
+### Removed
+- Unnecessary typing dependency in Pipfile
+
 ## [1.14.0] -- 4-2-2024
 
 ### Added
