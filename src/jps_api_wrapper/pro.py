@@ -4,14 +4,13 @@ from os.path import basename
 from typing import List, Union
 
 from jps_api_wrapper.request_builder import RequestBuilder
-from jps_api_wrapper.utils import (
-    check_conflicting_params,
-    enforce_type,
-    identification_type,
-    remove_empty_params,
-)
+from jps_api_wrapper.utils import (check_conflicting_params, enforce_type,
+                                   identification_type, paginate,
+                                   remove_empty_params)
 
 warnings.simplefilter("always", DeprecationWarning)
+
+__all__ = ["Pro", "paginate"]
 
 
 class Pro(RequestBuilder):
