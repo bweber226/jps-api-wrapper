@@ -1,3 +1,4 @@
+import inspect
 from datetime import datetime
 from typing import Union
 
@@ -176,6 +177,45 @@ def enforce_type(value, types: tuple) -> bool:
     else:
         types = (i.__name__ for i in types)
         raise TypeError(f"{value} must be of type(s): {', '.join(types)}")
+
+
+def paginate(endpoint_method, *args, **kwargs):
+    """
+    Paginates the results of an endpoint
+
+    :param endpoint: Authenticated endpoint method
+    :param args: Arguments to pass to the endpoint method
+    :param kwargs: Keyword arguments to pass to the endpoint method
+
+    :return: All pages of results from endpoint method
+    """
+    endpoint_signature = inspect.signature(endpoint_method)
+    if "page" not in endpoint_signature.parameters:
+        raise ValueError("Endpoint does not support pagination.")
+    bound_args = endpoint_signature.bind(*args, **kwargs)
+    bound_args.apply_defaults()
+    if not bound_args.arguments["page"]:
+        bound_args.arguments["page"] = 0
+    if not bound_args.arguments["page_size"]:
+        bound_args.arguments["page_size"] = 100
+    original_page = bound_args.arguments["page"]
+
+    # Get the initial page of results
+    response = endpoint_method(**bound_args.arguments)
+    results = response
+
+    if results["totalCount"] == 0:
+        return results
+
+    # Paginate through the remaining pages
+    while len(results["results"]) < (
+        results["totalCount"] - (original_page * bound_args.arguments["page_size"])
+    ):
+        bound_args.arguments["page"] += 1
+        response = endpoint_method(**bound_args.arguments)
+        results["results"].extend(response["results"])
+
+    return results
 
 
 class NoIdentification(Exception):

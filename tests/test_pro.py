@@ -66,6 +66,21 @@ def response_builder(method: str, url: str, data_type: str = "json", status: int
 
 
 """
+activation-code
+"""
+
+
+@responses.activate
+def test_update_activation_code(pro):
+    """
+    Ensures that update_activation_code completes successfully when used with
+    required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/activation-code")))
+    assert pro.update_activation_code(EXPECTED_JSON) == EXPECTED_JSON
+
+
+"""
 advanced-mobile-device-searches
 """
 
@@ -3287,6 +3302,84 @@ def test_delete_enrollment_customization_text_panel(pro):
 
 
 """
+gsx-connection
+"""
+
+
+@responses.activate
+def test_get_gsx_connection(pro):
+    """
+    Ensures that get_gsx_connection returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/gsx-connection")))
+    assert pro.get_gsx_connection() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_gsx_connection_history(pro):
+    """
+    Ensures that get_gsx_connection_history returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/gsx-connection/history")))
+    assert pro.get_gsx_connection_history() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_gsx_connection_history_optional_params(pro):
+    """
+    Ensures that get_gsx_connection_history returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/gsx-connection/history")))
+    assert (
+        pro.get_gsx_connection_history(
+            0, 100, ["date:desc", "name:asc"], "username!=admin and details==disabled"
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_gsx_connection_test(pro):
+    """
+    Ensures that create_gsx_connection_test returns JSON when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/gsx-connection/test")))
+    assert pro.create_gsx_connection_test() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_gsx_connection_history_note(pro):
+    """
+    Ensures that create_gsx_connection_history_note returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/gsx-connection/history")))
+    assert pro.create_gsx_connection_history_note(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_gsx_connection(pro):
+    """
+    Ensures that update_gsx_connection returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("PATCH", jps_url("/api/v1/gsx-connection")))
+    assert pro.update_gsx_connection(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_replace_gsx_connection(pro):
+    """
+    Ensures that replace_gsx_connection returns JSON when used with required
+    params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/gsx-connection")))
+    assert pro.replace_gsx_connection(EXPECTED_JSON) == EXPECTED_JSON
+
+
+"""
 health-check
 """
 
@@ -4276,11 +4369,29 @@ jamf-remote-session
 def test_get_jamf_remote_assist_sessions(pro):
     """
     Ensures that get_jamf_remote__assist_sessions returns JSON when used
+    without optional params
     """
     responses.add(
         response_builder("GET", jps_url("/api/v2/jamf-remote-assist/session"))
     )
     assert pro.get_jamf_remote_assist_sessions() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_jamf_remote_assist_sessions_optional_params(pro):
+    """
+    Ensures that get_jamf_remote_assist_sessions returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/jamf-remote-assist/session"))
+    )
+    assert (
+        pro.get_jamf_remote_assist_sessions(
+            0, 100, ["sessionId:desc", "deviceId:asc"], 'sessionId=="1001"'
+        )
+        == EXPECTED_JSON
+    )
 
 
 @responses.activate
@@ -4299,43 +4410,14 @@ def test_get_jamf_remote_assist_session(pro):
 def test_get_jamf_remote_assist_sessions_export(pro):
     """
     Ensures that get_jamf_remote_assist_sessions_export returns str when used
-    without optional params
+    with required params
     """
     responses.add(
-        response_builder(
-            "POST",
-            jps_url("/api/v2/jamf-remote-assist/session/export"),
-        )
+        "POST",
+        jps_url("/api/v2/jamf-remote-assist/session/export"),
     )
-    assert pro.get_jamf_remote_assist_sessions_export()
 
-
-@responses.activate
-def test_get_jamf_remote_assist_sessions_export_optional_params(pro):
-    """
-    Ensures that get_jamf_remote_assist_sessions_export returns str when used
-    with all optional params
-    """
-    responses.add(
-        response_builder(
-            "POST",
-            jps_url("/api/v2/jamf-remote-assist/session/export"),
-        )
-    )
-    assert pro.get_jamf_remote_assist_sessions_export(
-        (
-            "sessionId, deviceId, tenantId, sessionStartedTimestamp, "
-            "sessionEndedTimestamp, sessionType, statusType, sessionAdminId, comment"
-        ),
-        (
-            "sessionId, devd, tenantId, sessiomp, sessionEndedTimestamp, sessionType,"
-            " statusType, sessionAdminId, comment"
-        ),
-        0,
-        100,
-        ["sessionId:desc", "deviceId:asc"],
-        'sessionId=="1001"',
-    )
+    assert pro.get_jamf_remote_assist_sessions_export(EXPECTED_JSON) == ""
 
 
 """
@@ -4581,6 +4663,30 @@ def test_get_locales(pro):
     """
     responses.add(response_builder("GET", jps_url("/api/v1/locales")))
     assert pro.get_locales() == EXPECTED_JSON
+
+
+"""
+login-customization
+"""
+
+
+@responses.activate
+def test_get_login_customization_settings(pro):
+    """
+    Ensures that get_login_customization_settings returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/login-customization")))
+    assert pro.get_login_customization_settings() == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_login_customization_settings(pro):
+    """
+    Ensures that update_login_customization_settings returns JSON when used
+    with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/login-customization")))
+    assert pro.update_login_customization_settings(EXPECTED_JSON) == EXPECTED_JSON
 
 
 """
@@ -5491,6 +5597,40 @@ def test_get_mobile_device_detail(pro):
 
 
 @responses.activate
+def test_get_mobile_device_paired_devices(pro):
+    """
+    Ensures that get_mobile_device_paired_devices returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-devices/1001/paired-devices"))
+    )
+    assert pro.get_mobile_device_paired_devices(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_mobile_device_paired_devices_optional_params(pro):
+    """
+    Ensures that get_mobile_device_paired_devices returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/mobile-devices/1001/paired-devices"))
+    )
+    assert (
+        pro.get_mobile_device_paired_devices(
+            1001,
+            ["GENERAL", "HARDWARE"],
+            0,
+            100,
+            ["id:desc", "name:asc"],
+            'displayName=="iPad" and deviceId==1001',
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
 def test_update_mobile_device(pro):
     """
     Ensures that update_mobile_device returns JSON when used with required
@@ -5681,6 +5821,204 @@ def test_update_onboarding_settings(pro):
     """
     responses.add(response_builder("PUT", jps_url("/api/v1/onboarding")))
     assert pro.update_onboarding_settings(EXPECTED_JSON) == EXPECTED_JSON
+
+
+"""
+packages
+"""
+
+
+@responses.activate
+def test_get_packages(pro):
+    """
+    Ensures that get_packages returns JSON when used without optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/packages")))
+    assert pro.get_packages() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_packages_optional_params(pro):
+    """
+    Ensures that get_packages returns JSON when used with all optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/packages")))
+    assert (
+        pro.get_packages(0, 100, ["id:desc", "fileName:asc"], 'fileName=="example.pkg"')
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_package(pro):
+    """
+    Ensures that get_package returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/packages/1001")))
+    assert pro.get_package(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_package_history_notes(pro):
+    """
+    Ensures that get_package_history_notes returns JSON when used without
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/packages/1001/history")))
+    assert pro.get_package_history_notes(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_package_history_notes_optional_params(pro):
+    """
+    Ensures that get_package_history_notes returns JSON when used with all
+    optional params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/packages/1001/history")))
+    assert (
+        pro.get_package_history_notes(
+            1001, 0, 100, ["date:desc", "note:asc"], 'username=="exampleuser"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_package_export(pro):
+    """
+    Ensures that get_package_export returns str when used without optional
+    params
+    """
+    responses.add("POST", jps_url("/api/v1/packages/export"))
+    assert pro.get_package_export() == ""
+
+
+@responses.activate
+def test_get_package_export_optional_params(pro):
+    """
+    Ensures that get_package_export returns str when used with all optional
+    params
+    """
+    responses.add("POST", jps_url("/api/v1/packages/export"))
+    assert (
+        pro.get_package_export(
+            ["id", "fileName"],
+            ["identification", "name"],
+            0,
+            100,
+            ["id:desc", "fileName:asc"],
+            'fileName=="example.pkg"',
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_get_package_history_notes_export(pro):
+    """
+    Ensures that get_package_history_notes_export returns str when used without
+    optional params
+    """
+    responses.add("POST", jps_url("/api/v1/packages/1001/history/export"))
+    assert pro.get_package_history_notes_export(1001) == ""
+
+
+@responses.activate
+def test_get_package_history_notes_export_optional_params(pro):
+    """
+    Ensures that get_package_history_notes_export returns str when used with
+    all optional params
+    """
+    responses.add("POST", jps_url("/api/v1/packages/1001/history/export"))
+    assert (
+        pro.get_package_history_notes_export(
+            1001,
+            ["id", "note"],
+            ["identification", "name"],
+            0,
+            100,
+            ["id:desc", "note:asc"],
+            'username=="exampleuser"',
+        )
+        == ""
+    )
+
+
+@responses.activate
+def test_create_package(pro):
+    """
+    Ensures that create_package returns JSON when used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/packages")))
+    assert pro.create_package(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_package_history_note(pro):
+    """
+    Ensures that create_package_history_note returns JSON when used with
+    required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/packages/1001/history")))
+    assert pro.create_package_history_note(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_package_manifest(pro):
+    """
+    Ensures that create_package_manifest returns JSON when used with required
+    params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(
+            response_builder("POST", jps_url("/api/v1/packages/1001/manifest"))
+        )
+        assert pro.create_package_manifest("/file.plist", 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_package_file(pro):
+    """
+    Ensures that create_package_file returns JSON when used with required
+    params
+    """
+    read_data = "Test document content"
+    mock_open = mock.mock_open(read_data=read_data)
+    with mock.patch("builtins.open", mock_open):
+        responses.add(response_builder("POST", jps_url("/api/v1/packages/1001/upload")))
+        assert pro.create_package_file("/file.pkg", 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_update_package(pro):
+    """
+    Ensures that update_package returns JSON when used with required params
+    """
+    responses.add(response_builder("PUT", jps_url("/api/v1/packages/1001")))
+    assert pro.update_package(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_package_single(pro):
+    """
+    Ensures that delete_package completes successfully when run with id
+    """
+    responses.add(response_builder("DELETE", jps_url("/api/v1/packages/1001")))
+    assert pro.delete_package(1001) == "Package 1001 successfully deleted."
+
+
+@responses.activate
+def test_delete_package_multiple(pro):
+    """
+    Ensures that delete_package completes successfully when run with ids
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/packages/delete-multiple")))
+    assert (
+        pro.delete_package(ids=[1001, 1002])
+        == "Package(s) 1001, 1002 successfully deleted."
+    )
 
 
 """

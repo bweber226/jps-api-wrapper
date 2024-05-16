@@ -4,19 +4,37 @@ from os.path import basename
 from typing import List, Union
 
 from jps_api_wrapper.request_builder import RequestBuilder
-from jps_api_wrapper.utils import (
-    check_conflicting_params,
-    enforce_type,
-    identification_type,
-    remove_empty_params,
-)
+from jps_api_wrapper.utils import (check_conflicting_params, enforce_type,
+                                   identification_type, paginate,
+                                   remove_empty_params)
 
 warnings.simplefilter("always", DeprecationWarning)
+
+__all__ = ["Pro", "paginate"]
 
 
 class Pro(RequestBuilder):
     def __init__(self, base_url, username, password, client=False):
         super().__init__(base_url, username, password, client)  # pragma: no cover
+
+    """
+    activation-code
+    """
+
+    def update_activation_code(self, data: dict) -> dict:
+        """
+        Updates activation code with JSON data
+
+        :param data:
+            JSON data to update activation code with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-activation-code>`__
+
+        :returns: Updated activation code information in JSON
+        """
+        endpoint = "/api/v1/activation-code"
+
+        return self._put(endpoint, data)
 
     """
     advanced-mobile-device-searches
@@ -1908,26 +1926,28 @@ class Pro(RequestBuilder):
             general.lastIpAddress, general.itunesStoreAccountActive,
             general.jamfBinaryVersion, general.lastContactTime,
             general.lastEnrolledDate, general.lastCloudBackupDate,
-            general.reportDate, general.lastReportedIp,
-            general.remoteManagement.managed, general.
-            remoteManagement.managementUsername,
+            general.reportDate, general.lastReportedIp, general.managementId,
+            general.remoteManagement.managed,
+            general.remoteManagement.managementUsername,
             general.mdmCapable.capable, general.mdmCertificateExpiration,
             general.platform, general.supervised, general.userApprovedMdm,
-            hardware.bleCapable, hardware.macAddress, hardware.make,
-            hardware.model, hardware.modelIdentifier, hardware.serialNumber,
-            hardware.supportsIosAppInstalls, hardware.isAppleSilicon,
+            general.declarativeDeviceManagementEnabled, hardware.bleCapable,
+            hardware.macAddress, hardware.make, hardware.model,
+            hardware.modelIdentifier, hardware.serialNumber,
+            hardware.supportsIosAppInstalls,hardware.appleSilicon,
             operatingSystem.activeDirectoryStatus,
             operatingSystem.fileVault2Status, operatingSystem.build,
-            operatingSystem.name, operatingSystem.version,
-            operatingSystem.softwareUpdateDeviceId,
-            security.activationLockEnabled, security.recoveryLockEnabled,
-            security.firewallEnabled, userAndLocation.buildingId,
-            userAndLocation.departmentId, userAndLocation.email,
-            userAndLocation.realname, userAndLocation.phone,
-            userAndLocation.position, userAndLocation.room,
-            userAndLocation.username, purchasing.appleCareId,
-            purchasing.lifeExpectancy, purchasing.purchased, purchasing.leased,
-            purchasing.vendor, purchasing.warrantyDate
+            operatingSystem.supplementalBuildVersion,
+            operatingSystem.rapidSecurityResponse, operatingSystem.name,
+            operatingSystem.version, security.activationLockEnabled,
+            security.recoveryLockEnabled, security.firewallEnabled,
+            userAndLocation.buildingId, userAndLocation.departmentId,
+            userAndLocation.email, userAndLocation.realname,
+            userAndLocation.phone, userAndLocation.position,
+            userAndLocation.room, userAndLocation.username,
+            purchasing.appleCareId, purchasing.lifeExpectancy,
+            purchasing.purchased, purchasing.leased, purchasing.vendor,
+            purchasing.warrantyDate
 
             Example: general.name=="Orchard"
 
@@ -4168,6 +4188,115 @@ class Pro(RequestBuilder):
         )
 
     """
+    gsx-connection
+    """
+
+    def get_gsx_connection(self) -> dict:
+        """
+        Returns the Jamf Pro GSX connection information
+
+        :returns: GSX connection information in JSON
+        """
+        endpoint = "/api/v1/gsx-connection"
+
+        return self._get(endpoint)
+
+    def get_gsx_connection_history(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns GSX connection history entries
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "name:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: "username!=admin and details==disabled"
+
+        :returns: GSX connection history information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/gsx-connection/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_gsx_connection_test(self) -> dict:
+        """
+        Test functionality of a GSX Connection
+        """
+        endpoint = "/api/v1/gsx-connection/test"
+
+        return self._post(endpoint)
+
+    def create_gsx_connection_history_note(self, data: dict) -> dict:
+        """
+        Creates GSX connection history object with JSON data
+
+        :param data:
+            JSON data to create the GSX connection history note with. For
+            syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-gsx-connection-history>`__
+
+        :returns: New GSX connection history note information in JSON
+        """
+        endpoint = "/api/v1/gsx-connection/history"
+
+        return self._post(endpoint, data)
+
+    def update_gsx_connection(self, data: dict) -> dict:
+        """
+        Updates Jamf Pro GSX Connection information with JSON data
+
+        :param data:
+            JSON data to update the GSX connection with. For syntax information
+            view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/patch_v1-gsx-connection>`__
+
+        :returns: Updated GSX connection information in JSON
+        """
+        endpoint = "/api/v1/gsx-connection"
+
+        return self._patch(endpoint, data)
+
+    def replace_gsx_connection(self, data: dict) -> dict:
+        """
+        Replaces Jamf Pro GSX Connection information with JSON data
+
+        :param data:
+            JSON data to replace the GSX connection with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-gsx-connection>`__
+
+        :returns: Replaced GSX connection information in JSON
+        """
+        endpoint = "/api/v1/gsx-connection"
+
+        return self._put(endpoint, data)
+
+    """
     health-check
     """
 
@@ -5456,9 +5585,33 @@ class Pro(RequestBuilder):
     jamf-remote-assist
     """
 
-    def get_jamf_remote_assist_sessions(self) -> dict:
+    def get_jamf_remote_assist_sessions(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["sessionId:asc"],
+        filter: str = None,
+    ) -> dict:
         """
         Returns tenants sessions history
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            sessionId:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["sessionId:desc", "deviceId:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter session history items
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: sessionId,
+            deviceId, sessionAdminId. This param can be combined with paging
+            and sorting.
+
+            Example: 'sessionId=="1001"'
 
         :returns: Jamf Remote Assist sessions information in JSON
         """
@@ -5480,69 +5633,22 @@ class Pro(RequestBuilder):
 
     def get_jamf_remote_assist_sessions_export(
         self,
-        export_fields: List[str] = None,
-        export_labels: List[str] = None,
-        page: int = None,
-        page_size: int = None,
-        sort: List[str] = ["sessionId:asc"],
-        filter: str = None,
+        data: dict,
     ) -> str:
         """
         Exports jamf remote assist history collection in CSV format
 
-        :param export_fields:
-            Export fields parameter, used to change default order or ignore
-            some of the response properties. Default is empty array, which
-            means that all fields of the response entity will be serialized.
+        :param data:
+            JSON data to export jamf remote assist history collection in CSV
+            format. For syntax information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-jamf-remote-assist-session-export>`__
 
-            Options:
-                sessionId, deviceId, tenantId, sessionStartedTimestamp,
-                sessionEndedTimestamp, sessionType, statusType, sessionAdminId,
-                comment
-
-            Example: ["sessionId", "deviceId"]
-
-        :param export_labels:
-            Export labels parameter, used to customize fieldnames/columns in
-            the exported file. Default is empty array, which means that
-            response properties names will be used. Number of the provided
-            labels must match the number of export-fields
-
-            Example: export_labels=["sessionID", "deviceId"] with
-            matching: export_fields=["session", "device"]
-
-        :param page: Page to return, default page is 0.
-        :param page_size: Page size to return, default page-size is 100.
-        :param sort:
-            Sorting criteria in the format: property:asc/desc. Default sort is
-            ["date:desc"]. Multiple sort criteria are supported and must be
-            separated with a comma.
-
-            Example: ["sessionId:desc", "deviceId:asc"]
-
-        :param filter:
-            Query in the RSQL format, allowing to filter history notes
-            collection. Default filter is empty query - returning all results
-            for the requested page. Fields allowed in the query: username,
-            date, note, details. This param can be combined with paging and
-            sorting.
-
-            Example: 'sessionId=="1001"'
+        :returns: Jamf Remote Assist session export information in CSV
         """
-        params = remove_empty_params(
-            {
-                "export-fields": export_fields,
-                "export-labels": export_labels,
-                "page": page,
-                "page-size": page_size,
-                "sort": sort,
-                "filter": filter,
-            }
-        )
         headers = {"Content-type": "application/json", "Accept": "text/csv"}
         endpoint = "/api/v2/jamf-remote-assist/session/export"
 
-        return self._post(endpoint, params=params, headers=headers, data_type=None)
+        return self._post(endpoint, data=data, headers=headers, data_type=None)
 
     """
     ldap
@@ -5823,6 +5929,35 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/locales"
 
         return self._get(endpoint)
+
+    """
+    login-customization
+    """
+
+    def get_login_customization_settings(self) -> dict:
+        """
+        Returns current login customization settings
+
+        :returns: Login customization settings in JSON
+        """
+        endpoint = "/api/v1/login-customization"
+
+        return self._get(endpoint)
+
+    def update_login_customization_settings(self, data: dict) -> dict:
+        """
+        Updates current login customization settings
+
+        :param data:
+            JSON data to update login customization settings with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-login-customization>`__
+
+        :returns: Updated login customization settings in JSON
+        """
+        endpoint = "/api/v1/login-customization"
+
+        return self._put(endpoint, data)
 
     """
     macos-managed-software-updates
@@ -6994,6 +7129,117 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def get_mobile_device_paired_devices(
+        self,
+        id: Union[int, str],
+        section: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["displayName:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all paired devices for a specific mobile device by ID
+
+        :param id: Mobile device ID
+        :param section:
+            Section of mobile device details, if not specified, General section
+            data is returned. Multiple section parameters are supported.
+
+            Options:
+            GENERAL, HARDWARE, USER_AND_LOCATION, PURCHASING, SECURITY,
+            APPLICATIONS, EBOOKS, NETWORK, SERVICE_SUBSCRIPTIONS, CERTIFICATES,
+            PROFILES, USER_PROFILES, PROVISIONING_PROFILES, SHARED_USERS,
+            EXTENSION_ATTRIBUTES
+
+            Example: ["GENERAL", "HARDWARE"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            displayName:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Options:
+            airPlayPassword, appAnalyticsEnabled, assetTag, availableSpaceMb,
+            batteryLevel, bluetoothLowEnergyCapable, bluetoothMacAddress,
+            capacityMb, lostModeEnabledDate,
+            declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, enrollmentSessionTokenValid, osBuild,
+            osSupplementalBuildVersion, osVersion, osRapidSecurityResponse,
+            ipAddress, itunesStoreAccountActive, mobileDeviceId, languages,
+            lastEnrolledDate, lastCloudBackupDate, lastInventoryUpdateDate,
+            locales, lostModeEnabled, managed, mdmProfileExpirationDate, model,
+            modelIdentifier, modelNumber, modemFirmwareVersion, serialNumber,
+            supervised, timeZone, udid, usedSpacePercentage, wifiMacAddress,
+            deviceOwnershipType, building, department, emailAddress, fullName,
+            userPhoneNumber, position, room, username, appleCareId,
+            leaseExpirationDate,lifeExpectancyYears, poDate, poNumber,
+            purchasePrice, purchasedOrLeased, purchasingAccount,
+            purchasingContact, vendor, warrantyExpirationDate,
+            activationLockEnabled, blockEncryptionCapable, dataProtection,
+            fileEncryptionCapable, hardwareEncryptionSupported,
+            jailbreakStatus, passcodeCompliant, passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            cellularTechnology, currentCarrierNetwork,
+            currentMobileCountryCode, currentMobileNetworkCode,
+            dataRoamingEnabled, eid, network, homeMobileCountryCode,
+            homeMobileNetworkCode, iccid, imei, imei2, meid,
+            personalHotspotEnabled, voiceRoamingEnabled, roaming
+
+            Example: ["deviceId:desc", "displayName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter mobile device
+            collection. Default filter is empty query - returning all results
+            for the requested page.
+
+            Options:
+            airPlayPassword, appAnalyticsEnabled, assetTag, availableSpaceMb,
+            batteryLevel, bluetoothLowEnergyCapable, bluetoothMacAddress,
+            capacityMb, declarativeDeviceManagementEnabled, deviceId,
+            deviceLocatorServiceEnabled, devicePhoneNumber,
+            diagnosticAndUsageReportingEnabled, displayName,
+            doNotDisturbEnabled, osBuild, osSupplementalBuildVersion,
+            osVersion, osRapidSecurityResponse, ipAddress,
+            itunesStoreAccountActive, mobileDeviceId, languages,
+            lastInventoryUpdateDate, locales, lostModeEnabled, managed, model,
+            modelIdentifier, modelNumber, modemFirmwareVersion, serialNumber,
+            supervised, timeZone, udid, usedSpacePercentage, wifiMacAddress,
+            building, department, emailAddress, fullName, userPhoneNumber,
+            position, room, username, appleCareId, lifeExpectancyYears,
+            poNumber, purchasePrice, purchasedOrLeased, purchasingAccount,
+            purchasingContact, vendor, activationLockEnabled,
+            blockEncryptionCapable, dataProtection, fileEncryptionCapable,
+            passcodeCompliant, passcodeCompliantWithProfile,
+            passcodeLockGracePeriodEnforcedSeconds, passcodePresent,
+            personalDeviceProfileCurrent, carrierSettingsVersion,
+            currentCarrierNetwork, currentMobileCountryCode,
+            currentMobileNetworkCode, dataRoamingEnabled, eid, network,
+            homeMobileCountryCode, homeMobileNetworkCode, iccid, imei, imei2,
+            meid, personalHotspotEnabled, roaming
+
+            Example: 'displayName=="iPad" and deviceId==1001'
+
+        :returns: All paired devices for a specific mobile device in JSON
+        """
+        params = remove_empty_params(
+            {
+                "section": section,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v2/mobile-devices/{id}/paired-devices"
+
+        return self._get(endpoint, params=params)
+
     def update_mobile_device(self, data: dict, id: Union[int, str]) -> dict:
         """
         Updates mobile device by ID with JSON
@@ -7284,6 +7530,372 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/onboarding"
 
         return self._put(endpoint, data)
+
+    """
+    packages
+    """
+
+    def get_packages(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all packages
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            id:asc. Multiple sort criteria are supported and must be separated
+            with a comma.
+
+            Example: ["id:desc", "fileName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter packages collection.
+            Default filter is empty query - returning all results for the
+            requested page.
+
+            Options:
+            id, fileName, packageName, categoryId, info, notes,
+            manifestFileName
+
+            Example: 'fileName=="example.pkg"'
+
+        :returns: All packages information in JSON
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = "/api/v1/packages"
+
+        return self._get(endpoint, params=params)
+
+    def get_package(self, id: Union[int, str]) -> dict:
+        """
+        Returns package by ID
+
+        :param id: Package ID
+
+        :returns: Package information in JSON
+        """
+        endpoint = f"/api/v1/packages/{id}"
+
+        return self._get(endpoint)
+
+    def get_package_history_notes(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns package history notes by ID
+
+        :param id: Package ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: 'username!=admin and date<2019-12-15'
+
+        :returns: Package history notes information in JSON
+        """
+        params = remove_empty_params(
+            {"page": page, "page-size": page_size, "sort": sort, "filter": filter}
+        )
+        endpoint = f"/api/v1/packages/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def get_package_export(
+        self,
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Returns packages collection in CSV format
+
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Options:
+            id, packageName, categoryId, fileName, info, notes,
+            manifestFileName, priority, fillUserTemplate, fillExistingUsers,
+            uninstall, rebootRequired, osRequirements, swu, ignoreConflicts,
+            size
+
+            Example: ["id", "fileName"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["identification", "name"] with
+            matching: export_fields=["id", "fileName"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:asc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Options:
+            id, packageName, categoryId, fileName, info, notes,
+            manifestFileName, priority, fillUserTemplate, fillExistingUsers,
+            uninstall, rebootRequired, osRequirements, swu, ignoreConflicts,
+            size
+
+            Example: ["id:desc", "fileName:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter packages collection.
+            Default filter is empty query - returning all results for the
+            requested page.
+
+            Options:
+            id, packageName, categoryId, fileName, info, notes,
+            manifestFileName, priority, fillUserTemplate, fillExistingUsers,
+            uninstall, rebootRequired, osRequirements, swu, ignoreConflicts,
+            size
+
+            Example: 'fileName=="example.pkg"'
+
+        :returns: Packages collection in CSV format
+        """
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = "/api/v1/packages/export"
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def get_package_history_notes_export(
+        self,
+        id: Union[int, str],
+        export_fields: List[str] = None,
+        export_labels: List[str] = None,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["date:desc"],
+        filter: str = None,
+    ) -> str:
+        """
+        Exports package history notes collection in CSV format
+
+        :param id: Package ID
+        :param export_fields:
+            Export fields parameter, used to change default order or ignore
+            some of the response properties. Default is empty array, which
+            means that all fields of the response entity will be serialized.
+
+            Options:
+            id, username, date, note, details
+
+            Example: ["id", "username"]
+
+        :param export_labels:
+            Export labels parameter, used to customize fieldnames/columns in
+            the exported file. Default is empty array, which means that
+            response properties names will be used. Number of the provided
+            labels must match the number of export-fields
+
+            Example: export_labels=["identification", "name"] with
+            matching: export_fields=["id", "username"]
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            date:desc. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Options:
+            id, username, date, note, details
+
+            Example: ["date:desc", "note:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: 'username!=admin and date<2019-12-15'
+
+        """
+        params = remove_empty_params(
+            {
+                "export-fields": export_fields,
+                "export-labels": export_labels,
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        headers = {"Content-type": "application/json", "Accept": "text/csv"}
+        endpoint = f"/api/v1/packages/{id}/history/export"
+
+        return self._post(endpoint, params=params, headers=headers, data_type=None)
+
+    def create_package(self, data: dict) -> dict:
+        """
+        Creates a package with JSON
+
+        :param data:
+            JSON data to create the package with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-packages>`__
+
+        :returns: New package information in JSON
+        """
+        endpoint = "/api/v1/packages"
+
+        return self._post(endpoint, data)
+
+    def create_package_history_note(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Creates a package history note with JSON by ID
+
+        :param data:
+            JSON data to create the package history note with. For syntax
+            information view `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-packages-id-history>`__
+        :param id: Package ID
+
+        :returns: New package history note information in JSON
+        """
+        endpoint = f"/api/v1/packages/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def create_package_manifest(self, filepath: str, id: Union[int, str]) -> dict:
+        """
+        Creates a manifest for a package by ID
+
+        :param filepath: Path to the manifest file
+        :param id: Package ID
+
+        :returns: New package manifest information in JSON
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+        endpoint = f"/api/v1/packages/{id}/manifest"
+
+        return self._post(endpoint, file=file)
+
+    def create_package_file(self, filepath: str, id: Union[int, str]) -> dict:
+        """
+        Uploads a file to a package by ID
+
+        :param filepath: Path to the file
+        :param id: Package ID
+
+        :returns: New package file information in JSON
+        """
+        filename = basename(filepath)
+        content_type = guess_type(filename.lower())[0]
+        file = {"file": (filename, open(filepath, "rb"), content_type)}
+        endpoint = f"/api/v1/packages/{id}/upload"
+
+        return self._post(endpoint, file=file)
+
+    def update_package(self, data: dict, id: Union[int, str]) -> dict:
+        """
+        Updates a package by ID with JSON
+
+        :param data:
+            JSON data to update the package with. For syntax information view
+            `Jamf's documentation.
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-packages-id>`__
+        :param id: Package ID
+
+        :returns: Updated package information in JSON
+        """
+        endpoint = f"/api/v1/packages/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_package(
+        self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
+    ) -> str:
+        """
+        Deletes a package or multiple packages by ID or IDs
+
+        :param id: Package ID
+        :param ids: List of package IDs
+
+        :returns:
+            Success message stating that the package or packages was deleted
+        """
+        identifier_options = {"id": id, "ids": ids}
+        identification_type(identifier_options)
+        check_conflicting_params(identifier_options)
+        if id:
+            if enforce_type(id, (str, int)):
+                endpoint = f"/api/v1/packages/{id}"
+                return self._delete(
+                    endpoint,
+                    success_message=(f"Package {id} successfully deleted."),
+                )
+        if ids:
+            if enforce_type(ids, (List)):
+                ids = [str(id) for id in ids]
+                endpoint = "/api/v1/packages/delete-multiple"
+                return self._post(
+                    endpoint,
+                    data={"ids": ids},
+                    success_message=(
+                        f"Package(s) {', '.join(ids)} successfully deleted."
+                    ),
+                )
+
+    def delete_package_manifest(self, id: Union[int, str]) -> str:
+        """
+        Deletes a package manifest by ID
+        """
+        endpoint = f"/api/v1/packages/{id}/manifest"
+
+        return self._delete(
+            endpoint, success_message="Package manifest successfully deleted."
+        )
 
     """
     parent-app-preview
@@ -7783,16 +8395,6 @@ class Pro(RequestBuilder):
             List of column names to export. Allowed fields: all, computerName,
             deviceId, username, operatingSystemVersion, lastContactTime,
             buildingName, departmentName, siteName, version.
-
-            Example: ["computerName", "deviceId"]
-        :param page: Page to return, default page is 0.
-        :param page_size: Page size to return, default page-size is 100.
-        :param sort:
-            Sorting criteria in the format: property:asc/desc. Default sort is
-            ["computerName:asc"]. Multiple sort criteria are supported and must
-            be separated with a comma.
-
-            Example: ["deviceId:asc", "computerName:desc"]
 
         :param filter:
             Query in the RSQL format, allowing to filter Patch Report

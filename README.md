@@ -20,6 +20,7 @@ I plan on keeping this up to date with current releases of JPS. Check the change
       - [Install](#install-1)
       - [Setting the password](#setting-the-password)
       - [Retrieving the password in Python and authenticating](#retrieving-the-password-in-python-and-authenticating)
+  - [Pagination (Added v1.15.0)](#pagination-added-v1150)
   - [Method Documentation](#method-documentation)
   - [Other Notes](#other-notes)
   - [Contributing](#contributing)
@@ -134,6 +135,39 @@ with Pro(JPS_URL, USERNAME, PASSWORD) as pro:
     print(pro.get_mobile_devices())
 ```
 
+## Pagination (Added v1.15.0)
+
+To have jps-api-wrapper automatically handle pagination for endpoints that support it you can use the paginate function like so. We just need to import paginate along Pro from jps_api_wrapper.Pro.
+
+```
+from os import environ
+from jps_api_wrapper.pro import Pro, paginate
+
+JPS_URL = "https://example.jamfcloud.com"
+USERNAME = environ["JPS_USERNAME"]
+PASSWORD = environ["JPS_PASSWORD"]
+
+with Pro(JPS_URL, USERNAME, PASSWORD) as pro:
+    print(paginate(pro.get_mobile_devices))
+```
+
+To pass in any arguments or key word arguments just pass them to paginate after the endpoint method like you would pass them to the endpoint method itself. So this example of non-paginated
+
+```
+pro.get_mobile_devices(0, 100, sort=["id:desc"])
+```
+
+would instead be.
+
+```
+paginate(pro.get_mobile_devices, 0, 100, sort=["id:desc"])
+```
+
+You do not need to pass along any arguments that are not mandatory in the original method endpoint that is being passed to paginate. So this example would also work.
+
+```
+paginate(pro.get_mobile_devices, page_size=50)
+```
 
 ## Method Documentation
 
