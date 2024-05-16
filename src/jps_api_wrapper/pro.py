@@ -28,7 +28,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update activation code with. For syntax information
             view `Jamf's documentation.
-            <TODO Add on release>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-activation-code>`__
 
         :returns: Updated activation code information in JSON
         """
@@ -4258,7 +4258,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the GSX connection history note with. For
             syntax information view `Jamf's documentation.
-            <TODO ADD ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-gsx-connection-history>`__
 
         :returns: New GSX connection history note information in JSON
         """
@@ -4273,7 +4273,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the GSX connection with. For syntax information
             view `Jamf's documentation.
-            <TODO REPLACE ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/patch_v1-gsx-connection>`__
 
         :returns: Updated GSX connection information in JSON
         """
@@ -4288,7 +4288,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to replace the GSX connection with. For syntax
             information view `Jamf's documentation.
-            <TODO REPLACE ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-gsx-connection>`__
 
         :returns: Replaced GSX connection information in JSON
         """
@@ -5951,7 +5951,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update login customization settings with. For syntax
             information view `Jamf's documentation.
-            <TODO REPLACE LATER>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-login-customization>`__
 
         :returns: Updated login customization settings in JSON
         """
@@ -7781,7 +7781,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the package with. For syntax information view
             `Jamf's documentation.
-            <TODO ADD AFTER RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-packages>`__
 
         :returns: New package information in JSON
         """
@@ -7796,7 +7796,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the package history note with. For syntax
             information view `Jamf's documentation.
-            <TODO ADD AFTER RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-packages-id-history>`__
         :param id: Package ID
 
         :returns: New package history note information in JSON
@@ -7844,7 +7844,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the package with. For syntax information view
             `Jamf's documentation.
-            <TODO ADD AFTER RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-packages-id>`__
         :param id: Package ID
 
         :returns: Updated package information in JSON
