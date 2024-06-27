@@ -4,9 +4,13 @@ from os.path import basename
 from typing import List, Union
 
 from jps_api_wrapper.request_builder import RequestBuilder
-from jps_api_wrapper.utils import (check_conflicting_params, enforce_type,
-                                   identification_type, paginate,
-                                   remove_empty_params)
+from jps_api_wrapper.utils import (
+    check_conflicting_params,
+    enforce_type,
+    identification_type,
+    paginate,
+    remove_empty_params,
+)
 
 warnings.simplefilter("always", DeprecationWarning)
 
@@ -2557,7 +2561,7 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/csa/token"
 
         return self._get(endpoint)
-    
+
     def get_csa_tenant_id(self) -> dict:
         """
         Returns the CSA tenant ID
@@ -5170,43 +5174,43 @@ class Pro(RequestBuilder):
             Type of the notification
 
             Options:
-            APNS_CERT_REVOKED, APNS_CONNECTION_FAILURE, 
-            APPLE_SCHOOL_MANAGER_T_C_NOT_SIGNED, BUILT_IN_CA_EXPIRED, 
-            BUILT_IN_CA_EXPIRING, BUILT_IN_CA_RENEWAL_FAILED, 
-            BUILT_IN_CA_RENEWAL_SUCCESS, CLOUD_LDAP_CERT_EXPIRED, 
-            CLOUD_LDAP_CERT_WILL_EXPIRE, DEP_INSTANCE_EXPIRED, 
-            DEP_INSTANCE_WILL_EXPIRE, DEVICE_ENROLLMENT_PROGRAM_T_C_NOT_SIGNED, 
-            EXCEEDED_LICENSE_COUNT, FREQUENT_INVENTORY_COLLECTION_POLICY, 
-            GSX_CERT_EXPIRED, GSX_CERT_WILL_EXPIRE, HCL_BIND_ERROR, HCL_ERROR, 
-            INSECURE_LDAP, INVALID_REFERENCES_EXT_ATTR, 
-            INVALID_REFERENCES_POLICIES, INVALID_REFERENCES_SCRIPTS, 
-            JAMF_CONNECT_UPDATE, JAMF_PROTECT_UPDATE, JIM_ERROR, 
-            LDAP_CONNECTION_CHECK_THROUGH_JIM_FAILED, 
-            LDAP_CONNECTION_CHECK_THROUGH_JIM_SUCCESSFUL, 
-            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRED, 
-            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRING, 
-            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRING_TODAY, 
-            MII_HEARTBEAT_FAILED_NOTIFICATION, 
-            MII_INVENTORY_UPLOAD_FAILED_NOTIFICATION, 
-            MII_UNATHORIZED_RESPONSE_NOTIFICATION, PATCH_EXTENTION_ATTRIBUTE, 
-            PATCH_UPDATE, POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_MULTIPLE, 
-            POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_SINGLE, 
-            PUSH_CERT_EXPIRED, PUSH_CERT_WILL_EXPIRE, PUSH_PROXY_CERT_EXPIRED, 
-            SSO_CERT_EXPIRED, SSO_IDP_CERT_EXPIRED, SSO_CERT_WILL_EXPIRE, 
-            SSO_IDP_CERT_WILL_EXPIRE, TOMCAT_SSL_CERT_EXPIRED, 
-            TOMCAT_SSL_CERT_WILL_EXPIRE, 
-            USER_INITIATED_ENROLLMENT_MANAGEMENT_ACCOUNT_SECURITY_ISSUE, 
-            USER_MAID_DUPLICATE_ERROR, USER_MAID_MISMATCH_ERROR, 
-            USER_MAID_ROSTER_DUPLICATE_ERROR, VPP_ACCOUNT_EXPIRED, 
-            VPP_ACCOUNT_WILL_EXPIRE, VPP_TOKEN_REVOKED, 
-            DEVICE_COMPLIANCE_CONNECTION_ERROR, 
-            CONDITIONAL_ACCESS_CONNECTION_ERROR, 
-            AZURE_AD_MIGRATION_REPORT_GENERATED, BEYOND_CORP_CONNECTION_ERROR, 
-            APP_INSTALLERS_NEW_APP_VERSION_AVAILABLE, 
-            APP_INSTALLERS_NEW_APP_VERSION_DEPLOYMENT_STARTED, 
-            APP_INSTALLERS_APP_VERSION_REMOVED, 
-            APP_INSTALLERS_APP_TITLE_REMOVED, 
-            APP_INSTALLERS_DEPLOYMENT_INSTALLATION_FAILED, 
+            APNS_CERT_REVOKED, APNS_CONNECTION_FAILURE,
+            APPLE_SCHOOL_MANAGER_T_C_NOT_SIGNED, BUILT_IN_CA_EXPIRED,
+            BUILT_IN_CA_EXPIRING, BUILT_IN_CA_RENEWAL_FAILED,
+            BUILT_IN_CA_RENEWAL_SUCCESS, CLOUD_LDAP_CERT_EXPIRED,
+            CLOUD_LDAP_CERT_WILL_EXPIRE, DEP_INSTANCE_EXPIRED,
+            DEP_INSTANCE_WILL_EXPIRE, DEVICE_ENROLLMENT_PROGRAM_T_C_NOT_SIGNED,
+            EXCEEDED_LICENSE_COUNT, FREQUENT_INVENTORY_COLLECTION_POLICY,
+            GSX_CERT_EXPIRED, GSX_CERT_WILL_EXPIRE, HCL_BIND_ERROR, HCL_ERROR,
+            INSECURE_LDAP, INVALID_REFERENCES_EXT_ATTR,
+            INVALID_REFERENCES_POLICIES, INVALID_REFERENCES_SCRIPTS,
+            JAMF_CONNECT_UPDATE, JAMF_PROTECT_UPDATE, JIM_ERROR,
+            LDAP_CONNECTION_CHECK_THROUGH_JIM_FAILED,
+            LDAP_CONNECTION_CHECK_THROUGH_JIM_SUCCESSFUL,
+            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRED,
+            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRING,
+            MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRING_TODAY,
+            MII_HEARTBEAT_FAILED_NOTIFICATION,
+            MII_INVENTORY_UPLOAD_FAILED_NOTIFICATION,
+            MII_UNATHORIZED_RESPONSE_NOTIFICATION, PATCH_EXTENTION_ATTRIBUTE,
+            PATCH_UPDATE, POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_MULTIPLE,
+            POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_SINGLE,
+            PUSH_CERT_EXPIRED, PUSH_CERT_WILL_EXPIRE, PUSH_PROXY_CERT_EXPIRED,
+            SSO_CERT_EXPIRED, SSO_IDP_CERT_EXPIRED, SSO_CERT_WILL_EXPIRE,
+            SSO_IDP_CERT_WILL_EXPIRE, TOMCAT_SSL_CERT_EXPIRED,
+            TOMCAT_SSL_CERT_WILL_EXPIRE,
+            USER_INITIATED_ENROLLMENT_MANAGEMENT_ACCOUNT_SECURITY_ISSUE,
+            USER_MAID_DUPLICATE_ERROR, USER_MAID_MISMATCH_ERROR,
+            USER_MAID_ROSTER_DUPLICATE_ERROR, VPP_ACCOUNT_EXPIRED,
+            VPP_ACCOUNT_WILL_EXPIRE, VPP_TOKEN_REVOKED,
+            DEVICE_COMPLIANCE_CONNECTION_ERROR,
+            CONDITIONAL_ACCESS_CONNECTION_ERROR,
+            AZURE_AD_MIGRATION_REPORT_GENERATED, BEYOND_CORP_CONNECTION_ERROR,
+            APP_INSTALLERS_NEW_APP_VERSION_AVAILABLE,
+            APP_INSTALLERS_NEW_APP_VERSION_DEPLOYMENT_STARTED,
+            APP_INSTALLERS_APP_VERSION_REMOVED,
+            APP_INSTALLERS_APP_TITLE_REMOVED,
+            APP_INSTALLERS_DEPLOYMENT_INSTALLATION_FAILED,
             SAML_RESPONSE_ASSERTION_SIGNING_REQUIRED
 
         :param id: Instance ID of the notification
@@ -6173,7 +6177,7 @@ class Pro(RequestBuilder):
         endpoint = f"/api/v1/managed-software-updates/plans/{id}"
 
         return self._get(endpoint)
-    
+
     def get_managed_software_updates_plan_declarations(self, id: str) -> dict:
         """
         Returns managed software update plan declarations by UUID
@@ -6185,7 +6189,7 @@ class Pro(RequestBuilder):
         endpoint = f"/api/v1/managed-software-updates/plans/{id}/declarations"
 
         return self._get(endpoint)
-    
+
     def get_managed_software_updates_plan_events(self, id: str) -> dict:
         """
         Returns managed software update plan events by UUID
@@ -9601,7 +9605,7 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/slasa"
 
         return self._get(endpoint)
-    
+
     def create_slasa(self) -> dict:
         """
         Creates an acceptance of the SLASA for Jamf Pro

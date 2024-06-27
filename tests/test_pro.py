@@ -2493,7 +2493,8 @@ dss-declarations
 @responses.activate
 def test_get_dss_declaration(pro):
     """
-    Ensures that get_dss_declaration returns JSON when used with required params
+    Ensures that get_dss_declaration returns JSON when used with required
+    params
     """
     responses.add(response_builder("GET", jps_url("/api/v1/dss-declarations/1001")))
     assert pro.get_dss_declaration(1001) == EXPECTED_JSON

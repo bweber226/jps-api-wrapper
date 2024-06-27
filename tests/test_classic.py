@@ -7,14 +7,23 @@ from requests.auth import AuthBase
 from requests.exceptions import HTTPError
 
 from jps_api_wrapper.classic import Classic
-from jps_api_wrapper.request_builder import (ClientError, InvalidDataType,
-                                             NotFound, RequestConflict,
-                                             RequestTimedOut)
-from jps_api_wrapper.utils import (ConflictingParameters,
-                                   InvalidParameterOptions, InvalidSubset,
-                                   MissingParameters, MultipleIdentifications,
-                                   NoIdentification, NoParametersOrData,
-                                   ParametersAndData)
+from jps_api_wrapper.request_builder import (
+    ClientError,
+    InvalidDataType,
+    NotFound,
+    RequestConflict,
+    RequestTimedOut,
+)
+from jps_api_wrapper.utils import (
+    ConflictingParameters,
+    InvalidParameterOptions,
+    InvalidSubset,
+    MissingParameters,
+    MultipleIdentifications,
+    NoIdentification,
+    NoParametersOrData,
+    ParametersAndData,
+)
 
 MOCK_AUTH_STRING = "This is a MockAuth"
 EXPECTED_AUTH = {"Authorization": MOCK_AUTH_STRING}
