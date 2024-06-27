@@ -2011,6 +2011,15 @@ def test_get_csa(pro):
 
 
 @responses.activate
+def test_get_csa_tenant_id(pro):
+    """
+    Ensures that get_csa_tenant_id returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/csa/tenant-id")))
+    assert pro.get_csa_tenant_id() == EXPECTED_JSON
+
+
+@responses.activate
 def test_delete_csa(pro):
     """
     Ensures that delete_csa returns a success message str when used with
@@ -2474,6 +2483,20 @@ def test_delete_dock_item(pro):
     """
     responses.add(response_builder("DELETE", jps_url("/api/v1/dock-items/1001")))
     assert pro.delete_dock_item(1001) == "Dock item 1001 successfully deleted."
+
+
+"""
+dss-declarations
+"""
+
+
+@responses.activate
+def test_get_dss_declaration(pro):
+    """
+    Ensures that get_dss_declaration returns JSON when used with required params
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/dss-declarations/1001")))
+    assert pro.get_dss_declaration(1001) == EXPECTED_JSON
 
 
 """
@@ -4858,6 +4881,36 @@ def test_get_managed_software_updates_plan(pro):
         response_builder("GET", jps_url("/api/v1/managed-software-updates/plans/1001"))
     )
     assert pro.get_managed_software_updates_plan(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_plan_declarations(pro):
+    """
+    Ensures that get_managed_software_updates_plan_declarations returns JSON
+    when used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/managed-software-updates/plans/1001/declarations"),
+        )
+    )
+    assert pro.get_managed_software_updates_plan_declarations(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_managed_software_updates_plan_events(pro):
+    """
+    Ensures that get_managed_software_updates_plan_events returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET",
+            jps_url("/api/v1/managed-software-updates/plans/1001/events"),
+        )
+    )
+    assert pro.get_managed_software_updates_plan_events(1001) == EXPECTED_JSON
 
 
 @responses.activate
@@ -7299,7 +7352,32 @@ def test_get_site_objects_optional_params(pro):
 sites-preview
 """
 
+
 # All endpoints deprecated
+
+
+"""
+slasa
+"""
+
+
+@responses.activate
+def test_get_slasa(pro):
+    """
+    Ensures that get_slasa returns JSON when used
+    """
+    responses.add(response_builder("GET", jps_url("/api/v1/slasa")))
+    assert pro.get_slasa() == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_slasa(pro):
+    """
+    Ensures that create_slasa returns a success message str when used
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/slasa")))
+    assert pro.create_slasa() == "SLASA has been accepted."
+
 
 """
 smart-computer-groups-preview
