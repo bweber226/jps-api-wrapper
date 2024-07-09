@@ -4,9 +4,13 @@ from os.path import basename
 from typing import List, Union
 
 from jps_api_wrapper.request_builder import RequestBuilder
-from jps_api_wrapper.utils import (check_conflicting_params, enforce_type,
-                                   identification_type, paginate,
-                                   remove_empty_params)
+from jps_api_wrapper.utils import (
+    check_conflicting_params,
+    enforce_type,
+    identification_type,
+    paginate,
+    remove_empty_params,
+)
 
 warnings.simplefilter("always", DeprecationWarning)
 
@@ -2558,6 +2562,16 @@ class Pro(RequestBuilder):
 
         return self._get(endpoint)
 
+    def get_csa_tenant_id(self) -> dict:
+        """
+        Returns the CSA tenant ID
+
+        :returns: CSA tenant ID in JSON
+        """
+        endpoint = "/api/v1/csa/tenant-id"
+
+        return self._get(endpoint)
+
     def delete_csa(self) -> str:
         """
         Deletes the CSA token exchange - This will disable Jamf Pro's ability
@@ -3160,6 +3174,22 @@ class Pro(RequestBuilder):
         return self._delete(
             endpoint, success_message=f"Dock item {id} successfully deleted."
         )
+
+    """
+    dss-declarations
+    """
+
+    def get_dss_declaration(self, id: Union[int, str]) -> dict:
+        """
+        Returns a declaration from DSS by ID
+
+        :param id: DSS declaration ID
+
+        :returns: DSS declaration information in JSON
+        """
+        endpoint = f"/api/v1/dss-declarations/{id}"
+
+        return self._get(endpoint)
 
     """
     ebooks
@@ -5162,9 +5192,8 @@ class Pro(RequestBuilder):
             MDM_EXTERNAL_SIGNING_CERTIFICATE_EXPIRING_TODAY,
             MII_HEARTBEAT_FAILED_NOTIFICATION,
             MII_INVENTORY_UPLOAD_FAILED_NOTIFICATION,
-            MII_UNATHORIZED_RESPONSE_NOTIFICATION,
-            PATCH_EXTENTION_ATTRIBUTE, PATCH_UPDATE,
-            POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_MULTIPLE,
+            MII_UNATHORIZED_RESPONSE_NOTIFICATION, PATCH_EXTENTION_ATTRIBUTE,
+            PATCH_UPDATE, POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_MULTIPLE,
             POLICY_MANAGEMENT_ACCOUNT_PAYLOAD_SECURITY_SINGLE,
             PUSH_CERT_EXPIRED, PUSH_CERT_WILL_EXPIRE, PUSH_PROXY_CERT_EXPIRED,
             SSO_CERT_EXPIRED, SSO_IDP_CERT_EXPIRED, SSO_CERT_WILL_EXPIRE,
@@ -5181,7 +5210,8 @@ class Pro(RequestBuilder):
             APP_INSTALLERS_NEW_APP_VERSION_DEPLOYMENT_STARTED,
             APP_INSTALLERS_APP_VERSION_REMOVED,
             APP_INSTALLERS_APP_TITLE_REMOVED,
-            APP_INSTALLERS_DEPLOYMENT_INSTALLATION_FAILED
+            APP_INSTALLERS_DEPLOYMENT_INSTALLATION_FAILED,
+            SAML_RESPONSE_ASSERTION_SIGNING_REQUIRED
 
         :param id: Instance ID of the notification
 
@@ -6145,6 +6175,30 @@ class Pro(RequestBuilder):
         :returns: Managed software update plan in JSON
         """
         endpoint = f"/api/v1/managed-software-updates/plans/{id}"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_plan_declarations(self, id: str) -> dict:
+        """
+        Returns managed software update plan declarations by UUID
+
+        :param id: Managed software update plan UUID
+
+        :returns: Managed software update plan declarations in JSON
+        """
+        endpoint = f"/api/v1/managed-software-updates/plans/{id}/declarations"
+
+        return self._get(endpoint)
+
+    def get_managed_software_updates_plan_events(self, id: str) -> dict:
+        """
+        Returns managed software update plan events by UUID
+
+        :param id: Managed software update plan UUID
+
+        :returns: Managed software update plan events in JSON
+        """
+        endpoint = f"/api/v1/managed-software-updates/plans/{id}/events"
 
         return self._get(endpoint)
 
@@ -9537,6 +9591,30 @@ class Pro(RequestBuilder):
     """
 
     # All endpoints deprecated
+
+    """
+    slasa
+    """
+
+    def get_slasa(self) -> dict:
+        """
+        Returns if SLASA has been accepted or not
+
+        :returns: SLASA information in JSON
+        """
+        endpoint = "/api/v1/slasa"
+
+        return self._get(endpoint)
+
+    def create_slasa(self) -> dict:
+        """
+        Creates an acceptance of the SLASA for Jamf Pro
+
+        :returns: SLASA acceptance string
+        """
+        endpoint = "/api/v1/slasa"
+
+        return self._post(endpoint, success_message="SLASA has been accepted.")
 
     """
     smart-computer-groups-preview

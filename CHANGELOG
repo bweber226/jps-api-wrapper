@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.0] -- 7-9-2024
+
+### Added
+- Pro.get_csa_tenant_id which returns the CSA tenant ID
+- Pro.get_dss_declaration which returns the declaration from DSS by ID
+- Pro.get_managed_software_updates_plan_declarations which returns managed software update plan declarations by UUID
+- Pro.get_managed_software_updates_plan_events which returns managed software update plan events by UUID
+- Pro.get_slasa which returns if SLASA has been accepted or not
+- Pro.create_slasa creates an acceptance of the SLASA for Jamf Pro
+
+### Changed
+- Pro.delete_jamf_pro_notifications now accepts SAML_RESPONSE_ASSERTION_SIGNING_REQUIRED in the type field
+
 ## [1.15.0] -- 5-16-2024
 
 ### Added

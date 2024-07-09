@@ -2241,6 +2241,10 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_csa_tenant_id
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.delete_csa
 
    |
@@ -2386,6 +2390,14 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.delete_dock_item
+
+   |
+
+.. collapse:: dss-declarations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_dss_declaration
 
    |
 
@@ -3117,6 +3129,14 @@ Pro
 
    |
 
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_plan_declarations
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_plan_events
+
+   |
+
    .. automethod:: jps_api_wrapper.pro.Pro.get_managed_software_updates_computer_group
 
    |
@@ -3798,6 +3818,18 @@ Pro
    |
 
    All endpoints deprecated.
+
+   |
+
+.. collapse:: slasa
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_slasa
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_slasa
 
    |
 
