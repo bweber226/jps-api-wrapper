@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.0] -- 08-29-2024
+
+### Added
+- Pro.get_computer_extension_attributes which returns all computer extension attributes in JSON
+- Pro.get_computer_extension_attribute which returns specified computer extension attribute by ID in JSON
+- Pro.get_computer_extension_attribute_history which returns specified computer extension attribute history by ID in JSON
+- Pro.create_computer_extension_attribute which creates a computer extension attribute with JSON data
+- Pro.create_computer_extension_attribute_history_note which creates a computer extension attribute history note by ID with JSON data
+- Pro.update_computer_extension_attribute which updates a computer extension attribute by ID with JSON data
+- Pro.delete_computer_extension_attribute which deletes a computer extension attribute by ID or IDS
+- Pro.get_computer_groups_smart_groups which returns all computer smart groups in JSON
+- Pro.get_computer_groups_smart_group_membership which returns the membership of a smart group by ID
+- Pro.create_computer_groups_smart_group which creates a smart group with JSON data
+- Pro.create_declarative_device_management_sync which forces a device to sync by queuing a new DeclarativeManagementCommand
+
+### Changed
+- Pro.get_computer_inventories: removed support for the managementUsername field and general.remoteManagement.managementUsername filter value.
+
 ## [1.16.0] -- 7-9-2024
 
 ### Added

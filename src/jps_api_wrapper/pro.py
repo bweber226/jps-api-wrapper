@@ -1856,6 +1856,193 @@ class Pro(RequestBuilder):
         )
 
     """
+    computer-extension-attributes
+    """
+
+    def get_computer_extension_attributes(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["name:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all computer extension attributes in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            name:asc. Multiple sort criteria are supported and must be
+            separated with a comma.
+        :param filter:
+            Query in the RSQL format, allowing to filter extension attributes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name
+
+        :returns: All computer extension attributes in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v1/computer-extension-attributes"
+
+        return self._get(endpoint, params=params)
+
+    def get_computer_extension_attribute(self, id: Union[int, str]) -> dict:
+        """
+        Returns specified computer extension attribute by ID in JSON
+
+        :param id: Computer extension attribute ID
+
+        :returns: Computer extension attribute information in JSON
+        """
+        endpoint = f"/api/v1/computer-extension-attributes/{id}"
+
+        return self._get(endpoint)
+
+    def get_computer_extension_attribute_history(
+        self,
+        id: Union[int, str],
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:desc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns specified computer extension attribute history by ID in JSON
+
+        :param id: Computer extension attribute ID
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default sort is
+            ["id:desc"]. Multiple sort criteria are supported and must be
+            separated with a comma.
+
+            Example: ["date:desc", "id:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter history notes
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, username,
+            date, note, details. This param can be combined with paging and
+            sorting.
+
+            Example: username!=admin and date<2019-12-15
+
+        :returns: Computer extension attribute history information in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = f"/api/v1/computer-extension-attributes/{id}/history"
+
+        return self._get(endpoint, params=params)
+
+    def create_computer_extension_attribute(self, data: dict) -> dict:
+        """
+        Creates a computer extension attribute with JSON data
+
+        :param data:
+            JSON data to create the computer extension attribute with. For
+            syntax information view `Jamf's documentation.
+            <TODO ADD ON RELEASE>`__
+
+        :returns: New computer extension attribute information in JSON
+        """
+        endpoint = "/api/v1/computer-extension-attributes"
+
+        return self._post(endpoint, data)
+
+    def create_computer_extension_attribute_history_note(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Creates a computer extension attribute history note by ID with JSON
+        data
+
+        :param data:
+            JSON data to create the computer extension attribute history note
+            with. For syntax information view `Jamf's documentation.
+            <TODO ADD ON RELEASE>`__
+        :param id: Computer extension attribute ID
+
+        :returns:
+            New computer extension attribute history note information in JSON
+        """
+        endpoint = f"/api/v1/computer-extension-attributes/{id}/history"
+
+        return self._post(endpoint, data)
+
+    def update_computer_extension_attribute(
+        self, data: dict, id: Union[int, str]
+    ) -> dict:
+        """
+        Updates a computer extension attribute by ID with JSON data
+
+        :param data:
+            JSON data to update the computer extension attribute with. For
+            syntax information view `Jamf's documentation.
+            <TODO ADD ON RELEASE>`__
+        :param id: Computer extension attribute ID
+
+        :returns: Updated computer extension attribute information in JSON
+        """
+        endpoint = f"/api/v1/computer-extension-attributes/{id}"
+
+        return self._put(endpoint, data)
+
+    def delete_computer_extension_attribute(
+        self, id: Union[int, str] = None, ids: List[Union[int, str]] = None
+    ) -> str:
+        """
+        Deletes a computer extension attribute by ID or IDS, use id for a
+        single computer extension attribute and ids to delete multiple
+
+        :param id: Computer extension attribute ID
+        :param ids: List of computer extension attribute IDs
+
+        :returns:
+            Success message stating that the computer extension attribute was
+            deleted
+        """
+        identifier_options = {"id": id, "ids": ids}
+        identification_type(identifier_options)
+        check_conflicting_params(identifier_options)
+        if id:
+            if enforce_type(id, (int, str)):
+                endpoint = f"/api/v1/computer-extension-attributes/{id}"
+                return self._delete(
+                    endpoint,
+                    success_message=(
+                        f"Computer extension attribute {id} successfully deleted."
+                    ),
+                )
+        if ids:
+            if enforce_type(ids, (List)):
+                ids = [str(id) for id in ids]
+                endpoint = "/api/v1/computer-extension-attributes/delete-multiple"
+                return self._post(
+                    endpoint,
+                    data={"ids": ids},
+                    success_message=(
+                        f"Computer extension attribute(s) {', '.join(ids)} successfully"
+                        " deleted."
+                    ),
+                )
+
+    """
     computer-groups
     """
 
@@ -1868,6 +2055,76 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/computer-groups"
 
         return self._get(endpoint)
+
+    def get_computer_groups_smart_groups(
+        self,
+        page: int = None,
+        page_size: int = None,
+        sort: List[str] = ["id:asc"],
+        filter: str = None,
+    ) -> dict:
+        """
+        Returns all smart groups in JSON
+
+        :param page: Page to return, default page is 0.
+        :param page_size: Page size to return, default page-size is 100.
+        :param sort:
+            Sorting criteria in the format: property:asc/desc. Default
+            sort is ["id:asc"]. Multiple sort criteria are supported and must
+            be separated with a comma.
+
+        Example: ["date:desc", "id:asc"]
+
+        :param filter:
+            Query in the RSQL format, allowing to filter smart groups
+            collection. Default filter is empty query - returning all results
+            for the requested page. Fields allowed in the query: id, name
+
+            Example: name=="group"
+
+        :returns: All smart groups in JSON
+        """
+        params = remove_empty_params(
+            {
+                "page": page,
+                "page-size": page_size,
+                "sort": sort,
+                "filter": filter,
+            }
+        )
+        endpoint = "/api/v2/computer-groups/smart-groups"
+
+        return self._get(endpoint, params=params)
+
+    def get_computer_groups_smart_group_membership(
+        self,
+        id: Union[int, str],
+    ) -> dict:
+        """
+        Returns the membership of a smart group by ID
+
+        :param id: Smart group ID
+
+        :returns: Smart group membership information in JSON
+        """
+        endpoint = f"/api/v2/computer-groups/smart-group-membership/{id}"
+
+        return self._get(endpoint)
+
+    def create_computer_groups_smart_group(self, data: dict) -> dict:
+        """
+        Creates a smart group with JSON data
+
+        :param data:
+            JSON data to create the smart group with. For syntax information
+            view `Jamf's documentation.
+            <TODO ADD ON RELEASE>`__
+
+        :returns: New smart group information in JSON
+        """
+        endpoint = "/api/v2/computer-groups/smart-groups"
+
+        return self._post(endpoint, data)
 
     """
     computer-inventory
@@ -1931,10 +2188,9 @@ class Pro(RequestBuilder):
             general.jamfBinaryVersion, general.lastContactTime,
             general.lastEnrolledDate, general.lastCloudBackupDate,
             general.reportDate, general.lastReportedIp, general.managementId,
-            general.remoteManagement.managed,
-            general.remoteManagement.managementUsername,
-            general.mdmCapable.capable, general.mdmCertificateExpiration,
-            general.platform, general.supervised, general.userApprovedMdm,
+            general.remoteManagement.managed, general.mdmCapable.capable,
+            general.mdmCertificateExpiration, general.platform,
+            general.supervised, general.userApprovedMdm,
             general.declarativeDeviceManagementEnabled, hardware.bleCapable,
             hardware.macAddress, hardware.make, hardware.model,
             hardware.modelIdentifier, hardware.serialNumber,
@@ -1944,14 +2200,14 @@ class Pro(RequestBuilder):
             operatingSystem.supplementalBuildVersion,
             operatingSystem.rapidSecurityResponse, operatingSystem.name,
             operatingSystem.version, security.activationLockEnabled,
-            security.recoveryLockEnabled, security.firewallEnabled,
-            userAndLocation.buildingId, userAndLocation.departmentId,
-            userAndLocation.email, userAndLocation.realname,
-            userAndLocation.phone, userAndLocation.position,
-            userAndLocation.room, userAndLocation.username,
-            purchasing.appleCareId, purchasing.lifeExpectancy,
-            purchasing.purchased, purchasing.leased, purchasing.vendor,
-            purchasing.warrantyDate
+            security.recoveryLockEnabled,
+            security.firewallEnabled, userAndLocation.buildingId,
+            userAndLocation.departmentId, userAndLocation.email,
+            userAndLocation.realname, userAndLocation.phone,
+            userAndLocation.position, userAndLocation.room,
+            userAndLocation.username, purchasing.appleCareId,
+            purchasing.lifeExpectancy, purchasing.purchased, purchasing.leased,
+            purchasing.vendor, purchasing.warrantyDate,
 
             Example: general.name=="Orchard"
 
@@ -2598,6 +2854,25 @@ class Pro(RequestBuilder):
         endpoint = "/api/v1/dashboard"
 
         return self._get(endpoint)
+
+    """
+    declarative-device-management
+    """
+
+    def create_declarative_device_management_sync(
+        self, client_management_id: str
+    ) -> dict:
+        """
+        Forces a device to sync by queueing a new DeclarativeManagementCommand
+
+        :param client_management_id:
+            The client management ID of the device to sync
+
+        :returns: Declarative device management sync information in JSON
+        """
+        endpoint = f"/api/v1/ddm/{client_management_id}/sync"
+
+        return self._post(endpoint)
 
     """
     departments

@@ -2085,11 +2085,55 @@ Pro
 
    |
 
+.. collapse:: computer-extension-attributes
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_extension_attributes
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_extension_attribute
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_extension_attribute_history
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_computer_extension_attribute
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_computer_extension_attribute_history_note
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.update_computer_extension_attribute
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.delete_computer_extension_attribute
+
+   |
+
 .. collapse:: computer-groups
 
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_computer_groups
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_groups_smart_groups
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.get_computer_groups_smart_group_membership
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_computer_groups_smart_group
 
    |
 
@@ -2254,6 +2298,14 @@ Pro
    |
 
    .. automethod:: jps_api_wrapper.pro.Pro.get_dashboard
+
+   |
+
+.. collapse:: declarative-device-management
+
+   |
+
+   .. automethod:: jps_api_wrapper.pro.Pro.create_declarative_device_management_sync
 
    |
 

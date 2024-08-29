@@ -1490,6 +1490,164 @@ def test_delete_cloud_ldap_configuration(pro):
 
 
 """
+computer-extension-attributes
+"""
+
+
+@responses.activate
+def test_get_computer_extension_attributes(pro):
+    """
+    Ensures that get_computer_extension_attributes returns JSON when used
+    without optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computer-extension-attributes"))
+    )
+    assert pro.get_computer_extension_attributes() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_extension_attributes_optional_params(pro):
+    """
+    Ensures that get_computer_extension_attributes returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computer-extension-attributes"))
+    )
+    assert (
+        pro.get_computer_extension_attributes(
+            0, 100, ["id:asc", "name:asc"], 'name=="example"'
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_get_computer_extension_attribute(pro):
+    """
+    Ensures that get_computer_extension_attribute returns JSON when used with
+    required params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v1/computer-extension-attributes/1001"))
+    )
+    assert pro.get_computer_extension_attribute(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_extension_attribute_history(pro):
+    """
+    Ensures that get_computer_extension_attribute_history returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/computer-extension-attributes/1001/history")
+        )
+    )
+    assert pro.get_computer_extension_attribute_history(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_extension_attribute_history_optional_params(pro):
+    """
+    Ensures that get_computer_extension_attribute_history returns JSON when
+    used with all optional params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v1/computer-extension-attributes/1001/history")
+        )
+    )
+    assert (
+        pro.get_computer_extension_attribute_history(
+            1001,
+            0,
+            100,
+            ["id:asc", "date:asc"],
+            "username!=admin and details==disabled and date<2019-12-15",
+        )
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_create_computer_extension_attribute(pro):
+    """
+    Ensures that create_computer_extension_attribute completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v1/computer-extension-attributes"))
+    )
+    assert pro.create_computer_extension_attribute(EXPECTED_JSON) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_computer_extension_attribute_history_note(pro):
+    """
+    Ensures that create_computer_extension_attribute_history_note completes
+    successfully when used with required params
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/computer-extension-attributes/1001/history")
+        )
+    )
+    assert (
+        pro.create_computer_extension_attribute_history_note(EXPECTED_JSON, 1001)
+        == EXPECTED_JSON
+    )
+
+
+@responses.activate
+def test_update_computer_extension_attribute(pro):
+    """
+    Ensures that update_computer_extension_attribute completes successfully
+    when used with required params
+    """
+    responses.add(
+        response_builder("PUT", jps_url("/api/v1/computer-extension-attributes/1001"))
+    )
+    assert pro.update_computer_extension_attribute(EXPECTED_JSON, 1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_delete_computer_extension_attribute(pro):
+    """
+    Ensures that delete_computer_extension_attribute completes successfully
+    when used with id
+    """
+    responses.add(
+        response_builder(
+            "DELETE", jps_url("/api/v1/computer-extension-attributes/1001")
+        )
+    )
+    assert (
+        pro.delete_computer_extension_attribute(1001)
+        == "Computer extension attribute 1001 successfully deleted."
+    )
+
+
+@responses.activate
+def test_delete_computer_extension_attribute_multiple(pro):
+    """
+    Ensures that delete_computer_extension_attribute completes successfully
+    when used with ids
+    """
+    responses.add(
+        response_builder(
+            "POST", jps_url("/api/v1/computer-extension-attributes/delete-multiple")
+        )
+    )
+    assert (
+        pro.delete_computer_extension_attribute(ids=[1001, 1002])
+        == "Computer extension attribute(s) 1001, 1002 successfully deleted."
+    )
+
+
+"""
 computer_groups
 """
 
@@ -1501,6 +1659,58 @@ def test_get_computer_groups(pro):
     """
     responses.add(response_builder("GET", jps_url("/api/v1/computer-groups")))
     assert pro.get_computer_groups() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_groups_smart_groups(pro):
+    """
+    Ensures that get_computer_groups_smart_groups returns JSON when without
+    optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/computer-groups/smart-groups"))
+    )
+    assert pro.get_computer_groups_smart_groups() == EXPECTED_JSON
+
+
+@responses.activate
+def test_get_computer_groups_smart_groups_optional_params(pro):
+    """
+    Ensures that get_computer_groups_smart_groups returns JSON when used with
+    all optional params
+    """
+    responses.add(
+        response_builder("GET", jps_url("/api/v2/computer-groups/smart-groups"))
+    )
+    assert pro.get_computer_groups_smart_groups(
+        0, 100, ["id:asc", "name:asc"], 'name=="example"'
+    )
+
+
+@responses.activate
+def test_get_computer_groups_smart_group_membership(pro):
+    """
+    Ensures that get_computer_groups_smart_group_membership returns JSON when
+    used with required params
+    """
+    responses.add(
+        response_builder(
+            "GET", jps_url("/api/v2/computer-groups/smart-group-membership/1001")
+        )
+    )
+    assert pro.get_computer_groups_smart_group_membership(1001) == EXPECTED_JSON
+
+
+@responses.activate
+def test_create_computer_groups_smart_group(pro):
+    """
+    Ensures that create_computer_groups_smart_group completes successfully when
+    used with required params
+    """
+    responses.add(
+        response_builder("POST", jps_url("/api/v2/computer-groups/smart-groups"))
+    )
+    assert pro.create_computer_groups_smart_group(EXPECTED_JSON) == EXPECTED_JSON
 
 
 """
@@ -2041,6 +2251,21 @@ def test_get_dashboard(pro):
     """
     responses.add(response_builder("GET", jps_url("/api/v1/dashboard")))
     assert pro.get_dashboard() == EXPECTED_JSON
+
+
+"""
+declarative-device-management
+"""
+
+
+@responses.activate
+def test_create_declarative_device_management_sync(pro):
+    """
+    Ensures that create_declarative_device_management_sync returns JSON when
+    used with required params
+    """
+    responses.add(response_builder("POST", jps_url("/api/v1/ddm/12ab34cd/sync")))
+    assert pro.create_declarative_device_management_sync("12ab34cd") == EXPECTED_JSON
 
 
 """
