@@ -1957,7 +1957,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the computer extension attribute with. For
             syntax information view `Jamf's documentation.
-            <TODO ADD ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-computer-extension-attributes>`__
 
         :returns: New computer extension attribute information in JSON
         """
@@ -1975,7 +1975,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the computer extension attribute history note
             with. For syntax information view `Jamf's documentation.
-            <TODO ADD ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v1-computer-extension-attributes-id-history>`__
         :param id: Computer extension attribute ID
 
         :returns:
@@ -1994,7 +1994,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to update the computer extension attribute with. For
             syntax information view `Jamf's documentation.
-            <TODO ADD ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/put_v1-computer-extension-attributes-id>`__
         :param id: Computer extension attribute ID
 
         :returns: Updated computer extension attribute information in JSON
@@ -2118,7 +2118,7 @@ class Pro(RequestBuilder):
         :param data:
             JSON data to create the smart group with. For syntax information
             view `Jamf's documentation.
-            <TODO ADD ON RELEASE>`__
+            <https://developer.jamf.com/jamf-pro/reference/post_v2-computer-groups-smart-groups>`__
 
         :returns: New smart group information in JSON
         """
