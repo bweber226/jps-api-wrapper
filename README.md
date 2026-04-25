@@ -1,5 +1,9 @@
 # JPS (Jamf Pro Server) API Wrapper
 
+> [!WARNING]
+> **Deprecated:** This project is no longer actively maintained.
+> It is kept here for reference only and may not receive new features, bug fixes, or compatibility updates.
+
 [![GitLab](https://img.shields.io/gitlab/license/cvtc/appleatcvtc/jps-api-wrapper?style=flat-square)]()
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![Downloads](https://static.pepy.tech/badge/jps-api-wrapper/month)](https://pepy.tech/project/jps-api-wrapper)
